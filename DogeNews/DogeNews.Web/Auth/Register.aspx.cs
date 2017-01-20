@@ -27,8 +27,8 @@ namespace DogeNews.Web.Auth
                 Email = this.Server.HtmlEncode(this.EmailInput.Value),
                 FirstName = this.Server.HtmlEncode(this.FirstNameInput.Value),
                 LastName = this.Server.HtmlEncode(this.LastNameInput.Value),
-                Password = this.Server.HtmlEncode(this.PassWordInput.Value),
-                Username = this.Server.HtmlEncode(this.Username.Value)
+                Password = this.Server.HtmlEncode(this.PasswordInput.Value),
+                Username = this.Server.HtmlEncode(this.UsernameInput.Value)
             };
             var eventArgs = new RegisterEventArgs { Data = userModel };
 

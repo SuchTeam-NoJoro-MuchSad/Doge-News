@@ -243,6 +243,7 @@
   <ItemGroup>
     <Content Include="Auth\Login.aspx" />
     <Content Include="Auth\Register.aspx" />
+    <Content Include="Content\Auth\js\register.js" />
     <Content Include="Content\materialize\css\materialize.css" />
     <Content Include="Content\materialize\css\materialize.min.css" />
     <Content Include="Content\materialize\font\material-design-icons\LICENSE.txt" />
@@ -412,7 +413,9 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Content\Auth\css\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DogeNews.Data\DogeNews.Data.csproj">
       <Project>{416fdd9e-556d-4cb9-8ef1-2e26b8bf0dca}</Project>

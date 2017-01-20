@@ -14,7 +14,7 @@ namespace DogeNews.Web.Auth.Presenters
     {
         private readonly IAuthService authService;
 
-        public LoginPresentor(ILoginView view, IAuthService authService) 
+        public LoginPresentor(ILoginView view, IAuthService authService)
             : base(view)
         {
             this.authService = authService;
@@ -38,8 +38,6 @@ namespace DogeNews.Web.Auth.Presenters
                 cookie.Expires = DateTime.UtcNow.AddDays(1d);
                 this.Response.Cookies.Add(cookie);
                 this.HttpContext.Session["username"] = user.Username;
-                //this.HttpContext.Session[$"{user.Username}"] = JsonConvert.SerializeObject(user);
-
                 this.HttpContext.Response.Redirect("/");
             }
         }

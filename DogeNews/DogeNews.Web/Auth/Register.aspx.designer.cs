@@ -13,13 +13,49 @@ namespace DogeNews.Web.Auth {
     public partial class Register {
         
         /// <summary>
-        /// Username control.
+        /// UsernameRequiredValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText Username;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator UsernameRequiredValidator;
+        
+        /// <summary>
+        /// UsernameRegexValdiator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator UsernameRegexValdiator;
+        
+        /// <summary>
+        /// UsernameInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText UsernameInput;
+        
+        /// <summary>
+        /// FirstNameRequiredValdiator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator FirstNameRequiredValdiator;
+        
+        /// <summary>
+        /// FirstNameRegexValdiator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator FirstNameRegexValdiator;
         
         /// <summary>
         /// FirstNameInput control.
@@ -31,6 +67,24 @@ namespace DogeNews.Web.Auth {
         protected global::System.Web.UI.HtmlControls.HtmlInputText FirstNameInput;
         
         /// <summary>
+        /// LastNameRequiredValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator LastNameRequiredValidator;
+        
+        /// <summary>
+        /// LastNameRegexValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator LastNameRegexValidator;
+        
+        /// <summary>
         /// LastNameInput control.
         /// </summary>
         /// <remarks>
@@ -38,6 +92,24 @@ namespace DogeNews.Web.Auth {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText LastNameInput;
+        
+        /// <summary>
+        /// EmailRequiredValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator EmailRequiredValidator;
+        
+        /// <summary>
+        /// EmailRegexValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator EmailRegexValidator;
         
         /// <summary>
         /// EmailInput control.
@@ -49,13 +121,49 @@ namespace DogeNews.Web.Auth {
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl EmailInput;
         
         /// <summary>
-        /// PassWordInput control.
+        /// PasswordRequiredValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword PassWordInput;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator PasswordRequiredValidator;
+        
+        /// <summary>
+        /// PasswordRegexValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator PasswordRegexValidator;
+        
+        /// <summary>
+        /// PasswordInput control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword PasswordInput;
+        
+        /// <summary>
+        /// ConfirmPasswordRequiredValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator ConfirmPasswordRequiredValidator;
+        
+        /// <summary>
+        /// ConfirmPasswordCompareValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator ConfirmPasswordCompareValidator;
         
         /// <summary>
         /// ConfirmPasswordInput control.

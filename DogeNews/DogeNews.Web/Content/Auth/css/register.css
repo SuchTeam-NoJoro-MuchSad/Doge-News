@@ -1,0 +1,22 @@
+﻿#registrationFormContainer {
+    margin-top: 50px;
+}
+
+.error-message-container {
+    background-color: #d50000;
+    color: white;
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px;
+}
+
+.emailErrorMessage {
+    margin-left: 16px;
+}
+
+.confirmPasswordErrorMessage {
+    margin-left: -27px;
+}
+
+.passwordErrorMessage {
+    margin-left: 1px;
+}
