@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Web.UI;
 using DogeNews.Web.Auth.Models;
 using DogeNews.Web.Auth.Presenters;
 using DogeNews.Web.Auth.Views;
 using DogeNews.Web.Auth.Views.EventArguments;
-using DogeNews.Web.Models;
 using WebFormsMvp;
 using WebFormsMvp.Web;
 

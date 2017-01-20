@@ -37,9 +37,10 @@ namespace DogeNews.Web.Auth.Presenters
                 cookie["id"] = user.Id.ToString();
                 cookie.Expires = DateTime.UtcNow.AddDays(1d);
                 this.Response.Cookies.Add(cookie);
-                this.HttpContext.Session[$"{user.Username}"] = JsonConvert.SerializeObject(user);
+                this.HttpContext.Session.Add("username", user.Username);
+                //this.HttpContext.Session[$"{user.Username}"] = JsonConvert.SerializeObject(user);
 
-                // this.HttpContext.User
+                this.HttpContext.Response.Redirect("/");
             }
         }
     }

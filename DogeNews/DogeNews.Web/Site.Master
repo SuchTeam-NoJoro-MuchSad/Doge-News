@@ -55,6 +55,7 @@
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a runat="server" href="~/">Home</a></li>
+                        <li><% this.Session["username"].ToString(); %></li>
                         <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
                         <asp:LoginView runat="server" ViewStateMode="Disabled">

@@ -1,17 +1,15 @@
 using System;
 using System.Web;
-
+using DogeNews.Web;
+using DogeNews.Web.Bindings;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
 using Ninject;
 using Ninject.Web.Common;
 
-using DogeNews.Web.Bindings;
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DogeNews.Web.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DogeNews.Web.App_Start.NinjectWebCommon), "Stop")]
-
-namespace DogeNews.Web.App_Start
+namespace DogeNews.Web
 {
     public static class NinjectWebCommon
     {

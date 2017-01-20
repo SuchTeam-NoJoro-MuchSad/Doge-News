@@ -20,6 +20,10 @@ namespace DogeNews.Web.Auth.Presenters
         private void RegisterUser(object sender, RegisterEventArgs eventArgs)
         {
             bool isUserRegistered = this.authService.RegisterUser(eventArgs.Data);
+            if (isUserRegistered)
+            {
+                this.HttpContext.Response.Redirect("/Auth/Login");
+            }
         }
     }
 }

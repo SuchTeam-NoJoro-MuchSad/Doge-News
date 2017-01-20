@@ -4,6 +4,8 @@ using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Providers.Contracts;
 
+using System.Web;
+
 namespace DogeNews.Web.Services
 {
     public class AuthService : IAuthService
@@ -64,6 +66,12 @@ namespace DogeNews.Web.Services
 
             var result = this.mapperProvider.Instance.Map<UserWebModel>(foundUser);
             return result;
+        }
+
+        public void GetLoggedInUserInformation(HttpCookie cookie)
+        {
+            var username = cookie["username"];
+            var userId = cookie["id"];
         }
     }
 }
