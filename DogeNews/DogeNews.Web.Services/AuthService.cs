@@ -67,11 +67,5 @@ namespace DogeNews.Web.Services
             var result = this.mapperProvider.Instance.Map<UserWebModel>(foundUser);
             return result;
         }
-
-        public void GetLoggedInUserInformation(HttpCookie cookie)
-        {
-            var username = cookie["username"];
-            var userId = cookie["id"];
-        }
     }
 }

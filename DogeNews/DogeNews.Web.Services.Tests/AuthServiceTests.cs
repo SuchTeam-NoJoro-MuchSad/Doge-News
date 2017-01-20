@@ -243,5 +243,159 @@ namespace DogeNews.Web.Services.Tests
             bool isAdded = authService.RegisterUser(userModel);
             Assert.IsTrue(isAdded);
         }
+
+        [Test]
+        public void LoginUser_ShouldCallUserRepositoryGetFirstOnce()
+        {
+            var mockedRepository = new Mock<IRepository<User>>();
+            var mockedData = new Mock<INewsData>();
+            var mockedCrypthographicService = new Mock<ICryptographicService>();
+            var mockedMapperProvider = new Mock<IMapperProvider>();
+            var mockedMapper = new Mock<IMapper>();
+
+            var authService = new AuthService(
+                mockedRepository.Object,
+                mockedData.Object,
+                mockedCrypthographicService.Object,
+                mockedMapperProvider.Object);
+
+            authService.LoginUser("username", "123456");
+            mockedRepository.Verify(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>()), Times.Once);
+        }
+
+        [Test]
+        public void LoginUser_ShouldReturnNullWhenTheUserDoesNotExists()
+        {
+            var mockedRepository = new Mock<IRepository<User>>();
+            var mockedData = new Mock<INewsData>();
+            var mockedCrypthographicService = new Mock<ICryptographicService>();
+            var mockedMapperProvider = new Mock<IMapperProvider>();
+            var mockedMapper = new Mock<IMapper>();
+
+            var authService = new AuthService(
+                mockedRepository.Object,
+                mockedData.Object,
+                mockedCrypthographicService.Object,
+                mockedMapperProvider.Object);
+            var user = authService.LoginUser("username", "123456");
+            Assert.AreEqual(null, user);
+        }
+
+        [Test]
+        public void LoginUSer_ShouldCallCrypthographicServiceIsValidPassword()
+        {
+            var mockedRepository = new Mock<IRepository<User>>();
+            var mockedData = new Mock<INewsData>();
+            var mockedCrypthographicService = new Mock<ICryptographicService>();
+            var mockedMapperProvider = new Mock<IMapperProvider>();
+            var mockedMapper = new Mock<IMapper>();
+            string username = "username";
+            string password = "123456";
+
+            mockedMapperProvider.SetupGet(x => x.Instance).Returns(mockedMapper.Object);
+            mockedMapper.Setup(x => x.Map<UserWebModel>(It.IsAny<User>())).Returns(new UserWebModel());
+            mockedRepository.Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>())).Returns(new User());
+            mockedCrypthographicService
+                .Setup(x => x.IsValidPassword(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(false);
+
+            var authService = new AuthService(
+                mockedRepository.Object,
+                mockedData.Object,
+                mockedCrypthographicService.Object,
+                mockedMapperProvider.Object);
+
+            authService.LoginUser(username, password);
+            mockedCrypthographicService.Verify(x => x.IsValidPassword(
+                    It.Is<string>(a => a == password),
+                    It.IsAny<string>(),
+                    It.IsAny<string>()),
+                Times.Once);
+        }
+
+        [Test]
+        public void LoginUser_ShouldReturnNullWhenThePasswordDoesNotMatch()
+        {
+            var mockedRepository = new Mock<IRepository<User>>();
+            var mockedData = new Mock<INewsData>();
+            var mockedCrypthographicService = new Mock<ICryptographicService>();
+            var mockedMapperProvider = new Mock<IMapperProvider>();
+            var mockedMapper = new Mock<IMapper>();
+            string username = "username";
+            string password = "123456";
+
+            mockedMapperProvider.SetupGet(x => x.Instance).Returns(mockedMapper.Object);
+            mockedMapper.Setup(x => x.Map<UserWebModel>(It.IsAny<User>())).Returns(new UserWebModel());
+            mockedRepository.Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>())).Returns(new User());
+            mockedCrypthographicService
+                .Setup(x => x.IsValidPassword(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(false);
+
+            var authService = new AuthService(
+                mockedRepository.Object,
+                mockedData.Object,
+                mockedCrypthographicService.Object,
+                mockedMapperProvider.Object);
+            var user = authService.LoginUser(username, password);
+
+            Assert.AreEqual(null, user);
+        }
+
+        [Test]
+        public void LoginUser_MapperProviderInstanceMapShouldBeCalledOnce()
+        {
+            var mockedRepository = new Mock<IRepository<User>>();
+            var mockedData = new Mock<INewsData>();
+            var mockedCrypthographicService = new Mock<ICryptographicService>();
+            var mockedMapperProvider = new Mock<IMapperProvider>();
+            var mockedMapper = new Mock<IMapper>();
+            string username = "username";
+            string password = "123456";
+
+            mockedMapperProvider.SetupGet(x => x.Instance).Returns(mockedMapper.Object);
+            mockedMapper.Setup(x => x.Map<UserWebModel>(It.IsAny<User>())).Returns(new UserWebModel());
+            mockedRepository.Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>())).Returns(new User());
+            mockedCrypthographicService
+                .Setup(x => x.IsValidPassword(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(true);
+
+            var authService = new AuthService(
+                mockedRepository.Object,
+                mockedData.Object,
+                mockedCrypthographicService.Object,
+                mockedMapperProvider.Object);
+            authService.LoginUser(username, password);
+
+            mockedMapper.Verify(x => x.Map<UserWebModel>(It.IsAny<User>()), Times.Once);
+        }
+
+        [Test]
+        public void LoginUser_ShouldReturnTheLoggedInUser()
+        {
+            var mockedRepository = new Mock<IRepository<User>>();
+            var mockedData = new Mock<INewsData>();
+            var mockedCrypthographicService = new Mock<ICryptographicService>();
+            var mockedMapperProvider = new Mock<IMapperProvider>();
+            var mockedMapper = new Mock<IMapper>();
+            string username = "username";
+            string password = "123456";
+            var resultUser = new UserWebModel();
+
+            mockedMapperProvider.SetupGet(x => x.Instance).Returns(mockedMapper.Object);
+            mockedMapper.Setup(x => x.Map<UserWebModel>(It.IsAny<User>())).Returns(resultUser);
+            mockedRepository.Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>())).Returns(new User());
+            mockedCrypthographicService
+                .Setup(x => x.IsValidPassword(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(true);
+
+            var authService = new AuthService(
+                mockedRepository.Object,
+                mockedData.Object,
+                mockedCrypthographicService.Object,
+                mockedMapperProvider.Object);
+            var user = authService.LoginUser(username, password);
+
+            Assert.AreEqual(resultUser, user);
+        }
     }
 }

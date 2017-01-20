@@ -8,7 +8,5 @@ namespace DogeNews.Web.Services.Contracts
         bool RegisterUser(UserWebModel user);
 
         UserWebModel LoginUser(string username, string password);
-
-        void GetLoggedInUserInformation(HttpCookie cookie);
     }
 }
