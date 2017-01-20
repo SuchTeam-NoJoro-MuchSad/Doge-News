@@ -67,7 +67,11 @@ namespace DogeNews.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Load(new MvpModule(), new DataModule(), new ServicesModule());
+            kernel.Load(
+                new MvpModule(), 
+                new DataModule(), 
+                new ServicesModule(),
+                new ProvidersModule());
         }
     }
 }

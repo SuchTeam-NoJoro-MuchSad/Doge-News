@@ -3,6 +3,7 @@ using DogeNews.Web.Services.Contracts;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Providers;
+using DogeNews.Web.Providers.Contracts;
 
 namespace DogeNews.Web.Services
 {
@@ -11,15 +12,18 @@ namespace DogeNews.Web.Services
         private readonly IRepository<User> userRepository;
         private readonly INewsData newsData;
         private readonly ICryptographicService cryptographicService;
+        private readonly IMapperProvider mapperProvider;
 
         public AuthService(
             IRepository<User> userRepository,
             INewsData newsData, 
-            ICryptographicService cryptographicService)
+            ICryptographicService cryptographicService,
+            IMapperProvider mapperProvider)
         {
             this.userRepository = userRepository;
             this.newsData = newsData;
             this.cryptographicService = cryptographicService;
+            this.mapperProvider = mapperProvider;
         }
 
         public bool RegisterUser(UserWebModel user)
@@ -36,7 +40,7 @@ namespace DogeNews.Web.Services
             var saltString = this.cryptographicService.ByteArrayToString(salt);
             var passHash = this.cryptographicService.HashPassword(user.Password, salt);
             var passHashString = this.cryptographicService.ByteArrayToString(passHash);
-            var newUser = MapperProvider.Instance.Map<User>(user);
+            var newUser = this.mapperProvider.Instance.Map<User>(user);
             newUser.Salt = saltString;
             newUser.PassHash = passHashString;
 

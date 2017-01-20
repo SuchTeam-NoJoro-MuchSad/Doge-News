@@ -368,6 +368,7 @@
     <Compile Include="Auth\Views\IRegisterView.cs" />
     <Compile Include="Bindings\DataModule.cs" />
     <Compile Include="Bindings\MvpModule.cs" />
+    <Compile Include="Bindings\ProvidersModule.cs" />
     <Compile Include="Bindings\ServicesModule.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

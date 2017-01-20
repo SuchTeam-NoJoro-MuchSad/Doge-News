@@ -1,13 +1,20 @@
 ﻿using AutoMapper;
 
 using DogeNews.Data;
-using DogeNews.Web.Providers;
+using DogeNews.Web.Providers.Contracts;
 
 namespace DogeNews.Web.App_Start
 {
     public class MappingsConfig
     {
-        public static void Map()
+        private readonly IMapperProvider mapperProvider;
+
+        public MappingsConfig(IMapperProvider mapperProvider)
+        {
+            this.mapperProvider = mapperProvider;
+        }
+
+        public void Map()
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -15,7 +22,7 @@ namespace DogeNews.Web.App_Start
             });
 
             var mapper = config.CreateMapper();
-            MapperProvider.Instance = mapper;
+            mapperProvider.Instance = mapper;
         }
     }
 }
