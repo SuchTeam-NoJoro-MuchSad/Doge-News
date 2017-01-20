@@ -57,7 +57,7 @@ namespace DogeNews.Web.Bindings
                 return;
             }
 
-            // Bind the interface fot the first time.
+            // Bind the interface for the first time.
             this.Bind(viewInterface).ToMethod(context => view);
         }
     }

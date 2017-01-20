@@ -2,7 +2,6 @@
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
-using DogeNews.Web.Providers;
 using DogeNews.Web.Providers.Contracts;
 
 namespace DogeNews.Web.Services

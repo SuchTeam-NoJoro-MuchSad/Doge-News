@@ -1,12 +1,26 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
+using DogeNews.Data.Models.Contracts;
+using DogeNews.Data.Models.Enumerations;
 
 namespace DogeNews.Data.Models
 {
-    public class User
+    public class User : IUser
     {
+        private ICollection<NewsItem> newsItems;
+        private ICollection<Comment> comments;
+
+        public User()
+        {
+            this.UserRole = UserRoleType.Normal;
+            this.newsItems = new HashSet<NewsItem>();
+            this.comments = new HashSet<Comment>();
+        }
+
         public int Id { get; set; }
-        
+
         [Required]
         [MinLength(3)]
         [MaxLength(20)]
@@ -30,5 +44,20 @@ namespace DogeNews.Data.Models
 
         [Required]
         public string PassHash { get; set; }
+
+        [Required]
+        public UserRoleType UserRole { get; set; }
+
+        public virtual ICollection<NewsItem> NewsItems
+        {
+            get { return this.newsItems; }
+            set { this.newsItems = value; }
+        }
+
+        public virtual ICollection<Comment> Comments
+        {
+            get { return this.comments; }
+            set { this.comments = value; }
+        }
     }
 }
