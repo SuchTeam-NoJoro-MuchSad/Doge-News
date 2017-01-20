@@ -97,6 +97,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DogeNews.Data.Models\DogeNews.Data.Models.csproj">
+      <Project>{F745F4AE-3C37-415C-8F67-0D621C9D19D7}</Project>
+      <Name>DogeNews.Data.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
