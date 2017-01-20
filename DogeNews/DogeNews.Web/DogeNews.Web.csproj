@@ -243,6 +243,7 @@
   <ItemGroup>
     <Content Include="Auth\Login.aspx" />
     <Content Include="Auth\Register.aspx" />
+    <Content Include="Content\Auth\css\register.css" />
     <Content Include="Content\Auth\js\register.js" />
     <Content Include="Content\materialize\css\materialize.css" />
     <Content Include="Content\materialize\css\materialize.min.css" />
@@ -368,7 +369,7 @@
     </Compile>
     <Compile Include="Auth\Models\LoginPageModel.cs" />
     <Compile Include="Auth\Models\RegisterPageModel.cs" />
-    <Compile Include="Auth\Presenters\LoginPresentor.cs" />
+    <Compile Include="Auth\Presenters\LoginPresenter.cs" />
     <Compile Include="Auth\Presenters\RegisterPresenter.cs" />
     <Compile Include="Auth\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
@@ -413,9 +414,7 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\Auth\css\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\DogeNews.Data\DogeNews.Data.csproj">
       <Project>{416fdd9e-556d-4cb9-8ef1-2e26b8bf0dca}</Project>

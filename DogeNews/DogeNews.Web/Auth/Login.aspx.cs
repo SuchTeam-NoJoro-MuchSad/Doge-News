@@ -1,14 +1,16 @@
 ﻿using System;
+
 using DogeNews.Web.Auth.Models;
 using DogeNews.Web.Auth.Presenters;
 using DogeNews.Web.Auth.Views;
 using DogeNews.Web.Auth.Views.EventArguments;
+
 using WebFormsMvp;
 using WebFormsMvp.Web;
 
 namespace DogeNews.Web.Auth
 {
-    [PresenterBinding(typeof(LoginPresentor))]
+    [PresenterBinding(typeof(LoginPresenter))]
     public partial class Login : MvpPage<LoginPageModel>, ILoginView
     {
         public event EventHandler<LoginEventArgs> LoginUser;
@@ -21,8 +23,8 @@ namespace DogeNews.Web.Auth
         {
             var eventArgs = new LoginEventArgs
             {
-                Username = this.Username.Value,
-                Password = this.PasswordInput.Value
+                Username = this.Server.HtmlEncode(this.Username.Value),
+                Password = this.Server.HtmlEncode(this.PasswordInput.Value)
             };
             
             this.LoginUser(this, eventArgs);

@@ -1,4 +1,6 @@
 ﻿using System.Web;
+using System.Collections.Generic;
+
 using DogeNews.Web.Models;
 
 namespace DogeNews.Web.Services.Contracts
@@ -8,5 +10,7 @@ namespace DogeNews.Web.Services.Contracts
         bool RegisterUser(UserWebModel user);
 
         UserWebModel LoginUser(string username, string password);
+
+        bool IsUserLoggedIn(UserWebModel userModel, IEnumerable<HttpCookie> cookies);
     }
 }

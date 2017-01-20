@@ -12,6 +12,8 @@ namespace DogeNews.Web.Bindings
             this.Bind<IMapperProvider>().To<MapperProvider>().InSingletonScope();
             this.Bind<ICryptoServiceSaltProvider>().To<RngCryptoServiceSaltProvider>();
             this.Bind<ICryptoServiceHashProvider>().To<RfcCryptoServiceHashProvider>();
+            this.Bind<IEncryptionProvider>().To<EncryptionProvider>().InSingletonScope();
+            this.Bind<ICookieProvider>().To<CookieProvider>();
         }
     }
 }

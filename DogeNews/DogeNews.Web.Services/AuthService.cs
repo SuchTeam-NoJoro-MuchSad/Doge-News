@@ -1,10 +1,12 @@
-﻿using DogeNews.Web.Models;
+﻿using System.Web;
+using System.Collections.Generic;
+using System.Web.Configuration;
+
+using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Providers.Contracts;
-
-using System.Web;
 
 namespace DogeNews.Web.Services
 {
@@ -14,17 +16,20 @@ namespace DogeNews.Web.Services
         private readonly INewsData newsData;
         private readonly ICryptographicService cryptographicService;
         private readonly IMapperProvider mapperProvider;
+        private readonly IEncryptionProvider encryptionProvider;
 
         public AuthService(
             IRepository<User> userRepository,
             INewsData newsData,
             ICryptographicService cryptographicService,
-            IMapperProvider mapperProvider)
+            IMapperProvider mapperProvider,
+            IEncryptionProvider encryptionProvider)
         {
             this.userRepository = userRepository;
             this.newsData = newsData;
             this.cryptographicService = cryptographicService;
             this.mapperProvider = mapperProvider;
+            this.encryptionProvider = encryptionProvider;
         }
 
         public bool RegisterUser(UserWebModel user)
@@ -53,7 +58,7 @@ namespace DogeNews.Web.Services
             var foundUser = this.userRepository.GetFirst(u => u.Username == username);
             if (foundUser == null)
             {
-                // no such registered user
+                // no such user
                 return null;
             }
 
@@ -66,6 +71,21 @@ namespace DogeNews.Web.Services
 
             var result = this.mapperProvider.Instance.Map<UserWebModel>(foundUser);
             return result;
+        }
+
+        public bool IsUserLoggedIn(UserWebModel userModel, HttpCookieCollection cookies)
+        {
+            string encryptionKey = WebConfigurationManager.AppSettings["EncryptionKey"];
+            string cookieName = this.encryptionProvider
+                .Encrypt($"{userModel.Username}{userModel.FirstName}", encryptionKey);
+            HttpCookie cookie = cookies[cookieName];
+            
+            if (cookie == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
