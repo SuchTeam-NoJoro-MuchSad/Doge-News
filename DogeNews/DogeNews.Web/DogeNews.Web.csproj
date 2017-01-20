@@ -145,6 +145,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -240,6 +241,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Auth\Login.aspx" />
     <Content Include="Auth\Register.aspx" />
     <Content Include="Content\materialize\css\materialize.css" />
     <Content Include="Content\materialize\css\materialize.min.css" />
@@ -356,7 +358,16 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\BindingsConfig.cs" />
+    <Compile Include="Auth\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Auth\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Auth\Models\LoginPageModel.cs" />
     <Compile Include="Auth\Models\RegisterPageModel.cs" />
+    <Compile Include="Auth\Presenters\LoginPresentor.cs" />
     <Compile Include="Auth\Presenters\RegisterPresenter.cs" />
     <Compile Include="Auth\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
@@ -365,7 +376,9 @@
     <Compile Include="Auth\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Auth\Views\EventArguments\LoginEventArgs.cs" />
     <Compile Include="Auth\Views\EventArguments\RegisterEventArgs.cs" />
+    <Compile Include="Auth\Views\ILoginView.cs" />
     <Compile Include="Auth\Views\IRegisterView.cs" />
     <Compile Include="Bindings\DataModule.cs" />
     <Compile Include="Bindings\MvpModule.cs" />

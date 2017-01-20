@@ -47,5 +47,29 @@ namespace DogeNews.Web.Services
             this.newsData.Commit();
             return true;
         }
+
+        public UserWebModel LoginUser(string username, string password)
+        {
+            var foundUser = this.userRepository.GetFirst(u => u.Username == username);
+            
+            if (foundUser == null)
+            {
+                // no such registered user
+                return null;
+            }
+
+            var salt = this.cryptographicService.GetSalt();
+            var saltString = this.cryptographicService.ByteArrayToString(salt);
+            var passHash = this.cryptographicService.HashPassword(password, salt);
+            var passHashString = this.cryptographicService.ByteArrayToString(passHash);
+
+            //if (passHashString != foundUser.PassHash)
+            //{
+            //    return null;
+            //}
+
+            var result = this.mapperProvider.Instance.Map<UserWebModel>(foundUser);
+            return result;
+        }
     }
 }

@@ -3,7 +3,7 @@
 using DogeNews.Web.Auth.Presenters;
 using DogeNews.Web.Auth.Models;
 using DogeNews.Web.Auth.Views;
-using DogeNews.Web.Auth.Views.EventArgumentss;
+using DogeNews.Web.Auth.Views.EventArguments;
 using DogeNews.Web.Models;
 
 using WebFormsMvp;

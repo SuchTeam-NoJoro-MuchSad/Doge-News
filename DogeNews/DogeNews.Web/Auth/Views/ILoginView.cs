@@ -2,12 +2,13 @@
 
 using DogeNews.Web.Auth.Models;
 using DogeNews.Web.Auth.Views.EventArguments;
+
 using WebFormsMvp;
 
 namespace DogeNews.Web.Auth.Views
 {
-    public interface IRegisterView : IView<RegisterPageModel>
+    public interface ILoginView : IView<LoginPageModel>
     {
-        event EventHandler<RegisterEventArgs> RegisterUser;
+        event EventHandler<LoginEventArgs> LoginUser;
     }
 }

@@ -1,5 +1,5 @@
 ﻿using DogeNews.Web.Auth.Views;
-using DogeNews.Web.Auth.Views.EventArgumentss;
+using DogeNews.Web.Auth.Views.EventArguments;
 using DogeNews.Web.Services.Contracts;
 
 using WebFormsMvp;
