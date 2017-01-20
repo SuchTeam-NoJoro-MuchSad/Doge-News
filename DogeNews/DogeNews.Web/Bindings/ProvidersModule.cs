@@ -10,6 +10,8 @@ namespace DogeNews.Web.Bindings
         public override void Load()
         {
             this.Bind<IMapperProvider>().To<MapperProvider>().InSingletonScope();
+            this.Bind<ICryptoServiceSaltProvider>().To<RngCryptoServiceSaltProvider>();
+            this.Bind<ICryptoServiceHashProvider>().To<RfcCryptoServiceHashProvider>();
         }
     }
 }

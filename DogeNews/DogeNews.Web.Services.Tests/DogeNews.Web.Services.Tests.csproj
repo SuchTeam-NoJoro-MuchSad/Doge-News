@@ -64,6 +64,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AuthServiceTests.cs" />
+    <Compile Include="CryptographicServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
