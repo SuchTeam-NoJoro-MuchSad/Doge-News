@@ -24,7 +24,7 @@ namespace DogeNews.Web.Auth
                 Username = this.Username.Value,
                 Password = this.PasswordInput.Value
             };
-
+            
             this.LoginUser(this, eventArgs);
         }
     }
