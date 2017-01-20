@@ -7,9 +7,11 @@ namespace DogeNews.Data.Contracts
 {
     public interface IRepository<T> where T : class
     {
+        IQueryable<T> All { get; }
+
         T GetById(object id);
 
-        IQueryable<T> All { get; }
+        T GetFirst(Expression<Func<T, bool>> filterExpression);
 
         IEnumerable<T> GetAll();
 

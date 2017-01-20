@@ -59,8 +59,8 @@
                         <li><a runat="server" href="~/Contact">Contact</a></li>
                         <asp:LoginView runat="server" ViewStateMode="Disabled">
                             <AnonymousTemplate>
-                                <li><a runat="server" href="~/Account/Register">Register</a></li>
-                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                                <li><a runat="server" href="~/Auth/Register">Register</a></li>
+                                <li><a runat="server" href="~/Auth/Login">Log in</a></li>
                             </AnonymousTemplate>
                             <LoggedInTemplate>
                                 <!-- Dropdown Structure -->

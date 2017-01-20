@@ -44,6 +44,12 @@ namespace DogeNews.Data.Repositories
             }
         }
 
+        public T GetFirst(Expression<Func<T, bool>> filterExpression)
+        {
+            var foundEntity = this.DbSet.FirstOrDefault(filterExpression);
+            return foundEntity;
+        }
+
         public void Add(T entity)
         {
             var entry = AttachIfDetached(entity);
