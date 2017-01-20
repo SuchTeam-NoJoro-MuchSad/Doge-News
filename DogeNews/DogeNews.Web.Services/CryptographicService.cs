@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Security.Cryptography;
 
 using DogeNews.Web.Services.Contracts;
+using DogeNews.Web.Providers.Contracts;
 
 namespace DogeNews.Web.Services
 {
@@ -11,17 +11,25 @@ namespace DogeNews.Web.Services
         private const int SaltBytes = 251;
         private const int HashBytes = 257;
 
+        private readonly ICryptoServiceSaltProvider saltService;
+        private readonly ICryptoServiceHashProvider hashProvider;
+
+        public CryptographicService(ICryptoServiceSaltProvider saltService, ICryptoServiceHashProvider hashProvider)
+        {
+            this.saltService = saltService;
+            this.hashProvider = hashProvider;
+        }
+
         public byte[] GetSalt()
         {
-            byte[] salt;
-            new RNGCryptoServiceProvider().GetBytes(salt = new byte[SaltBytes]);
+            byte[] salt = new byte[SaltBytes];
+            salt = this.saltService.GetBytes(salt);
             return salt;
         }
 
         public byte[] HashPassword(string password, byte[] salt)
         {
-            var bytes = new Rfc2898DeriveBytes(password, salt, HashIterations);
-            byte[] passHash = bytes.GetBytes(HashBytes);
+            byte[] passHash = this.hashProvider.GetHashBytes(password, salt, HashIterations, HashBytes);
             return passHash;
         }
 
@@ -35,12 +43,11 @@ namespace DogeNews.Web.Services
         {
             byte[] hashBytes = Convert.FromBase64String(passHash);
             byte[] saltBytes = Convert.FromBase64String(salt);
-            var newPassHashBytes = new Rfc2898DeriveBytes(passwordToCheck, saltBytes, HashIterations);
-            byte[] newPassHash = newPassHashBytes.GetBytes(HashBytes);
-
+            var newPassHashBytes = this.hashProvider.GetHashBytes(passwordToCheck, saltBytes, HashIterations, HashBytes);
+            
             for (int i = 0; i < HashBytes; i++)
             {
-                if (hashBytes[i + SaltBytes] != newPassHash[i])
+                if (hashBytes[i] != newPassHashBytes[i])
                 {
                     return false;
                 }
