@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DogeNews.Data.Tests")]
+[assembly: AssemblyTitle("DogeNews.Web.Providers.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DogeNews.Data.Tests")]
+[assembly: AssemblyProduct("DogeNews.Web.Providers.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b0fb5a91-cb9f-47d2-9be8-f5b9272b39a0")]
+[assembly: Guid("3702dce9-3f70-4a70-b921-5e3b17e2dff0")]
 
 // Version information for an assembly consists of the following four values:
 //
