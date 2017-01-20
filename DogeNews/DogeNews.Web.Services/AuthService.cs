@@ -15,7 +15,7 @@ namespace DogeNews.Web.Services
 
         public AuthService(
             IRepository<User> userRepository,
-            INewsData newsData, 
+            INewsData newsData,
             ICryptographicService cryptographicService,
             IMapperProvider mapperProvider)
         {
@@ -28,7 +28,6 @@ namespace DogeNews.Web.Services
         public bool RegisterUser(UserWebModel user)
         {
             var foundUser = this.userRepository.GetFirst(u => u.Username == user.Username);
-
             if (foundUser != null)
             {
                 // the user already exists
@@ -36,12 +35,11 @@ namespace DogeNews.Web.Services
             }
 
             var salt = this.cryptographicService.GetSalt();
-            var saltString = this.cryptographicService.ByteArrayToString(salt);
             var passHash = this.cryptographicService.HashPassword(user.Password, salt);
-            var passHashString = this.cryptographicService.ByteArrayToString(passHash);
             var newUser = this.mapperProvider.Instance.Map<User>(user);
-            newUser.Salt = saltString;
-            newUser.PassHash = passHashString;
+
+            newUser.Salt = this.cryptographicService.ByteArrayToString(salt);
+            newUser.PassHash = this.cryptographicService.ByteArrayToString(passHash);
 
             this.userRepository.Add(newUser);
             this.newsData.Commit();
@@ -51,22 +49,18 @@ namespace DogeNews.Web.Services
         public UserWebModel LoginUser(string username, string password)
         {
             var foundUser = this.userRepository.GetFirst(u => u.Username == username);
-            
             if (foundUser == null)
             {
                 // no such registered user
                 return null;
             }
 
-            var salt = this.cryptographicService.GetSalt();
-            var saltString = this.cryptographicService.ByteArrayToString(salt);
-            var passHash = this.cryptographicService.HashPassword(password, salt);
-            var passHashString = this.cryptographicService.ByteArrayToString(passHash);
-
-            //if (passHashString != foundUser.PassHash)
-            //{
-            //    return null;
-            //}
+            bool isValidPassword = this.cryptographicService.IsValidPassword(password, foundUser.PassHash, foundUser.Salt);
+            if (!isValidPassword)
+            {
+                // incorrect password
+                return null;
+            }
 
             var result = this.mapperProvider.Instance.Map<UserWebModel>(foundUser);
             return result;

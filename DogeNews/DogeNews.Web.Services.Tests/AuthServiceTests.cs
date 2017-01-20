@@ -171,7 +171,7 @@ namespace DogeNews.Web.Services.Tests
             var passHash = new byte[10];
             var saltString = Convert.ToBase64String(salt);
             var passHashString = Convert.ToBase64String(passHash);
-            var userModel = new UserWebModel { Username = "username", Password = "123456", Salt = salt };
+            var userModel = new UserWebModel { Username = "username", Password = "123456", Salt = Convert.ToBase64String(salt) };
             var newUser = new User { Username = "username", PassHash = passHashString, Salt = saltString };
 
             mockedCrypthographicService.Setup(x => x.GetSalt()).Returns(salt);

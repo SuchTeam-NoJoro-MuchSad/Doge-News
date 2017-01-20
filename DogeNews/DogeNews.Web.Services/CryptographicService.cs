@@ -39,10 +39,10 @@ namespace DogeNews.Web.Services
             return result;
         }
 
-        public bool IsValidPassword(string passwordToCheck, string passHash, string salt)
+        public bool IsValidPassword(string passwordToCheck, string userPashHash, string userSalt)
         {
-            byte[] hashBytes = Convert.FromBase64String(passHash);
-            byte[] saltBytes = Convert.FromBase64String(salt);
+            byte[] hashBytes = Convert.FromBase64String(userPashHash);
+            byte[] saltBytes = Convert.FromBase64String(userSalt);
             var newPassHashBytes = this.hashProvider.GetHashBytes(passwordToCheck, saltBytes, HashIterations, HashBytes);
             
             for (int i = 0; i < HashBytes; i++)

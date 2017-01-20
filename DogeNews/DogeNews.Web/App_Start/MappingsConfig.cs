@@ -22,7 +22,7 @@ namespace DogeNews.Web.App_Start
             });
 
             var mapper = config.CreateMapper();
-            mapperProvider.Instance = mapper;
+            this.mapperProvider.Instance = mapper;
         }
     }
 }
