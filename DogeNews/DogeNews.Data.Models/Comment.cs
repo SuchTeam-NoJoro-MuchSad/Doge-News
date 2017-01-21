@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using DogeNews.Data.Models.Contracts;
-
 namespace DogeNews.Data.Models
 {
-    public class Comment : IComment
+    public class Comment 
     {
         public int Id { get; set; }
 

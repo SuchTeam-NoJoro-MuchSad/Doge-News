@@ -51,6 +51,7 @@ namespace DogeNews.Web.Auth.Presenters
             this.Response.Cookies.Add(cookie);
             this.HttpContext.Session["Username"] = user.Username;
             this.HttpContext.Session["Id"] = user.Id;
+            this.HttpContext.Session["UserRole"] = user.UserRole.ToString();
             this.HttpContext.Response.Redirect("/");
         }
 

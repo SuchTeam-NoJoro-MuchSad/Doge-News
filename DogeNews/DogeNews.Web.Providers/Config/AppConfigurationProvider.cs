@@ -21,5 +21,13 @@ namespace DogeNews.Web.Providers.Config
                 return WebConfigurationManager.AppSettings["EncryptionKey"];
             }
         }
+
+        public string AdminPassword
+        {
+            get
+            {
+                return WebConfigurationManager.AppSettings["AdminPassword"];
+            }
+        }
     }
 }

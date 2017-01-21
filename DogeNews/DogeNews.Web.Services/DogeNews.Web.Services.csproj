@@ -110,6 +110,10 @@
       <Project>{416fdd9e-556d-4cb9-8ef1-2e26b8bf0dca}</Project>
       <Name>DogeNews.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DogeNews.Web.Common\DogeNews.Web.Common.csproj">
+      <Project>{c86e9a76-ae29-459c-b02c-46e3466a3146}</Project>
+      <Name>DogeNews.Web.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DogeNews.Web.Models\DogeNews.Web.Models.csproj">
       <Project>{fad62fe0-38ff-4c48-8663-d6036b0e83e0}</Project>
       <Name>DogeNews.Web.Models</Name>

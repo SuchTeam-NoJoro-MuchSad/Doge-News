@@ -1,11 +1,11 @@
 ﻿using System.Web;
-using System.Web.Configuration;
 
 using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Providers.Contracts;
+using DogeNews.Web.Common.Enums;
 
 namespace DogeNews.Web.Services
 {
@@ -93,6 +93,33 @@ namespace DogeNews.Web.Services
             }
 
             return true;
+        }
+
+        public void SeedAdminUser()
+        {
+            var foundUser = this.userRepository.GetFirst(x => x.Username == "Admin");
+
+            if (foundUser == null)
+            {
+                var saltBytes = this.cryptographicService.GetSalt();
+                var passHashBytes = this.cryptographicService.HashPassword(this.configProvider.AdminPassword, saltBytes);
+                var salt = this.cryptographicService.ByteArrayToString(saltBytes);
+                var passHash = this.cryptographicService.ByteArrayToString(passHashBytes);
+
+                var adminUser = new User
+                {
+                    Username = "Admin",
+                    Email = "admin@admin.com",
+                    FirstName = "Admin",
+                    LastName = "Admin",
+                    UserRole = UserRoleType.Admin,
+                    Salt = salt,
+                    PassHash= passHash
+                };
+
+                this.userRepository.Add(adminUser);
+                this.newsData.Commit();
+            }            
         }
     }
 }

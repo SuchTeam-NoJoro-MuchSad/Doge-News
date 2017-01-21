@@ -5,6 +5,7 @@ using System.Web.Routing;
 
 using DogeNews.Web.App_Start;
 using DogeNews.Web.Providers.Contracts;
+using DogeNews.Web.Services.Contracts;
 
 using Ninject;
 
@@ -20,6 +21,9 @@ namespace DogeNews.Web
 
             var mapperProvider = NinjectWebCommon.Kernel.Get<IMapperProvider>();
             (new MappingsConfig(mapperProvider)).Map();
+
+            var authSevice = NinjectWebCommon.Kernel.Get<IAuthService>();
+            authSevice.SeedAdminUser();
         }
     }
 }

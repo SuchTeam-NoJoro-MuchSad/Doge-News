@@ -5,5 +5,7 @@
         string EncryptionKey { get; }
 
         string AuthCookieName { get; }
+
+        string AdminPassword { get; }
     }
 }

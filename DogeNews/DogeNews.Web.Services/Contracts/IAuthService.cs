@@ -11,5 +11,7 @@ namespace DogeNews.Web.Services.Contracts
         UserWebModel LoginUser(string username, string password);
 
         bool IsUserLoggedIn(HttpCookieCollection cookies);
+
+        void SeedAdminUser();
     }
 }

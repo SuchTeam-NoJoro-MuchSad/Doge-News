@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using DogeNews.Data.Models.Contracts;
-using DogeNews.Data.Models.Enumerations;
+using DogeNews.Web.Common.Enums;
 
 namespace DogeNews.Data.Models
 {
-    public class NewsItem : INewsItem
+    public class NewsItem 
     {
         private ICollection<Comment> comments;
         private DateTime? createdOn = null;

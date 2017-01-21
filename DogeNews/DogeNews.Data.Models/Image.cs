@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-using DogeNews.Data.Models.Contracts;
-
 namespace DogeNews.Data.Models
 {
-    public class Image : IImage
+    public class Image 
     {
         public int Id { get; set; }
 

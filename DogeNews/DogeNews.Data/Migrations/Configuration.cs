@@ -9,7 +9,7 @@ namespace DogeNews.Data.Migrations
             this.AutomaticMigrationsEnabled = true;
             this.AutomaticMigrationDataLossAllowed = true;
         }
-
+        
         protected override void Seed(NewsDbContext context)
         {
         }

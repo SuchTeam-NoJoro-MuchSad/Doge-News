@@ -91,13 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comment.cs" />
-    <Compile Include="Contracts\IUser.cs" />
-    <Compile Include="Enumerations\NewsCategoryType.cs" />
-    <Compile Include="Enumerations\UserRoleType.cs" />
-    <Compile Include="Contracts\IComment.cs" />
-    <Compile Include="Contracts\IImage.cs" />
     <Compile Include="Image.cs" />
-    <Compile Include="Contracts\INewsItem.cs" />
     <Compile Include="NewsItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
@@ -106,7 +100,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DogeNews.Web.Common\DogeNews.Web.Common.csproj">
+      <Project>{c86e9a76-ae29-459c-b02c-46e3466a3146}</Project>
+      <Name>DogeNews.Web.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

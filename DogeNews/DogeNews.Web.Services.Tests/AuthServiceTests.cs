@@ -7,11 +7,11 @@ using NUnit.Framework;
 using Moq;
 
 using DogeNews.Data.Contracts;
-using DogeNews.Web.Services.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.Providers.Contracts;
 using System.Web;
+using DogeNews.Web.Services.Contracts;
 
 namespace DogeNews.Web.Services.Tests
 {

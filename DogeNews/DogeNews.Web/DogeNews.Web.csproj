@@ -249,6 +249,7 @@
     <Content Include="Content\materialize\css\materialize.min.css" />
     <Content Include="Content\materialize\font\material-design-icons\LICENSE.txt" />
     <Content Include="Content\materialize\font\material-design-icons\Material-Design-Icons.svg" />
+    <Content Include="Content\UserControls\js\tinymce.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -340,6 +341,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
+    <Content Include="UserControls\News\CreateNewsArticle.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -406,6 +408,13 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\News\CreateNewsArticle.ascx.cs">
+      <DependentUpon>CreateNewsArticle.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\News\CreateNewsArticle.ascx.designer.cs">
+      <DependentUpon>CreateNewsArticle.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -419,6 +428,10 @@
     <ProjectReference Include="..\DogeNews.Data\DogeNews.Data.csproj">
       <Project>{416fdd9e-556d-4cb9-8ef1-2e26b8bf0dca}</Project>
       <Name>DogeNews.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DogeNews.Web.Common\DogeNews.Web.Common.csproj">
+      <Project>{c86e9a76-ae29-459c-b02c-46e3466a3146}</Project>
+      <Name>DogeNews.Web.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\DogeNews.Web.Models\DogeNews.Web.Models.csproj">
       <Project>{fad62fe0-38ff-4c48-8663-d6036b0e83e0}</Project>

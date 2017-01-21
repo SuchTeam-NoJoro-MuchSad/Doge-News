@@ -14,6 +14,10 @@ namespace DogeNews.Web
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string antiXsrfTokenValue;
 
+        public string Username { get; private set; }
+
+        public string UserRole { get; private set; }
+        
         protected void Page_Init(object sender, EventArgs e)
         {
             // The code below helps to protect against XSRF attacks
@@ -49,6 +53,12 @@ namespace DogeNews.Web
             this.Page.PreLoad += this.MasterPagePreload;
         }
 
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            this.Username = this.Session["Username"] as string;
+            this.UserRole = this.Session["UserRole"] as string;
+        }
+
         protected void MasterPagePreload(object sender, EventArgs e)
         {
             if (!this.IsPostBack)
@@ -67,11 +77,7 @@ namespace DogeNews.Web
                 }
             }
         }
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-        }
-
+        
         protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
         {
             this.Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
