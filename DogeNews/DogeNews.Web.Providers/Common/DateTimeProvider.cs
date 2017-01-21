@@ -10,7 +10,7 @@ namespace DogeNews.Web.Providers.Common
         {
             get
             {
-                return DateTime.Now;
+                return DateTime.UtcNow;
             }
         }
     }
