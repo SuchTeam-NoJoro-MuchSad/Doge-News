@@ -2,7 +2,7 @@
 
 using DogeNews.Web.Providers.Contracts;
 
-namespace DogeNews.Web.Providers
+namespace DogeNews.Web.Providers.Encryption
 {
     public class RngCryptoServiceSaltProvider : ICryptoServiceSaltProvider
     {

@@ -1,6 +1,7 @@
-﻿using Moq;
+﻿using System.Security.Cryptography;
+
+using DogeNews.Web.Providers.Encryption;
 using NUnit.Framework;
-using System.Security.Cryptography;
 
 namespace DogeNews.Web.Providers.Tests
 {

@@ -16,19 +16,22 @@ namespace DogeNews.Web.Services
         private readonly ICryptographicService cryptographicService;
         private readonly IMapperProvider mapperProvider;
         private readonly IEncryptionProvider encryptionProvider;
+        private readonly IAppConfigurationProvider configProvider;
 
         public AuthService(
             IRepository<User> userRepository,
             INewsData newsData,
             ICryptographicService cryptographicService,
             IMapperProvider mapperProvider,
-            IEncryptionProvider encryptionProvider)
+            IEncryptionProvider encryptionProvider,
+            IAppConfigurationProvider configProvider)
         {
             this.userRepository = userRepository;
             this.newsData = newsData;
             this.cryptographicService = cryptographicService;
             this.mapperProvider = mapperProvider;
             this.encryptionProvider = encryptionProvider;
+            this.configProvider = configProvider;
         }
 
         public bool RegisterUser(UserWebModel user)
@@ -72,17 +75,17 @@ namespace DogeNews.Web.Services
             return result;
         }
 
-        public bool IsUserLoggedIn(HttpCookieCollection cookies, string authCookieName, string encryptionKey)
+        public bool IsUserLoggedIn(HttpCookieCollection cookies)
         {
-            var cookie = cookies[authCookieName];
+            var cookie = cookies[this.configProvider.AuthCookieName];
 
             if (cookie == null)
             {
                 return false;
             }
             
-            string usernameKey = this.encryptionProvider.Encrypt("Username", encryptionKey);
-            string idKey = this.encryptionProvider.Encrypt("Id", encryptionKey);
+            string usernameKey = this.encryptionProvider.Encrypt("Username", this.configProvider.EncryptionKey);
+            string idKey = this.encryptionProvider.Encrypt("Id", this.configProvider.EncryptionKey);
 
             if (cookie[usernameKey] == null || cookie[idKey] == null)
             {

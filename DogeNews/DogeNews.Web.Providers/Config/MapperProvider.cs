@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DogeNews.Web.Providers.Contracts;
 
-namespace DogeNews.Web.Providers
+namespace DogeNews.Web.Providers.Config
 {
     public class MapperProvider : IMapperProvider
     {

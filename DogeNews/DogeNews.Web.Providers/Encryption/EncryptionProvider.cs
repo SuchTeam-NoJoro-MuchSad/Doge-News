@@ -7,7 +7,7 @@ using System.IO;
 using DogeNews.Web.Providers.Contracts;
 
 // CREDITS: http://stackoverflow.com/questions/10168240/encrypting-decrypting-a-string-in-c-sharp
-namespace DogeNews.Web.Providers
+namespace DogeNews.Web.Providers.Encryption
 {
     public class EncryptionProvider : IEncryptionProvider
     {

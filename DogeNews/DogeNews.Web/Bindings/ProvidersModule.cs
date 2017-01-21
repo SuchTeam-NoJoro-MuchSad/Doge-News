@@ -1,7 +1,10 @@
 ﻿using Ninject.Modules;
 
 using DogeNews.Web.Providers.Contracts;
-using DogeNews.Web.Providers;
+using DogeNews.Web.Providers.Config;
+using DogeNews.Web.Providers.Auth;
+using DogeNews.Web.Providers.Encryption;
+using DogeNews.Web.Providers.Common;
 
 namespace DogeNews.Web.Bindings
 {
@@ -14,6 +17,8 @@ namespace DogeNews.Web.Bindings
             this.Bind<ICryptoServiceHashProvider>().To<RfcCryptoServiceHashProvider>();
             this.Bind<IEncryptionProvider>().To<EncryptionProvider>().InSingletonScope();
             this.Bind<ICookieProvider>().To<CookieProvider>();
+            this.Bind<IAppConfigurationProvider>().To<AppConfigurationProvider>();
+            this.Bind<IDateTimeProvider>().To<DateTimeProvider>();
         }
     }
 }

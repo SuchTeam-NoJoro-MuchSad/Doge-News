@@ -18,17 +18,20 @@ namespace DogeNews.Web.Auth.Presenters
         private readonly IAuthService authService;
         private readonly ICookieProvider cookieProvider;
         private readonly IEncryptionProvider encryptionProvider;
+        private readonly IAppConfigurationProvider configProvider;
 
         public LoginPresenter(
             ILoginView view,
             IAuthService authService,
             ICookieProvider cookieProvider,
-            IEncryptionProvider encryptionProvider)
+            IEncryptionProvider encryptionProvider,
+            IAppConfigurationProvider configProvider)
             : base(view)
         {
             this.authService = authService;
             this.cookieProvider = cookieProvider;
             this.encryptionProvider = encryptionProvider;
+            this.configProvider = configProvider;
             this.View.LoginUser += this.LoginUser;
         }
 
@@ -41,18 +44,11 @@ namespace DogeNews.Web.Auth.Presenters
                 return;
             }
 
-            string encryptionKey = WebConfigurationManager.AppSettings["EncryptionKey"];
-            string authCookieName = WebConfigurationManager.AppSettings["AuthCookieName"];
+            var values = this.GetCookieValuesToSet(user);
+            var cookie = this.cookieProvider
+                .GetAuthenticationCookie(this.configProvider.AuthCookieName, CookieLifeTimeInDays, values);
 
-            if (this.Request.Cookies[authCookieName] == null)
-            {
-                var values = this.GetCookieValuesToSet(user);
-                var cookie = this.cookieProvider
-                    .GetAuthenticationCookie(authCookieName, CookieLifeTimeInDays, values);
-
-                this.Response.Cookies.Add(cookie);
-            }
-
+            this.Response.Cookies.Add(cookie);
             this.HttpContext.Session["Username"] = user.Username;
             this.HttpContext.Session["Id"] = user.Id;
             this.HttpContext.Response.Redirect("/");

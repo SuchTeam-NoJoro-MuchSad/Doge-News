@@ -10,6 +10,6 @@ namespace DogeNews.Web.Services.Contracts
 
         UserWebModel LoginUser(string username, string password);
 
-        bool IsUserLoggedIn(HttpCookieCollection cookies, string authCookieName, string encryptionKey);
+        bool IsUserLoggedIn(HttpCookieCollection cookies);
     }
 }

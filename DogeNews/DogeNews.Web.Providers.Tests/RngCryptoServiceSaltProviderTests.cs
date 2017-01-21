@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using DogeNews.Web.Providers.Encryption;
+using NUnit.Framework;
 
 namespace DogeNews.Web.Providers.Tests
 {
