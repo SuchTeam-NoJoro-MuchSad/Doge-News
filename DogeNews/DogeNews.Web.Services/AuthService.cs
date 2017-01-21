@@ -100,6 +100,12 @@ namespace DogeNews.Web.Services
         {
             var cookieName = this.configProvider.AuthCookieName;
             var cookie = cookieCollection.Get(cookieName);
+
+            if (cookie == null)
+            {
+                return;
+            }
+
             cookie.Expires = DateTime.Now;
             cookieCollection.Set(cookie);
         }
