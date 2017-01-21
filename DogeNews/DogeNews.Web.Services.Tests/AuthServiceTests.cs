@@ -448,5 +448,77 @@ namespace DogeNews.Web.Services.Tests
             bool isUserLoggedIn = authService.IsUserLoggedIn(cookieCollection);
             Assert.IsTrue(isUserLoggedIn);
         }
+
+        [Test]
+        public void IsUserLoggedIn_ShouldReturnFalseWhenTheCookieHasInvalidParamaters()
+        {
+            var cookieCollection = new HttpCookieCollection();
+            var cookie = new HttpCookie("aaaaa");
+
+            cookieCollection.Add(cookie);
+            this.mockedEncryptionProvider
+                .Setup(x => x.Encrypt(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns((string a, string b) => a);
+            this.mockedEncryptionProvider
+                .Setup(x => x.Decrypt(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns((string a, string b) => a);
+            this.mockedConfigProvider.SetupGet(x => x.AuthCookieName).Returns("aaaaa");
+            this.mockedConfigProvider.SetupGet(x => x.EncryptionKey).Returns("aaaaa");
+
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            bool isUserLoggedIn = authService.IsUserLoggedIn(cookieCollection);
+            Assert.IsFalse(isUserLoggedIn);
+        }
+
+        [Test]
+        public void LogoutUser_ShouldSetFoundCookieExpireToDateNow()
+        {
+            this.mockedConfigProvider.Setup(x => x.AuthCookieName).Returns("aaaaaa");
+
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            var cookieName = this.mockedConfigProvider.Object.AuthCookieName;
+            var cookieCollection = new HttpCookieCollection();
+            var cookie = new HttpCookie(cookieName);
+            cookieCollection.Add(cookie);
+
+            authService.LogoutUser(cookieCollection);
+
+            Assert.AreEqual(cookie.Expires.Day, DateTime.Now.Day);
+            Assert.AreEqual(cookie.Expires.Month, DateTime.Now.Month);
+            Assert.AreEqual(cookie.Expires.Year, DateTime.Now.Year);
+            Assert.AreEqual(cookie.Expires.Hour, DateTime.Now.Hour);
+            Assert.AreEqual(cookie.Expires.Minute, DateTime.Now.Minute);
+            Assert.AreEqual(cookie.Expires.Second, DateTime.Now.Second);
+        }
+
+        [Test]
+        public void LogoutUser_ShouldNotThrowWhenCookieIsNull()
+        {
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+            
+            var cookieCollection = new HttpCookieCollection();
+            
+            Assert.DoesNotThrow(()=> authService.LogoutUser(cookieCollection));
+        }
     }
 }

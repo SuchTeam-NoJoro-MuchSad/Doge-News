@@ -51,27 +51,28 @@
         <!-- NAVIGATION -->
         <nav>
             <div class="nav-wrapper">
-                <ul class="right hide-on-med-and-down">
-                    <% if (this.Username == null) { %>
-                        <li><a href="/Auth/Register.aspx">Rigister</a></li>
-                        <li><a href="/Auth/Login.aspx">Login</a></li>
-                    <% } %>
+                <a href="#!" class="brand-logo">Logo</a>
 
-                    <% if (this.Username != null) { %>
-                        <li><a href="/Auth/Register.aspx">Rigister</a></li>
+                <ul class="right hide-on-med-and-down">
+                    <% if (this.Username == null)
+                        { %>
+                    <li><a href="/Auth/Register.aspx">Rigister</a></li>
+                    <li><a href="/Auth/Login.aspx">Login</a></li>
                     <% } %>
 
                     <!-- ADMIN DROPDOWN -->
-                    <% if (this.UserRole == "Admin") { %>
-                        <li>
-                            <a class="dropdown-button" href="#!" data-activates="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a>
-                            <ul id="dropdown1" class="dropdown-content" style="width: 137px; position: absolute; top: 0px; left: 601.969px; opacity: 1; display: none;">
-                                <li><a href="#!">one</a></li>
-                                <li><a href="#!">two</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!">three</a></li>
-                            </ul>
-                        </li>
+                    <% if (this.UserRole == "Admin")
+                        { %>
+                    <li>
+                        <a class="dropdown-button" href="#!" data-activates="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a>
+                        <ul id="dropdown1" class="dropdown-content" style="width: 137px; position: absolute; top: 0px; left: 601.969px; opacity: 1; display: none;">
+                            <li><a href="/User/Admin/AddNews">Add News</a></li>
+                        </ul>
+                    </li>
+                    <% } %>
+
+                    <% if (this.Username != null) { %>
+                        <li><a runat="server" onserverclick="Logout">Logout</a></li>
                     <% } %>
                 </ul>
             </div>

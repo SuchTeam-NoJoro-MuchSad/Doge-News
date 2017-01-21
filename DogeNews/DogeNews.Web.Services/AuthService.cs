@@ -1,4 +1,5 @@
-﻿using System.Web;
+using System.Web;
+using System;
 
 using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
@@ -83,7 +84,7 @@ namespace DogeNews.Web.Services
             {
                 return false;
             }
-            
+
             string usernameKey = this.encryptionProvider.Encrypt("Username", this.configProvider.EncryptionKey);
             string idKey = this.encryptionProvider.Encrypt("Id", this.configProvider.EncryptionKey);
 
@@ -114,12 +115,26 @@ namespace DogeNews.Web.Services
                     LastName = "Admin",
                     UserRole = UserRoleType.Admin,
                     Salt = salt,
-                    PassHash= passHash
+                    PassHash = passHash
                 };
 
                 this.userRepository.Add(adminUser);
                 this.newsData.Commit();
-            }            
+            }
+        }
+
+        public void LogoutUser(HttpCookieCollection cookieCollection)
+        {
+            var cookieName = this.configProvider.AuthCookieName;
+            var cookie = cookieCollection.Get(cookieName);
+
+            if (cookie == null)
+            {
+                return;
+            }
+
+            cookie.Expires = DateTime.Now;
+            cookieCollection.Set(cookie);
         }
     }
 }
