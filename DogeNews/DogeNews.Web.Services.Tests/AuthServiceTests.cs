@@ -11,6 +11,7 @@ using DogeNews.Web.Services.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.Providers.Contracts;
+using System.Web;
 
 namespace DogeNews.Web.Services.Tests
 {
@@ -426,6 +427,90 @@ namespace DogeNews.Web.Services.Tests
             var user = authService.LoginUser(username, password);
 
             Assert.AreEqual(resultUser, user);
+        }
+
+        [Test]
+        public void IsUserLoggedIn_ShouldReturnFalseWhenTheCookieDoesNotExist()
+        {
+            var mockedRepository = new Mock<IRepository<User>>();
+            var mockedData = new Mock<INewsData>();
+            var mockedCrypthographicService = new Mock<ICryptographicService>();
+            var mockedMapperProvider = new Mock<IMapperProvider>();
+            var mockedEncryptionProvider = new Mock<IEncryptionProvider>();
+            var cookieCollection = new HttpCookieCollection();
+
+            var authService = new AuthService(
+                mockedRepository.Object,
+                mockedData.Object,
+                mockedCrypthographicService.Object,
+                mockedMapperProvider.Object,
+                mockedEncryptionProvider.Object);
+
+            bool isUserLoggedIn = authService.IsUserLoggedIn(cookieCollection, "aaaaa", "aaaaa");
+            Assert.IsFalse(isUserLoggedIn);
+        }
+
+        [Test]
+        public void IsUserLoggedIn_ShouldReturnFalseWhenTheCookieIsEmpty()
+        {
+            var mockedRepository = new Mock<IRepository<User>>();
+            var mockedData = new Mock<INewsData>();
+            var mockedCrypthographicService = new Mock<ICryptographicService>();
+            var mockedMapperProvider = new Mock<IMapperProvider>();
+            var mockedEncryptionProvider = new Mock<IEncryptionProvider>();
+            var cookieCollection = new HttpCookieCollection();
+            var cookie = new HttpCookie("aaaaa");
+
+            cookieCollection.Add(cookie); 
+            mockedEncryptionProvider
+                .Setup(x => x.Encrypt(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns((string a, string b) => a);
+            mockedEncryptionProvider
+                .Setup(x => x.Decrypt(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns((string a, string b) => a);
+
+            var authService = new AuthService(
+                mockedRepository.Object,
+                mockedData.Object,
+                mockedCrypthographicService.Object,
+                mockedMapperProvider.Object,
+                mockedEncryptionProvider.Object);
+
+            bool isUserLoggedIn = authService.IsUserLoggedIn(cookieCollection, "aaaaa", "aaaaa");
+            Assert.IsFalse(isUserLoggedIn);
+        }
+
+        [Test]
+        public void IsUserLoggedIn_ShouldReturnTrueWhenTheCookieIsValid()
+        {
+            var mockedRepository = new Mock<IRepository<User>>();
+            var mockedData = new Mock<INewsData>();
+            var mockedCrypthographicService = new Mock<ICryptographicService>();
+            var mockedMapperProvider = new Mock<IMapperProvider>();
+            var mockedEncryptionProvider = new Mock<IEncryptionProvider>();
+            var cookieCollection = new HttpCookieCollection();
+            var cookie = new HttpCookie("aaaaa");
+
+            cookie["Id"] = "Id";
+            cookie["Username"] = "Username";
+
+            cookieCollection.Add(cookie);
+            mockedEncryptionProvider
+                .Setup(x => x.Encrypt(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns((string a, string b) => a);
+            mockedEncryptionProvider
+                .Setup(x => x.Decrypt(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns((string a, string b) => a);
+
+            var authService = new AuthService(
+                mockedRepository.Object,
+                mockedData.Object,
+                mockedCrypthographicService.Object,
+                mockedMapperProvider.Object,
+                mockedEncryptionProvider.Object);
+
+            bool isUserLoggedIn = authService.IsUserLoggedIn(cookieCollection, "aaaaa", "aaaaa");
+            Assert.IsTrue(isUserLoggedIn);
         }
     }
 }

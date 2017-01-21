@@ -8,8 +8,8 @@ namespace DogeNews.Web.Services
     public class CryptographicService : ICryptographicService
     {
         private const int HashIterations = 10000;
-        private const int SaltBytes = 251;
-        private const int HashBytes = 257;
+        private const int SaltBytes = 23;
+        private const int HashBytes = 29;
 
         private readonly ICryptoServiceSaltProvider saltService;
         private readonly ICryptoServiceHashProvider hashProvider;

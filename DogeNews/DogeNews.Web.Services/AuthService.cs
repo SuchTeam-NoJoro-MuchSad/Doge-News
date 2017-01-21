@@ -1,5 +1,4 @@
 ﻿using System.Web;
-using System.Collections.Generic;
 using System.Web.Configuration;
 
 using DogeNews.Web.Models;
@@ -73,14 +72,19 @@ namespace DogeNews.Web.Services
             return result;
         }
 
-        public bool IsUserLoggedIn(UserWebModel userModel, HttpCookieCollection cookies)
+        public bool IsUserLoggedIn(HttpCookieCollection cookies, string authCookieName, string encryptionKey)
         {
-            string encryptionKey = WebConfigurationManager.AppSettings["EncryptionKey"];
-            string cookieName = this.encryptionProvider
-                .Encrypt($"{userModel.Username}{userModel.FirstName}", encryptionKey);
-            HttpCookie cookie = cookies[cookieName];
-            
+            var cookie = cookies[authCookieName];
+
             if (cookie == null)
+            {
+                return false;
+            }
+            
+            string usernameKey = this.encryptionProvider.Encrypt("Username", encryptionKey);
+            string idKey = this.encryptionProvider.Encrypt("Id", encryptionKey);
+
+            if (cookie[usernameKey] == null || cookie[idKey] == null)
             {
                 return false;
             }

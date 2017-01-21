@@ -21,7 +21,7 @@ namespace DogeNews.Web.Services.Tests
                 mockedHashProvider.Object);
 
             cryptographicService.GetSalt();
-            mockedSaltProvider.Verify(x => x.GetBytes(It.Is<byte[]>(a => a.Length == 251)), Times.Once);
+            mockedSaltProvider.Verify(x => x.GetBytes(It.Is<byte[]>(a => a.Length == 23)), Times.Once);
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace DogeNews.Web.Services.Tests
         {
             var mockedSaltProvider = new Mock<ICryptoServiceSaltProvider>();
             var mockedHashProvider = new Mock<ICryptoServiceHashProvider>();
-            var saltByteArray = new byte[251];
+            var saltByteArray = new byte[23];
 
             mockedSaltProvider.Setup(x => x.GetBytes(It.IsAny<byte[]>())).Returns(saltByteArray);
 
@@ -47,7 +47,7 @@ namespace DogeNews.Web.Services.Tests
             var mockedSaltProvider = new Mock<ICryptoServiceSaltProvider>();
             var mockedHashProvider = new Mock<ICryptoServiceHashProvider>();
             string password = "123456";
-            var salt = new byte[251];
+            var salt = new byte[23];
 
             var cryptographicService = new CryptographicService(
                 mockedSaltProvider.Object,
@@ -58,7 +58,7 @@ namespace DogeNews.Web.Services.Tests
                     It.Is<string>(a => a == password),
                     It.Is<byte[]>(a => a == salt),
                     It.Is<int>(a => a == 10000),
-                    It.Is<int>(a => a == 257)),
+                    It.Is<int>(a => a == 29)),
                 Times.Once);
         }
 
@@ -67,8 +67,8 @@ namespace DogeNews.Web.Services.Tests
         {
             var mockedSaltProvider = new Mock<ICryptoServiceSaltProvider>();
             var mockedHashProvider = new Mock<ICryptoServiceHashProvider>();
-            var passHashByteArray = new byte[251];
-            var salt = new byte[251];
+            var passHashByteArray = new byte[23];
+            var salt = new byte[23];
 
             mockedHashProvider.Setup(x => x.GetHashBytes(
                     It.IsAny<string>(),
@@ -116,7 +116,7 @@ namespace DogeNews.Web.Services.Tests
                     It.IsAny<byte[]>(),
                     It.IsAny<int>(),
                     It.IsAny<int>()))
-                .Returns(new byte[257]);
+                .Returns(new byte[29]);
 
             var cryptographicService = new CryptographicService(
                 mockedSaltProvider.Object,
@@ -127,7 +127,7 @@ namespace DogeNews.Web.Services.Tests
                     It.Is<string>(a => a == password),
                     It.Is<byte[]>(a => a.Length == saltBytes.Length),
                     It.Is<int>(a => a == 10000),
-                    It.Is<int>(a => a == 257)
+                    It.Is<int>(a => a == 29)
                 ),
                 Times.Once);
         }
@@ -138,7 +138,7 @@ namespace DogeNews.Web.Services.Tests
             var mockedSaltProvider = new Mock<ICryptoServiceSaltProvider>();
             var mockedHashProvider = new Mock<ICryptoServiceHashProvider>();
             string password = "123456";
-            var passHash = new byte[257];
+            var passHash = new byte[29];
             passHash[0] = (byte)1; // This will make the to hash arrays different
             string passHashString = Convert.ToBase64String(passHash);
             string saltString = Convert.ToBase64String(new byte[10]);
@@ -149,7 +149,7 @@ namespace DogeNews.Web.Services.Tests
                     It.IsAny<byte[]>(),
                     It.IsAny<int>(),
                     It.IsAny<int>()))
-                .Returns(new byte[257]);
+                .Returns(new byte[29]);
 
             var cryptographicService = new CryptographicService(
                 mockedSaltProvider.Object,
@@ -165,7 +165,7 @@ namespace DogeNews.Web.Services.Tests
             var mockedSaltProvider = new Mock<ICryptoServiceSaltProvider>();
             var mockedHashProvider = new Mock<ICryptoServiceHashProvider>();
             string password = "123456";
-            var passHash = new byte[257];
+            var passHash = new byte[29];
             string passHashString = Convert.ToBase64String(passHash);
             string saltString = Convert.ToBase64String(new byte[10]);
             byte[] saltBytes = Convert.FromBase64String(saltString);
@@ -175,7 +175,7 @@ namespace DogeNews.Web.Services.Tests
                     It.IsAny<byte[]>(),
                     It.IsAny<int>(),
                     It.IsAny<int>()))
-                .Returns(new byte[257]);
+                .Returns(new byte[29]);
 
             var cryptographicService = new CryptographicService(
                 mockedSaltProvider.Object,

@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Configuration;
 
 using DogeNews.Web.Auth.Views;
@@ -43,13 +42,13 @@ namespace DogeNews.Web.Auth.Presenters
             }
 
             string encryptionKey = WebConfigurationManager.AppSettings["EncryptionKey"];
-            string cookieName = this.encryptionProvider.Encrypt($"{user.Username}{user.FirstName}", encryptionKey);
-            
-            if (this.Request.Cookies[cookieName] == null)
+            string authCookieName = WebConfigurationManager.AppSettings["AuthCookieName"];
+
+            if (this.Request.Cookies[authCookieName] == null)
             {
                 var values = this.GetCookieValuesToSet(user);
                 var cookie = this.cookieProvider
-                    .GetAuthenticationCookie(cookieName, CookieLifeTimeInDays, values);
+                    .GetAuthenticationCookie(authCookieName, CookieLifeTimeInDays, values);
 
                 this.Response.Cookies.Add(cookie);
             }
