@@ -36,6 +36,7 @@ namespace DogeNews.Data.Models
         public string LastName { get; set; }
 
         [MinLength(3)]
+        [MaxLength(100)]
         public string Email { get; set; }
 
         [Required]

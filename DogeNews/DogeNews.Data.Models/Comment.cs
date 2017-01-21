@@ -15,6 +15,5 @@ namespace DogeNews.Data.Models
         [MinLength(2)]
         [MaxLength(250)]
         public string Content { get; set; }
-
     }
 }
