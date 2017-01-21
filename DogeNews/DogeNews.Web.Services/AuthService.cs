@@ -1,6 +1,7 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Configuration;
-
+using System.Web.SessionState;
 using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Data.Contracts;
@@ -83,7 +84,7 @@ namespace DogeNews.Web.Services
             {
                 return false;
             }
-            
+
             string usernameKey = this.encryptionProvider.Encrypt("Username", this.configProvider.EncryptionKey);
             string idKey = this.encryptionProvider.Encrypt("Id", this.configProvider.EncryptionKey);
 
@@ -93,6 +94,14 @@ namespace DogeNews.Web.Services
             }
 
             return true;
+        }
+
+        public void LogoutUser(HttpCookieCollection cookieCollection)
+        {
+            var cookieName = this.configProvider.AuthCookieName;
+            var cookie = cookieCollection.Get(cookieName);
+            cookie.Expires = DateTime.Now;
+            cookieCollection.Set(cookie);
         }
     }
 }

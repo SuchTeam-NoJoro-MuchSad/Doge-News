@@ -55,50 +55,51 @@
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a runat="server" href="~/">Home</a></li>
-                        <li><%= this.Session["username"] %></li>
                         <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
-                        <asp:LoginView runat="server" ViewStateMode="Disabled">
-                            <AnonymousTemplate>
-                                <li><a runat="server" href="~/Auth/Register">Register</a></li>
-                                <li><a runat="server" href="~/Auth/Login">Log in</a></li>
-                            </AnonymousTemplate>
-                            <LoggedInTemplate>
-                                <!-- Dropdown Structure -->
-                                <ul id='dropdownAccount' class='dropdown-content'>
-                                    <li><a runat="server" href="~/Account/Manage" title="Manage your account">Manage your account</a></li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
-                                    </li>
-                                </ul>
-                                <li><a class="dropdown-button" href="#!" data-activates="dropdownAccount"><%: Context.User.Identity.GetUserName()  %><i class="material-icons right">arrow_drop_down</i></a></li>
+                        <% if (this.Session["username"] == null)
+                            { %>
 
-                            </LoggedInTemplate>
-                        </asp:LoginView>
+                        <li><a runat="server" href="~/Auth/Register">Register</a></li>
+                        <li><a runat="server" href="~/Auth/Login">Log in</a></li>
+                        <% }
+                            else
+                            { %>
+
+                        <!-- Dropdown Structure -->
+                        <ul id='dropdownAccount' class='dropdown-content'>
+                            <li><a runat="server" href="~/Account/Manage" title="Manage your account">Manage your account</a></li>
+                            <li class="divider"></li>
+                            <li>
+                                <asp:Button runat="server" OnClick="Logout" Text="Logout" CssClass="btn"/>
+                            </li>
+                        </ul>
+                        <li><a class="dropdown-button" href="#!" data-activates="dropdownAccount"><%: this.Session["username"] %><i class="material-icons right">arrow_drop_down</i></a></li>
+                        <% } %>
                     </ul>
-                    <ul class="side-nav" id="mobile-demo">
+                    <ul class="side-nav" id="mobile">
                         <li><a runat="server" href="~/">Home</a></li>
                         <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>
-                        <asp:LoginView runat="server" ViewStateMode="Disabled">
-                            <AnonymousTemplate>
-                                <li><a runat="server" href="~/Account/Register">Register</a></li>
-                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
-                            </AnonymousTemplate>
-                            <LoggedInTemplate>
-                                <!-- Dropdown Structure -->
-                                <ul id='dropdownAccountMobile' class='dropdown-content'>
-                                    <li><a runat="server" href="~/Account/Manage" title="Manage your account">Manage your account</a></li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
-                                    </li>
-                                </ul>
-                                <li><a class="dropdown-button" href="#!" data-activates="dropdownAccountMobile"><%: Context.User.Identity.GetUserName()  %><i class="material-icons right">arrow_drop_down</i></a></li>
+                        <% if (this.Session["username"] == null)
+                            { %>
 
-                            </LoggedInTemplate>
-                        </asp:LoginView>
+                        <li><a runat="server" href="~/Auth/Register">Register</a></li>
+                        <li><a runat="server" href="~/Auth/Login">Log in</a></li>
+                        <% }
+                            else
+                            { %>
+
+                        <!-- Dropdown Structure -->
+                        <ul id='dropdownAccountMobile' class='dropdown-content'>
+                            <li><a runat="server" href="~/Account/Manage" title="Manage your account">Manage your account</a></li>
+                            <li class="divider"></li>
+                            <li>
+                                <asp:Button runat="server" OnClick="Logout" Text="Logout" CssClass="btn"/>
+                            </li>
+                        </ul>
+                        <li><a class="dropdown-button" href="#!" data-activates="dropdownAccountMobile"><%: this.Session["username"] %><i class="material-icons right">arrow_drop_down</i></a></li>
+                        <% } %>
                     </ul>
                 </div>
             </nav>

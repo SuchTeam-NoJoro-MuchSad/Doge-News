@@ -2,9 +2,8 @@
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-
-using Microsoft.AspNet.Identity;
+using DogeNews.Web.Services.Contracts;
+using Ninject;
 
 namespace DogeNews.Web
 {
@@ -13,6 +12,10 @@ namespace DogeNews.Web
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string antiXsrfTokenValue;
+
+        [Inject]
+        public IAuthService AuthService { get; set; }
+
 
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -72,9 +75,11 @@ namespace DogeNews.Web
         {
         }
 
-        protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
+
+        protected void Logout(object sender, EventArgs e)
         {
-            this.Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            this.Session.Clear();
+            this.AuthService.LogoutUser(this.Response.Cookies);
         }
     }
 }
