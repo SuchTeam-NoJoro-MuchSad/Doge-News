@@ -2,6 +2,7 @@
 using System.Linq;
 
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace DogeNews.Data.Models.Tests
 {
@@ -45,6 +46,56 @@ namespace DogeNews.Data.Models.Tests
             var expectedLength = 10;
 
             Assert.AreEqual(expectedLength, maxLengthAttribute.Length);
+        }
+
+        [Test]
+        public void Id_GetShouldReturnTheSetValue()
+        {
+            int id = 1;
+            var image = new Image();
+
+            image.Id = 1;
+            Assert.AreEqual(id, image.Id);
+        }
+
+        [Test]
+        public void Name_GetShouldReturnTheSetValue()
+        {
+            string name = "Name";
+            var image = new Image();
+
+            image.Name = name;
+            Assert.AreEqual(name, image.Name);
+        }
+
+        [Test]
+        public void FullName_GetShouldReturnTheSetValue()
+        {
+            string fullName = "FullName";
+            var image = new Image();
+
+            image.FullName = fullName;
+            Assert.AreEqual(fullName, image.FullName);
+        }
+
+        [Test]
+        public void FileExtension_GetShouldReturnTheSetValue()
+        {
+            string fileExtension = ".exe";
+            var image = new Image();
+
+            image.FileExtention = fileExtension;
+            Assert.AreEqual(fileExtension, image.FileExtention);
+        }
+
+        [Test]
+        public void NewsItems_GetShouldReturnTheSetValue()
+        {
+            var items = new List<NewsItem>();
+            var image = new Image();
+
+            image.NewsItems = items;
+            Assert.AreEqual(items, image.NewsItems);
         }
     }
 }

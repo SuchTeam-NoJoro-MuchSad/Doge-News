@@ -4,7 +4,8 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
 
 using NUnit.Framework;
-
+using DogeNews.Web.Common.Enums;
+using System.Collections.Generic;
 
 namespace DogeNews.Data.Models.Tests
 {
@@ -93,6 +94,146 @@ namespace DogeNews.Data.Models.Tests
             bool doesRequiredExist = Attribute.IsDefined(propertyInfo, typeof(RequiredAttribute));
 
             Assert.IsTrue(doesRequiredExist);
+        }
+
+        [Test]
+        public void Id_GetShouldReturnTheSetValue()
+        {
+            int id = 1;
+            var item = new NewsItem();
+
+            item.Id = id;
+            Assert.AreEqual(id, item.Id);
+        }
+
+        [Test]
+        public void Title_GetShouldReturnTheSetValue()
+        {
+            string title = "title";
+            var item = new NewsItem();
+
+            item.Title = title;
+            Assert.AreEqual(title, item.Title);
+        }
+
+        [Test]
+        public void SubTitle_GetShouldReturnTheSetValue()
+        {
+            string subtitle = "subtitle";
+            var item = new NewsItem();
+
+            item.Subtitle = subtitle;
+            Assert.AreEqual(subtitle, item.Subtitle);
+        }
+
+        [Test]
+        public void Contetn_GetShouldReturnTheSetValue()
+        {
+            string content = "title";
+            var item = new NewsItem();
+
+            item.Content = content;
+            Assert.AreEqual(content, item.Content);
+        }
+
+        [Test]
+        public void Category_GetShouldReturnTheSetValue()
+        {
+            var category = NewsCategoryType.Breaking;
+            var item = new NewsItem();
+
+            item.Category = category;
+            Assert.AreEqual(category, item.Category);
+        }
+
+        [Test]
+        public void AuthorId_GetShouldReturnTheSetValue()
+        {
+            var authorId = 1;
+            var item = new NewsItem();
+
+            item.AuthorId = authorId;
+            Assert.AreEqual(authorId, item.AuthorId);
+        }
+
+        [Test]
+        public void ImageId_GetShouldReturnTheSetValue()
+        {
+            var imageID = 1;
+            var item = new NewsItem();
+
+            item.ImageId = imageID;
+            Assert.AreEqual(imageID, item.ImageId);
+        }
+
+        [Test]
+        public void CreatedOn_GetShouldReturnTheSetValue()
+        {
+            var createdOn = DateTime.Now;
+            var item = new NewsItem();
+
+            item.CreatedOn = createdOn;
+            Assert.AreEqual(createdOn, item.CreatedOn);
+        }
+
+        [Test]
+        public void DeletedOn_GetShouldReturnTheSetValue()
+        {
+            var deletedOn = DateTime.Now;
+            var item = new NewsItem();
+
+            item.DeletedOn = deletedOn;
+            Assert.AreEqual(deletedOn, item.DeletedOn);
+        }
+
+        [Test]
+        public void IsApproved_GetShouldReturnTheSetValue()
+        {
+            var isApproved = true;
+            var item = new NewsItem();
+
+            item.IsApproved = isApproved;
+            Assert.AreEqual(isApproved, item.IsApproved);
+        }
+
+        [Test]
+        public void IsAddedByAdmin_GetShouldReturnTheSetValue()
+        {
+            var isAddedByAdmin = true;
+            var item = new NewsItem();
+
+            item.IsAddedByAdmin = isAddedByAdmin;
+            Assert.AreEqual(isAddedByAdmin, item.IsAddedByAdmin);
+        }
+
+        [Test]
+        public void Author_GetShouldReturnTheSetValue()
+        {
+            var author = new User();
+            var item = new NewsItem();
+
+            item.Author = author;
+            Assert.AreEqual(author, item.Author);
+        }
+
+        [Test]
+        public void Image_GetShouldReturnTheSetValue()
+        {
+            var image = new Image();
+            var item = new NewsItem();
+
+            item.Image = image;
+            Assert.AreEqual(image, item.Image);
+        }
+
+        [Test]
+        public void Comments_GetShouldReturnTheSetValue()
+        {
+            var comments = new List<Comment>();
+            var item = new NewsItem();
+
+            item.Comments = comments;
+            Assert.AreEqual(comments, item.Comments);
         }
     }
 }

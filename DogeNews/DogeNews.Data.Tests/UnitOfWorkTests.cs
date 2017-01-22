@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using DogeNews.Data.Contracts;
-using DogeNews.Data.Models;
-using DogeNews.Data.Repositories;
+
 using Moq;
 using NUnit.Framework;
 

@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 using NUnit.Framework;
+using DogeNews.Web.Common.Enums;
+using System.Collections.Generic;
 
 namespace DogeNews.Data.Models.Tests
 {
@@ -19,7 +21,7 @@ namespace DogeNews.Data.Models.Tests
 
             Assert.IsTrue(doesRequiredExist);
         }
-        
+
         [Test]
         public void Username_ShouldHaveMinLengthAttributeWithValue3()
         {
@@ -154,6 +156,106 @@ namespace DogeNews.Data.Models.Tests
             bool doesRequiredExist = Attribute.IsDefined(propertyInfo, typeof(RequiredAttribute));
 
             Assert.IsTrue(doesRequiredExist);
+        }
+
+        [Test]
+        public void Id_GetShouldReturnSetValue()
+        {
+            int id = 1;
+            var user = new User();
+
+            user.Id = id;
+            Assert.AreEqual(id, user.Id);
+        }
+
+        [Test]
+        public void Username_GetShouldReturnSetValue()
+        {
+            string username = "username";
+            var user = new User();
+
+            user.Username = username;
+            Assert.AreEqual(username, user.Username);
+        }
+
+        [Test]
+        public void Firstname_GetShouldReturnSetValue()
+        {
+            string firstname = "firstname";
+            var user = new User();
+
+            user.FirstName = firstname;
+            Assert.AreEqual(firstname, user.FirstName);
+        }
+
+        [Test]
+        public void Lastname_GetShouldReturnSetValue()
+        {
+            string lastname = "lastname";
+            var user = new User();
+
+            user.LastName = lastname;
+            Assert.AreEqual(lastname, user.LastName);
+        }
+
+        [Test]
+        public void Email_GetShouldReturnSetValue()
+        {
+            string email = "email";
+            var user = new User();
+
+            user.Email = email;
+            Assert.AreEqual(email, user.Email);
+        }
+
+        [Test]
+        public void Salt_GetShouldReturnSetValue()
+        {
+            string salt = "salt";
+            var user = new User();
+
+            user.Salt = salt;
+            Assert.AreEqual(salt, user.Salt);
+        }
+
+        [Test]
+        public void PassHash_GetShouldReturnSetValue()
+        {
+            string passhash = "passhash";
+            var user = new User();
+
+            user.PassHash = passhash;
+            Assert.AreEqual(passhash, user.PassHash);
+        }
+
+        [Test]
+        public void UserRole_GetShouldReturnSetValue()
+        {
+            var userrole = UserRoleType.Admin;
+            var user = new User();
+
+            user.UserRole = userrole;
+            Assert.AreEqual(userrole, user.UserRole);
+        }
+
+        [Test]
+        public void NewsItems_GetShouldReturnSetValue()
+        {
+            var items = new List<NewsItem>();
+            var user = new User();
+
+            user.NewsItems = items;
+            Assert.AreEqual(items, user.NewsItems);
+        }
+
+        [Test]
+        public void Comments_GetShouldReturnSetValue()
+        {
+            var comemnts = new List<Comment>();
+            var user = new User();
+
+            user.Comments = comemnts;
+            Assert.AreEqual(comemnts, user.Comments);
         }
     }
 }
