@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Runtime.Serialization;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Data.Repositories;
@@ -71,11 +73,11 @@ namespace DogeNews.Data.Tests
 
             var data = new List<Comment>
             {
-                new Comment { Content = "asdasdasd", Id = 1, User = null},
-                new Comment { Content = "as12312312d", Id = 2, User = null},
-                new Comment { Content = "asaasd as das dd", Id = 3, User = null},
+                new Comment {Content = "asdasdasd", Id = 1, User = null},
+                new Comment {Content = "as12312312d", Id = 2, User = null},
+                new Comment {Content = "asaasd as das dd", Id = 3, User = null},
                 expected,
-                new Comment { Content = "a123123sd", Id = 5, User = null}
+                new Comment {Content = "a123123sd", Id = 5, User = null}
             }.AsQueryable();
 
             var mockContext = new Mock<INewsDbContext>();
@@ -102,11 +104,11 @@ namespace DogeNews.Data.Tests
         {
             var data = new List<Comment>
             {
-                new Comment { Content = "asdasdasd", Id = 1, User = null},
-                new Comment { Content = "as12312312d", Id = 2, User = null},
-                new Comment { Content = "asaasd as das dd", Id = 3, User = null},
-                new Comment { Content = "asd", Id = 4, User = null },
-                new Comment { Content = "a123123sd", Id = 5, User = null}
+                new Comment {Content = "asdasdasd", Id = 1, User = null},
+                new Comment {Content = "as12312312d", Id = 2, User = null},
+                new Comment {Content = "asaasd as das dd", Id = 3, User = null},
+                new Comment {Content = "asd", Id = 4, User = null},
+                new Comment {Content = "a123123sd", Id = 5, User = null}
             }.AsQueryable();
 
             var mockContext = new Mock<INewsDbContext>();
@@ -151,7 +153,7 @@ namespace DogeNews.Data.Tests
         }
 
         [Test]
-        public void Add_ShouldThrowNullReferenceException_WhenNullInputParameterIsPassed()
+        public void Add_ShouldThrowArgumentNullException_WhenNullInputParameterIsPassed()
         {
             var mockContext = new Mock<INewsDbContext>();
 
@@ -162,28 +164,41 @@ namespace DogeNews.Data.Tests
 
             var repository = new Repository<Comment>(mockContext.Object);
 
-            Assert.Throws<NullReferenceException>(() => repository.Add(null));
+            Assert.Throws<ArgumentNullException>(() => repository.Add(null));
         }
 
         [Test]
         public void Add_ShouldNotThrow_WhenCorrectInputParameterIsPassed()
         {
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>();
+            var mockComment = new Mock<Comment>();
+            var fakeEntry =
+                (DbEntityEntry<Comment>)FormatterServices.GetSafeUninitializedObject(typeof(DbEntityEntry<Comment>));
 
             mockContext.Setup(x => x.Set<Comment>()).Returns(mockSet.Object);
+            mockContext.Setup(x => x.Entry(It.IsAny<Comment>())).Returns(fakeEntry);
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
-            var mockComment = new Mock<Comment>();
 
             var repository = new Repository<Comment>(mockContext.Object);
 
-            Assert.Throws<NullReferenceException>(() => repository.Add(mockComment.Object));
+            try
+            {
+                repository.Add(mockComment.Object);
+            }
+            catch (NullReferenceException e)
+            {
+                // cannot activate or instance or mock a class with an internal constructor
+                // the SafeUninitializedObject does not have any properties or methods, so the
+                // DbEntityEntry.State is null
+            }
+
+            mockContext.Verify(x => x.Entry(mockComment.Object), Times.AtLeastOnce);
         }
 
         [Test]
-        public void Delete_ShouldThrowNullReferenceException_WhenNullInputParameterIsPassed()
+        public void Delete_ShouldThrowArgumentNullException_WhenNullInputParameterIsPassed()
         {
             var mockContext = new Mock<INewsDbContext>();
 
@@ -194,7 +209,7 @@ namespace DogeNews.Data.Tests
 
             var repository = new Repository<Comment>(mockContext.Object);
 
-            Assert.Throws<NullReferenceException>(() => repository.Delete(null));
+            Assert.Throws<ArgumentNullException>(() => repository.Delete(null));
         }
 
         [Test]
@@ -211,11 +226,22 @@ namespace DogeNews.Data.Tests
 
             var repository = new Repository<Comment>(mockContext.Object);
 
-            Assert.Throws<NullReferenceException>(() => repository.Delete(mockComment.Object));
+            try
+            {
+                repository.Delete(mockComment.Object);
+            }
+            catch (NullReferenceException e)
+            {
+                // cannot activate or instance or mock a class with an internal constructor
+                // the SafeUninitializedObject does not have any properties or methods, so the
+                // DbEntityEntry.State is null
+            }
+
+            mockContext.Verify(x => x.Entry(mockComment.Object), Times.AtLeastOnce);
         }
 
         [Test]
-        public void Update_ShouldThrowNullReferenceException_WhenNullInputParameterIsPassed()
+        public void Update_ShouldThrowArgumentNullException_WhenNullInputParameterIsPassed()
         {
             var mockContext = new Mock<INewsDbContext>();
 
@@ -226,7 +252,7 @@ namespace DogeNews.Data.Tests
 
             var repository = new Repository<Comment>(mockContext.Object);
 
-            Assert.Throws<NullReferenceException>(() => repository.Update(null));
+            Assert.Throws<ArgumentNullException>(() => repository.Update(null));
         }
 
         [Test]
@@ -243,7 +269,18 @@ namespace DogeNews.Data.Tests
 
             var repository = new Repository<Comment>(mockContext.Object);
 
-            Assert.Throws<NullReferenceException>(() => repository.Update(mockComment.Object));
+            try
+            {
+                repository.Update(mockComment.Object);
+            }
+            catch (NullReferenceException e)
+            {
+                // cannot activate or instance or mock a class with an internal constructor
+                // the SafeUninitializedObject does not have any properties or methods, so the
+                // DbEntityEntry.State is null
+            }
+
+            mockContext.Verify(x => x.Entry(mockComment.Object), Times.AtLeastOnce);
         }
 
         [Test]

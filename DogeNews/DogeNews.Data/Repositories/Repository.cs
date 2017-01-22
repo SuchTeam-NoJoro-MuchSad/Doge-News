@@ -52,14 +52,35 @@ namespace DogeNews.Data.Repositories
 
         public void Add(T entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             var entry = AttachIfDetached(entity);
             entry.State = EntityState.Added;
         }
 
         public void Delete(T entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             var entry = AttachIfDetached(entity);
             entry.State = EntityState.Deleted;
+        }
+
+        public void Update(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            var entry = AttachIfDetached(entity);
+            entry.State = EntityState.Modified;
         }
 
         public IEnumerable<T> GetAll()
@@ -106,11 +127,6 @@ namespace DogeNews.Data.Repositories
             return this.DbSet.Find(id);
         }
 
-        public void Update(T entity)
-        {
-            var entry = AttachIfDetached(entity);
-            entry.State = EntityState.Modified;
-        }
 
         private DbEntityEntry AttachIfDetached(T entity)
         {
