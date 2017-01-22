@@ -94,15 +94,5 @@ namespace DogeNews.Data.Models.Tests
 
             Assert.IsTrue(doesRequiredExist);
         }
-
-        [Test]
-        public void Author_ShouldHaveRequiredAttribute()
-        {
-            var newsItemType = typeof(NewsItem);
-            var propertyInfo = newsItemType.GetProperty("Author");
-            bool doesRequiredExist = Attribute.IsDefined(propertyInfo, typeof(RequiredAttribute));
-
-            Assert.IsTrue(doesRequiredExist);
-        }
     }
 }

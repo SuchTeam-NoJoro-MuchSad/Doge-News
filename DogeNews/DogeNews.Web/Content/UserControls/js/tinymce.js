@@ -12,6 +12,7 @@
             ],
             toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
             toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
+            height: 300
         });
 
         let $textArea = $("#tinymce-textarea");

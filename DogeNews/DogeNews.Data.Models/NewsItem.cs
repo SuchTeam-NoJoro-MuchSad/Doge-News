@@ -7,15 +7,14 @@ using DogeNews.Web.Common.Enums;
 
 namespace DogeNews.Data.Models
 {
-    public class NewsItem 
+    public class NewsItem
     {
         private ICollection<Comment> comments;
-        private DateTime? createdOn = null;
 
         public NewsItem()
         {
             this.comments = new HashSet<Comment>();
-            this.createdOn = DateTime.UtcNow;
+            this.CreatedOn = DateTime.UtcNow;
         }
 
         public int Id { get; set; }
@@ -35,21 +34,21 @@ namespace DogeNews.Data.Models
         [Required]
         public NewsCategoryType Category { get; set; }
 
-        [Required]
-        public User Author { get; set; }
+        public int AuthorId { get; set; }
 
-        public Image Image { get; set; }
+        public int ImageId { get; set; }
 
-        public DateTime? CreatedOn
-        {
-            get { return this.createdOn; }
-
-            set { this.createdOn = value; }
-        }
+        public DateTime CreatedOn { get; set; }
 
         public DateTime? DeletedOn { get; set; }
 
         public bool IsApproved { get; set; }
+
+        public bool IsAddedByAdmin { get; set; }
+        
+        public virtual User Author { get; set; }
+
+        public virtual Image Image { get; set; }
 
         public virtual ICollection<Comment> Comments
         {

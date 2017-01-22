@@ -3,6 +3,6 @@
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script src="../../Content/UserControls/js/tinymce.js"></script>
 
-<div id="createNewsArticleContainer">
+<div id="createNewsArticleContainer">    
     <textarea id="TinymceTextarea" runat="server"></textarea>
 </div>

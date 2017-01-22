@@ -12,6 +12,7 @@
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="~/Content/materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="~/Content/master.css" type="text/css" rel="stylesheet" />
     <%--<link href="~/Content/materialize/css" type="text/css" rel="stylesheet" media="screen,projection">--%>
 
 
@@ -24,7 +25,7 @@
 </head>
 <body>
 
-    <form runat="server">
+    <form runat="server" enctype="multipart/form-data">
         <asp:ScriptManager runat="server">
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
@@ -48,32 +49,58 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <!-- NAVIGATION -->
+        <!-- USER NAVIGATION -->
+        <div id="master-small-nav">
+            <ul class="right hide-on-med-and-down">
+                <!-- LOGIN AND REGISTER -->
+                <% if (this.Username == null)
+                    { %>
+                <li>
+                    <a href="/Auth/Register.aspx" class="tooltipped" data-tooltip="Register">
+                        <i class="material-icons">assignment</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Auth/Login.aspx" class="tooltipped" data-tooltip="Login">
+                        <i class="material-icons">perm_identity</i>
+                    </a>
+                </li>
+                <% } %>
+
+
+                <!-- LOGOUT -->
+                <% if (this.Username != null)
+                    { %>
+                <li>
+                    <a runat="server" onserverclick="Logout" class="tooltipped" data-tooltip="Logout">
+                        <i class="material-icons right">exit_to_app</i>
+                    </a>
+                </li>
+                <% } %>
+
+
+                <!-- ADMIN DROPDOWN -->
+                <% if (this.UserRole == "Admin")
+                    { %>
+                <li>
+                    <a class="dropdown-button tooltipped" href="#" data-activates="admin-dropdown" data-tooltip="Admin">
+                        <i class="material-icons right">build</i>
+                    </a>
+                    <ul id="admin-dropdown" class="dropdown-content" style="position: absolute; top: 0px; left: 601.969px; opacity: 1; display: none;">
+                        <li><a href="/User/Admin/AddNews">Add News</a></li>
+                    </ul>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+
+        <!-- MAIN NAVIGATION -->
         <nav>
             <div class="nav-wrapper">
-                <a href="#!" class="brand-logo">Logo</a>
+                <a href="/" class="brand-logo">Logo</a>
 
                 <ul class="right hide-on-med-and-down">
-                    <% if (this.Username == null)
-                        { %>
-                    <li><a href="/Auth/Register.aspx">Rigister</a></li>
-                    <li><a href="/Auth/Login.aspx">Login</a></li>
-                    <% } %>
-
-                    <!-- ADMIN DROPDOWN -->
-                    <% if (this.UserRole == "Admin")
-                        { %>
-                    <li>
-                        <a class="dropdown-button" href="#!" data-activates="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a>
-                        <ul id="dropdown1" class="dropdown-content" style="width: 137px; position: absolute; top: 0px; left: 601.969px; opacity: 1; display: none;">
-                            <li><a href="/User/Admin/AddNews">Add News</a></li>
-                        </ul>
-                    </li>
-                    <% } %>
-
-                    <% if (this.Username != null) { %>
-                        <li><a runat="server" onserverclick="Logout">Logout</a></li>
-                    <% } %>
+                    <!-- MAIN SITE NAVIGATION SHOULD BE HERE -->
                 </ul>
             </div>
         </nav>

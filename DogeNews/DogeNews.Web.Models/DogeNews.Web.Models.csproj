@@ -90,6 +90,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImageWebModel.cs" />
+    <Compile Include="NewsWebModel.cs" />
     <Compile Include="UserWebModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

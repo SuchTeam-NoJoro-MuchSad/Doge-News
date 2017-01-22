@@ -11,6 +11,7 @@ namespace DogeNews.Web.Bindings
         {
             this.Bind<IAuthService>().To<AuthService>();
             this.Bind<ICryptographicService>().To<CryptographicService>();
+            this.Bind<INewsService>().To<NewsService>();
         }
     }
 }

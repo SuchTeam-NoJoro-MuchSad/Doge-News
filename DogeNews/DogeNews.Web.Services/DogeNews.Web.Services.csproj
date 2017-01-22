@@ -94,7 +94,9 @@
     <Compile Include="AuthService.cs" />
     <Compile Include="Contracts\IAuthService.cs" />
     <Compile Include="Contracts\ICryptographicService.cs" />
+    <Compile Include="Contracts\INewsService.cs" />
     <Compile Include="CryptographicService.cs" />
+    <Compile Include="NewsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

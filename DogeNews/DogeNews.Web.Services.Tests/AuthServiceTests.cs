@@ -172,7 +172,7 @@ namespace DogeNews.Web.Services.Tests
             var passHashString = Convert.ToBase64String(passHash);
             var userModel = new UserWebModel { Username = "username", Password = "123456", Salt = Convert.ToBase64String(salt) };
             var newUser = new User { Username = "username", PassHash = passHashString, Salt = saltString };
-            
+
             this.mockedCrypthographicService.Setup(x => x.GetSalt()).Returns(salt);
             this.mockedCrypthographicService
                 .Setup(x => x.HashPassword(It.IsAny<string>(), It.IsAny<byte[]>()))
@@ -515,10 +515,218 @@ namespace DogeNews.Web.Services.Tests
                 this.mockedMapperProvider.Object,
                 this.mockedEncryptionProvider.Object,
                 this.mockedConfigProvider.Object);
-            
+
             var cookieCollection = new HttpCookieCollection();
-            
-            Assert.DoesNotThrow(()=> authService.LogoutUser(cookieCollection));
+
+            Assert.DoesNotThrow(() => authService.LogoutUser(cookieCollection));
+        }
+
+        [Test]
+        public void SeedAdminUser_UserRepositoryGetFirstShouldBeCalled()
+        {
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            authService.SeedAdminUser();
+            this.mockedUserRepository
+                .Verify(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>()), Times.Once);
+        }
+
+        [Test]
+        public void SeedAdminUser_CryptographicServiceGetSaltShouldBeCalledWhenAdminUserIsNull()
+        {
+            this.mockedUserRepository
+                .Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>()))
+                .Returns<User>(null);
+            this.mockedCrypthographicService
+                .Setup(x => x.GetSalt())
+                .Returns(new byte[10]);
+            this.mockedCrypthographicService
+                .Setup(x => x.HashPassword(It.IsAny<string>(), It.IsAny<byte[]>()))
+                .Returns(new byte[10]);
+            this.mockedCrypthographicService
+                .Setup(x => x.ByteArrayToString(It.IsAny<byte[]>()))
+                .Returns<byte[]>(x => Convert.ToBase64String(x));
+
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            authService.SeedAdminUser();
+            this.mockedCrypthographicService.Verify(x => x.GetSalt(), Times.Once);
+        }
+
+        [Test]
+        public void SeedAdminUser_CryptographicServiceHashPasswordShouldBeCalledWhenAdminUserIsNullWithCorrectParams()
+        {
+            string adminPassword = "aaa";
+            byte[] salt = new byte[10];
+
+            this.mockedUserRepository
+                .Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>()))
+                .Returns<User>(null);
+            this.mockedCrypthographicService
+                .Setup(x => x.GetSalt())
+                .Returns(salt);
+            this.mockedCrypthographicService
+                .Setup(x => x.HashPassword(It.IsAny<string>(), It.IsAny<byte[]>()))
+                .Returns(new byte[10]);
+            this.mockedCrypthographicService
+                .Setup(x => x.ByteArrayToString(It.IsAny<byte[]>()))
+                .Returns<byte[]>(x => Convert.ToBase64String(x));
+            this.mockedConfigProvider.SetupGet(x => x.AdminPassword).Returns(adminPassword);
+
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            authService.SeedAdminUser();
+            this.mockedCrypthographicService
+                .Verify(x => x.HashPassword(
+                        It.Is<string>(a => a == adminPassword),
+                        It.Is<byte[]>(a => a == salt)),
+                    Times.Once);
+        }
+
+        [Test]
+        public void SeedAdminUser_CryptographicServiceByteArrayToStringShouldBeCalledWhenAdminUserIsNullWithSalt()
+        {
+            string adminPassword = "aaa";
+            byte[] salt = new byte[10];
+
+            this.mockedUserRepository
+                .Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>()))
+                .Returns<User>(null);
+            this.mockedCrypthographicService
+                .Setup(x => x.GetSalt())
+                .Returns(salt);
+            this.mockedCrypthographicService
+                .Setup(x => x.HashPassword(It.IsAny<string>(), It.IsAny<byte[]>()))
+                .Returns(new byte[10]);
+            this.mockedCrypthographicService
+                .Setup(x => x.ByteArrayToString(It.IsAny<byte[]>()))
+                .Returns<byte[]>(x => Convert.ToBase64String(x));
+            this.mockedConfigProvider.SetupGet(x => x.AdminPassword).Returns(adminPassword);
+
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            authService.SeedAdminUser();
+            this.mockedCrypthographicService.Verify(x => x.ByteArrayToString(It.Is<byte[]>(a => a == salt)), Times.Once);
+        }
+
+        [Test]
+        public void SeedAdminUser_CryptographicServiceByteArrayToStringShouldBeCalledWhenAdminUserIsNullWithPassHash()
+        {
+            string adminPassword = "aaa";
+            byte[] passHash = new byte[10];
+
+            this.mockedUserRepository
+                .Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>()))
+                .Returns<User>(null);
+            this.mockedCrypthographicService
+                .Setup(x => x.GetSalt())
+                .Returns(new byte[10]);
+            this.mockedCrypthographicService
+                .Setup(x => x.HashPassword(It.IsAny<string>(), It.IsAny<byte[]>()))
+                .Returns(passHash);
+            this.mockedCrypthographicService
+                .Setup(x => x.ByteArrayToString(It.IsAny<byte[]>()))
+                .Returns<byte[]>(x => Convert.ToBase64String(x));
+            this.mockedConfigProvider.SetupGet(x => x.AdminPassword).Returns(adminPassword);
+
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            authService.SeedAdminUser();
+            this.mockedCrypthographicService.Verify(x => x.ByteArrayToString(It.Is<byte[]>(a => a == passHash)), Times.Once);
+        }
+
+        [Test]
+        public void SeedAdminUser_UserRepositoryAddShouldBeCalled()
+        {
+            string adminPassword = "aaa";
+            byte[] passHash = new byte[10];
+
+            this.mockedUserRepository
+                .Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>()))
+                .Returns<User>(null);
+            this.mockedCrypthographicService
+                .Setup(x => x.GetSalt())
+                .Returns(new byte[10]);
+            this.mockedCrypthographicService
+                .Setup(x => x.HashPassword(It.IsAny<string>(), It.IsAny<byte[]>()))
+                .Returns(passHash);
+            this.mockedCrypthographicService
+                .Setup(x => x.ByteArrayToString(It.IsAny<byte[]>()))
+                .Returns<byte[]>(x => Convert.ToBase64String(x));
+            this.mockedConfigProvider.SetupGet(x => x.AdminPassword).Returns(adminPassword);
+
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            authService.SeedAdminUser();
+            this.mockedUserRepository.Verify(x => x.Add(It.IsAny<User>()), Times.Once);
+        }
+
+        [Test]
+        public void SeedAdminUser_NewsDataCommitShouldBeCalled()
+        {
+            string adminPassword = "aaa";
+            byte[] passHash = new byte[10];
+
+            this.mockedUserRepository
+                .Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>()))
+                .Returns<User>(null);
+            this.mockedCrypthographicService
+                .Setup(x => x.GetSalt())
+                .Returns(new byte[10]);
+            this.mockedCrypthographicService
+                .Setup(x => x.HashPassword(It.IsAny<string>(), It.IsAny<byte[]>()))
+                .Returns(passHash);
+            this.mockedCrypthographicService
+                .Setup(x => x.ByteArrayToString(It.IsAny<byte[]>()))
+                .Returns<byte[]>(x => Convert.ToBase64String(x));
+            this.mockedConfigProvider.SetupGet(x => x.AdminPassword).Returns(adminPassword);
+
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            authService.SeedAdminUser();
+            this.mockedData.Verify(x => x.Commit(), Times.Once);
         }
     }
 }

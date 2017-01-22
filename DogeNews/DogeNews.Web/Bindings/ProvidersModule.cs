@@ -19,6 +19,7 @@ namespace DogeNews.Web.Bindings
             this.Bind<ICookieProvider>().To<CookieProvider>();
             this.Bind<IAppConfigurationProvider>().To<AppConfigurationProvider>();
             this.Bind<IDateTimeProvider>().To<DateTimeProvider>();
+            this.Bind<IFileProvider>().To<FileProvider>();
         }
     }
 }

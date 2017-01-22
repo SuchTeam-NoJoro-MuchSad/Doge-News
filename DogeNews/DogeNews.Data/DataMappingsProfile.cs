@@ -11,6 +11,12 @@ namespace DogeNews.Data
         {
             this.CreateMap<User, UserWebModel>();
             this.CreateMap<UserWebModel, User>();
+
+            this.CreateMap<NewsItem, NewsWebModel>();
+            this.CreateMap<NewsWebModel, NewsItem>();
+
+            this.CreateMap<Image, ImageWebModel>();
+            this.CreateMap<ImageWebModel, Image>();
         }
     }
 }
