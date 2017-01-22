@@ -4,6 +4,8 @@ namespace DogeNews.Web.Models
 {
     public class NewsWebModel
     {
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public NewsCategoryType Category { get; set; }
