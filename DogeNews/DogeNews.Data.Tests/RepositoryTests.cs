@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Data.Repositories;
+
 using Moq;
 using NUnit.Framework;
 
@@ -20,7 +21,6 @@ namespace DogeNews.Data.Tests
         {
             var mockContext = new Mock<INewsDbContext>();
             var repository = new Repository<Comment>(mockContext.Object);
-
             Assert.NotNull(repository.Context);
         }
 
@@ -28,7 +28,6 @@ namespace DogeNews.Data.Tests
         public void Constructor_InitializesRepositoryDbSet()
         {
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>().Object;
             mockContext.Setup(x => x.Set<Comment>()).Returns(mockSet);
 
@@ -41,10 +40,8 @@ namespace DogeNews.Data.Tests
         public void Constructor_InitializesRepositoryDbSetWithCorrectType()
         {
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>().Object;
             mockContext.Setup(x => x.Set<Comment>()).Returns(mockSet);
-
             var repository = new Repository<Comment>(mockContext.Object);
 
             Assert.NotNull(repository.DbSet);
@@ -55,7 +52,6 @@ namespace DogeNews.Data.Tests
         public void All_ReturnsRepositoryDbSet()
         {
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>().Object;
             mockContext.Setup(x => x.Set<Comment>()).Returns(mockSet);
 
@@ -70,7 +66,6 @@ namespace DogeNews.Data.Tests
         public void GetFirst_ShouldReturnCorrectObjectIfObjectIsFound()
         {
             var expected = new Comment { Content = "asd", Id = 4, User = null };
-
             var data = new List<Comment>
             {
                 new Comment {Content = "asdasdasd", Id = 1, User = null},
@@ -90,10 +85,8 @@ namespace DogeNews.Data.Tests
 
             mockContext.Setup(x => x.Set<Comment>()).Returns(mockSet.Object);
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
-
-
+            
             var repository = new Repository<Comment>(mockContext.Object);
-
             var reslut = repository.GetFirst(x => x.Content == "asd");
 
             Assert.AreSame(expected, reslut);
@@ -112,8 +105,8 @@ namespace DogeNews.Data.Tests
             }.AsQueryable();
 
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>();
+
             mockSet.As<IQueryable<Comment>>().Setup(x => x.Provider).Returns(data.Provider);
             mockSet.As<IQueryable<Comment>>().Setup(x => x.Expression).Returns(data.Expression);
             mockSet.As<IQueryable<Comment>>().Setup(x => x.ElementType).Returns(data.ElementType);
@@ -124,7 +117,6 @@ namespace DogeNews.Data.Tests
 
 
             var repository = new Repository<Comment>(mockContext.Object);
-
             var reslut = repository.GetFirst(x => x.Content == "notexisting");
 
             Assert.IsNull(reslut);
@@ -133,21 +125,15 @@ namespace DogeNews.Data.Tests
         [Test]
         public void GetById_SholdBeCalledOnceWithCorrectParameters()
         {
-
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>();
 
             mockSet.Setup(x => x.Find(It.IsAny<int>())).Returns(new Comment());
-
             mockContext.Setup(x => x.Set<Comment>()).Returns(mockSet.Object);
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
-
             var repository = new Repository<Comment>(mockContext.Object);
-
             var reslut = repository.GetById(4);
-
 
             mockSet.Verify(m => m.Find(4), Times.Once);
         }
@@ -156,7 +142,6 @@ namespace DogeNews.Data.Tests
         public void Add_ShouldThrowArgumentNullException_WhenNullInputParameterIsPassed()
         {
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>();
 
             mockContext.Setup(x => x.Set<Comment>()).Returns(mockSet.Object);
@@ -173,16 +158,14 @@ namespace DogeNews.Data.Tests
             var mockContext = new Mock<INewsDbContext>();
             var mockSet = new Mock<IDbSet<Comment>>();
             var mockComment = new Mock<Comment>();
-            var fakeEntry =
-                (DbEntityEntry<Comment>)FormatterServices.GetSafeUninitializedObject(typeof(DbEntityEntry<Comment>));
+            var fakeEntry = (DbEntityEntry<Comment>)FormatterServices
+                .GetSafeUninitializedObject(typeof(DbEntityEntry<Comment>));
 
             mockContext.Setup(x => x.Set<Comment>()).Returns(mockSet.Object);
             mockContext.Setup(x => x.Entry(It.IsAny<Comment>())).Returns(fakeEntry);
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
-
             var repository = new Repository<Comment>(mockContext.Object);
-
             try
             {
                 repository.Add(mockComment.Object);
@@ -201,14 +184,12 @@ namespace DogeNews.Data.Tests
         public void Delete_ShouldThrowArgumentNullException_WhenNullInputParameterIsPassed()
         {
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>();
 
             mockContext.Setup(x => x.Set<Comment>()).Returns(mockSet.Object);
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
             var repository = new Repository<Comment>(mockContext.Object);
-
             Assert.Throws<ArgumentNullException>(() => repository.Delete(null));
         }
 
@@ -216,14 +197,12 @@ namespace DogeNews.Data.Tests
         public void Delete_ShouldNotThrow_WhenCorrectInputParameterIsPassed()
         {
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>();
 
             mockContext.Setup(x => x.Set<Comment>()).Returns(mockSet.Object);
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
             var mockComment = new Mock<Comment>();
-
             var repository = new Repository<Comment>(mockContext.Object);
 
             try
@@ -244,14 +223,12 @@ namespace DogeNews.Data.Tests
         public void Update_ShouldThrowArgumentNullException_WhenNullInputParameterIsPassed()
         {
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>();
 
             mockContext.Setup(x => x.Set<Comment>()).Returns(mockSet.Object);
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
             var repository = new Repository<Comment>(mockContext.Object);
-
             Assert.Throws<ArgumentNullException>(() => repository.Update(null));
         }
 
@@ -259,14 +236,12 @@ namespace DogeNews.Data.Tests
         public void Update_ShouldNotThrow_WhenCorrectInputParameterIsPassed()
         {
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>();
 
             mockContext.Setup(x => x.Set<Comment>()).Returns(mockSet.Object);
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
             var mockComment = new Mock<Comment>();
-
             var repository = new Repository<Comment>(mockContext.Object);
 
             try
@@ -307,7 +282,6 @@ namespace DogeNews.Data.Tests
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
             var repository = new Repository<Comment>(mockContext.Object);
-
             var reslut = repository.GetAll();
 
             Assert.AreEqual(data, reslut);
@@ -326,8 +300,8 @@ namespace DogeNews.Data.Tests
             }.AsQueryable();
 
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>();
+
             mockSet.As<IQueryable<Comment>>().Setup(x => x.Provider).Returns(data.Provider);
             mockSet.As<IQueryable<Comment>>().Setup(x => x.Expression).Returns(data.Expression);
             mockSet.As<IQueryable<Comment>>().Setup(x => x.ElementType).Returns(data.ElementType);
@@ -337,7 +311,6 @@ namespace DogeNews.Data.Tests
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
             var repository = new Repository<Comment>(mockContext.Object);
-
             var reslut = repository.GetAll(x => x.Content == "asd");
 
             Assert.AreEqual(2, reslut.Count());
@@ -359,8 +332,8 @@ namespace DogeNews.Data.Tests
             }.AsQueryable();
 
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>();
+
             mockSet.As<IQueryable<Comment>>().Setup(x => x.Provider).Returns(data.Provider);
             mockSet.As<IQueryable<Comment>>().Setup(x => x.Expression).Returns(data.Expression);
             mockSet.As<IQueryable<Comment>>().Setup(x => x.ElementType).Returns(data.ElementType);
@@ -370,7 +343,6 @@ namespace DogeNews.Data.Tests
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
             var repository = new Repository<Comment>(mockContext.Object);
-
             IList<Comment> reslut = repository.GetAll(x => x.Content == "asd", x => x.Id).ToList();
 
             Assert.AreEqual(2, reslut.Count());
@@ -396,7 +368,6 @@ namespace DogeNews.Data.Tests
             }.AsQueryable();
 
             var mockContext = new Mock<INewsDbContext>();
-
             var mockSet = new Mock<IDbSet<Comment>>();
             mockSet.As<IQueryable<Comment>>().Setup(x => x.Provider).Returns(data.Provider);
             mockSet.As<IQueryable<Comment>>().Setup(x => x.Expression).Returns(data.Expression);
@@ -410,13 +381,14 @@ namespace DogeNews.Data.Tests
 
             List<Comment> reslut = repository
                 .GetAll(x => x.Content == "asd",
-                x => x.Id,
-                x => new Comment
-                {
-                    Content = x.Content + "New",
-                    Id = x.Id,
-                    User = null
-                }).ToList();
+                    x => x.Id,
+                    x => new Comment
+                    {
+                        Content = x.Content + "New",
+                        Id = x.Id,
+                        User = null
+                    })
+                    .ToList();
 
             //Filter
             Assert.AreEqual(3, reslut.Count());
@@ -428,7 +400,6 @@ namespace DogeNews.Data.Tests
             Assert.AreEqual("asdNew", reslut[0].Content);
             Assert.AreEqual("asdNew", reslut[1].Content);
             Assert.AreEqual("asdNew", reslut[2].Content);
-
         }
     }
 }
