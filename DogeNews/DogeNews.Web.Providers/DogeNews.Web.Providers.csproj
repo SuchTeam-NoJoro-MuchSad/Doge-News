@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\DateTimeProvider.cs" />
+    <Compile Include="Common\FileProvider.cs" />
     <Compile Include="Config\AppConfigurationProvider.cs" />
     <Compile Include="Contracts\IAppConfigurationProvider.cs" />
     <Compile Include="Contracts\ICookieProvider.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Contracts\ICryptoServiceSaltProvider.cs" />
     <Compile Include="Contracts\IDateTimeProvider.cs" />
     <Compile Include="Contracts\IEncryptionProvider.cs" />
+    <Compile Include="Contracts\IFileNameProvider.cs" />
     <Compile Include="Contracts\IMapperProvider.cs" />
     <Compile Include="Auth\CookieProvider.cs" />
     <Compile Include="Encryption\EncryptionProvider.cs" />

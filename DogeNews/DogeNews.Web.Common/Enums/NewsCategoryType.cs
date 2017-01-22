@@ -2,10 +2,10 @@
 {
     public enum NewsCategoryType
     {
-        Breaking,
-        Sports,
-        Weather,
-        Political,
-        Business
+        Breaking = 0,
+        Sports = 1,
+        Weather = 2,
+        Political = 3,
+        Business = 4
     }
 }

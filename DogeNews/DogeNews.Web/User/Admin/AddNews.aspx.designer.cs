@@ -13,12 +13,39 @@ namespace DogeNews.Web.User.Admin {
     public partial class AddNews {
         
         /// <summary>
-        /// AddNewsForm control.
+        /// TitleInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm AddNewsForm;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText TitleInput;
+        
+        /// <summary>
+        /// ImageFileUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload ImageFileUpload;
+        
+        /// <summary>
+        /// AddNewsControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DogeNews.Web.UserControls.News.CreateNewsArticle AddNewsControl;
+        
+        /// <summary>
+        /// CategorySelect control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect CategorySelect;
     }
 }

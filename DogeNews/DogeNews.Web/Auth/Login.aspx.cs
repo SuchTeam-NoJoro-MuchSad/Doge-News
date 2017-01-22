@@ -21,13 +21,16 @@ namespace DogeNews.Web.Auth
 
         protected void LoginSubmitButton_OnClickSubmitButton_Click(object sender, EventArgs e)
         {
-            var eventArgs = new LoginEventArgs
+            if (this.Page.IsValid)
             {
-                Username = this.Server.HtmlEncode(this.Username.Value),
-                Password = this.Server.HtmlEncode(this.PasswordInput.Value)
-            };
-            
-            this.LoginUser(this, eventArgs);
+                var eventArgs = new LoginEventArgs
+                {
+                    Username = this.Server.HtmlEncode(this.Username.Value),
+                    Password = this.Server.HtmlEncode(this.PasswordInput.Value)
+                };
+
+                this.LoginUser(this, eventArgs);
+            }
         }
     }
 }

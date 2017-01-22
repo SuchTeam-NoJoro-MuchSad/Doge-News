@@ -1,0 +1,27 @@
+﻿#master-small-nav {
+    background-color: black;
+    display: block;
+    height: 40px;
+}
+
+#master-small-nav ul {
+    margin: 0;
+    margin-top: 10px;
+}
+
+#master-small-nav li {
+    display: inline;
+    margin-right: 10px;
+}
+
+#master-small-nav li a {
+    color: white !important;
+}
+
+#master-small-nav li a i {
+    font-size: 20px;
+}
+
+#admin-dropdown li a {
+    color: black !important;
+}
