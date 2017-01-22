@@ -77,6 +77,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <Compile Include="UnitOfWorkTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DogeNews.Data.Models\DogeNews.Data.Models.csproj">
