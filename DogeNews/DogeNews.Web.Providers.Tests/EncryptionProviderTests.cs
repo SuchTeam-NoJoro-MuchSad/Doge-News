@@ -2,6 +2,7 @@
 using DogeNews.Web.Providers.Encryption;
 
 using NUnit.Framework;
+using System;
 
 namespace DogeNews.Web.Providers.Tests
 {
@@ -16,28 +17,36 @@ namespace DogeNews.Web.Providers.Tests
             this.encryptionProvider = new EncryptionProvider();
         }
 
-        [Test]
-        public void Encrypt_ShouldReturnStringWithCorrectLength()
+        [TestCase(null)]
+        [TestCase("")]
+        public void Encrypt_ShouldThrowArgumentNullExceptionWhenTextIsNullOrEmpty(string text)
         {
-            string text = "aaa";
-            string key = "bbb";
-
-            int expected = 128;
-            int actual = this.encryptionProvider.Encrypt(text, key).Length;
-
-            Assert.AreEqual(expected, actual);
+            var exception = Assert.Throws<ArgumentNullException>(() => this.encryptionProvider.Encrypt(text, "key"));
+            Assert.AreEqual("text", exception.ParamName);
         }
 
-        [Test]
-        public void Decrypt_ShouldReturnCorrectDecryptedString()
+        [TestCase(null)]
+        [TestCase("")]
+        public void Encrypt_ShouldThrowArgumentNullExceptionWhenKeyIsNullOrEmpty(string key)
         {
-            string text = "wPQ4UYvEcuGF60jfCdSmsz + kDvkcp357JajRWXnktGPA9DhRi8Ry4YXrSN8J1KazP6QO + RynfnslqNFZeeS0Y77lbBKk0SyBtkrgpgJmX / VNYgdIkVOlH6Qupo42i + m5";
-            string key = "bbb";
-            
-            string expected = "aaa";
-            string actual = this.encryptionProvider.Decrypt(text, key);
+            var exception = Assert.Throws<ArgumentNullException>(() => this.encryptionProvider.Encrypt("text", key));
+            Assert.AreEqual("key", exception.ParamName);
+        }
 
-            Assert.AreEqual(expected, actual);
+        [TestCase(null)]
+        [TestCase("")]
+        public void Decrypt_ShouldThrowArgumentNullExceptionWhenTextIsNullOrEmpty(string text)
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() => this.encryptionProvider.Encrypt(text, "key"));
+            Assert.AreEqual("text", exception.ParamName);
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        public void Decrypt_ShouldThrowArgumentNullExceptionWhenKeyIsNullOrEmpty(string key)
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() => this.encryptionProvider.Encrypt("text", key));
+            Assert.AreEqual("key", exception.ParamName);
         }
     }
 }

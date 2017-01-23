@@ -20,7 +20,7 @@ namespace DogeNews.Web
         
         [Inject]
         public IAuthService AuthService { get; set; }
-        
+                
         protected void Page_Init(object sender, EventArgs e)
         {
             // The code below helps to protect against XSRF attacks
@@ -58,8 +58,15 @@ namespace DogeNews.Web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.Username = this.Session["Username"] as string;
-            this.UserRole = this.Session["UserRole"] as string;
+            var userModel = this.AuthService.GetAuthCookieUserData(this.Request.Cookies);
+            if (userModel != null)
+            {
+                this.Session["Username"] = userModel.Username;
+                this.Session["UserRole"] = userModel.UserRole;
+
+                this.Username = userModel.Username;
+                this.UserRole = userModel.UserRole;
+            }
         }
 
         protected void MasterPagePreload(object sender, EventArgs e)

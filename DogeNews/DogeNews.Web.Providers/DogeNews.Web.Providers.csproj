@@ -63,6 +63,12 @@
     <Compile Include="Encryption\RfcCryptoServiceHashProvider.cs" />
     <Compile Include="Encryption\RngCryptoServiceSaltProvider.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DogeNews.Web.Models\DogeNews.Web.Models.csproj">
+      <Project>{fad62fe0-38ff-4c48-8663-d6036b0e83e0}</Project>
+      <Name>DogeNews.Web.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

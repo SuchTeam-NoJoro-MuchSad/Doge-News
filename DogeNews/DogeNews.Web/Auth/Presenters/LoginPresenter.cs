@@ -49,23 +49,19 @@ namespace DogeNews.Web.Auth.Presenters
                 .GetAuthenticationCookie(this.configProvider.AuthCookieName, CookieLifeTimeInDays, values);
 
             this.Response.Cookies.Add(cookie);
-            this.HttpContext.Session["Username"] = user.Username;
-            this.HttpContext.Session["Id"] = user.Id;
-            this.HttpContext.Session["UserRole"] = user.UserRole.ToString();
             this.HttpContext.Response.Redirect("/");
         }
 
         private IEnumerable<KeyValuePair<string, string>> GetCookieValuesToSet(UserWebModel user)
         {
-            string encryptionKey = WebConfigurationManager.AppSettings["EncryptionKey"];
-            string idKey = this.encryptionProvider.Encrypt("Id", encryptionKey);
-            string idValue = this.encryptionProvider.Encrypt(user.Id.ToString(), encryptionKey);
-            string usernameKey = this.encryptionProvider.Encrypt("Username", encryptionKey);
-            string usernameValue = this.encryptionProvider.Encrypt(user.Username, encryptionKey);
+            string encryptionKey = this.configProvider.EncryptionKey;
+            string username = this.encryptionProvider.Encrypt(user.Username, encryptionKey);
+            string role = this.encryptionProvider.Encrypt(user.UserRole.ToString(), encryptionKey);
+
             var values = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>(idKey, idValue),
-                new KeyValuePair<string, string>(usernameKey, usernameValue)
+                new KeyValuePair<string, string>("Username", username),
+                new KeyValuePair<string, string>("UserRole", role),
             };
 
             return values;

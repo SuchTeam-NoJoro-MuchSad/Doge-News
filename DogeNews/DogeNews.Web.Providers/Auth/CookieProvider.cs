@@ -3,6 +3,7 @@ using System.Web;
 using System.Collections.Generic;
 
 using DogeNews.Web.Providers.Contracts;
+using DogeNews.Web.Models;
 
 namespace DogeNews.Web.Providers.Auth
 {

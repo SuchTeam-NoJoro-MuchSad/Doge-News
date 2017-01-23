@@ -98,31 +98,7 @@ namespace DogeNews.Web.Services
             var result = this.mapperProvider.Instance.Map<UserWebModel>(foundUser);
             return result;
         }
-
-        public bool IsUserLoggedIn(HttpCookieCollection cookies)
-        {
-            if (cookies == null)
-            {
-                throw new ArgumentNullException("cookies");
-            }
-
-            var cookie = cookies[this.configProvider.AuthCookieName];
-
-            if (cookie == null)
-            {
-                return false;
-            }
-
-            string usernameKey = this.encryptionProvider.Encrypt("Username", this.configProvider.EncryptionKey);
-            string idKey = this.encryptionProvider.Encrypt("Id", this.configProvider.EncryptionKey);
-
-            if (cookie[usernameKey] == null || cookie[idKey] == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
+        
 
         public void SeedAdminUser()
         {
@@ -168,6 +144,28 @@ namespace DogeNews.Web.Services
 
             cookie.Expires = DateTime.Now;
             cookies.Set(cookie);
+        }
+
+        public AuthCookieUserModel GetAuthCookieUserData(HttpCookieCollection cookies)
+        {
+            if (cookies == null)
+            {
+                throw new ArgumentNullException("cookies");
+            }
+
+            var cookieName = this.configProvider.AuthCookieName;
+            var cookie = cookies.Get(cookieName);
+
+            if (cookie == null)
+            {
+                return null;
+            }
+
+            string role = this.encryptionProvider.Decrypt(cookie["UserRole"], this.configProvider.EncryptionKey);
+            string username = this.encryptionProvider.Decrypt(cookie["Username"], this.configProvider.EncryptionKey);
+            var cookieModel = new AuthCookieUserModel { Username = username, UserRole = role };
+
+            return cookieModel;
         }
 
         private void ValidateConstructorParams(
