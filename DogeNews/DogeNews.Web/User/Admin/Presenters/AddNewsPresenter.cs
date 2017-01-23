@@ -30,7 +30,7 @@ namespace DogeNews.Web.User.Admin.Presenters
         private void AddNews(object sender, AdminAddNewsEventArgs e)
         {
             string username = this.HttpContext.Session["Username"].ToString();
-            string fileName = this.fileProvider.GetUnique(username);
+            string fileName = this.fileProvider.GetUniqueFileName(username);
             string baseImagesPath = "~\\Files\\Images";
             string basePath = this.Server.MapPath(baseImagesPath);
             string userFolderPath = $"{basePath}\\{username}";

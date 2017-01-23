@@ -11,11 +11,14 @@ namespace DogeNews.Web.Providers.Common
 
         public FileProvider(IDateTimeProvider dateTimeProvider)
         {
+            this.ValidateConstructorParams(dateTimeProvider);
+
             this.dateTimeProvider = dateTimeProvider;
         }
-
+        
         public void CreateFile(string folderName, string fileName)
         {
+            // TODO : Find way to refactor this whole method
             if (!Directory.Exists($"{folderName}"))
             {
                 Directory.CreateDirectory($"{folderName}");
@@ -24,8 +27,13 @@ namespace DogeNews.Web.Providers.Common
             File.Create($"{folderName}\\{fileName}").Dispose();
         }
 
-        public string GetUnique(string username)
+        public string GetUniqueFileName(string username)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                throw new ArgumentNullException(nameof(username));
+            }
+
             var guid = Guid.NewGuid().ToString();
             var now = this.dateTimeProvider.Now.ToString().Replace('/', '-');
             var fileName = $"{username}{guid}{now}"
@@ -33,6 +41,14 @@ namespace DogeNews.Web.Providers.Common
                 .Replace(':', '-');
 
             return fileName;
+        }
+
+        private void ValidateConstructorParams(IDateTimeProvider dateTimeProvider)
+        {
+            if (dateTimeProvider == null)
+            {
+                throw new ArgumentNullException(nameof(dateTimeProvider));
+            }
         }
     }
 }

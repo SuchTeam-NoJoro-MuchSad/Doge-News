@@ -2,7 +2,7 @@
 {
     public interface IFileProvider
     {
-        string GetUnique(string username);
+        string GetUniqueFileName(string username);
 
         void CreateFile(string folderName, string fileName);
     }
