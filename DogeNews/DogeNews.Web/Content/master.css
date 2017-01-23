@@ -25,3 +25,32 @@
 #admin-dropdown li a {
     color: black !important;
 }
+
+#sidebar-profile-img {
+    width: 30%;    
+}
+
+#sidebar-background-img {
+    width: 100%;
+}
+
+#user-container {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+
+#user-container p {
+    font-size: 20px;
+    margin: 0;
+    color: white;
+}
+
+#collapsible-admin a {
+    text-align: right;
+}
+
+#collapsible-admin a i {
+    font-size: 18px;
+    margin: 5px 10px 0 0;
+}

@@ -49,61 +49,87 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <!-- USER NAVIGATION -->
-        <div id="master-small-nav">
-            <ul class="right hide-on-med-and-down">
-                <!-- LOGIN AND REGISTER -->
-                <% if (this.Username == null)
-                    { %>
-                <li>
-                    <a href="/Auth/Register.aspx" class="tooltipped" data-tooltip="Register">
-                        <i class="material-icons">assignment</i>
-                    </a>
-                </li>
-                <li>
-                    <a href="/Auth/Login.aspx" class="tooltipped" data-tooltip="Login">
-                        <i class="material-icons">perm_identity</i>
-                    </a>
-                </li>
-                <% } %>
-
-
-                <!-- LOGOUT -->
-                <% if (this.Username != null)
-                    { %>
-                <li>
-                    <a runat="server" onserverclick="Logout" class="tooltipped" data-tooltip="Logout">
-                        <i class="material-icons right">exit_to_app</i>
-                    </a>
-                </li>
-                <% } %>
-
-
-                <!-- ADMIN DROPDOWN -->
-                <% if (this.UserRole == "Admin")
-                    { %>
-                <li>
-                    <a class="dropdown-button tooltipped" href="#" data-activates="admin-dropdown" data-tooltip="Admin">
-                        <i class="material-icons right">build</i>
-                    </a>
-                    <ul id="admin-dropdown" class="dropdown-content" style="position: absolute; top: 0px; left: 601.969px; opacity: 1; display: none;">
-                        <li><a href="/User/Admin/AddNews">Add News</a></li>
-                    </ul>
-                </li>
-                <% } %>
-            </ul>
-        </div>
-
         <!-- MAIN NAVIGATION -->
         <nav>
             <div class="nav-wrapper">
                 <a href="/" class="brand-logo">Logo</a>
 
                 <ul class="right hide-on-med-and-down">
-                    <!-- MAIN SITE NAVIGATION SHOULD BE HERE -->
+                    <!-- LOGIN AND REGISTER -->
+                    <% if (this.Username == null)
+                        { %>
+                    <li>
+                        <a href="/Auth/Register.aspx" class="tooltipped" data-tooltip="Register">
+                            <i class="material-icons">assignment</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Auth/Login.aspx" class="tooltipped" data-tooltip="Login">
+                            <i class="material-icons">perm_identity</i>
+                        </a>
+                    </li>
+                    <% } %>
+
+                    <% if (this.Username != null)
+                        { %>
+                    <!-- LOGOUT -->
+                    <li>
+                        <a runat="server" onserverclick="Logout" class="tooltipped" data-tooltip="Logout">
+                            <i class="material-icons right">exit_to_app</i>
+                        </a>
+                    </li>
+
+                    <!-- PROFILE -->
+                    <li>
+                        <!-- Button for the sidebar -->
+                        <a href="#" id="btn-sidebar" data-activates="slide-out" class="tooltipped" data-tooltip="Account">
+                            <i class="material-icons">account_circle</i>
+                        </a>
+                    </li>
+                    <% } %>
                 </ul>
             </div>
         </nav>
+
+        <!-- SIDEBAR -->
+        <ul id="slide-out" class="side-nav">
+            <li>
+                <div class="userView">
+                    <div class="background">
+                        <img id="sidebar-background-img" src="http://wallpapercave.com/wp/qMa30tF.jpg">
+                    </div>
+                    <div id="user-container">
+                        <img class="circle" id="sidebar-profile-img" src="https://hips.hearstapps.com/cos.h-cdn.co/assets/cm/14/25/539fd6a0d9b01_-_cos-02-beautiful-woman-outside-de.jpg">
+                        <p><%= this.Session["Username"] %></p>
+                    </div>
+                </div>
+            </li>
+
+            <!-- ADMIN -->
+            <% if (this.UserRole == "Admin")
+                { %>
+            <li>
+                <ul id="collapsible-admin" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header">
+                            <span>Admin</span>
+                        </div>
+                        <div class="collapsible-body">
+                            <a href="/User/Admin/AddNews">
+                                <i class="material-icons">description</i>Add News
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <% } %>
+            <li><a href="#!">Second Link</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a class="subheader">Subheader</a></li>
+            <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+        </ul>
 
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
@@ -115,5 +141,11 @@
         </div>
     </form>
 
+    <script>
+        $(document).ready(() => {
+            $('#btn-sidebar').sideNav({ menuWidth: 300 });
+            $('#collapsible-admin').collapsible();
+        });
+    </script>
 </body>
 </html>
