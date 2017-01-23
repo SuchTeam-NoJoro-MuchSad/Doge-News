@@ -90,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthCookieUserModel.cs" />
     <Compile Include="ImageWebModel.cs" />
     <Compile Include="NewsWebModel.cs" />
     <Compile Include="UserWebModel.cs" />

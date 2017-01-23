@@ -331,7 +331,7 @@ namespace DogeNews.Web.Services.Tests
             bool isAdded = authService.RegisterUser(userModel);
             Assert.IsTrue(isAdded);
         }
-        
+
         [TestCase(null)]
         [TestCase("")]
         public void LoginUser_IfThePassedUsernameIsNullOrEmptyArgumentNullExceptionShouldBeThrown(string username)
@@ -497,124 +497,6 @@ namespace DogeNews.Web.Services.Tests
             var user = authService.LoginUser(username, password);
 
             Assert.AreEqual(resultUser, user);
-        }
-
-        [Test]
-        public void IsUserLoggedIn_IfThePassedCookiesParamIsNullOrEmptyArgumentNullExceptionShouldBeThrown()
-        {
-            var authService = new AuthService(
-                this.mockedUserRepository.Object,
-                this.mockedData.Object,
-                this.mockedCrypthographicService.Object,
-                this.mockedMapperProvider.Object,
-                this.mockedEncryptionProvider.Object,
-                this.mockedConfigProvider.Object);
-
-            var exception = Assert.Throws<ArgumentNullException>(() => authService.IsUserLoggedIn(null));
-            Assert.AreEqual("cookies", exception.ParamName);
-        }
-
-        [Test]
-        public void IsUserLoggedIn_ShouldReturnFalseWhenTheCookieDoesNotExist()
-        {
-            var cookieCollection = new HttpCookieCollection();
-            var authService = new AuthService(
-                this.mockedUserRepository.Object,
-                this.mockedData.Object,
-                this.mockedCrypthographicService.Object,
-                this.mockedMapperProvider.Object,
-                this.mockedEncryptionProvider.Object,
-                this.mockedConfigProvider.Object);
-
-            bool isUserLoggedIn = authService.IsUserLoggedIn(cookieCollection);
-            Assert.IsFalse(isUserLoggedIn);
-        }
-
-        [Test]
-        public void IsUserLoggedIn_ShouldReturnFalseWhenTheCookieIsEmpty()
-        {
-            var cookieCollection = new HttpCookieCollection();
-            var cookie = new HttpCookie("aaaaa");
-
-            cookieCollection.Add(cookie);
-            this.mockedEncryptionProvider
-                .Setup(x => x.Encrypt(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns((string a, string b) => a);
-            this.mockedEncryptionProvider
-                .Setup(x => x.Decrypt(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns((string a, string b) => a);
-            this.mockedConfigProvider.SetupGet(x => x.AuthCookieName).Returns("aaa");
-            this.mockedConfigProvider.SetupGet(x => x.EncryptionKey).Returns("aaa");
-
-            var authService = new AuthService(
-                this.mockedUserRepository.Object,
-                this.mockedData.Object,
-                this.mockedCrypthographicService.Object,
-                this.mockedMapperProvider.Object,
-                this.mockedEncryptionProvider.Object,
-                this.mockedConfigProvider.Object);
-
-            bool isUserLoggedIn = authService.IsUserLoggedIn(cookieCollection);
-            Assert.IsFalse(isUserLoggedIn);
-        }
-
-        [Test]
-        public void IsUserLoggedIn_ShouldReturnTrueWhenTheCookieIsValid()
-        {
-            var cookieCollection = new HttpCookieCollection();
-            var cookie = new HttpCookie("aaa");
-
-            cookie["Id"] = "Id";
-            cookie["Username"] = "Username";
-
-            cookieCollection.Add(cookie);
-            this.mockedEncryptionProvider
-                .Setup(x => x.Encrypt(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns((string a, string b) => a);
-            this.mockedEncryptionProvider
-                .Setup(x => x.Decrypt(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns((string a, string b) => a);
-            this.mockedConfigProvider.SetupGet(x => x.AuthCookieName).Returns("aaa");
-            this.mockedConfigProvider.SetupGet(x => x.EncryptionKey).Returns("aaa");
-
-            var authService = new AuthService(
-                this.mockedUserRepository.Object,
-                this.mockedData.Object,
-                this.mockedCrypthographicService.Object,
-                this.mockedMapperProvider.Object,
-                this.mockedEncryptionProvider.Object,
-                this.mockedConfigProvider.Object);
-
-            bool isUserLoggedIn = authService.IsUserLoggedIn(cookieCollection);
-            Assert.IsTrue(isUserLoggedIn);
-        }
-
-        [Test]
-        public void IsUserLoggedIn_ShouldReturnFalseWhenTheCookieHasInvalidParamaters()
-        {
-            var cookieCollection = new HttpCookieCollection();
-            var cookie = new HttpCookie("aaaaa");
-
-            cookieCollection.Add(cookie);
-            this.mockedEncryptionProvider
-                .Setup(x => x.Encrypt(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns((string a, string b) => a);
-            this.mockedEncryptionProvider
-                .Setup(x => x.Decrypt(It.IsAny<string>(), It.IsAny<string>()))
-                .Returns((string a, string b) => a);
-            this.mockedConfigProvider.SetupGet(x => x.AuthCookieName).Returns("aaaaa");
-            this.mockedConfigProvider.SetupGet(x => x.EncryptionKey).Returns("aaaaa");
-
-            var authService = new AuthService(
-                this.mockedUserRepository.Object,
-                this.mockedData.Object,
-                this.mockedCrypthographicService.Object,
-                this.mockedMapperProvider.Object,
-                this.mockedEncryptionProvider.Object,
-                this.mockedConfigProvider.Object);
-
-            bool isUserLoggedIn = authService.IsUserLoggedIn(cookieCollection);
-            Assert.IsFalse(isUserLoggedIn);
         }
 
         [Test]
@@ -882,6 +764,135 @@ namespace DogeNews.Web.Services.Tests
 
             authService.SeedAdminUser();
             this.mockedData.Verify(x => x.Commit(), Times.Once);
+        }
+
+        [Test]
+        public void GetAuthCookieUserData_ShouldThrowArgumentNullExceptionWhenCookiesParamIsNull()
+        {
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            var exception = Assert.Throws<ArgumentNullException>(() => authService.GetAuthCookieUserData(null));
+            Assert.AreEqual("cookies", exception.ParamName);
+        }
+
+        [Test]
+        public void GetAuthCookieUserData_ShouldReturnNullWhenTheCookieDoesNotExist()
+        {
+            mockedConfigProvider.SetupGet(x => x.AuthCookieName).Returns("name");
+            var cookie = new HttpCookie("not name");
+            var cookies = new HttpCookieCollection();
+
+            cookies.Add(cookie);
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            var result = authService.GetAuthCookieUserData(cookies);
+            Assert.AreEqual(null, result);
+        }
+
+        [Test]
+        public void GetAuthCookieUserData_EncryptionProviderDecryptShouldBeCalledWithCorrectUserRoleAndKey()
+        {
+            string name = "name";
+            var cookie = new HttpCookie(name);
+            var cookies = new HttpCookieCollection();
+            string role = "Admin";
+            string key = "key";
+
+            cookie["UserRole"] = role;
+            cookies.Add(cookie);
+            mockedConfigProvider.SetupGet(x => x.AuthCookieName).Returns(name);
+            mockedConfigProvider.SetupGet(x => x.EncryptionKey).Returns(key);
+            mockedEncryptionProvider
+                .Setup(x => x.Decrypt(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns<string, string>((a, b) => a);
+
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            authService.GetAuthCookieUserData(cookies);
+            mockedEncryptionProvider.Verify(x =>
+                x.Decrypt(It.Is<string>(a => a == role), It.Is<string>(a => a == key)),
+                Times.Once);
+        }
+
+        [Test]
+        public void GetAuthCookieUserData_EncryptionProviderDecryptShouldBeCalledWithCorrectUsernameAndKey()
+        {
+            string name = "name";
+            var cookie = new HttpCookie(name);
+            var cookies = new HttpCookieCollection();
+            string username = "username";
+            string key = "key";
+
+            cookie["Username"] = username;
+            cookies.Add(cookie);
+            mockedConfigProvider.SetupGet(x => x.AuthCookieName).Returns(name);
+            mockedConfigProvider.SetupGet(x => x.EncryptionKey).Returns(key);
+            mockedEncryptionProvider
+                .Setup(x => x.Decrypt(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns<string, string>((a, b) => a);
+
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            authService.GetAuthCookieUserData(cookies);
+            mockedEncryptionProvider.Verify(x =>
+                x.Decrypt(It.Is<string>(a => a == username), It.Is<string>(a => a == key)),
+                Times.Once);
+        }
+
+        [Test]
+        public void GetAuthCookieUserData_ShouldReturnValidModelWhenEverythingIsOk()
+        {
+            string name = "name";
+            var cookie = new HttpCookie(name);
+            var cookies = new HttpCookieCollection();
+            string username = "username";
+            string role = "Admin";
+            string key = "key";
+
+            cookie["Username"] = username;
+            cookie["UserRole"] = role;
+            cookies.Add(cookie);
+            mockedConfigProvider.SetupGet(x => x.AuthCookieName).Returns(name);
+            mockedConfigProvider.SetupGet(x => x.EncryptionKey).Returns(key);
+            mockedEncryptionProvider
+                .Setup(x => x.Decrypt(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns<string, string>((a, b) => a);
+
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            var model = authService.GetAuthCookieUserData(cookies);
+            Assert.AreEqual(username, model.Username);
+            Assert.AreEqual(role, model.UserRole);
         }
     }
 }
