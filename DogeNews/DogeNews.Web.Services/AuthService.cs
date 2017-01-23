@@ -1,5 +1,5 @@
-using System.Web;
 using System;
+using System.Web;
 
 using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
@@ -27,6 +27,14 @@ namespace DogeNews.Web.Services
             IEncryptionProvider encryptionProvider,
             IAppConfigurationProvider configProvider)
         {
+            this.ValidateConstructorParams(
+                userRepository, 
+                newsData, 
+                cryptographicService, 
+                mapperProvider, 
+                encryptionProvider, 
+                configProvider);
+
             this.userRepository = userRepository;
             this.newsData = newsData;
             this.cryptographicService = cryptographicService;
@@ -37,6 +45,11 @@ namespace DogeNews.Web.Services
 
         public bool RegisterUser(UserWebModel user)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+
             var foundUser = this.userRepository.GetFirst(u => u.Username == user.Username);
             if (foundUser != null)
             {
@@ -58,6 +71,16 @@ namespace DogeNews.Web.Services
 
         public UserWebModel LoginUser(string username, string password)
         {
+            if (string.IsNullOrEmpty(username))
+            {
+                throw new ArgumentNullException("username");
+            }
+
+            if (string.IsNullOrEmpty(password))
+            {
+                throw new ArgumentNullException("password");
+            }
+
             var foundUser = this.userRepository.GetFirst(u => u.Username == username);
             if (foundUser == null)
             {
@@ -78,6 +101,11 @@ namespace DogeNews.Web.Services
 
         public bool IsUserLoggedIn(HttpCookieCollection cookies)
         {
+            if (cookies == null)
+            {
+                throw new ArgumentNullException("cookies");
+            }
+
             var cookie = cookies[this.configProvider.AuthCookieName];
 
             if (cookie == null)
@@ -123,10 +151,15 @@ namespace DogeNews.Web.Services
             }
         }
 
-        public void LogoutUser(HttpCookieCollection cookieCollection)
+        public void LogoutUser(HttpCookieCollection cookies)
         {
+            if (cookies == null)
+            {
+                throw new ArgumentNullException("cookies");
+            }
+
             var cookieName = this.configProvider.AuthCookieName;
-            var cookie = cookieCollection.Get(cookieName);
+            var cookie = cookies.Get(cookieName);
 
             if (cookie == null)
             {
@@ -134,7 +167,46 @@ namespace DogeNews.Web.Services
             }
 
             cookie.Expires = DateTime.Now;
-            cookieCollection.Set(cookie);
+            cookies.Set(cookie);
+        }
+
+        private void ValidateConstructorParams(
+            IRepository<User> userRepository,
+            INewsData newsData,
+            ICryptographicService cryptographicService,
+            IMapperProvider mapperProvider,
+            IEncryptionProvider encryptionProvider,
+            IAppConfigurationProvider configProvider)
+        {
+            if (userRepository == null)
+            {
+                throw new ArgumentNullException("userRepository");
+            }
+
+            if (newsData == null)
+            {
+                throw new ArgumentNullException("newsData");
+            }
+
+            if (cryptographicService == null)
+            {
+                throw new ArgumentNullException("cryptographicService");
+            }
+
+            if (mapperProvider == null)
+            {
+                throw new ArgumentNullException("mapperProvider");
+            }
+
+            if (encryptionProvider == null)
+            {
+                throw new ArgumentNullException("encryptionProvider");
+            }
+
+            if (configProvider == null)
+            {
+                throw new ArgumentNullException("configProvider");
+            }
         }
     }
 }

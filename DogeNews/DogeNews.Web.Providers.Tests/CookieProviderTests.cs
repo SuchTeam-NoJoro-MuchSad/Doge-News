@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 
 using DogeNews.Web.Providers.Contracts;
+using DogeNews.Web.Providers.Auth;
+
 using Moq;
 using NUnit.Framework;
-using DogeNews.Web.Providers.Auth;
 
 namespace DogeNews.Web.Providers.Tests
 {

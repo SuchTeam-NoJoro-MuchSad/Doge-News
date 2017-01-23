@@ -124,13 +124,13 @@
       <Project>{f745f4ae-3c37-415c-8f67-0d621c9d19d7}</Project>
       <Name>DogeNews.Data.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DogeNews.Web.Common\DogeNews.Web.Common.csproj">
+      <Project>{c86e9a76-ae29-459c-b02c-46e3466a3146}</Project>
+      <Name>DogeNews.Web.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DogeNews.Web.Models\DogeNews.Web.Models.csproj">
       <Project>{fad62fe0-38ff-4c48-8663-d6036b0e83e0}</Project>
       <Name>DogeNews.Web.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DogeNews.Web.Providers\DogeNews.Web.Providers.csproj">
-      <Project>{97c698fa-b5fc-48be-9d3f-2ae4486df947}</Project>
-      <Name>DogeNews.Web.Providers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

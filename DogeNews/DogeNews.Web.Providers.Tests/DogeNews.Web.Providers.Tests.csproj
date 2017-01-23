@@ -76,13 +76,13 @@
     <Compile Include="RngCryptoServiceSaltProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\DogeNews.Web.Providers\DogeNews.Web.Providers.csproj">
       <Project>{97c698fa-b5fc-48be-9d3f-2ae4486df947}</Project>
       <Name>DogeNews.Web.Providers</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

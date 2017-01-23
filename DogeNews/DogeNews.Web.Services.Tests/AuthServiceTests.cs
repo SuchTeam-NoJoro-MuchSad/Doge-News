@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Web;
 
 using AutoMapper;
 
@@ -10,7 +11,6 @@ using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.Providers.Contracts;
-using System.Web;
 using DogeNews.Web.Services.Contracts;
 
 namespace DogeNews.Web.Services.Tests
@@ -36,6 +36,99 @@ namespace DogeNews.Web.Services.Tests
             this.mockedMapper = new Mock<IMapper>();
             this.mockedEncryptionProvider = new Mock<IEncryptionProvider>();
             this.mockedConfigProvider = new Mock<IAppConfigurationProvider>();
+        }
+
+        [Test]
+        public void Cnstructor_WhenNullUserRepositoryIsPassedArgumentNullExceptionShouldBeCalled()
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() => new AuthService(
+                null,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object));
+            Assert.AreEqual("userRepository", exception.ParamName);
+        }
+
+        [Test]
+        public void Cnstructor_WhenNullNewsDataIsPassedArgumentNullExceptionShouldBeCalled()
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() => new AuthService(
+                this.mockedUserRepository.Object,
+                null,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object));
+            Assert.AreEqual("newsData", exception.ParamName);
+        }
+
+        [Test]
+        public void Cnstructor_WhenNullCryptographicServiceIsPassedArgumentNullExceptionShouldBeCalled()
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() => new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                null,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object));
+            Assert.AreEqual("cryptographicService", exception.ParamName);
+        }
+
+        [Test]
+        public void Cnstructor_WhenNullMapperProviderIsPassedArgumentNullExceptionShouldBeCalled()
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() => new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                null,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object));
+            Assert.AreEqual("mapperProvider", exception.ParamName);
+        }
+
+        [Test]
+        public void Cnstructor_WhenNullEncryptionProviderIsPassedArgumentNullExceptionShouldBeCalled()
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() => new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                null,
+                this.mockedConfigProvider.Object));
+            Assert.AreEqual("encryptionProvider", exception.ParamName);
+        }
+
+        [Test]
+        public void Cnstructor_WhenNullConfigProviderIsPassedArgumentNullExceptionShouldBeCalled()
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() => new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                null));
+            Assert.AreEqual("configProvider", exception.ParamName);
+        }
+
+        [Test]
+        public void Register_IfThePassedUserWebModelIsNullArgumentNullExceptionShouldBeThrown()
+        {
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            var exception = Assert.Throws<ArgumentNullException>(() => authService.RegisterUser(null));
+            Assert.AreEqual("user", exception.ParamName);
         }
 
         [Test]
@@ -238,6 +331,38 @@ namespace DogeNews.Web.Services.Tests
             bool isAdded = authService.RegisterUser(userModel);
             Assert.IsTrue(isAdded);
         }
+        
+        [TestCase(null)]
+        [TestCase("")]
+        public void LoginUser_IfThePassedUsernameIsNullOrEmptyArgumentNullExceptionShouldBeThrown(string username)
+        {
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            var exception = Assert.Throws<ArgumentNullException>(() => authService.LoginUser(username, "123"));
+            Assert.AreEqual("username", exception.ParamName);
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        public void LoginUser_IfThePassedPasswordIsNullOrEmptyArgumentNullExceptionShouldBeThrown(string password)
+        {
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            var exception = Assert.Throws<ArgumentNullException>(() => authService.LoginUser("username", password));
+            Assert.AreEqual("password", exception.ParamName);
+        }
 
         [Test]
         public void LoginUser_ShouldCallUserRepositoryGetFirstOnce()
@@ -375,6 +500,21 @@ namespace DogeNews.Web.Services.Tests
         }
 
         [Test]
+        public void IsUserLoggedIn_IfThePassedCookiesParamIsNullOrEmptyArgumentNullExceptionShouldBeThrown()
+        {
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            var exception = Assert.Throws<ArgumentNullException>(() => authService.IsUserLoggedIn(null));
+            Assert.AreEqual("cookies", exception.ParamName);
+        }
+
+        [Test]
         public void IsUserLoggedIn_ShouldReturnFalseWhenTheCookieDoesNotExist()
         {
             var cookieCollection = new HttpCookieCollection();
@@ -475,6 +615,21 @@ namespace DogeNews.Web.Services.Tests
 
             bool isUserLoggedIn = authService.IsUserLoggedIn(cookieCollection);
             Assert.IsFalse(isUserLoggedIn);
+        }
+
+        [Test]
+        public void LogoutUser_IfThePassedCookiesParamIsNullOrEmptyArgumentNullExceptionShouldBeThrown()
+        {
+            var authService = new AuthService(
+                this.mockedUserRepository.Object,
+                this.mockedData.Object,
+                this.mockedCrypthographicService.Object,
+                this.mockedMapperProvider.Object,
+                this.mockedEncryptionProvider.Object,
+                this.mockedConfigProvider.Object);
+
+            var exception = Assert.Throws<ArgumentNullException>(() => authService.LogoutUser(null));
+            Assert.AreEqual("cookies", exception.ParamName);
         }
 
         [Test]
