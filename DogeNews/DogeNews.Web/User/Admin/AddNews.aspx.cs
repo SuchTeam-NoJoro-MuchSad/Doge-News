@@ -16,14 +16,6 @@ namespace DogeNews.Web.User.Admin
     {
         public event EventHandler<AdminAddNewsEventArgs> AddNewsEvent;
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (this.Session["UserRole"] == null)
-            {
-                this.Response.Redirect("/");
-            }
-        }
-
         public void AddNewsClick(object sender, EventArgs e)
         {
             if (this.Page.IsValid)
@@ -37,6 +29,14 @@ namespace DogeNews.Web.User.Admin
                 };
 
                 this.AddNewsEvent(this, eventData);
+            }
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (this.Session["UserRole"] == null)
+            {
+                this.Response.Redirect("/");
             }
         }
     }

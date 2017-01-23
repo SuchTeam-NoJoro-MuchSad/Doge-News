@@ -7,7 +7,7 @@ using DogeNews.Web.Providers.Common;
 
 namespace DogeNews.Web.Providers.Tests
 {
-    public class FileNameProviderTests
+    public class FileProviderTests
     {
         private Mock<IDateTimeProvider> mockedDateTimeProvider;
 

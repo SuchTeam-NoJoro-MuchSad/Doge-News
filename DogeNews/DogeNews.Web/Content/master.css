@@ -1,4 +1,9 @@
-﻿#master-small-nav {
+﻿@font-face {
+    font-family: OrangeJuice;
+    src: url("/fonts/orange-juice.ttf");
+}
+
+#master-small-nav {
     background-color: black;
     display: block;
     height: 40px;
@@ -53,4 +58,58 @@
 #collapsible-admin a i {
     font-size: 18px;
     margin: 5px 10px 0 0;
+}
+
+#btn-search {
+    display: inline-block;
+    margin-right: 30px;
+}
+
+#btn-search:hover {
+    cursor: pointer;
+}
+
+#main-nav-items a {
+    color: #424242;
+}
+
+#main-nav-items {
+    margin-right: 10%;
+    height: 80px;
+}
+
+#upper-nav, #upper-nav ul {
+    height: 58px;
+}
+
+#upper-nav i {
+    font-size: 19px;
+    color: #424242;
+}
+
+#upper-nav input {
+    width: 200px;
+    height: 30px;
+    margin-right: 20px;
+    margin-bottom: 0;
+    color: black;
+    display: none;
+}
+
+#vertical-line {
+  border-left: 1px solid gray;
+  display: inline-block;
+  margin-top: 15px;
+  height: 25px;
+}
+
+.brand-logo {
+    font-family: OrangeJuice;
+    color: #f57c00  !important;
+    font-size: 50px !important;
+    margin-left: 20px;
+}
+
+#login-link, #btn-sidebar {
+    margin-right: 50px;
 }

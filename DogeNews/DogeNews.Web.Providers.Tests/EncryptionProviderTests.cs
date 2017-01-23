@@ -3,6 +3,8 @@ using DogeNews.Web.Providers.Encryption;
 
 using NUnit.Framework;
 using System;
+using System.Text;
+using System.Web.Security;
 
 namespace DogeNews.Web.Providers.Tests
 {
@@ -33,6 +35,18 @@ namespace DogeNews.Web.Providers.Tests
             Assert.AreEqual("key", exception.ParamName);
         }
 
+        [Test]
+        public void Encrypt_ShouldReturnCorrectlyEncryptedString()
+        {
+            string text = "text";
+            string key = "key";
+            byte[] encryptedTextBytes = MachineKey.Protect(Encoding.UTF8.GetBytes(text), key);
+
+            string expected = Convert.ToBase64String(encryptedTextBytes);
+            string actual = this.encryptionProvider.Encrypt(text, key);
+
+        }
+
         [TestCase(null)]
         [TestCase("")]
         public void Decrypt_ShouldThrowArgumentNullExceptionWhenTextIsNullOrEmpty(string text)
@@ -47,6 +61,21 @@ namespace DogeNews.Web.Providers.Tests
         {
             var exception = Assert.Throws<ArgumentNullException>(() => this.encryptionProvider.Encrypt("text", key));
             Assert.AreEqual("key", exception.ParamName);
+        }
+
+        [Test]
+        public void Decrypt_ShouldReturnCorrectlyDecryptedString()
+        {
+            string text = "text";
+            string key = "key";
+            byte[] encryptedTextBytes = MachineKey.Protect(Encoding.UTF8.GetBytes(text), key);
+            string encryptedText = Convert.ToBase64String(encryptedTextBytes);
+            byte[] decryptedBytes = MachineKey.Unprotect(Convert.FromBase64String(encryptedText), key);
+            
+            string expected = Encoding.UTF8.GetString(decryptedBytes);
+            string actual = this.encryptionProvider.Decrypt(encryptedText, key);
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }

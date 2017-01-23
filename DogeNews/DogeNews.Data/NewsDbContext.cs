@@ -21,16 +21,15 @@ namespace DogeNews.Data
         public IDbSet<NewsItem> NewsItems { get; set; }
 
         public IDbSet<Comment> Comments { get; set; }
-
-
+        
         public new IDbSet<T> Set<T>() where T : class
         {
             return base.Set<T>();
         }
 
-        public new void SaveChanges()
+        public new int SaveChanges()
         {
-            base.SaveChanges();
+            return base.SaveChanges();
         }
     }
 }

@@ -18,7 +18,6 @@ namespace DogeNews.Web.Providers.Common
         
         public void CreateFile(string folderName, string fileName)
         {
-            // TODO : Find way to refactor this whole method
             if (!Directory.Exists($"{folderName}"))
             {
                 Directory.CreateDirectory($"{folderName}");
