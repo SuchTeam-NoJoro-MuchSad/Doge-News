@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="AppConfigurationProviderTests.cs" />
     <Compile Include="CookieProviderTests.cs" />
+    <Compile Include="DateTimeProviderTests.cs" />
     <Compile Include="EncryptionProviderTests.cs" />
     <Compile Include="FileNameProviderTests.cs" />
     <Compile Include="MapperProviderTests.cs" />
