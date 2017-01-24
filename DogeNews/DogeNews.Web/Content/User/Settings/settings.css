@@ -1,0 +1,12 @@
+﻿.tab a {
+    color: black !important;
+}
+
+#change-password-container {
+    margin-left: 25%;
+}
+
+#btn-change-password {
+    display: block;
+    margin: 0 auto;
+}

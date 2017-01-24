@@ -252,6 +252,7 @@
     <Content Include="Content\materialize\font\material-design-icons\Material-Design-Icons.svg" />
     <Content Include="Content\UserControls\js\tinymce.js" />
     <Content Include="Content\User\Admin\AddNews\css\add-news.css" />
+    <Content Include="Content\User\Settings\settings.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -347,6 +348,7 @@
     <Content Include="Site.Master" />
     <Content Include="UserControls\News\CreateNewsArticle.ascx" />
     <Content Include="User\Admin\AddNews.aspx" />
+    <Content Include="User\Settings\Settings.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
@@ -431,6 +433,17 @@
     <Compile Include="User\Admin\Presenters\AddNewsPresenter.cs" />
     <Compile Include="User\Admin\Views\IAddNewsView.cs" />
     <Compile Include="User\Admin\Views\EventArguments\AddNewsEventArgs.cs" />
+    <Compile Include="User\Settings\Models\SettingsPageModel.cs" />
+    <Compile Include="User\Settings\Presenters\SettingsPresenter.cs" />
+    <Compile Include="User\Settings\Settings.aspx.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Settings\Settings.aspx.designer.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\Settings\Views\EventArguments\ChangePasswordEventArgs.cs" />
+    <Compile Include="User\Settings\Views\ISettingsView.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

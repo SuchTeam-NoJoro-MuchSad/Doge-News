@@ -152,16 +152,15 @@
                 </ul>
             </li>
             <% } %>
-            <li><a href="#!">Second Link</a></li>
+            <li>
+                <a href="<%= this.GetRouteUrl("Settings", new { username = this.Session["Username"] }) %>">Settings</a>
+            </li>
             <li>
                 <div class="divider"></div>
             </li>
-            <li><a class="subheader">Subheader</a></li>
-            <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
             <!-- LOGOUT -->
             <li>
-                <a href="#" runat="server" onserverclick="Logout" class="tooltipped" data-tooltip="Logout">Logout
-                </a>
+                <a href="#" runat="server" onserverclick="Logout">Logout</a>
             </li>
         </ul>
 

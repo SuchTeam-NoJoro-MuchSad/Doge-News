@@ -16,6 +16,7 @@ namespace DogeNews.Web
         public void Application_Start(object sender, EventArgs e)
         {
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            RouteConfig.RegisterCustomRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             BindingsConfig.BindPresenterFactory();
 
