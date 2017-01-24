@@ -18,7 +18,7 @@
         Display="Dynamic"
         ErrorMessage="The title must be between 5 and 30 characters."
         ControlToValidate="TitleInput"
-        ValidationExpression=".{5,30}">
+        ValidationExpression=".{5,200}">
     </asp:RegularExpressionValidator>
     <div class="input-field col s12">
         <input id="TitleInput" runat="server">

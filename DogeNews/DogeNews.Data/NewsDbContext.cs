@@ -9,7 +9,7 @@ namespace DogeNews.Data
     public class NewsDbContext : DbContext, INewsDbContext
     {
         public NewsDbContext()
-            : base("NewsSystem")
+            : base("softsol_webforms") 
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<NewsDbContext, Configuration>());
         }

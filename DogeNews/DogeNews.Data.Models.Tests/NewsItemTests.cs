@@ -26,14 +26,14 @@ namespace DogeNews.Data.Models.Tests
         }
 
         [Test]
-        public void Title_ShouldHaveMaxLengthAttributeWithValue30()
+        public void Title_ShouldHaveMaxLengthAttributeWithValue200()
         {
             var newsItemType = typeof(NewsItem);
             var propertyInfo = newsItemType.GetProperty("Title");
             var maxLengthAttribute = (MaxLengthAttribute)propertyInfo
                 .GetCustomAttributes(false)
                 .FirstOrDefault(x => x as MaxLengthAttribute != null);
-            var expectedLength = 30;
+            var expectedLength = 200;
 
             Assert.AreEqual(expectedLength, maxLengthAttribute.Length);
         }

@@ -20,7 +20,7 @@ namespace DogeNews.Data.Models
         public int Id { get; set; }
 
         [MinLength(5)]
-        [MaxLength(30)]
+        [MaxLength(200)]
         [Index(IsUnique = true)]
         public string Title { get; set; }
 
