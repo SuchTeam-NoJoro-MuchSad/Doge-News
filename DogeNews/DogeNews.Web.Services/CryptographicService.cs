@@ -56,6 +56,17 @@ namespace DogeNews.Web.Services
             return result;
         }
 
+        public byte[] Base64StringToByteArray(string base64string)
+        {
+            if (string.IsNullOrEmpty(base64string))
+            {
+                throw new ArgumentNullException("base64string");
+            }
+
+            var result = Convert.FromBase64String(base64string);
+            return result;
+        }
+
         public bool IsValidPassword(string passwordToCheck, string userPashHash, string userSalt)
         {
             if (string.IsNullOrEmpty(passwordToCheck))

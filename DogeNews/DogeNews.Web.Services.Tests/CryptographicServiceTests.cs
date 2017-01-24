@@ -269,5 +269,33 @@ namespace DogeNews.Web.Services.Tests
             bool isValidPassword = cryptographicService.IsValidPassword(password, passHashString, saltString);
             Assert.IsTrue(isValidPassword);
         }
+
+        [TestCase(null)]
+        [TestCase("")]
+        public void Base64StringToByteArray_ShouldThrowArgumentNullExceptionWhenThePassedStringIsNull(string str)
+        {
+            var cryptographicService = new CryptographicService(
+                this.mockedSaltProvider.Object,
+                this.mockedHashProvider.Object);
+
+            var exception = Assert
+                .Throws<ArgumentNullException>(() => cryptographicService.Base64StringToByteArray(str));
+            Assert.AreEqual("base64string", exception.ParamName);
+        }
+
+
+        [Test]
+        public void Base64StringToByteArray_ShouldReturnCorrectByteArray()
+        {
+            var str = Convert.ToBase64String(new byte[20]);
+            var bytes = Convert.FromBase64String(str);
+
+            var cryptographicService = new CryptographicService(
+                this.mockedSaltProvider.Object,
+                this.mockedHashProvider.Object);
+
+            var result = cryptographicService.Base64StringToByteArray(str);
+            Assert.AreEqual(bytes, result);
+        }
     }
 }
