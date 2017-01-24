@@ -10,6 +10,7 @@ using DogeNews.Data.Repositories;
 
 using Moq;
 using NUnit.Framework;
+using System.Reflection;
 
 namespace DogeNews.Data.Tests
 {
@@ -178,6 +179,16 @@ namespace DogeNews.Data.Tests
             }
 
             mockContext.Verify(x => x.Entry(mockComment.Object), Times.AtLeastOnce);
+        }
+
+        [Test]
+        public void DataMaping_Configure()
+        {
+            var profile = new DataMappingsProfile();
+            Assert.DoesNotThrow(() => profile
+                .GetType()
+                .GetMethod("Configure", BindingFlags.NonPublic | BindingFlags.Instance)
+                .Invoke(profile, new object[] { }));
         }
 
         [Test]

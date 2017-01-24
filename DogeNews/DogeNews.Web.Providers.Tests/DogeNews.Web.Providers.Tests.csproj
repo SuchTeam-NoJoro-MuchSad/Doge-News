@@ -70,7 +70,7 @@
     <Compile Include="CookieProviderTests.cs" />
     <Compile Include="DateTimeProviderTests.cs" />
     <Compile Include="EncryptionProviderTests.cs" />
-    <Compile Include="FileNameProviderTests.cs" />
+    <Compile Include="FileProviderTests.cs" />
     <Compile Include="MapperProviderTests.cs" />
     <Compile Include="RfcCryptoServiceHashProviderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

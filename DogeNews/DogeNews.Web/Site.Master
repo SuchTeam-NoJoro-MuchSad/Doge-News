@@ -46,15 +46,23 @@
                 <asp:ScriptReference Path="Scripts/materialize/materialize.js" />
                 <asp:ScriptReference Path="Scripts/custom.js" />
                 <%--Site Scripts--%>
+                <asp:ScriptReference Path="~/Scripts/master.js" />
             </Scripts>
         </asp:ScriptManager>
 
-        <!-- MAIN NAVIGATION -->
-        <nav>
-            <div class="nav-wrapper">
-                <a href="/" class="brand-logo">Logo</a>
 
-                <ul class="right hide-on-med-and-down">
+        <!-- MAIN NAVIGATION -->
+        <header>
+            <nav class="grey lighten-3" id="upper-nav">
+                <ul class="right">
+                    <li>
+                        <span id="btn-search"><i class="material-icons">search</i></span>
+                        <input id="tb-search" type="text" />
+                    </li>
+                    <li>
+                        <div id="vertical-line"></div>
+                    </li>
+
                     <!-- LOGIN AND REGISTER -->
                     <% if (this.Username == null)
                         { %>
@@ -64,7 +72,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/Auth/Login.aspx" class="tooltipped" data-tooltip="Login">
+                        <a href="/Auth/Login.aspx" class="tooltipped" data-tooltip="Login" id="login-link">
                             <i class="material-icons">perm_identity</i>
                         </a>
                     </li>
@@ -72,13 +80,6 @@
 
                     <% if (this.Username != null)
                         { %>
-                    <!-- LOGOUT -->
-                    <li>
-                        <a runat="server" onserverclick="Logout" class="tooltipped" data-tooltip="Logout">
-                            <i class="material-icons right">exit_to_app</i>
-                        </a>
-                    </li>
-
                     <!-- PROFILE -->
                     <li>
                         <!-- Button for the sidebar -->
@@ -88,8 +89,36 @@
                     </li>
                     <% } %>
                 </ul>
-            </div>
-        </nav>
+            </nav>
+
+            <nav class="white">
+                <div>
+                    <a href="/" class="brand-logo">NEWS</a>
+
+                    <ul id="main-nav-items" class="right">
+                        <li>
+                            <a href="#">BREAKING</a>
+                        </li>
+
+                        <li>
+                            <a href="#">SPORTS</a>
+                        </li>
+
+                        <li>
+                            <a href="#">WEATHER</a>
+                        </li>
+
+                        <li>
+                            <a href="#">POLITICAL</a>
+                        </li>
+
+                        <li>
+                            <a href="#">BUSINESS</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
 
         <!-- SIDEBAR -->
         <ul id="slide-out" class="side-nav">
@@ -129,23 +158,17 @@
             </li>
             <li><a class="subheader">Subheader</a></li>
             <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+            <!-- LOGOUT -->
+            <li>
+                <a href="#" runat="server" onserverclick="Logout" class="tooltipped" data-tooltip="Logout">Logout
+                </a>
+            </li>
         </ul>
 
+        <!-- MAIN CONTENT -->
         <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
-            </footer>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
         </div>
     </form>
-
-    <script>
-        $(document).ready(() => {
-            $('#btn-sidebar').sideNav({ menuWidth: 300 });
-            $('#collapsible-admin').collapsible();
-        });
-    </script>
 </body>
 </html>

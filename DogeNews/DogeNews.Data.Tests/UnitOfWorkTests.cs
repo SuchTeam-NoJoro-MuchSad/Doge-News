@@ -3,6 +3,8 @@ using DogeNews.Data.Contracts;
 
 using Moq;
 using NUnit.Framework;
+using DogeNews.Data.Migrations;
+using System.Reflection;
 
 namespace DogeNews.Data.Tests
 {
@@ -41,8 +43,18 @@ namespace DogeNews.Data.Tests
             var newsData = new NewsData(mockContext.Object);
 
             newsData.Dispose();
-
             mockContext.Verify(x => x.Dispose(), Times.Once);
+        }
+
+        [Test]
+        public void Configuration_SeedShouldNotThrow()
+        {
+            var config = new Configuration();
+            var context = new NewsDbContext();
+            Assert.DoesNotThrow(() => config
+                .GetType()
+                .GetMethod("Seed", BindingFlags.NonPublic | BindingFlags.Instance)
+                .Invoke(config, new object[] { context }));
         }
     }
 }
