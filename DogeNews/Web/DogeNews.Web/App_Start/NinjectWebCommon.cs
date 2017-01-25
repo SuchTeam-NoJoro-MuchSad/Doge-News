@@ -1,15 +1,16 @@
 using System;
 using System.Web;
-using DogeNews.Web;
-using DogeNews.Web.Bindings;
+
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+
 using Ninject;
 using Ninject.Web.Common;
+using DogeNews.Web.Bindings;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DogeNews.Web.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DogeNews.Web.App_Start.NinjectWebCommon), "Stop")]
 
-namespace DogeNews.Web
+namespace DogeNews.Web.App_Start
 {
     public static class NinjectWebCommon
     {
@@ -65,11 +66,7 @@ namespace DogeNews.Web
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Load(
-                new MvpModule(), 
-                new DataModule(), 
-                new ServicesModule(),
-                new ProvidersModule());
+            kernel.Load(new MvpModule(), new DataModule());
         }
     }
 }

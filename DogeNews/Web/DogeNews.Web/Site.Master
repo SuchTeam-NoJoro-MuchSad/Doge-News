@@ -5,27 +5,18 @@
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <title><%: Page.Title %> | Doge News</title>
-
-    <!-- CSS  -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="~/Content/materialize/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="~/Content/master.css" type="text/css" rel="stylesheet" />
-    <%--<link href="~/Content/materialize/css" type="text/css" rel="stylesheet" media="screen,projection">--%>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - My ASP.NET Application</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <webopt:BundleReference runat="server" Path="~/Content/materialize" />
+    <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
 </head>
 <body>
-
-    <form runat="server" enctype="multipart/form-data">
+    <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
@@ -43,131 +34,13 @@
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
-                <asp:ScriptReference Path="Scripts/materialize/materialize.js" />
-                <asp:ScriptReference Path="Scripts/custom.js" />
                 <%--Site Scripts--%>
-                <asp:ScriptReference Path="~/Scripts/master.js" />
             </Scripts>
         </asp:ScriptManager>
+        
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
 
-
-        <!-- MAIN NAVIGATION -->
-        <header>
-            <nav class="grey lighten-3" id="upper-nav">
-                <ul class="right">
-                    <li>
-                        <span id="btn-search"><i class="material-icons">search</i></span>
-                        <input id="tb-search" type="text" />
-                    </li>
-                    <li>
-                        <div id="vertical-line"></div>
-                    </li>
-
-                    <!-- LOGIN AND REGISTER -->
-                    <% if (this.Username == null)
-                        { %>
-                    <li>
-                        <a href="/Auth/Register.aspx" class="tooltipped" data-tooltip="Register">
-                            <i class="material-icons">assignment</i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/Auth/Login.aspx" class="tooltipped" data-tooltip="Login" id="login-link">
-                            <i class="material-icons">perm_identity</i>
-                        </a>
-                    </li>
-                    <% } %>
-
-                    <% if (this.Username != null)
-                        { %>
-                    <!-- PROFILE -->
-                    <li>
-                        <!-- Button for the sidebar -->
-                        <a href="#" id="btn-sidebar" data-activates="slide-out" class="tooltipped" data-tooltip="Account">
-                            <i class="material-icons">account_circle</i>
-                        </a>
-                    </li>
-                    <% } %>
-                </ul>
-            </nav>
-
-            <nav class="white">
-                <div>
-                    <a href="/" class="brand-logo">NEWS</a>
-
-                    <ul id="main-nav-items" class="right">
-                        <li>
-                            <a href="#">BREAKING</a>
-                        </li>
-
-                        <li>
-                            <a href="#">SPORTS</a>
-                        </li>
-
-                        <li>
-                            <a href="#">WEATHER</a>
-                        </li>
-
-                        <li>
-                            <a href="#">POLITICAL</a>
-                        </li>
-
-                        <li>
-                            <a href="#">BUSINESS</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-
-        <!-- SIDEBAR -->
-        <ul id="slide-out" class="side-nav">
-            <li>
-                <div class="userView">
-                    <div class="background">
-                        <img id="sidebar-background-img" src="http://wallpapercave.com/wp/qMa30tF.jpg">
-                    </div>
-                    <div id="user-container">
-                        <img class="circle" id="sidebar-profile-img" src="https://hips.hearstapps.com/cos.h-cdn.co/assets/cm/14/25/539fd6a0d9b01_-_cos-02-beautiful-woman-outside-de.jpg">
-                        <p><%= this.Session["Username"] %></p>
-                    </div>
-                </div>
-            </li>
-
-            <!-- ADMIN -->
-            <% if (this.UserRole == "Admin")
-                { %>
-            <li>
-                <ul id="collapsible-admin" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header">
-                            <span>Admin</span>
-                        </div>
-                        <div class="collapsible-body">
-                            <a href="/User/Admin/AddNews">
-                                <i class="material-icons">description</i>Add News
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            <% } %>
-            <li>
-                <a href="<%= this.GetRouteUrl("Settings", new { username = this.Session["Username"] }) %>">Settings</a>
-            </li>
-            <li>
-                <div class="divider"></div>
-            </li>
-            <!-- LOGOUT -->
-            <li>
-                <a href="#" runat="server" onserverclick="Logout">Logout</a>
-            </li>
-        </ul>
-
-        <!-- MAIN CONTENT -->
-        <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server"></asp:ContentPlaceHolder>
-        </div>
+        </asp:ContentPlaceHolder>        
     </form>
 </body>
 </html>

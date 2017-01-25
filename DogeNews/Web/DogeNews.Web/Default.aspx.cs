@@ -1,12 +1,12 @@
-﻿using System;
-using System.Web.UI;
+﻿using WebFormsMvp.Web;
+using WebFormsMvp;
+
+using DogeNews.Web.MVP.Default;
 
 namespace DogeNews.Web
 {
-    public partial class _Default : Page
+    [PresenterBinding(typeof(DefaultPresenter))]
+    public partial class _Default : MvpPage<DefaultViewModel>, IDefaultView
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {            
-        }
     }
 }

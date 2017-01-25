@@ -1,6 +1,7 @@
 ﻿using System;
 
 using DogeNews.Web.Factories.Contracts;
+
 using WebFormsMvp;
 using WebFormsMvp.Binder;
 

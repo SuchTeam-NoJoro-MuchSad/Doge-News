@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
-
-using DogeNews.Web.Services.Contracts;
-using Ninject;
+using System.Web.UI.WebControls;
+using Microsoft.AspNet.Identity;
 
 namespace DogeNews.Web
 {
@@ -12,87 +14,68 @@ namespace DogeNews.Web
     {
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
-        private string antiXsrfTokenValue;
-        
-        public string Username { get; private set; }
+        private string _antiXsrfTokenValue;
 
-        public string UserRole { get; private set; }
-        
-        [Inject]
-        public IAuthService AuthService { get; set; }
-                
         protected void Page_Init(object sender, EventArgs e)
         {
             // The code below helps to protect against XSRF attacks
             var requestCookie = Request.Cookies[AntiXsrfTokenKey];
             Guid requestCookieGuidValue;
-
             if (requestCookie != null && Guid.TryParse(requestCookie.Value, out requestCookieGuidValue))
             {
                 // Use the Anti-XSRF token from the cookie
-                this.antiXsrfTokenValue = requestCookie.Value;
-                this.Page.ViewStateUserKey = this.antiXsrfTokenValue;
+                _antiXsrfTokenValue = requestCookie.Value;
+                Page.ViewStateUserKey = _antiXsrfTokenValue;
             }
             else
             {
                 // Generate a new Anti-XSRF token and save to the cookie
-                this.antiXsrfTokenValue = Guid.NewGuid().ToString("N");
-                this.Page.ViewStateUserKey = this.antiXsrfTokenValue;
+                _antiXsrfTokenValue = Guid.NewGuid().ToString("N");
+                Page.ViewStateUserKey = _antiXsrfTokenValue;
 
                 var responseCookie = new HttpCookie(AntiXsrfTokenKey)
                 {
                     HttpOnly = true,
-                    Value = this.antiXsrfTokenValue
+                    Value = _antiXsrfTokenValue
                 };
-
                 if (FormsAuthentication.RequireSSL && Request.IsSecureConnection)
                 {
                     responseCookie.Secure = true;
                 }
-
-                this.Response.Cookies.Set(responseCookie);
+                Response.Cookies.Set(responseCookie);
             }
 
-            this.Page.PreLoad += this.MasterPagePreload;
+            Page.PreLoad += master_Page_PreLoad;
         }
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected void master_Page_PreLoad(object sender, EventArgs e)
         {
-            var userModel = this.AuthService.GetAuthCookieUserData(this.Request.Cookies);
-            if (userModel != null)
-            {
-                this.Session["Username"] = userModel.Username;
-                this.Session["UserRole"] = userModel.UserRole;
-
-                this.Username = userModel.Username;
-                this.UserRole = userModel.UserRole;
-            }
-        }
-
-        protected void MasterPagePreload(object sender, EventArgs e)
-        {
-            if (!this.IsPostBack)
+            if (!IsPostBack)
             {
                 // Set Anti-XSRF token
-                this.ViewState[AntiXsrfTokenKey] = this.Page.ViewStateUserKey;
-                this.ViewState[AntiXsrfUserNameKey] = this.Context.User.Identity.Name ?? string.Empty;
+                ViewState[AntiXsrfTokenKey] = Page.ViewStateUserKey;
+                ViewState[AntiXsrfUserNameKey] = Context.User.Identity.Name ?? String.Empty;
             }
             else
             {
                 // Validate the Anti-XSRF token
-                if ((string)this.ViewState[AntiXsrfTokenKey] != this.antiXsrfTokenValue ||
-                    (string)this.ViewState[AntiXsrfUserNameKey] != (this.Context.User.Identity.Name ?? string.Empty))
+                if ((string)ViewState[AntiXsrfTokenKey] != _antiXsrfTokenValue
+                    || (string)ViewState[AntiXsrfUserNameKey] != (Context.User.Identity.Name ?? String.Empty))
                 {
                     throw new InvalidOperationException("Validation of Anti-XSRF token failed.");
                 }
             }
         }
 
-        protected void Logout(object sender, EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            this.Session.Clear();
-            this.AuthService.LogoutUser(this.Response.Cookies);
-            this.Response.Redirect("/");
+
+        }
+
+        protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
+        {
+            Context.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
     }
+
 }

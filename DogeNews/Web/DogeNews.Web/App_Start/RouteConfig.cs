@@ -1,5 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Web;
 using System.Web.Routing;
-
 using Microsoft.AspNet.FriendlyUrls;
 
 namespace DogeNews.Web
@@ -11,14 +13,6 @@ namespace DogeNews.Web
             var settings = new FriendlyUrlSettings();
             settings.AutoRedirectMode = RedirectMode.Permanent;
             routes.EnableFriendlyUrls(settings);
-        }
-
-        public static void RegisterCustomRoutes(RouteCollection routes)
-        {
-            RouteTable.Routes.MapPageRoute(
-                routeName: "Settings", 
-                routeUrl: "User/Settings/{username}", 
-                physicalFile: "~/User/Settings/Settings.aspx");
         }
     }
 }
