@@ -1,6 +1,4 @@
-﻿using DogeNews.Web.Common.Enums;
-
-namespace DogeNews.Web.Models
+﻿namespace DogeNews.Web.Models
 {
     public class UserWebModel
     {
@@ -11,13 +9,7 @@ namespace DogeNews.Web.Models
         public string FirstName { get; set; }
         
         public string LastName { get; set; }
-        
+                
         public string Email { get; set; }
-        
-        public string Salt { get; set; }
-        
-        public string Password { get; set; }
-
-        public UserRoleType UserRole { get; set; }
     }
 }

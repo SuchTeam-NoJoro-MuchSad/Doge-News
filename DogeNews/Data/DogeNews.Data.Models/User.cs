@@ -1,31 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 using DogeNews.Web.Common.Enums;
 
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
+
 namespace DogeNews.Data.Models
 {
-    public class User 
+    public class User : IdentityUser
     {
         private ICollection<NewsItem> newsItems;
         private ICollection<Comment> comments;
 
         public User()
         {
-            this.UserRole = UserRoleType.Normal;
             this.newsItems = new HashSet<NewsItem>();
             this.comments = new HashSet<Comment>();
         }
-
-        public int Id { get; set; }
-
-        [Required]
-        [MinLength(3)]
-        [MaxLength(20)]
-        [Index(IsUnique = true)]
-        public string Username { get; set; }
-
+        
         [MinLength(3)]
         [MaxLength(20)]
         public string FirstName { get; set; }
@@ -33,20 +29,7 @@ namespace DogeNews.Data.Models
         [MinLength(3)]
         [MaxLength(20)]
         public string LastName { get; set; }
-
-        [MinLength(3)]
-        [MaxLength(100)]
-        public string Email { get; set; }
-
-        [Required]
-        public string Salt { get; set; }
-
-        [Required]
-        public string PassHash { get; set; }
-
-        [Required]
-        public UserRoleType UserRole { get; set; }
-
+        
         public virtual ICollection<NewsItem> NewsItems
         {
             get { return this.newsItems; }
@@ -57,6 +40,19 @@ namespace DogeNews.Data.Models
         {
             get { return this.comments; }
             set { this.comments = value; }
+        }
+
+        public ClaimsIdentity GenerateUserIdentity(UserManager<User> manager)
+        {
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = manager.CreateIdentity(this, DefaultAuthenticationTypes.ApplicationCookie);
+            // Add custom user claims here
+            return userIdentity;
+        }
+
+        public Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
+        {
+            return Task.FromResult(GenerateUserIdentity(manager));
         }
     }
 }

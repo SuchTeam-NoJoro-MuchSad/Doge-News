@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Reflection;
 
 using DogeNews.Data.Models;
+
 using NUnit.Framework;
 
 namespace DogeNews.Data.Tests
@@ -17,22 +18,7 @@ namespace DogeNews.Data.Tests
         {
             this.context = new NewsDbContext();
         }
-
-        [Test]
-        public void Users_GetShouldReturnSetValue()
-        {
-            var set = (IDbSet<User>)typeof(DbSet<User>)
-                .GetConstructor(
-                    BindingFlags.NonPublic | BindingFlags.CreateInstance | BindingFlags.Instance,
-                    null,
-                    new Type[] { },
-                    null)
-                .Invoke(new object[] { });
-
-            this.context.Users = set;
-            Assert.AreEqual(set, this.context.Users);
-        }
-
+        
         [Test]
         public void Images_GetShouldReturnSetValue()
         {

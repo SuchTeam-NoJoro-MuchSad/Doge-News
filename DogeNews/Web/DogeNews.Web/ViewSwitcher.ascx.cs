@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Routing;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+
 using Microsoft.AspNet.FriendlyUrls.Resolvers;
 
 namespace DogeNews.Web
@@ -21,10 +18,10 @@ namespace DogeNews.Web
         {
             // Determine current view
             var isMobile = WebFormsFriendlyUrlResolver.IsMobileView(new HttpContextWrapper(Context));
-            CurrentView = isMobile ? "Mobile" : "Desktop";
+            this.CurrentView = isMobile ? "Mobile" : "Desktop";
 
             // Determine alternate view
-            AlternateView = isMobile ? "Desktop" : "Mobile";
+            this.AlternateView = isMobile ? "Desktop" : "Mobile";
 
             // Create switch URL from the route, e.g. ~/__FriendlyUrls_SwitchView/Mobile?ReturnUrl=/Page
             var switchViewRouteName = "AspNet.FriendlyUrls.SwitchView";
@@ -35,9 +32,10 @@ namespace DogeNews.Web
                 this.Visible = false;
                 return;
             }
-            var url = GetRouteUrl(switchViewRouteName, new { view = AlternateView, __FriendlyUrls_SwitchViews = true });
+
+            var url = this.GetRouteUrl(switchViewRouteName, new { view = this.AlternateView, __FriendlyUrls_SwitchViews = true });
             url += "?ReturnUrl=" + HttpUtility.UrlEncode(Request.RawUrl);
-            SwitchUrl = url;
+            this.SwitchUrl = url;
         }
     }
 }

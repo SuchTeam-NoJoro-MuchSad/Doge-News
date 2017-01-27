@@ -9,7 +9,7 @@ namespace DogeNews.Web
 {
     public class Global : HttpApplication
     {
-        void Application_Start(object sender, EventArgs e)
+        public void Application_Start(object sender, EventArgs e)
         {
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthCookieUserModel.cs" />
     <Compile Include="ImageWebModel.cs" />
     <Compile Include="NewsWebModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,9 +50,9 @@
     <None Include="Settings.StyleCop" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DogeNews.Web.Common\DogeNews.Web.Common.csproj">
-      <Project>{7b9cf401-8c80-44b0-a715-545f0237c2e3}</Project>
-      <Name>DogeNews.Web.Common</Name>
+    <ProjectReference Include="..\..\Common\DogeNews.Common\DogeNews.Common.csproj">
+      <Project>{5fd6dc3f-321d-456a-9dc4-0010ebebb22b}</Project>
+      <Name>DogeNews.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

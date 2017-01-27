@@ -3,7 +3,7 @@
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <h2><%: Title %>.</h2>
     <p class="text-danger">
-        <asp:Literal runat="server" ID="ErrorMessage" />
+        <asp:Literal runat="server" ID="ErrorMessage" Text="<%#: this.Model.ErrorMessage %>" />
     </p>
 
     <div class="form-horizontal">

@@ -11,9 +11,11 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
     </asp:PlaceHolder>
-    <webopt:bundlereference runat="server" path="~/Content/css" />
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
+    <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="Content/materialize/css/materialize.min.css" />
 </head>
 <body>
     <form runat="server">
@@ -23,7 +25,6 @@
                 <%--Framework Scripts--%>
                 <asp:ScriptReference Name="MsAjaxBundle" />
                 <asp:ScriptReference Name="jquery" />
-                <asp:ScriptReference Name="bootstrap" />
                 <asp:ScriptReference Name="respond" />
                 <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
                 <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
@@ -34,13 +35,40 @@
                 <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
                 <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
                 <asp:ScriptReference Name="WebFormsBundle" />
+                <asp:ScriptReference Path="~/Scripts/materialize/materialize.min.js" />
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
-        
-        <asp:ContentPlaceHolder ID="MainContent" runat="server">
 
-        </asp:ContentPlaceHolder>        
+        <!-- NAVIGATION -->
+        <nav class="top-nav">
+            <div class="navbar-fixed">
+                <div class="nav-wrapper">
+                    <a href="/" class="brand-logo">DogeNews</a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <% if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                            { %>
+                        <li><a href="/Account/Register.aspx">Register</a></li>
+                        <li><a href="/Account/Login.aspx">Login</a></li>
+                        <%}
+                            else
+                            { %>
+                        <li><a href="/Account/Profile.aspx">Profile</a></li>
+                        <li>
+                            <asp:LoginStatus
+                                runat="server"
+                                LogoutText="Logout"
+                                LogoutPageUrl="~/"
+                                OnLoggingOut="Logout" />
+                        </li>
+                        <%} %>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
     </form>
 </body>
 </html>

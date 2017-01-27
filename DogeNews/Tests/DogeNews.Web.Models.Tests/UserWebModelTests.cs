@@ -1,4 +1,4 @@
-﻿using DogeNews.Web.Common.Enums;
+﻿using DogeNews.Common.Constants;
 using NUnit.Framework;
 
 namespace DogeNews.Web.Models.Tests
@@ -54,36 +54,6 @@ namespace DogeNews.Web.Models.Tests
 
             user.Email = email;
             Assert.AreEqual(email, user.Email);
-        }
-
-        [Test]
-        public void Salt_ShouldReturnSetValue()
-        {
-            string salt = "salt";
-            var user = new UserWebModel();
-
-            user.Salt = salt;
-            Assert.AreEqual(salt, user.Salt);
-        }
-
-        [Test]
-        public void Password_ShouldReturnSetValue()
-        {
-            string password = "password";
-            var user = new UserWebModel();
-
-            user.Password = password;
-            Assert.AreEqual(password, user.Password);
-        }
-
-        [Test]
-        public void UserRole_ShouldReturnSetValue()
-        {
-            var role = UserRoleType.Admin;
-            var user = new UserWebModel();
-
-            user.UserRole = role;
-            Assert.AreEqual(role, user.UserRole);
-        }
+        }        
     }
 }
