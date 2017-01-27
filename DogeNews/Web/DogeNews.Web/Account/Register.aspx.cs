@@ -15,7 +15,12 @@ namespace DogeNews.Web.Account
 
         protected void CreateUser_Click(object sender, EventArgs e)
         {
-            var args = new CreateUserEventArgs { Email = this.Email.Text, Password = this.Password.Text };
+            var args = new CreateUserEventArgs
+            {
+                Email = this.Server.HtmlEncode(this.Email.Text),
+                Password = this.Server.HtmlEncode(this.Password.Text)
+            };
+
             this.CreateUser(this, args);
         }
     }

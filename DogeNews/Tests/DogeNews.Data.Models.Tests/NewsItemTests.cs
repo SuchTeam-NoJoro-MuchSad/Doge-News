@@ -149,7 +149,7 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void AuthorId_GetShouldReturnTheSetValue()
         {
-            var authorId = 1;
+            var authorId = "1";
             var item = new NewsItem();
 
             item.AuthorId = authorId;

@@ -9,7 +9,7 @@ namespace DogeNews.Web.Models.Tests
         [Test]
         public void Id_ShouldReturnSetValue()
         {
-            int id = 1;
+            string id = "1";
             var user = new UserWebModel();
 
             user.Id = id;

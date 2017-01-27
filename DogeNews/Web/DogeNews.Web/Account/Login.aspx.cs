@@ -33,8 +33,8 @@ namespace DogeNews.Web.Account
             {
                 var args = new LoginEventArgs
                 {
-                    Email = this.Email.Text,
-                    Password = this.Password.Text,
+                    Email = this.Server.HtmlEncode(this.Email.Text),
+                    Password = this.Server.HtmlEncode(this.Password.Text),
                     RememberMe = this.RememberMe.Checked
                 };
 
