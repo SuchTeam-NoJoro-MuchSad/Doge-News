@@ -25,6 +25,9 @@ namespace DogeNews.Web.Account
             {
                 this.RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
             }
+
+            this.EmailLabel.Attributes.Add("data-error","errrr");
+            this.EmailLabel.Attributes.Add("data-success", "succ");
         }
 
         protected void LogIn(object sender, EventArgs e)

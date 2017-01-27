@@ -275,3 +275,4 @@ __pycache__/
 # !tools/packages.config
 
 /DogeNews/DogeNews.Web/Logs
+/DogeNews/DogeNews.Web/Web.config
