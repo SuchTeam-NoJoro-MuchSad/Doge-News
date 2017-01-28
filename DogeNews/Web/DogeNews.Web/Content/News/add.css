@@ -1,16 +1,12 @@
-﻿#MainContent_ImageFileUpload, #MainContent_CategorySelect {
-    margin-bottom: 30px;
+﻿#add-news-container {
+    margin-left: 15%;
 }
 
-#file-upload-container {
-    margin-bottom: 30px;
-    display:block;
+#add_news_submit_btn {
+    display: block !important;
 }
 
-#title-input {
-    margin-bottom: 50px;
-}
-
-#createNewsArticleContainer, #select-container {
-    margin-bottom: 30px;
+#add-news-heading {
+    text-align: center;
+    margin-bottom: 10px;
 }

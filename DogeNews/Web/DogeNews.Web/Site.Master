@@ -39,39 +39,60 @@
                 <asp:ScriptReference Path="~/Scripts/materialize/materialize.min.js" />
                 <asp:ScriptReference Path="~/Scripts/custom.js" />
                 <%--Site Scripts--%>
+
+                <asp:ScriptReference Path="~/Scripts/site.js" />
             </Scripts>
         </asp:ScriptManager>
 
         <!-- NAVIGATION -->
         <div class="navbar-fixed">
             <nav>
-                <div class="nav-wrapper">
-                    <a href="/" class="brand-logo">DogeNews</a>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <div class="nav-wrapper white" id="main-nav-wrapper">
+                    <a href="/" class="brand-logo">
+                        <img id="logo-img" class="responsive-img" src="Images/logo-img.png" />
+                        <h1 id="logo-text">DN</h1>
+                    </a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse blue-grey">
+                        <i class="material-icons">menu</i>
+                    </a>
                     <ul class="right hide-on-med-and-down">
-                        <!-- ADD NEWS BUTTON -->
-                        <% if (HttpContext.Current.User.IsInRole(DogeNews.Common.Constants.Roles.Admin)) { %>
-                            <li><a href="/News/Add.aspx">Add News</a></li>
-                        <% } %>
-
-                        <!-- REGISTER/LOGIN BUTTONS -->
-                        <% if (!HttpContext.Current.User.Identity.IsAuthenticated)
-                            { %>
-                        <li><a href="/Account/Register.aspx">Register</a></li>
-                        <li><a href="/Account/Login.aspx">Login</a></li>
-                        <%}
-                            else
-                            { %>
-                        <!-- PROFILE/LOGOUT BUTTONS -->
-                        <li><a href="/Account/Profile.aspx">Profile</a></li>
                         <li>
-                            <asp:LoginStatus
-                                runat="server"
-                                LogoutText="Logout"
-                                LogoutPageUrl="~/"
-                                OnLoggingOut="Logout" />
+                            <a class="dropdown-button" href='#' data-activates='nav-user-dropdown'>
+                                <i class="material-icons">dehaze</i>
+                            </a>
+
+                            <ul id='nav-user-dropdown' class='dropdown-content'>
+                                <!-- ADD NEWS -->
+                                <% if (HttpContext.Current.User.IsInRole(DogeNews.Common.Constants.Roles.Admin))
+                                    { %>
+                                <li><a href="/News/Add.aspx">Add News</a></li>
+                                <% } %>
+
+                                <!-- LOGIN/ REGISTER -->
+                                <% if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                                    { %>
+                                <li><a href="/Account/Register.aspx">Register</a></li>
+                                <li><a href="/Account/Login.aspx">Login</a></li>
+
+                                <%}
+                                    else
+                                    {%>
+                                <!-- PROFILE -->
+                                <li>
+                                    <a href="/Account/Profile.aspx">Profile</a>
+                                </li>
+
+                                <!-- LOGOUT -->
+                                <li>
+                                    <asp:LoginStatus
+                                        runat="server"
+                                        LogoutText="Logout"
+                                        LogoutPageUrl="~/"
+                                        OnLoggingOut="Logout" />
+                                </li>
+                                <%} %>
+                            </ul>
                         </li>
-                        <%} %>
                     </ul>
 
                     <!-- REGISTER/LOGIN BUTTONS MOBILE -->

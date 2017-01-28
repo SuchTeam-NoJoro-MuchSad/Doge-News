@@ -7,4 +7,5 @@
 /// <reference path="news/add.js" />
 /// <reference path="respond.js" />
 /// <reference path="respond.matchmedia.addListener.js" />
+/// <reference path="site.js" />
 /// <reference path="usercontrols/tiny-mce-editor.js" />
