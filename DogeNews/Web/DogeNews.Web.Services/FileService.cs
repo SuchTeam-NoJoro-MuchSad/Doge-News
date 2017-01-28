@@ -8,15 +8,6 @@ namespace DogeNews.Web.Services
 {
     public class FileService : IFileService
     {
-        private readonly IDateTimeProvider dateTimeProvider;
-
-        public FileService(IDateTimeProvider dateTimeProvider)
-        {
-            this.ValidateConstructorParams(dateTimeProvider);
-
-            this.dateTimeProvider = dateTimeProvider;
-        }
-
         public void CreateFile(string folderName, string fileName)
         {
             if (!Directory.Exists($"{folderName}"))
@@ -35,20 +26,13 @@ namespace DogeNews.Web.Services
             }
 
             var guid = Guid.NewGuid().ToString();
-            var now = this.dateTimeProvider.Now.ToString().Replace('/', '-');
-            var fileName = $"{username}{guid}{now}"
+            var fileName = $"{username}{guid}"
                 .Replace(' ', '-')
-                .Replace(':', '-');
+                .Replace(':', '-')
+                .Replace('.', '-')
+                .Replace('@', '-');
 
             return fileName;
-        }
-
-        private void ValidateConstructorParams(IDateTimeProvider dateTimeProvider)
-        {
-            if (dateTimeProvider == null)
-            {
-                throw new ArgumentNullException(nameof(dateTimeProvider));
-            }
         }
     }
 }

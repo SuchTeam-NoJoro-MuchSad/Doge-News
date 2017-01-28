@@ -17,7 +17,7 @@ namespace DogeNews.Web.Account
         {
             var args = new CreateUserEventArgs
             {
-                Email = this.Server.HtmlEncode(this.Email.Text),
+                UserName = this.Server.HtmlEncode(this.Username.Text),
                 Password = this.Server.HtmlEncode(this.Password.Text)
             };
 

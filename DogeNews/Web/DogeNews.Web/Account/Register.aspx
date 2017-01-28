@@ -14,13 +14,13 @@
                     <h1 id="register-heading">Register</h1>
                     <asp:ValidationSummary runat="server" CssClass="text-danger" />
 
-                    <!-- EMAIL -->
+                    <!-- USERNAME -->
                     <div class="input-field">
-                        <asp:Label runat="server" AssociatedControlID="Email">Email</asp:Label>
+                        <asp:Label runat="server" AssociatedControlID="Username">Username</asp:Label>
                         <div class="col-md-10">
-                            <asp:TextBox runat="server" ID="Email" TextMode="Email" />
-                            <asp:RequiredFieldValidator runat="server" ControlToValidate="Email"
-                                CssClass="text-danger" ErrorMessage="The email field is required." />
+                            <asp:TextBox runat="server" ID="Username" />
+                            <asp:RequiredFieldValidator runat="server" ControlToValidate="Username"
+                                CssClass="text-danger" ErrorMessage="The username field is required." />
                         </div>
                     </div>
 

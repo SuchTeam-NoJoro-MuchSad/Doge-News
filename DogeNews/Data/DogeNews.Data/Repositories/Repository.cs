@@ -44,6 +44,14 @@ namespace DogeNews.Data.Repositories
             }
         }
 
+        public int Count
+        {
+            get
+            {
+                return this.DbSet.Count();
+            }
+        }
+
         public T GetFirst(Expression<Func<T, bool>> filterExpression)
         {
             var foundEntity = this.DbSet.FirstOrDefault(filterExpression);

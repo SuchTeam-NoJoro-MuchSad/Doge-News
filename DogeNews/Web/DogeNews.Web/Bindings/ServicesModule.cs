@@ -2,6 +2,7 @@
 
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Services;
+using DogeNews.Web.MVP.UserControls.NewsGrid;
 
 namespace DogeNews.Web.Bindings
 {
@@ -11,6 +12,9 @@ namespace DogeNews.Web.Bindings
         {
             this.Bind<INewsService>().To<NewsService>();
             this.Bind<IFileService>().To<FileService>();
+            this.Bind(typeof(IDataSourceService<,>))
+                .To(typeof(NewsDataSourceService))
+                .WhenInjectedInto<NewsGridPresenter>();
         }
     }
 }

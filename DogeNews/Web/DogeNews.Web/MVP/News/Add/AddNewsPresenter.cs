@@ -27,9 +27,10 @@ namespace DogeNews.Web.MVP.News.Add
 
         private void AddNews(object sender, AddNewsEventArgs e)
         {
+            string fileExtension = Path.GetExtension(e.Image.FileName);
             string username = this.HttpContext.User.Identity.Name;
-            string fileName = this.fileProvider.GetUniqueFileName(username);
-            string baseImagesPath = "~\\App_Data\\Images";
+            string fileName = this.fileProvider.GetUniqueFileName(username) + fileExtension;
+            string baseImagesPath = "~\\Resources\\Images";
             string basePath = this.Server.MapPath(baseImagesPath);
             string userFolderPath = $"{basePath}\\{username}";
             string fullImageName = $"{basePath}\\{username}\\{fileName}";
@@ -37,7 +38,7 @@ namespace DogeNews.Web.MVP.News.Add
             {
                 Name = fileName,
                 FullName = fullImageName,
-                FileExtention = Path.GetExtension(e.Image.FileName)
+                FileExtention = fileExtension
             };
             var newsItem = new NewsWebModel
             {

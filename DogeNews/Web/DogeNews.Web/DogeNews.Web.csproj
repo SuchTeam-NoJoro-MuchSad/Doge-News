@@ -259,6 +259,7 @@
     <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.woff" />
     <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.ttf" />
     <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.eot" />
+    <Content Include="Content\UserControls\news-grid.css" />
     <Content Include="Errors\404Page.aspx" />
     <Content Include="Errors\DefaultErrorPage.aspx" />
     <Content Include="fonts\THE CURIOUS INCIDENT.ttf" />
@@ -308,6 +309,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
+    <Content Include="UserControls\NewsGrid.ascx" />
     <Content Include="UserControls\TinyMceEditor.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -400,6 +402,10 @@
     <Compile Include="MVP\News\Add\EventArguments\AddNewsEventArgs.cs" />
     <Compile Include="MVP\News\Add\IAddNewsView.cs" />
     <Compile Include="MVP\News\Add\AddNewsViewModel.cs" />
+    <Compile Include="MVP\UserControls\NewsGrid\EventArguments\ChangePageEventArgs.cs" />
+    <Compile Include="MVP\UserControls\NewsGrid\INewsGridView.cs" />
+    <Compile Include="MVP\UserControls\NewsGrid\NewsGridPresenter.cs" />
+    <Compile Include="MVP\UserControls\NewsGrid\NewsGridViewModel.cs" />
     <Compile Include="News\Add.aspx.cs">
       <DependentUpon>Add.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -416,6 +422,13 @@
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="UserControls\NewsGrid.ascx.cs">
+      <DependentUpon>NewsGrid.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\NewsGrid.ascx.designer.cs">
+      <DependentUpon>NewsGrid.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TinyMceEditor.ascx.cs">
       <DependentUpon>TinyMceEditor.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -432,7 +445,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="Resources\Images\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\DogeNews.Common\DogeNews.Common.csproj">

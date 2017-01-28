@@ -10,3 +10,7 @@
     text-align: center;
     margin-bottom: 10px;
 }
+
+#file-upload-container {
+    display: inline-block !important;
+}

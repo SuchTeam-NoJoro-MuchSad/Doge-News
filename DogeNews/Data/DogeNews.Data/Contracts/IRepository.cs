@@ -9,6 +9,8 @@ namespace DogeNews.Data.Contracts
     {
         IQueryable<T> All { get; }
 
+        int Count { get; }
+
         T GetById(object id);
 
         T GetFirst(Expression<Func<T, bool>> filterExpression);

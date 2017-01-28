@@ -21,12 +21,12 @@
                                 </p>
                             </asp:PlaceHolder>
 
-                            <!-- EMAIL -->
+                            <!-- USERNAME -->
                             <div class="input-field col s12">
-                                <asp:Label ID="EmailLabel" runat="server" AssociatedControlID="Email" CssClass="">Email</asp:Label>
-                                <asp:TextBox runat="server" ID="Email" CssClass="validate" TextMode="Email" />
-                                <asp:RequiredFieldValidator runat="server" ControlToValidate="Email"
-                                    CssClass="text-danger" ErrorMessage="The email field is required." />
+                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName" CssClass="">UserName</asp:Label>
+                                <asp:TextBox runat="server" ID="UserName" />
+                                <asp:RequiredFieldValidator runat="server" ControlToValidate="UserName"
+                                    CssClass="text-danger" ErrorMessage="The username field is required." />
                             </div>
 
                             <!-- PASSWORD -->

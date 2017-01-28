@@ -26,8 +26,8 @@ namespace DogeNews.Web.Account
                 this.RegisterHyperLink.NavigateUrl += "?ReturnUrl=" + returnUrl;
             }
 
-            this.EmailLabel.Attributes.Add("data-error","errrr");
-            this.EmailLabel.Attributes.Add("data-success", "succ");
+            this.UserNameLabel.Attributes.Add("data-error","errrr");
+            this.UserNameLabel.Attributes.Add("data-success", "succ");
         }
 
         protected void LogIn(object sender, EventArgs e)
@@ -36,7 +36,7 @@ namespace DogeNews.Web.Account
             {
                 var args = new LoginEventArgs
                 {
-                    Email = this.Server.HtmlEncode(this.Email.Text),
+                    UserName = this.Server.HtmlEncode(this.UserName.Text),
                     Password = this.Server.HtmlEncode(this.Password.Text),
                     RememberMe = this.RememberMe.Checked
                 };

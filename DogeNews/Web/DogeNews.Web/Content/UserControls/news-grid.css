@@ -1,0 +1,13 @@
+﻿.card {
+    margin: 10px !important;
+}
+
+#news-grid {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.pagination {
+    display: inline-block !important;
+    margin: 0 auto;
+}

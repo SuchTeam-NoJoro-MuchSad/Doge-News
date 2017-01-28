@@ -46,9 +46,9 @@ namespace DogeNews.Data.Migrations
             var userStore = new UserStore<User>(context);
             var userManager = new UserManager<User>(userStore);
 
-            if (!context.Users.Any(u => u.UserName == "admin@admin.com"))
+            if (!context.Users.Any(u => u.UserName == "admin"))
             {
-                var adminUser = new User { UserName = "admin@admin.com" };
+                var adminUser = new User { UserName = "admin" };
                 
                 var isSuccessful = userManager.Create(adminUser, "admin1");
                 userManager.AddToRole(adminUser.Id, Roles.Admin);

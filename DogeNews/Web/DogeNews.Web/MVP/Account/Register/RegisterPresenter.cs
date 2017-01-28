@@ -30,7 +30,7 @@ namespace DogeNews.Web.MVP.Account.Register
             var signInManager = this.HttpContext
                 .GetOwinContext()
                 .Get<ApplicationSignInManager>();
-            var user = new User { UserName = e.Email, Email = e.Email };
+            var user = new User { UserName = e.UserName };
             var result = manager.Create(user, e.Password);
             
             if (result.Succeeded)

@@ -26,7 +26,7 @@ namespace DogeNews.Web.MVP.Account.Login
             // This doen't count login failures towards account lockout
             // To enable password failures to trigger lockout, change to shouldLockout: true
             var result = signinManager
-                .PasswordSignIn(e.Email, e.Password, e.RememberMe, shouldLockout: false);
+                .PasswordSignIn(e.UserName, e.Password, e.RememberMe, shouldLockout: false);
 
             switch (result)
             {
