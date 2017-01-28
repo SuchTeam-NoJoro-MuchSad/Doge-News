@@ -1,0 +1,14 @@
+﻿.status-code {
+    font-size: 72px;
+    font-weight: bold;
+    color: #212121;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.error-text {
+    text-align: right;
+    font-size: 24px;
+    margin-top: 10px;
+    color: #039be5;
+}

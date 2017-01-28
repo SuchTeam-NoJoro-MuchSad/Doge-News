@@ -38,8 +38,8 @@
                 <asp:ScriptReference Name="WebFormsBundle" />
                 <asp:ScriptReference Path="~/Scripts/materialize/materialize.min.js" />
                 <asp:ScriptReference Path="~/Scripts/custom.js" />
-                <%--Site Scripts--%>
 
+                <%--Site Scripts--%>
                 <asp:ScriptReference Path="~/Scripts/site.js" />
             </Scripts>
         </asp:ScriptManager>
@@ -49,13 +49,23 @@
             <nav>
                 <div class="nav-wrapper white" id="main-nav-wrapper">
                     <a href="/" class="brand-logo">
-                        <img id="logo-img" class="responsive-img" src="Images/logo-img.png" />
+                        <img id="logo-img" class="responsive-img" src="http://i.imgur.com/xjzgKRG.png" />
                         <h1 id="logo-text">DN</h1>
                     </a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse blue-grey">
                         <i class="material-icons">menu</i>
                     </a>
                     <ul class="right hide-on-med-and-down">
+                        <li>
+                            <ul>
+                                <li><a href="/News/Breaking.aspx">Breaking</a></li>
+                                <li><a href="/News/Sports.aspx">Sports</a></li>
+                                <li><a href="/News/Weather.aspx">Weather</a></li>
+                                <li><a href="/News/Political.aspx">Political</a></li>
+                                <li><a href="/News/Business.aspx">Business</a></li>
+                            </ul>
+                        </li>
+
                         <li>
                             <a class="dropdown-button" href='#' data-activates='nav-user-dropdown'>
                                 <i class="material-icons">dehaze</i>

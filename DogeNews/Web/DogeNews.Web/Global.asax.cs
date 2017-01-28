@@ -21,5 +21,16 @@ namespace DogeNews.Web
             var mapperProvider = NinjectWebCommon.Kernel.Get<IMapperProvider>();
             (new MappingsConfig(mapperProvider)).Map();
         }
+
+        public void Application_Error(object sender, EventArgs e)
+        {
+            var serverError = this.Server.GetLastError() as HttpException;
+
+            if (serverError.ErrorCode == 404)
+            {
+                this.Server.ClearError();
+                this.Server.Transfer("~/Errors/404Page.aspx");
+            }
+        }
     }
 }
