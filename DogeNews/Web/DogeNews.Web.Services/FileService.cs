@@ -2,7 +2,6 @@
 using System.IO;
 
 using DogeNews.Web.Services.Contracts;
-using DogeNews.Web.Providers.Contracts;
 
 namespace DogeNews.Web.Services
 {

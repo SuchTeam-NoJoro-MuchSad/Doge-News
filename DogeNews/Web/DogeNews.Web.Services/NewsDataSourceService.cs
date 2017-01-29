@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using DogeNews.Data.Contracts;
@@ -6,18 +7,19 @@ using DogeNews.Web.Providers.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
-using System;
 
 namespace DogeNews.Web.Services
 {
     public class NewsDataSourceService : IDataSourceService<NewsItem, NewsWebModel>
     {
-        private readonly IRepository<NewsItem> repository;
+        private readonly IRepository<NewsItem> newsItemRepository;
         private readonly IMapperProvider mapperProvider;
 
-        public NewsDataSourceService(IRepository<NewsItem> repository, IMapperProvider mapperProvider)
+        public NewsDataSourceService(IRepository<NewsItem> newsItemRepository, IMapperProvider mapperProvider)
         {
-            this.repository = repository;
+            this.ValidateConstructorParams(newsItemRepository, mapperProvider);
+
+            this.newsItemRepository = newsItemRepository;
             this.mapperProvider = mapperProvider;
         }
 
@@ -25,19 +27,25 @@ namespace DogeNews.Web.Services
         {
             get
             {
-                return this.repository.Count;
+                return this.newsItemRepository.Count;
             }
         }
 
         public IEnumerable<NewsWebModel> GetPageItems(int page, int pageSize)
         {
+            this.ValidatePage(page);
+            this.ValidatePageSize(pageSize);
+
             var items = this.OrderByDateDescending(page, pageSize);
             return items;
         }
 
         public IEnumerable<NewsWebModel> OrderByDateAscending(int page, int pageSize)
         {
-            var items = this.repository
+            this.ValidatePage(page);
+            this.ValidatePageSize(pageSize);
+
+            var items = this.newsItemRepository
                 .All
                 .OrderBy(x => x.CreatedOn)
                 .Skip((page - 1) * pageSize)
@@ -50,7 +58,10 @@ namespace DogeNews.Web.Services
 
         public IEnumerable<NewsWebModel> OrderByDateDescending(int page, int pageSize)
         {
-            var items = this.repository
+            this.ValidatePage(page);
+            this.ValidatePageSize(pageSize);
+
+            var items = this.newsItemRepository
                .All
                .OrderByDescending(x => x.CreatedOn)
                .Skip((page - 1) * pageSize)
@@ -59,6 +70,35 @@ namespace DogeNews.Web.Services
                .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x));
 
             return items;
+        }
+
+        private void ValidateConstructorParams(IRepository<NewsItem> newsItemRepository, IMapperProvider mapperProvider)
+        {
+            if (newsItemRepository == null)
+            {
+                throw new ArgumentNullException("newsItemRepository");
+            }
+
+            if (mapperProvider == null)
+            {
+                throw new ArgumentNullException("mapperProvider");
+            }
+        }
+
+        private void ValidatePage(int page)
+        {
+            if (page <= 0)
+            {
+                throw new ArgumentOutOfRangeException("page");
+            }
+        }
+
+        private void ValidatePageSize(int pageSize)
+        {
+            if (pageSize <= 0)
+            {
+                throw new ArgumentOutOfRangeException("pageSize");
+            }
         }
     }
 }

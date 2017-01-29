@@ -84,6 +84,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="FileServiceTests.cs" />
+    <Compile Include="NewsDataSourceServiceTest.cs" />
     <Compile Include="NewsServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
