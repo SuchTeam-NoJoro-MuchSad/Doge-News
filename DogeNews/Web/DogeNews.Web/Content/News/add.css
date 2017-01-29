@@ -1,5 +1,7 @@
-﻿#add-news-container {
-    margin-left: 15%;
+﻿.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
 }
 
 #add_news_submit_btn {

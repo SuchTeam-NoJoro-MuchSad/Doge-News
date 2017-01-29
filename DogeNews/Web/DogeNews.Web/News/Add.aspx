@@ -6,9 +6,9 @@
 <asp:Content runat="server" ContentPlaceHolderID="MainContent">
     <link rel="stylesheet" type="text/css" href="../Content/News/add.css" />
 
-    <div class="container">
-        <div class="row">
-            <div class="col s8" id="add-news-container">
+    <div class="container" id="add-news-main">
+        <div class="row flex-container col s10 m10 l8">
+            <div id="add-news-container">
                 <h1 id="add-news-heading">ADD NEWS</h1>
 
                 <link href="../Content/News/add.css" rel="stylesheet" />
