@@ -6,6 +6,7 @@ using DogeNews.Web.Providers.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
+using System;
 
 namespace DogeNews.Web.Services
 {
@@ -30,13 +31,32 @@ namespace DogeNews.Web.Services
 
         public IEnumerable<NewsWebModel> GetPageItems(int page, int pageSize)
         {
+            var items = this.OrderByDateDescending(page, pageSize);
+            return items;
+        }
+
+        public IEnumerable<NewsWebModel> OrderByDateAscending(int page, int pageSize)
+        {
             var items = this.repository
                 .All
-                .OrderByDescending(x => x.CreatedOn)
+                .OrderBy(x => x.CreatedOn)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList()
                 .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x));
+
+            return items;
+        }
+
+        public IEnumerable<NewsWebModel> OrderByDateDescending(int page, int pageSize)
+        {
+            var items = this.repository
+               .All
+               .OrderByDescending(x => x.CreatedOn)
+               .Skip((page - 1) * pageSize)
+               .Take(pageSize)
+               .ToList()
+               .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x));
 
             return items;
         }

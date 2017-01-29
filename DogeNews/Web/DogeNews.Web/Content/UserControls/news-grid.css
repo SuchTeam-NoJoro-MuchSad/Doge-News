@@ -3,8 +3,13 @@
 }
 
 #news-grid {
-    display: inline-block;
-    margin: 0 auto;
+    text-align: center;
+}
+
+#news-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .pagination {

@@ -20,6 +20,7 @@ namespace DogeNews.Web.Services.Tests
         private Mock<INewsData> mockNewsData;
         private Mock<IMapperProvider> mockMapperProvider;
         private Mock<IRepository<Image>> mockImageRepo;
+        private Mock<IDateTimeProvider> dateTimeProvider;
 
         [SetUp]
         public void Init()
@@ -29,6 +30,7 @@ namespace DogeNews.Web.Services.Tests
             this.mockNewsData = new Mock<INewsData>();
             this.mockMapperProvider = new Mock<IMapperProvider>();
             this.mockImageRepo = new Mock<IRepository<Image>>();
+            this.dateTimeProvider = new Mock<IDateTimeProvider>();
         }
 
         [Test]
@@ -40,7 +42,9 @@ namespace DogeNews.Web.Services.Tests
                     this.mockNewsItemsRepo.Object,
                     this.mockNewsData.Object,
                     this.mockMapperProvider.Object,
-                    this.mockImageRepo.Object));
+                    this.mockImageRepo.Object,
+                    this.dateTimeProvider.Object)
+                );
             Assert.AreEqual("userRepository", exception.ParamName);
         }
 
@@ -53,7 +57,8 @@ namespace DogeNews.Web.Services.Tests
                     null,
                     this.mockNewsData.Object,
                     this.mockMapperProvider.Object,
-                    this.mockImageRepo.Object));
+                    this.mockImageRepo.Object,
+                    this.dateTimeProvider.Object));
             Assert.AreEqual("newsRepository", exception.ParamName);
         }
 
@@ -66,7 +71,8 @@ namespace DogeNews.Web.Services.Tests
                     this.mockNewsItemsRepo.Object,
                     null,
                     this.mockMapperProvider.Object,
-                    this.mockImageRepo.Object));
+                    this.mockImageRepo.Object,
+                    this.dateTimeProvider.Object));
             Assert.AreEqual("newsData", exception.ParamName);
         }
 
@@ -79,7 +85,8 @@ namespace DogeNews.Web.Services.Tests
                     this.mockNewsItemsRepo.Object,
                     this.mockNewsData.Object,
                     null,
-                    this.mockImageRepo.Object));
+                    this.mockImageRepo.Object,
+                    this.dateTimeProvider.Object));
             Assert.AreEqual("mapperProvider", exception.ParamName);
         }
 
@@ -92,7 +99,8 @@ namespace DogeNews.Web.Services.Tests
                     this.mockNewsItemsRepo.Object,
                     this.mockNewsData.Object,
                     this.mockMapperProvider.Object,
-                    null));
+                    null,
+                    this.dateTimeProvider.Object));
             Assert.AreEqual("imageRepository", exception.ParamName);
         }
 
@@ -105,7 +113,8 @@ namespace DogeNews.Web.Services.Tests
                 this.mockNewsItemsRepo.Object,
                 this.mockNewsData.Object,
                 this.mockMapperProvider.Object,
-                this.mockImageRepo.Object);
+                this.mockImageRepo.Object,
+                this.dateTimeProvider.Object);
 
             var exception = Assert.Throws<ArgumentNullException>(() => newsService.Add(username, new NewsWebModel()));
             Assert.AreEqual("username", exception.ParamName);
@@ -119,7 +128,8 @@ namespace DogeNews.Web.Services.Tests
                 this.mockNewsItemsRepo.Object,
                 this.mockNewsData.Object,
                 this.mockMapperProvider.Object,
-                this.mockImageRepo.Object);
+                this.mockImageRepo.Object,
+                this.dateTimeProvider.Object);
 
             var exception = Assert.Throws<ArgumentNullException>(() => newsService.Add("username", null));
             Assert.AreEqual("newsItem", exception.ParamName);
@@ -141,7 +151,8 @@ namespace DogeNews.Web.Services.Tests
                 this.mockNewsItemsRepo.Object,
                 this.mockNewsData.Object,
                 this.mockMapperProvider.Object,
-                this.mockImageRepo.Object);
+                this.mockImageRepo.Object,
+                this.dateTimeProvider.Object);
 
             newsService.Add(testUsername, testWebNewsModel);
             this.mockImageRepo.Verify(x => x.Add(It.IsAny<Image>()), Times.Once);
@@ -163,7 +174,8 @@ namespace DogeNews.Web.Services.Tests
                 this.mockNewsItemsRepo.Object,
                 this.mockNewsData.Object,
                 this.mockMapperProvider.Object,
-                this.mockImageRepo.Object);
+                this.mockImageRepo.Object,
+                this.dateTimeProvider.Object);
 
             newsService.Add(testUsername, testWebNewsModel);
             this.mockNewsItemsRepo.Verify(x => x.Add(It.IsAny<NewsItem>()), Times.Once);
@@ -186,7 +198,8 @@ namespace DogeNews.Web.Services.Tests
                 this.mockNewsItemsRepo.Object,
                 this.mockNewsData.Object,
                 this.mockMapperProvider.Object,
-                this.mockImageRepo.Object);
+                this.mockImageRepo.Object,
+                this.dateTimeProvider.Object);
 
             newsService.Add(testUsername, testWebNewsModel);
             this.mockNewsData.Verify(x => x.Commit(), Times.Once);

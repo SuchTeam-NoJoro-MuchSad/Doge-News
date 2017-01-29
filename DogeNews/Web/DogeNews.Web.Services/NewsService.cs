@@ -15,13 +15,15 @@ namespace DogeNews.Web.Services
         private readonly IRepository<Image> imageRepository;
         private readonly INewsData newsData;
         private readonly IMapperProvider mapperProvider;
+        private readonly IDateTimeProvider dateTimeProvider;
 
         public NewsService(
             IRepository<User> userRepository,
             IRepository<NewsItem> newsRepository,
             INewsData newsData,
             IMapperProvider mapperProvider,
-            IRepository<Image> imageRepository)
+            IRepository<Image> imageRepository,
+            IDateTimeProvider dateTimeProvider)
         {
             this.ValidateConstructorParams(userRepository, newsRepository, newsData, mapperProvider, imageRepository);
 
@@ -30,6 +32,7 @@ namespace DogeNews.Web.Services
             this.imageRepository = imageRepository;
             this.newsData = newsData;
             this.mapperProvider = mapperProvider;
+            this.dateTimeProvider = dateTimeProvider;
         }
 
         public void Add(string username, NewsWebModel newsItem)
@@ -52,6 +55,7 @@ namespace DogeNews.Web.Services
             news.AuthorId = author.Id;
             news.Image = image;
             news.ImageId = image.Id;
+            news.CreatedOn = this.dateTimeProvider.Now;
             this.imageRepository.Add(image);
             this.newsRepository.Add(news);
             this.newsData.Commit();

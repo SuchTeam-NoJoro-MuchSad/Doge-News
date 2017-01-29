@@ -19,27 +19,16 @@ namespace DogeNews.Web.Services.Tests
         }
 
         [Test]
-        public void Constructor_ShouldThrowArgmentNullExeption_WhenIDateTimeProviderParamIsNull()
-        {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
-            {
-                new FileService(null);
-            });
-
-            Assert.AreEqual("dateTimeProvider", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ShouldNotThrowWhenIDateTimeProviderParamIsNotNull()
         {
-            Assert.DoesNotThrow(() => new FileService(this.mockedDateTimeProvider.Object));
+            Assert.DoesNotThrow(() => new FileService());
         }
 
         [TestCase(null)]
         [TestCase("")]
         public void GetUniqueFileName_ShouldThrowArgumentNullException_WhenUsernameParamIsNull(string value)
         {
-            var fileProvider = new FileService(this.mockedDateTimeProvider.Object); ;
+            var fileProvider = new FileService(); ;
             var exeption = Assert.Throws<ArgumentNullException>(() =>
             {
                 fileProvider.GetUniqueFileName(value);
@@ -49,7 +38,7 @@ namespace DogeNews.Web.Services.Tests
         }
 
         [Test]
-        public void GetUniqueFileName_ShouldReturnStringBeginningWithUsernameAndEndingWithDateTimeNow()
+        public void GetUniqueFileName_ShouldReturnStringBeginningWithUsername()
         {
             var now = DateTime.Now;
             string username = "username";
@@ -60,11 +49,10 @@ namespace DogeNews.Web.Services.Tests
 
             mockedDateTimeProvider.SetupGet(x => x.Now).Returns(now);
 
-            var fileNameProvider = new FileService(mockedDateTimeProvider.Object);
+            var fileNameProvider = new FileService();
             string fileName = fileNameProvider.GetUniqueFileName(username);
 
             Assert.IsTrue(fileName.StartsWith(username));
-            Assert.IsTrue(fileName.EndsWith(dateString));
         }
     }
 }

@@ -33,12 +33,12 @@ namespace DogeNews.Data.Models
 
         [Required]
         public NewsCategoryType Category { get; set; }
-
+        
         public string AuthorId { get; set; }
 
         public int ImageId { get; set; }
-
-        public DateTime CreatedOn { get; set; }
+        
+        public DateTime? CreatedOn { get; set; }
 
         public DateTime? DeletedOn { get; set; }
 

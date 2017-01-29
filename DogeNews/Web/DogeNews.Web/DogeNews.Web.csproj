@@ -403,6 +403,8 @@
     <Compile Include="MVP\News\Add\IAddNewsView.cs" />
     <Compile Include="MVP\News\Add\AddNewsViewModel.cs" />
     <Compile Include="MVP\UserControls\NewsGrid\EventArguments\ChangePageEventArgs.cs" />
+    <Compile Include="MVP\UserControls\NewsGrid\EventArguments\OrderByEventArgs.cs" />
+    <Compile Include="MVP\UserControls\NewsGrid\EventArguments\PageLoadEventArgs.cs" />
     <Compile Include="MVP\UserControls\NewsGrid\INewsGridView.cs" />
     <Compile Include="MVP\UserControls\NewsGrid\NewsGridPresenter.cs" />
     <Compile Include="MVP\UserControls\NewsGrid\NewsGridViewModel.cs" />

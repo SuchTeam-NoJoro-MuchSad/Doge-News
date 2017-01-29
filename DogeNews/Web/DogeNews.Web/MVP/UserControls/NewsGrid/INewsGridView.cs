@@ -8,7 +8,8 @@ namespace DogeNews.Web.MVP.UserControls.NewsGrid
 {
     public interface INewsGridView : IView<NewsGridViewModel>
     {
-        event EventHandler PageLoad;
+        event EventHandler<PageLoadEventArgs> PageLoad;
         event EventHandler<ChangePageEventArgs> ChangePage;
+        event EventHandler<OrderByEventArgs> OrderByDate;
     }
 }

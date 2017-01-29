@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Web.UI;
 
+using DogeNews.Common.Enums;
+
 namespace DogeNews.Web.MVP.UserControls.NewsGrid.EventArguments
 {
-    public class ChangePageEventArgs : EventArgs
+    public class OrderByEventArgs : EventArgs
     {
-        public int Page { get; set; }
+        public OrderByType OrderBy { get; set; }
 
         public StateBag ViewState { get; set; }
     }

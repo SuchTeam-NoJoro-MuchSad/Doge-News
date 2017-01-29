@@ -7,5 +7,9 @@ namespace DogeNews.Web.Services.Contracts
         int Count { get; }
 
         IEnumerable<TargetMapType> GetPageItems(int page, int pageSize);
+
+        IEnumerable<TargetMapType> OrderByDateAscending(int page, int pageSize);
+
+        IEnumerable<TargetMapType> OrderByDateDescending(int page, int pageSize);
     }
 }

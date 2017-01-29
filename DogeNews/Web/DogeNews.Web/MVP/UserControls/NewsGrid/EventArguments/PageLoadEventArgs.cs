@@ -1,11 +1,10 @@
-﻿using System;
-using System.Web.UI;
+﻿using System.Web.UI;
 
 namespace DogeNews.Web.MVP.UserControls.NewsGrid.EventArguments
 {
-    public class ChangePageEventArgs : EventArgs
+    public class PageLoadEventArgs
     {
-        public int Page { get; set; }
+        public bool IsPostBack { get; set; }
 
         public StateBag ViewState { get; set; }
     }

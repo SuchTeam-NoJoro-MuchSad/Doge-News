@@ -1,4 +1,6 @@
-﻿using DogeNews.Web.Common.Enums;
+﻿using System;
+
+using DogeNews.Web.Common.Enums;
 
 namespace DogeNews.Web.Models
 {
@@ -17,5 +19,7 @@ namespace DogeNews.Web.Models
         public UserWebModel Author { get; set; }    
         
         public ImageWebModel Image { get; set; }    
+
+        public DateTime? CreatedOn { get; set; }
     }
 }
