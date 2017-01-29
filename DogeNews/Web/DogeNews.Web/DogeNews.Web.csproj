@@ -46,8 +46,9 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="AspNet.ScriptManager.jQuery, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\AspNet.ScriptManager.jQuery.3.1.1\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+    <Reference Include="AspNet.ScriptManager.jQuery, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AspNet.ScriptManager.jQuery.2.1.4\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
@@ -264,15 +265,16 @@
     <Content Include="Errors\DefaultErrorPage.aspx" />
     <Content Include="fonts\THE CURIOUS INCIDENT.ttf" />
     <Content Include="fonts\From Cartoon Blocks.ttf" />
+    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Images\404-monster.png" />
     <Content Include="Images\logo-img.png" />
     <Content Include="News\Add.aspx" />
+    <Content Include="News\Article.aspx" />
     <Content Include="Scripts\custom.js" />
-    <Content Include="Scripts\jquery-3.1.1.js" />
-    <Content Include="Scripts\jquery-3.1.1.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\materialize\materialize.js" />
     <Content Include="Scripts\materialize\materialize.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -316,8 +318,6 @@
     <Content Include="Bundle.config" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -402,6 +402,10 @@
     <Compile Include="MVP\News\Add\EventArguments\AddNewsEventArgs.cs" />
     <Compile Include="MVP\News\Add\IAddNewsView.cs" />
     <Compile Include="MVP\News\Add\AddNewsViewModel.cs" />
+    <Compile Include="MVP\News\Article\ArticlePresenter.cs" />
+    <Compile Include="MVP\News\Article\ArticleViewModel.cs" />
+    <Compile Include="MVP\News\Article\EventArguments\ArticlePageLoadEventArgs.cs" />
+    <Compile Include="MVP\News\Article\IArticleView.cs" />
     <Compile Include="MVP\UserControls\NewsGrid\EventArguments\ChangePageEventArgs.cs" />
     <Compile Include="MVP\UserControls\NewsGrid\EventArguments\OrderByEventArgs.cs" />
     <Compile Include="MVP\UserControls\NewsGrid\EventArguments\PageLoadEventArgs.cs" />
@@ -414,6 +418,13 @@
     </Compile>
     <Compile Include="News\Add.aspx.designer.cs">
       <DependentUpon>Add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="News\Article.aspx.cs">
+      <DependentUpon>Article.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News\Article.aspx.designer.cs">
+      <DependentUpon>Article.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">

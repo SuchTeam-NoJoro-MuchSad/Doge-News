@@ -11,5 +11,7 @@ namespace DogeNews.Web.Services.Contracts
         IEnumerable<TargetMapType> OrderByDateAscending(int page, int pageSize);
 
         IEnumerable<TargetMapType> OrderByDateDescending(int page, int pageSize);
+
+        TargetMapType GetNewsItemByTitle(string title);
     }
 }
