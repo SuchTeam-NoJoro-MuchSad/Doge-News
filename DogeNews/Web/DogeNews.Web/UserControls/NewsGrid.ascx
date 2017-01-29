@@ -19,7 +19,9 @@
                             <div class="card small col l3 s10">
                                 <div class="card-image">
                                     <img src="<%#: ("/Resources/Images/" + Item.Author.Username + "/" + Item.Image.Name) %>">
-                                    <span class="card-title"><%#: Item.Title %></span>
+                                    <span class="card-title">
+                                        <asp:HyperLink NavigateUrl=<%# $"~/News/Article.aspx?Title={Item.Title}" %> runat="server"><%#: Item.Title %></asp:HyperLink>
+                                    </span>
                                 </div>
 
                                 <div class="card-content">
@@ -39,7 +41,7 @@
                         { %>
                     <asp:Repeater
                         runat="server"
-                        ItemType="Int32"
+                        ItemType="System.Int32"
                         DataSource="<%# Enumerable.Range(1, (this.Model.NewsCount / this.Model.PageSize) + 1) %>">
                         <ItemTemplate>
                             <li class="waves-effect">
