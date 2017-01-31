@@ -5,5 +5,7 @@ namespace DogeNews.Web.Services.Contracts
     public interface INewsService
     {
         void Add(string username, NewsWebModel newsItem);
+
+        NewsWebModel GetItemByTitle(string title);
     }
 }

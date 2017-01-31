@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.Providers.Contracts;
 using DogeNews.Web.Services.Contracts;
 using System.Linq;
-using System.Net;
-using DogeNews.Data;
 
 namespace DogeNews.Web.Services
 {
-    public class CommentsDataSourceService : ICommentDataSourceService
+    public class ArticleCommentsService : IArticleCommentsService
     {
         private readonly IRepository<Comment> commentItemRepository;
         private readonly IRepository<NewsItem> newsItemRepository;
@@ -22,7 +19,7 @@ namespace DogeNews.Web.Services
         private int count;
 
 
-        public CommentsDataSourceService(IRepository<Comment> commentsRepository,
+        public ArticleCommentsService(IRepository<Comment> commentsRepository,
             IRepository<NewsItem> newsItemRepository,
             IRepository<User> userRepository,
             IMapperProvider mapperProvider,
@@ -42,47 +39,7 @@ namespace DogeNews.Web.Services
         {
             get { return this.count; }
         }
-
-        public IEnumerable<CommentWebModel> GetPageItems(int page, int pageSize)
-        {
-            this.ValidatePage(page);
-            this.ValidatePageSize(pageSize);
-
-            var items = this.OrderByDateDescending(page, pageSize);
-            return items;
-        }
-
-        public IEnumerable<CommentWebModel> OrderByDateAscending(int page, int pageSize)
-        {
-            this.ValidatePage(page);
-            this.ValidatePageSize(pageSize);
-
-            var items = this.commentItemRepository
-                .All
-                .OrderBy(x => x.CreatedOn)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToList()
-                .Select(x => this.mapperProvider.Instance.Map<CommentWebModel>(x));
-
-            return items;
-        }
-
-        public IEnumerable<CommentWebModel> OrderByDateDescending(int page, int pageSize)
-        {
-            this.ValidatePage(page);
-            this.ValidatePageSize(pageSize);
-
-            var items = this.commentItemRepository
-                .All
-                .OrderByDescending(x => x.CreatedOn)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToList()
-                .Select(x => this.mapperProvider.Instance.Map<CommentWebModel>(x));
-
-            return items;
-        }
+        
 
         public IEnumerable<CommentWebModel> GetCommentsForArticleByTitle(string title)
         {
@@ -120,22 +77,6 @@ namespace DogeNews.Web.Services
             if (mapperProvider == null)
             {
                 throw new ArgumentNullException("mapperProvider");
-            }
-        }
-
-        private void ValidatePage(int page)
-        {
-            if (page <= 0)
-            {
-                throw new ArgumentOutOfRangeException("page");
-            }
-        }
-
-        private void ValidatePageSize(int pageSize)
-        {
-            if (pageSize <= 0)
-            {
-                throw new ArgumentOutOfRangeException("pageSize");
             }
         }
     }

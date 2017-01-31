@@ -61,6 +61,14 @@ namespace DogeNews.Web.Services
             this.newsData.Commit();
         }
 
+
+        public NewsWebModel GetItemByTitle(string title)
+        {
+            var foundNewsItem = this.newsRepository.GetFirst(x => x.Title == title);
+            return this.mapperProvider.Instance.Map<NewsWebModel>(foundNewsItem);
+        }
+
+
         private void ValidateConstructorParams(
             IRepository<User> userRepository,
             IRepository<NewsItem> newsRepository,

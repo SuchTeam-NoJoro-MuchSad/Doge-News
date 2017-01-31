@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 
 namespace DogeNews.Web.Services.Contracts
 {
-    public interface ICommentDataSourceService : IDataSourceService<Comment, CommentWebModel>
+    public interface IArticleCommentsService
     {
         IEnumerable<CommentWebModel> GetCommentsForArticleByTitle(string title);
 

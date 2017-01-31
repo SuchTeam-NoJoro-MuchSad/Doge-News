@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using DogeNews.Web.MVP.News.Article.EventArguments;
 using DogeNews.Web.MVP.UserControls.ArticleComments;
 using DogeNews.Web.MVP.UserControls.ArticleComments.EventArguments;
 using WebFormsMvp.Web;

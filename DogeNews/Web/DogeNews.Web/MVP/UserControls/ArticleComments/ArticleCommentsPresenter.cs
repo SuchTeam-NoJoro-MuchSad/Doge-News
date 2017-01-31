@@ -1,7 +1,4 @@
-﻿using DogeNews.Data.Models;
-using DogeNews.Web.Models;
-using DogeNews.Web.MVP.News.Article.EventArguments;
-using DogeNews.Web.MVP.UserControls.ArticleComments.EventArguments;
+﻿using DogeNews.Web.MVP.UserControls.ArticleComments.EventArguments;
 using DogeNews.Web.Services.Contracts;
 using WebFormsMvp;
 
@@ -11,10 +8,10 @@ namespace DogeNews.Web.MVP.UserControls.ArticleComments
     {
         private const int PageSize = 6;
 
-        private ICommentDataSourceService dataSourceService;
+        private IArticleCommentsService dataSourceService;
 
         public ArticleCommentsPresenter(IArticleCommentsView view,
-            ICommentDataSourceService dataSourceService)
+            IArticleCommentsService dataSourceService)
             : base(view)
         {
             this.dataSourceService = dataSourceService;

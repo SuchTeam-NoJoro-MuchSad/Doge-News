@@ -1,5 +1,4 @@
-﻿using DogeNews.Common.Constants;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace DogeNews.Web.Models.Tests
 {

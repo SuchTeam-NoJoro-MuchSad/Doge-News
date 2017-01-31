@@ -1,8 +1,8 @@
-﻿using Ninject.Modules;
+﻿using DogeNews.Web.MVP.News.Article;
+using Ninject.Modules;
 
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Services;
-using DogeNews.Web.MVP.News.Article;
 
 namespace DogeNews.Web.Bindings
 {
@@ -12,12 +12,16 @@ namespace DogeNews.Web.Bindings
         {
             this.Bind<INewsService>().To<NewsService>();
             this.Bind<IFileService>().To<FileService>();
-            this.Bind<INewsDataSourceService>().To<NewsDataSourceService>();
-            this.Bind<ICommentDataSourceService>().To<CommentsDataSourceService>();
-            
+            this.Bind<IArticleCommentsService>().To<ArticleCommentsService>();
+          
             this.Bind(typeof(IDataSourceService<,>))
                 .To(typeof(NewsDataSourceService))
-                .WhenInjectedInto<NewsGridPresenter>();
+                .WhenInjectedInto<_Default>();
+
+            //this.Bind(typeof(IDataSourceService<,>))
+            //    .To(typeof(NewsDataSourceService))
+            //    .WhenInjectedInto<ArticlePresenter>();
+
         }
     }
 }

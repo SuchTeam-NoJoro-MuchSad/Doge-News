@@ -1,13 +1,11 @@
 ﻿using System;
-
+using DogeNews.Data.Models;
+using DogeNews.Web.Models;
 using WebFormsMvp.Web;
 using WebFormsMvp;
 
 using DogeNews.Web.MVP.Default;
-using DogeNews.Web.Models;
-using DogeNews.Data.Models;
 using DogeNews.Web.Services.Contracts;
-
 using Ninject;
 
 namespace DogeNews.Web

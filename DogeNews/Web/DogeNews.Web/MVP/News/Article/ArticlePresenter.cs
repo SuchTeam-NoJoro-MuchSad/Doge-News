@@ -1,20 +1,17 @@
 ﻿using System.Web;
-using DogeNews.Data.Models;
-using DogeNews.Web.Models;
 using DogeNews.Web.MVP.News.Article.EventArguments;
-using DogeNews.Web.MVP.UserControls.NewsGrid.EventArguments;
 using DogeNews.Web.Services.Contracts;
-using Microsoft.Ajax.Utilities;
 using WebFormsMvp;
 
 namespace DogeNews.Web.MVP.News.Article
 {
     public class ArticlePresenter : Presenter<IArticleView>
     {
-        private readonly INewsDataSourceService newsDataSource;
+        private readonly INewsService newsDataSource;
+
 
         public ArticlePresenter(IArticleView view,
-            INewsDataSourceService dataSourceService)
+            INewsService dataSourceService)
             : base(view)
         {
             this.newsDataSource = dataSourceService;
