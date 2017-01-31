@@ -17,6 +17,9 @@ namespace DogeNews.Data
 
             this.CreateMap<Image, ImageWebModel>();
             this.CreateMap<ImageWebModel, Image>();
+
+            this.CreateMap<Comment, CommentWebModel>();
+            this.CreateMap<CommentWebModel, Comment>();
         }
     }
 }
