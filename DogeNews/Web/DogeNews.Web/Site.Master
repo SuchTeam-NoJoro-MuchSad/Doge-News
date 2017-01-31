@@ -44,8 +44,8 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <!-- NAVIGATION -->
-        <div class="navbar-fixed">
+        <!-- NAVIGATION navbar-fixed-->
+        <header class="navbar-fixed">
             <nav>
                 <div class="nav-wrapper white" id="main-nav-wrapper">
                     <a href="/" class="brand-logo">
@@ -126,10 +126,12 @@
                     </ul>
                 </div>
             </nav>
-        </div>
+        </header>
 
-        <asp:ContentPlaceHolder ID="MainContent" runat="server">
-        </asp:ContentPlaceHolder>
+        <main>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
     </form>
 </body>
 </html>

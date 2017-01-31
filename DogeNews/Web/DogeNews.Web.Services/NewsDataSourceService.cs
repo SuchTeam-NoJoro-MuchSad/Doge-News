@@ -10,7 +10,7 @@ using DogeNews.Web.Services.Contracts;
 
 namespace DogeNews.Web.Services
 {
-    public class NewsDataSourceService : IDataSourceService<NewsItem, NewsWebModel>
+    public class NewsDataSourceService : INewsDataSourceService
     {
         private readonly IRepository<NewsItem> newsItemRepository;
         private readonly IMapperProvider mapperProvider;
@@ -72,7 +72,7 @@ namespace DogeNews.Web.Services
             return items;
         }
 
-        public NewsWebModel GetNewsItemByTitle(string title)
+        public NewsWebModel GetItemByTitle(string title)
         {
             var foundNewsItem = this.newsItemRepository.GetFirst(x => x.Title == title);
             return this.mapperProvider.Instance.Map<NewsWebModel>(foundNewsItem);

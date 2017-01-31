@@ -77,9 +77,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentsDataSourceService.cs" />
+    <Compile Include="Contracts\ICommentDataSourceService.cs" />
     <Compile Include="Contracts\IDataSourceService.cs" />
     <Compile Include="Contracts\IFileService.cs" />
     <Compile Include="Contracts\INewsService.cs" />
+    <Compile Include="Contracts\INewsDataSourceService.cs" />
     <Compile Include="NewsDataSourceService.cs" />
     <Compile Include="FileService.cs" />
     <Compile Include="NewsService.cs" />

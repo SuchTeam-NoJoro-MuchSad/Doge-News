@@ -11,10 +11,10 @@ namespace DogeNews.Web.MVP.News.Article
 {
     public class ArticlePresenter : Presenter<IArticleView>
     {
-        private readonly IDataSourceService<NewsItem, NewsWebModel> newsDataSource;
+        private readonly INewsDataSourceService newsDataSource;
 
         public ArticlePresenter(IArticleView view,
-            IDataSourceService<NewsItem, NewsWebModel> dataSourceService)
+            INewsDataSourceService dataSourceService)
             : base(view)
         {
             this.newsDataSource = dataSourceService;
@@ -34,7 +34,7 @@ namespace DogeNews.Web.MVP.News.Article
             }
 
             var title = parsedQueryString["title"];
-            var model = this.newsDataSource.GetNewsItemByTitle(title);
+            var model = this.newsDataSource.GetItemByTitle(title);
 
             if (model == null)
             {

@@ -13,14 +13,12 @@ namespace DogeNews.Web.Bindings
         {
             this.Bind<INewsService>().To<NewsService>();
             this.Bind<IFileService>().To<FileService>();
-
+            this.Bind<INewsDataSourceService>().To<NewsDataSourceService>();
+            this.Bind<ICommentDataSourceService>().To<CommentsDataSourceService>();
+            
             this.Bind(typeof(IDataSourceService<,>))
                 .To(typeof(NewsDataSourceService))
                 .WhenInjectedInto<NewsGridPresenter>();
-
-            this.Bind(typeof(IDataSourceService<,>))
-                .To(typeof(NewsDataSourceService))
-                .WhenInjectedInto<ArticlePresenter>();
         }
     }
 }
