@@ -3,6 +3,7 @@
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Repositories;
 using DogeNews.Data;
+using Ninject.Web.Common;
 
 namespace DogeNews.Web.Bindings
 {
@@ -11,7 +12,7 @@ namespace DogeNews.Web.Bindings
         public override void Load()
         {
             this.Bind(typeof(IRepository<>)).To(typeof(Repository<>));
-            this.Bind<INewsDbContext>().To<NewsDbContext>().InSingletonScope();
+            this.Bind<INewsDbContext>().To<NewsDbContext>().InRequestScope();
             this.Bind<INewsData>().To<NewsData>();
         }
     }
