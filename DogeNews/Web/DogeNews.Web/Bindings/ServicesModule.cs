@@ -1,9 +1,8 @@
-﻿using DogeNews.Web.MVP.News.Article;
-using Ninject.Modules;
+﻿using Ninject.Modules;
 
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Services;
-using DogeNews.Web.MVP.UserControls.NewsGrid;
+using DogeNews.Web.MVP.News.Article;
 
 namespace DogeNews.Web.Bindings
 {
