@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentWebModel.cs" />
     <Compile Include="ImageWebModel.cs" />
     <Compile Include="NewsWebModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
