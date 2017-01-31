@@ -1,9 +1,8 @@
-﻿using DogeNews.Web.MVP.News.Article;
-using Ninject.Modules;
+﻿using Ninject.Modules;
 
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Services;
-using DogeNews.Web.MVP.UserControls.NewsGrid;
+using DogeNews.Web.MVP.News.Article;
 
 namespace DogeNews.Web.Bindings
 {
@@ -16,7 +15,7 @@ namespace DogeNews.Web.Bindings
 
             this.Bind(typeof(IDataSourceService<,>))
                 .To(typeof(NewsDataSourceService))
-                .WhenInjectedInto<NewsGridPresenter>();
+                .WhenInjectedInto<_Default>();
 
             this.Bind(typeof(IDataSourceService<,>))
                 .To(typeof(NewsDataSourceService))

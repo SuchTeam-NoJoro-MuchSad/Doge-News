@@ -3,5 +3,5 @@
 <%@ Register TagPrefix="uc" TagName="NewsGrid" Src="~/UserControls/NewsGrid.ascx" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <uc:NewsGrid runat="server"></uc:NewsGrid>
+    <uc:NewsGrid runat="server" ID="NewsGrid"></uc:NewsGrid>
 </asp:Content>

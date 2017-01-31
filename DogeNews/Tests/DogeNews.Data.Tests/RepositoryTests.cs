@@ -4,13 +4,14 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Reflection;
+
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Data.Repositories;
 
 using Moq;
 using NUnit.Framework;
-using System.Reflection;
 
 namespace DogeNews.Data.Tests
 {
