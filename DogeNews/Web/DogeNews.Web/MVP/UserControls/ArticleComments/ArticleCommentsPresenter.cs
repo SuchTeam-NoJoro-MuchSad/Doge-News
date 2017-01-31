@@ -1,5 +1,6 @@
 ﻿using DogeNews.Web.MVP.UserControls.ArticleComments.EventArguments;
 using DogeNews.Web.Services.Contracts;
+
 using WebFormsMvp;
 
 namespace DogeNews.Web.MVP.UserControls.ArticleComments
@@ -8,26 +9,30 @@ namespace DogeNews.Web.MVP.UserControls.ArticleComments
     {
         private const int PageSize = 6;
 
-        private IArticleCommentsService dataSourceService;
+        private IArticleCommentsService articleCommentsService;
 
         public ArticleCommentsPresenter(IArticleCommentsView view,
             IArticleCommentsService dataSourceService)
             : base(view)
         {
-            this.dataSourceService = dataSourceService;
+            this.articleCommentsService = dataSourceService;
             this.View.PageLoad += this.PageLoad;
             this.View.AddComment += this.AddComment;
         }
 
         public void PageLoad(object sender, ArticleCommetnsPageLoadEventArgs eventArgs)
         {
-            this.View.Model.Comments = this.dataSourceService.GetCommentsForArticleByTitle(eventArgs.Title);
+            this.View.Model.Comments = this.articleCommentsService.GetCommentsForArticleByTitle(eventArgs.Title);
         }
 
         public void AddComment(object sender, AddCommentEventArguments addCommentEventArguments)
         {
-            this.dataSourceService.AddComment(addCommentEventArguments.ArticleTitle,
-                addCommentEventArguments.Content, addCommentEventArguments.Username);
+            this.articleCommentsService.AddComment(
+                addCommentEventArguments.ArticleTitle,
+                addCommentEventArguments.Content,
+                addCommentEventArguments.Username);
+            this.View.Model.Comments =
+                this.articleCommentsService.GetCommentsForArticleByTitle(addCommentEventArguments.ArticleTitle);
         }
     }
 }

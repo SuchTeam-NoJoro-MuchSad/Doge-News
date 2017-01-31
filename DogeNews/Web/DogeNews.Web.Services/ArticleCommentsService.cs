@@ -17,8 +17,7 @@ namespace DogeNews.Web.Services
         private readonly IRepository<User> userRepository;
         private readonly INewsData newsData;
         private int count;
-
-
+        
         public ArticleCommentsService(IRepository<Comment> commentsRepository,
             IRepository<NewsItem> newsItemRepository,
             IRepository<User> userRepository,
@@ -31,7 +30,6 @@ namespace DogeNews.Web.Services
             this.newsItemRepository = newsItemRepository;
             this.userRepository = userRepository;
             this.newsData = newsData;
-
             this.mapperProvider = mapperProvider;
         }
 
@@ -40,7 +38,6 @@ namespace DogeNews.Web.Services
             get { return this.count; }
         }
         
-
         public IEnumerable<CommentWebModel> GetCommentsForArticleByTitle(string title)
         {
             var newsItem = newsItemRepository.GetFirst(x => x.Title == title);
@@ -61,10 +58,9 @@ namespace DogeNews.Web.Services
                 User = foundUser,
                 Content = commentContent
             };
+
             newsItem.Comments.Add(commentToAdd);
-
             this.newsData.Commit();
-
         }
 
         private void ValidateConstructorParams(IRepository<Comment> commentsRepository, IMapperProvider mapperProvider)

@@ -2,7 +2,6 @@
 
 <asp:UpdatePanel ID="CommentsUpdatePanel" runat="server">
     <ContentTemplate>
-
         <div class="divider"></div>
         <div class="container">
             <span class="badge"><%# this.Model.Comments.Count() %></span>
