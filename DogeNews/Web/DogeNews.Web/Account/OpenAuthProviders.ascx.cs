@@ -7,7 +7,7 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-using DogeNews.Web.Helpers;
+using DogeNews.Web.Identity.Helpers;
 
 namespace DogeNews.Web.Account
 {

@@ -353,14 +353,8 @@
     <Compile Include="App_Start\BindingsConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\MappingsConfig.cs" />
-    <Compile Include="App_Start\NinjectWeb.cs" />
-    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Bindings\DataModule.cs" />
-    <Compile Include="Bindings\MvpModule.cs" />
-    <Compile Include="Bindings\ProvidersModule.cs" />
-    <Compile Include="Bindings\ServicesModule.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -382,44 +376,9 @@
     <Compile Include="Errors\DefaultErrorPage.aspx.designer.cs">
       <DependentUpon>DefaultErrorPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Factories\Contracts\IPresenterProvider.cs" />
-    <Compile Include="Factories\WebFormsPresenterFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\IdentityHelper.cs" />
-    <Compile Include="Managers\ApplicationSignInManager.cs" />
-    <Compile Include="Managers\ApplicationUserManager.cs" />
-    <Compile Include="MVP\Account\Login\EventArguments\LoginEventArgs.cs" />
-    <Compile Include="MVP\Account\Login\LoginViewModel.cs" />
-    <Compile Include="MVP\Account\Login\ILoginView.cs" />
-    <Compile Include="MVP\Account\Login\LoginPresenter.cs" />
-    <Compile Include="MVP\Account\Register\EventArguments\CreateUserEventArgs.cs" />
-    <Compile Include="MVP\Account\Register\IRegisterView.cs" />
-    <Compile Include="MVP\Account\Register\RegisterPresenter.cs" />
-    <Compile Include="MVP\Account\Register\RegisterViewModel.cs" />
-    <Compile Include="MVP\Default\DefaultViewModel.cs" />
-    <Compile Include="MVP\Default\DefaultPresenter.cs" />
-    <Compile Include="MVP\Default\IDefaultView.cs" />
-    <Compile Include="MVP\News\Add\AddNewsPresenter.cs" />
-    <Compile Include="MVP\News\Add\EventArguments\AddNewsEventArgs.cs" />
-    <Compile Include="MVP\News\Add\IAddNewsView.cs" />
-    <Compile Include="MVP\News\Add\AddNewsViewModel.cs" />
-    <Compile Include="MVP\News\Article\ArticlePresenter.cs" />
-    <Compile Include="MVP\News\Article\ArticleViewModel.cs" />
-    <Compile Include="MVP\News\Article\EventArguments\ArticlePageLoadEventArgs.cs" />
-    <Compile Include="MVP\News\Article\IArticleView.cs" />
-    <Compile Include="MVP\UserControls\ArticleComments\ArticleCommentsPresenter.cs" />
-    <Compile Include="MVP\UserControls\ArticleComments\ArticleCommentsViewModel.cs" />
-    <Compile Include="MVP\UserControls\ArticleComments\EventArguments\AddCommentEventArguments.cs" />
-    <Compile Include="MVP\UserControls\ArticleComments\EventArguments\ArticleCommetnsPageLoadEventArgs.cs" />
-    <Compile Include="MVP\UserControls\ArticleComments\IArticleCommentsView.cs" />
-    <Compile Include="MVP\UserControls\NewsGrid\EventArguments\ChangePageEventArgs.cs" />
-    <Compile Include="MVP\UserControls\NewsGrid\EventArguments\OrderByEventArgs.cs" />
-    <Compile Include="MVP\UserControls\NewsGrid\EventArguments\PageLoadEventArgs.cs" />
-    <Compile Include="MVP\UserControls\NewsGrid\INewsGridView.cs" />
-    <Compile Include="MVP\UserControls\NewsGrid\NewsGridPresenter.cs" />
-    <Compile Include="MVP\UserControls\NewsGrid\NewsGridViewModel.cs" />
     <Compile Include="News\Add.aspx.cs">
       <DependentUpon>Add.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -488,9 +447,25 @@
       <Project>{d764f077-94e9-4c97-86a1-c523472c6ac8}</Project>
       <Name>DogeNews.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DogeNews.Web.DataSources\DogeNews.Web.DataSources.csproj">
+      <Project>{50c68f0e-347b-4e17-ad6c-4d034702333c}</Project>
+      <Name>DogeNews.Web.DataSources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DogeNews.Web.Identity\DogeNews.Web.Identity.csproj">
+      <Project>{ab6fda54-6eaf-4605-8aeb-2a40ff697c33}</Project>
+      <Name>DogeNews.Web.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DogeNews.Web.Infrastructure\DogeNews.Web.Infrastructure.csproj">
+      <Project>{40862603-390d-4dd3-b892-b69021de3a18}</Project>
+      <Name>DogeNews.Web.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DogeNews.Web.Models\DogeNews.Web.Models.csproj">
       <Project>{C013BB66-E626-4D31-AB5D-922732FEDD4D}</Project>
       <Name>DogeNews.Web.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DogeNews.Web.Mvp\DogeNews.Web.Mvp.csproj">
+      <Project>{f96f1b49-6b93-457a-9c23-f1507bae8a0b}</Project>
+      <Name>DogeNews.Web.Mvp</Name>
     </ProjectReference>
     <ProjectReference Include="..\DogeNews.Web.Providers\DogeNews.Web.Providers.csproj">
       <Project>{83ecb9b9-ea2a-475b-94fe-8cc6f0a42634}</Project>

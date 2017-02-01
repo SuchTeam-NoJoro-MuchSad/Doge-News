@@ -5,6 +5,7 @@ using System.Web.Routing;
 
 using DogeNews.Web.App_Start;
 using DogeNews.Web.Providers.Contracts;
+using DogeNews.Web.Infrastructure.Bindings;
 
 using Ninject;
 

@@ -79,10 +79,8 @@
   <ItemGroup>
     <Compile Include="ArticleCommentsService.cs" />
     <Compile Include="Contracts\IArticleCommentsService.cs" />
-    <Compile Include="Contracts\IDataSourceService.cs" />
     <Compile Include="Contracts\IFileService.cs" />
     <Compile Include="Contracts\INewsService.cs" />
-    <Compile Include="NewsDataSourceService.cs" />
     <Compile Include="FileService.cs" />
     <Compile Include="NewsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

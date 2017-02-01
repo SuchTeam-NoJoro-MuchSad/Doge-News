@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-using DogeNews.Data;
+using DogeNews.Web.Infrastructure.Mappings.Profiles;
 using DogeNews.Web.Providers.Contracts;
 
 namespace DogeNews.Web.App_Start

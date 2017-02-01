@@ -9,6 +9,7 @@ using System.Reflection;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Data.Repositories;
+using DogeNews.Web.Infrastructure.Mappings.Profiles;
 
 using Moq;
 using NUnit.Framework;

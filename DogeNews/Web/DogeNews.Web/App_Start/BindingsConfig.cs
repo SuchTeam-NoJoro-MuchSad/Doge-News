@@ -1,5 +1,8 @@
 ﻿using Ninject;
+
 using WebFormsMvp.Binder;
+
+using DogeNews.Web.Infrastructure.Bindings;
 
 namespace DogeNews.Web.App_Start
 {

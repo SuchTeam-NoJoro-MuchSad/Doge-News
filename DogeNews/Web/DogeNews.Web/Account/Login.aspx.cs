@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Web;
 
-using DogeNews.Web.MVP.Account.Login.EventArguments;
-using DogeNews.Web.MVP.Account.Login;
+using DogeNews.Web.Mvp.Account.Login.EventArguments;
+using DogeNews.Web.Mvp.Account.Login;
 
 using WebFormsMvp.Web;
 using WebFormsMvp;

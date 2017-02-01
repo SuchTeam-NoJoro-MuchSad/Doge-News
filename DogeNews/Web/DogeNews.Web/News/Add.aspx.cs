@@ -1,7 +1,7 @@
 ﻿using System;
 
-using DogeNews.Web.MVP.News.Add;
-using DogeNews.Web.MVP.News.Add.EventArguments;
+using DogeNews.Web.Mvp.News.Add;
+using DogeNews.Web.Mvp.News.Add.EventArguments;
 using DogeNews.Web.Common.Enums;
 using DogeNews.Common.Constants;
 
@@ -27,7 +27,7 @@ namespace DogeNews.Web.News
                     Category = (NewsCategoryType)int.Parse(this.CategorySelect.Value)
                 };
 
-                this.AddNews(this, eventData);
+                this.AddNews(this, eventData);                
             }
         }
 

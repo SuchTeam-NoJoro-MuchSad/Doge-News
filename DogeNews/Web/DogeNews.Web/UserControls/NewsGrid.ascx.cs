@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Web.UI.WebControls;
 
-using DogeNews.Web.MVP.UserControls.NewsGrid;
-using DogeNews.Web.MVP.UserControls.NewsGrid.EventArguments;
+using DogeNews.Web.Mvp.UserControls.NewsGrid;
+using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
 using DogeNews.Common.Enums;
-using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Models;
 using DogeNews.Data.Models;
+using DogeNews.Web.DataSources.Contracts;
 
 using WebFormsMvp.Web;
 using WebFormsMvp;
@@ -20,7 +20,7 @@ namespace DogeNews.Web.UserControls
         public event EventHandler<ChangePageEventArgs> ChangePage;
         public event EventHandler<OrderByEventArgs> OrderByDate;
 
-        public IDataSourceService<NewsItem, NewsWebModel> NewsDataSource
+        public IDataSource<NewsItem, NewsWebModel> NewsDataSource
         {
             get { return this.Model.NewsDataSource; }
             set { this.Model.NewsDataSource = value; }

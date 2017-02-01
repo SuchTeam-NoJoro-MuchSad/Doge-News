@@ -22,3 +22,7 @@
     position: absolute;
     top: 15%;
 }
+
+#MessageContainer {
+    display: none;
+}

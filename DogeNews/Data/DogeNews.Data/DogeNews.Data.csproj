@@ -59,7 +59,6 @@
     <Compile Include="Contracts\INewsData.cs" />
     <Compile Include="Contracts\INewsDbContext.cs" />
     <Compile Include="Contracts\IRepository.cs" />
-    <Compile Include="DataMappingsProfile.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NewsData.cs" />
     <Compile Include="NewsDbContext.cs" />

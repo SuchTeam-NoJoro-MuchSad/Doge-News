@@ -112,6 +112,10 @@
       <Project>{d764f077-94e9-4c97-86a1-c523472c6ac8}</Project>
       <Name>DogeNews.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Web\DogeNews.Web.Infrastructure\DogeNews.Web.Infrastructure.csproj">
+      <Project>{40862603-390D-4DD3-B892-B69021DE3A18}</Project>
+      <Name>DogeNews.Web.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

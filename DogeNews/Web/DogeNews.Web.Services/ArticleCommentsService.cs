@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.Providers.Contracts;
 using DogeNews.Web.Services.Contracts;
-using System.Linq;
 
 namespace DogeNews.Web.Services
 {
@@ -16,6 +17,7 @@ namespace DogeNews.Web.Services
         private readonly IMapperProvider mapperProvider;
         private readonly IRepository<User> userRepository;
         private readonly INewsData newsData;
+
         private int count;
         
         public ArticleCommentsService(IRepository<Comment> commentsRepository,

@@ -9,7 +9,7 @@ using Owin;
 
 using DogeNews.Data.Models;
 using DogeNews.Data;
-using DogeNews.Web.Managers;
+using DogeNews.Web.Identity.Managers;
 
 namespace DogeNews.Web
 {

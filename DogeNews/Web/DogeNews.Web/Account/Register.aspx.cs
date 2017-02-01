@@ -1,7 +1,7 @@
 ﻿using System;
 
-using DogeNews.Web.MVP.Account.Register;
-using DogeNews.Web.MVP.Account.Register.EventArguments;
+using DogeNews.Web.Mvp.Account.Register;
+using DogeNews.Web.Mvp.Account.Register.EventArguments;
 
 using WebFormsMvp.Web;
 using WebFormsMvp;

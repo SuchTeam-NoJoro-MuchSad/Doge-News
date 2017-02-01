@@ -1,6 +1,8 @@
 ﻿using System;
-using DogeNews.Web.MVP.News.Article;
-using DogeNews.Web.MVP.News.Article.EventArguments;
+
+using DogeNews.Web.Mvp.News.Article;
+using DogeNews.Web.Mvp.News.Article.EventArguments;
+
 using WebFormsMvp;
 using WebFormsMvp.Web;
 
