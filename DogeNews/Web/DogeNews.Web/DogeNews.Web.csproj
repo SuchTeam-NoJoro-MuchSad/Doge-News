@@ -313,6 +313,7 @@
     <Content Include="Site.Master" />
     <Content Include="UserControls\ArticleComments.ascx" />
     <Content Include="UserControls\NewsGrid.ascx" />
+    <Content Include="UserControls\NewsSlider.ascx" />
     <Content Include="UserControls\TinyMceEditor.ascx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
@@ -415,6 +416,13 @@
     </Compile>
     <Compile Include="UserControls\NewsGrid.ascx.designer.cs">
       <DependentUpon>NewsGrid.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\NewsSlider.ascx.cs">
+      <DependentUpon>NewsSlider.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\NewsSlider.ascx.designer.cs">
+      <DependentUpon>NewsSlider.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TinyMceEditor.ascx.cs">
       <DependentUpon>TinyMceEditor.ascx</DependentUpon>

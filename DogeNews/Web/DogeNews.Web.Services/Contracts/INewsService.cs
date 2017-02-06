@@ -1,4 +1,6 @@
-﻿using DogeNews.Web.Models;
+﻿using System.Collections.Generic;
+
+using DogeNews.Web.Models;
 
 namespace DogeNews.Web.Services.Contracts
 {
@@ -7,5 +9,7 @@ namespace DogeNews.Web.Services.Contracts
         void Add(string username, NewsWebModel newsItem);
 
         NewsWebModel GetItemByTitle(string title);
+
+        IEnumerable<NewsWebModel> GetSliderNews();
     }
 }

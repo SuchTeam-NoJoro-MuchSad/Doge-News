@@ -6,7 +6,6 @@
 
         <div class="row">
             <div id="news-grid">
-                <!-- SORT DROPDOWN -->
                 <div>
                     <asp:Button CssClass="btn" runat="server" Text="Date ascending" CommandArgument="Ascending" OnClick="OrderByDateClick" />
                     <asp:Button CssClass="btn" runat="server" Text="Date descending" CommandArgument="Descending" OnClick="OrderByDateClick" />
@@ -42,7 +41,7 @@
                     <asp:Repeater
                         runat="server"
                         ItemType="System.Int32"
-                        DataSource="<%# Enumerable.Range(1, (this.Model.NewsCount / this.Model.PageSize) + 1) %>">
+                        DataSource="<%# Enumerable.Range(1, this.Model.NewsCount / this.Model.PageSize) %>">
                         <ItemTemplate>
                             <li class="waves-effect">
                                 <asp:Button runat="server" OnClick="ChangePageClick" Text="<%#: Item %>"></asp:Button>

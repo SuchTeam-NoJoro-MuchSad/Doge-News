@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
@@ -10,6 +12,8 @@ namespace DogeNews.Web.Services
 {
     public class NewsService : INewsService
     {
+        private const int SliderNewsCount = 3;
+
         private readonly IRepository<User> userRepository;
         private readonly IRepository<NewsItem> newsRepository;
         private readonly IRepository<Image> imageRepository;
@@ -56,6 +60,7 @@ namespace DogeNews.Web.Services
             news.Image = image;
             news.ImageId = image.Id;
             news.CreatedOn = this.dateTimeProvider.Now;
+
             this.imageRepository.Add(image);
             this.newsRepository.Add(news);
             this.newsData.Commit();
@@ -68,6 +73,17 @@ namespace DogeNews.Web.Services
             return this.mapperProvider.Instance.Map<NewsWebModel>(foundNewsItem);
         }
 
+        public IEnumerable<NewsWebModel> GetSliderNews()
+        {
+            var news = this.newsRepository
+                .All
+                .OrderByDescending(x => x.CreatedOn)
+                .Take(SliderNewsCount)
+                .ToList()
+                .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x));
+
+            return news;
+        }
 
         private void ValidateConstructorParams(
             IRepository<User> userRepository,

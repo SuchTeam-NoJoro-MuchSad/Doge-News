@@ -13,6 +13,15 @@ namespace DogeNews.Web {
     public partial class _Default {
         
         /// <summary>
+        /// NewsSlider control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DogeNews.Web.UserControls.NewsSlider NewsSlider;
+        
+        /// <summary>
         /// NewsGrid control.
         /// </summary>
         /// <remarks>
