@@ -2,6 +2,8 @@
 
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Services;
+using DogeNews.Web.Services.Contracts.Http;
+using DogeNews.Web.Services.Http;
 
 namespace DogeNews.Web.Infrastructure.Bindings.Modules
 {
@@ -11,7 +13,10 @@ namespace DogeNews.Web.Infrastructure.Bindings.Modules
         {
             this.Bind<INewsService>().To<NewsService>();
             this.Bind<IFileService>().To<FileService>();
-            this.Bind<IArticleCommentsService>().To<ArticleCommentsService>();         
+            this.Bind<IArticleCommentsService>().To<ArticleCommentsService>();
+            this.Bind<IHttpContextService>().To<HttpContextService>();
+            this.Bind<IHttpPostedFileService>().To<HttpPostedFileService>();
+            this.Bind<IHttpServerUtilityService>().To<HttpServerUtilityService>(); 
         }
     }
 }

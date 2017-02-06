@@ -1,12 +1,13 @@
 using System;
 using System.Web;
+using System.Reflection;
+using System.Linq;
 
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
 using Ninject;
 using Ninject.Web.Common;
-
-using DogeNews.Web.Infrastructure.Bindings.Modules;
+using Ninject.Modules;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DogeNews.Web.Infrastructure.Bindings.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DogeNews.Web.Infrastructure.Bindings.NinjectWebCommon), "Stop")]
@@ -67,12 +68,13 @@ namespace DogeNews.Web.Infrastructure.Bindings
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Load(
-                new MvpModule(),
-                new DataModule(),
-                new ProvidersModule(),
-                new ServicesModule(),
-                new DataSourcesModule());
+            var currentAssembly = Assembly.GetAssembly(typeof(NinjectWebCommon));
+            var modules = currentAssembly
+                .GetTypes()
+                .Where(x => x.GetInterfaces().Any(i => i.Name == typeof(INinjectModule).Name))
+                .Select(x => Activator.CreateInstance(x) as INinjectModule);
+
+            kernel.Load(modules);
         }        
     }
 }
