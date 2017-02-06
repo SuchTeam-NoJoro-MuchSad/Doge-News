@@ -69,6 +69,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,8 +81,14 @@
     <Compile Include="ArticleCommentsService.cs" />
     <Compile Include="Contracts\IArticleCommentsService.cs" />
     <Compile Include="Contracts\IFileService.cs" />
+    <Compile Include="Contracts\Http\IHttpContextService.cs" />
+    <Compile Include="Contracts\Http\IHttpPostedFileService.cs" />
+    <Compile Include="Contracts\Http\IHttpServerUtilityService.cs" />
     <Compile Include="Contracts\INewsService.cs" />
     <Compile Include="FileService.cs" />
+    <Compile Include="Http\HttpContextService.cs" />
+    <Compile Include="Http\HttpPostedFileService.cs" />
+    <Compile Include="Http\HttpServerUtilityService.cs" />
     <Compile Include="NewsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

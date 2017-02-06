@@ -23,6 +23,7 @@ namespace DogeNews.Web.News
                 {
                     Title = this.Server.HtmlEncode(this.TitleInput.Value),
                     Image = this.ImageFileUpload.PostedFile,
+                    FileName = this.ImageFileUpload.PostedFile.FileName,
                     Content = this.AddNewsControl.Content,
                     Category = (NewsCategoryType)int.Parse(this.CategorySelect.Value)
                 };
