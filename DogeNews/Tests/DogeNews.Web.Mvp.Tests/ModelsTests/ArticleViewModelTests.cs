@@ -1,5 +1,6 @@
 ﻿using DogeNews.Web.Models;
 using DogeNews.Web.Mvp.News.Article;
+
 using NUnit.Framework;
 
 namespace DogeNews.Web.Mvp.Tests.ModelsTests

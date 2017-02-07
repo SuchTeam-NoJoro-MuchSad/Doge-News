@@ -69,6 +69,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="EventArgsTests\AddNewsEventArgsTests.cs" />
+    <Compile Include="EventArgsTests\ArticlePageLoadEventArgsTests.cs" />
     <Compile Include="ModelsTests\ArticleViewModelTests.cs" />
     <Compile Include="PresenterTests\AddNewsPresenterTests.cs" />
     <Compile Include="PresenterTests\ArticlePresenterTests.cs" />
