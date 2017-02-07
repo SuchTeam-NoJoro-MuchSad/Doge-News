@@ -13,7 +13,7 @@ using DogeNews.Web.DataSources.Contracts;
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
 {
     [TestFixture]
-    public class NewsGridTests
+    public class NewsGridPresenterTests
     {
         private Mock<INewsGridView> mockedView;
         private Mock<IDataSource<NewsItem, NewsWebModel>> mockedDataSource;
@@ -88,6 +88,42 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
 
             presenter.PageLoad(null, eventArgs);
             Assert.AreEqual(pageSizeConstant, 6);
+        }
+
+        [Test]
+        public void ChangePage_ShouldSetViewStateCurrentPageToThePassedPageFromTheEventArgs()
+        {
+            var eventArgs = new ChangePageEventArgs { Page = 3, ViewState = new StateBag() };
+
+            this.mockedView
+                .SetupGet(x => x.Model)
+                .Returns(new NewsGridViewModel { NewsDataSource = this.mockedDataSource.Object });
+
+            var presenter = new NewsGridPresenter(this.mockedView.Object);
+
+            presenter.ChangePage(null, eventArgs);
+            Assert.AreEqual(3, (int)eventArgs.ViewState["CurrentPage"]);
+        }
+
+        [Test]
+        public void ChangePage_ShouldViewModelNewsDataSourceGetPageItemsWithPageAndPageSize()
+        {
+            int page = 3;
+            var eventArgs = new ChangePageEventArgs { Page = page, ViewState = new StateBag() };
+
+            this.mockedView
+                .SetupGet(x => x.Model)
+                .Returns(new NewsGridViewModel { NewsDataSource = this.mockedDataSource.Object });
+
+            var presenter = new NewsGridPresenter(this.mockedView.Object);
+            int pageSizeConstant = (int)typeof(NewsGridPresenter)
+               .GetField("PageSize", BindingFlags.NonPublic | BindingFlags.Static)
+               .GetValue(presenter);
+
+            presenter.ChangePage(null, eventArgs);
+            this.mockedDataSource.Verify(x =>
+                x.GetPageItems(It.Is<int>(a => a == page), It.Is<int>(a => a == pageSizeConstant)),
+                Times.Once);
         }
     }
 }

@@ -73,7 +73,7 @@
     <Compile Include="ModelsTests\News\ArticleViewModelTests.cs" />
     <Compile Include="PresenterTests\News\AddNewsPresenterTests.cs" />
     <Compile Include="PresenterTests\News\ArticlePresenterTests.cs" />
-    <Compile Include="PresenterTests\UserControls\NewsGridTests.cs" />
+    <Compile Include="PresenterTests\UserControls\NewsGridPresenterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
