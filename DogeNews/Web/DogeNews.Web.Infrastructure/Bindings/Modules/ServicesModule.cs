@@ -16,7 +16,9 @@ namespace DogeNews.Web.Infrastructure.Bindings.Modules
             this.Bind<IArticleCommentsService>().To<ArticleCommentsService>();
             this.Bind<IHttpContextService>().To<HttpContextService>();
             this.Bind<IHttpPostedFileService>().To<HttpPostedFileService>();
-            this.Bind<IHttpServerUtilityService>().To<HttpServerUtilityService>(); 
+            this.Bind<IHttpServerUtilityService>().To<HttpServerUtilityService>();
+            this.Bind<IHttpUtilityService>().To<HttpUtilityService>();
+            this.Bind<IHttpResponseService>().To<HttpResponseService>();
         }
     }
 }

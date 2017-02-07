@@ -79,6 +79,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArticleCommentsService.cs" />
+    <Compile Include="Contracts\Http\IHttpUtilityService.cs" />
+    <Compile Include="Contracts\Http\IHttpResponseService.cs" />
     <Compile Include="Contracts\IArticleCommentsService.cs" />
     <Compile Include="Contracts\IFileService.cs" />
     <Compile Include="Contracts\Http\IHttpContextService.cs" />
@@ -88,7 +90,9 @@
     <Compile Include="FileService.cs" />
     <Compile Include="Http\HttpContextService.cs" />
     <Compile Include="Http\HttpPostedFileService.cs" />
+    <Compile Include="Http\HttpResponseService.cs" />
     <Compile Include="Http\HttpServerUtilityService.cs" />
+    <Compile Include="Http\HttpUtilityService.cs" />
     <Compile Include="NewsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
