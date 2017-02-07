@@ -1,4 +1,6 @@
-﻿using System.Web.UI;
+﻿using System;
+using System.Linq.Expressions;
+using System.Web.UI;
 using System.Reflection;
 
 using Moq;
@@ -10,8 +12,6 @@ using DogeNews.Web.Models;
 using DogeNews.Data.Models;
 using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Common.Enums;
-using System.Linq.Expressions;
-using System;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
 {
