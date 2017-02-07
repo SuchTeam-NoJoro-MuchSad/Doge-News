@@ -69,6 +69,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="EventArgsTests\AddNewsEventArgsTests.cs" />
+    <Compile Include="ModelsTests\ArticleViewModelTests.cs" />
     <Compile Include="PresenterTests\AddNewsPresenterTests.cs" />
     <Compile Include="PresenterTests\ArticlePresenterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,9 +78,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ModelsTests\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\Common\DogeNews.Common\DogeNews.Common.csproj">
       <Project>{5FD6DC3F-321D-456A-9DC4-0010EBEBB22B}</Project>
