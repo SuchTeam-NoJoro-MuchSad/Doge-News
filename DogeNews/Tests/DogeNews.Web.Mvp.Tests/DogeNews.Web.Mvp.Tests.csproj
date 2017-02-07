@@ -68,11 +68,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="EventArgsTests\AddNewsEventArgsTests.cs" />
-    <Compile Include="EventArgsTests\ArticlePageLoadEventArgsTests.cs" />
-    <Compile Include="ModelsTests\ArticleViewModelTests.cs" />
-    <Compile Include="PresenterTests\AddNewsPresenterTests.cs" />
-    <Compile Include="PresenterTests\ArticlePresenterTests.cs" />
+    <Compile Include="EventArgsTests\News\AddNewsEventArgsTests.cs" />
+    <Compile Include="EventArgsTests\News\ArticlePageLoadEventArgsTests.cs" />
+    <Compile Include="ModelsTests\News\ArticleViewModelTests.cs" />
+    <Compile Include="PresenterTests\News\AddNewsPresenterTests.cs" />
+    <Compile Include="PresenterTests\News\ArticlePresenterTests.cs" />
+    <Compile Include="PresenterTests\UserControls\NewsGridTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +85,14 @@
     <ProjectReference Include="..\..\Common\DogeNews.Common\DogeNews.Common.csproj">
       <Project>{5FD6DC3F-321D-456A-9DC4-0010EBEBB22B}</Project>
       <Name>DogeNews.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\DogeNews.Data.Models\DogeNews.Data.Models.csproj">
+      <Project>{6BFA72F8-752D-4E6A-B936-6100028FE2DD}</Project>
+      <Name>DogeNews.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Web\DogeNews.Web.DataSources\DogeNews.Web.DataSources.csproj">
+      <Project>{50C68F0E-347B-4E17-AD6C-4D034702333C}</Project>
+      <Name>DogeNews.Web.DataSources</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Web\DogeNews.Web.Models\DogeNews.Web.Models.csproj">
       <Project>{C013BB66-E626-4D31-AB5D-922732FEDD4D}</Project>

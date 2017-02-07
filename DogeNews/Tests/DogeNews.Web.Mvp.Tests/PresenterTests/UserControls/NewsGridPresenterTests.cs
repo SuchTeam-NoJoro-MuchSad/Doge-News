@@ -1,0 +1,93 @@
+﻿using System.Web.UI;
+using System.Reflection;
+
+using Moq;
+using NUnit.Framework;
+
+using DogeNews.Web.Mvp.UserControls.NewsGrid;
+using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
+using DogeNews.Web.Models;
+using DogeNews.Data.Models;
+using DogeNews.Web.DataSources.Contracts;
+
+namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
+{
+    [TestFixture]
+    public class NewsGridTests
+    {
+        private Mock<INewsGridView> mockedView;
+        private Mock<IDataSource<NewsItem, NewsWebModel>> mockedDataSource;
+
+        [SetUp]
+        public void Init()
+        {
+            this.mockedView = new Mock<INewsGridView>();
+            this.mockedDataSource = new Mock<IDataSource<NewsItem, NewsWebModel>>();
+        }
+
+        [Test]
+        public void PageLoad_WhenItIsNotPostbackViewStateCurrentPageShouldBeSetTo1()
+        {
+            var eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
+
+            this.mockedView
+                .SetupGet(x => x.Model)
+                .Returns(new NewsGridViewModel { NewsDataSource = this.mockedDataSource.Object });
+            var presenter = new NewsGridPresenter(this.mockedView.Object);
+
+            presenter.PageLoad(null, eventArgs);
+            Assert.AreEqual(1, (int)eventArgs.ViewState["CurrentPage"]);
+        }
+
+        [Test]
+        public void PageLoad_NewsDataSourceGetPageItemsShouldBeCalledWithOneAndPageSize()
+        {
+            var eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
+
+            this.mockedView
+                .SetupGet(x => x.Model)
+                .Returns(new NewsGridViewModel { NewsDataSource = this.mockedDataSource.Object });
+            var presenter = new NewsGridPresenter(this.mockedView.Object);
+
+            presenter.PageLoad(null, eventArgs);
+            this.mockedDataSource.Verify(x =>
+                x.GetPageItems(It.Is<int>(a => a == 1), It.Is<int>(a => a == 6)),
+                Times.Once);
+        }
+
+        [Test]
+        public void PageLoad_ViewModelNewsCountShouldBeSetToViewModelNewsDataSourceCount()
+        {
+            var eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
+            int count = 6;
+
+            this.mockedDataSource.SetupGet(x => x.Count).Returns(count);
+            this.mockedView
+                .SetupGet(x => x.Model)
+                .Returns(new NewsGridViewModel { NewsDataSource = this.mockedDataSource.Object });
+            var presenter = new NewsGridPresenter(this.mockedView.Object);
+
+            presenter.PageLoad(null, eventArgs);
+            Assert.AreEqual(count, presenter.View.Model.NewsCount);
+        }
+
+        [Test]
+        public void PageLoad_PageSizeShouldBeSetToTheConstantPageSize()
+        {
+            var eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
+            int count = 6;
+
+            this.mockedDataSource.SetupGet(x => x.Count).Returns(count);
+            this.mockedView
+                .SetupGet(x => x.Model)
+                .Returns(new NewsGridViewModel { NewsDataSource = this.mockedDataSource.Object });
+            var presenter = new NewsGridPresenter(this.mockedView.Object);
+            int pageSizeConstant = (int)typeof(NewsGridPresenter)
+                .GetField("PageSize", BindingFlags.NonPublic | BindingFlags.Static)
+                .GetValue(presenter);
+
+            presenter.PageLoad(null, eventArgs);
+            Assert.AreEqual(pageSizeConstant, 6);
+        }
+    }
+}

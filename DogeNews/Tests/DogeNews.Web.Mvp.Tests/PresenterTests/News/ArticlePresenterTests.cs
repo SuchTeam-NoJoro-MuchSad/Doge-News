@@ -10,7 +10,7 @@ using DogeNews.Web.Mvp.News.Article;
 using DogeNews.Web.Mvp.News.Article.EventArguments;
 using DogeNews.Web.Models;
 
-namespace DogeNews.Web.Mvp.Tests.PresenterTests
+namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 {
     [TestFixture]
     public class ArticlePresenterTests

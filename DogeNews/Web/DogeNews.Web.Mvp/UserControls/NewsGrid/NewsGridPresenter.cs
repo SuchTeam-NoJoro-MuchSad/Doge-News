@@ -17,7 +17,7 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
             this.View.OrderByDate += this.OrderByDate;
         }
 
-        private void PageLoad(object sender, PageLoadEventArgs e)
+        public void PageLoad(object sender, PageLoadEventArgs e)
         {
             if (!e.IsPostBack)
             {
@@ -29,13 +29,13 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
             this.View.Model.PageSize = PageSize;
         }
 
-        private void ChangePage(object sender, ChangePageEventArgs e)
+        public void ChangePage(object sender, ChangePageEventArgs e)
         {
             e.ViewState["CurrentPage"] = e.Page;
             this.View.Model.CurrentPageNews = this.View.Model.NewsDataSource.GetPageItems(e.Page, PageSize);
         }
 
-        private void OrderByDate(object sender, OrderByEventArgs e)
+        public void OrderByDate(object sender, OrderByEventArgs e)
         {
             if (e.OrderBy == OrderByType.Ascending)
             {

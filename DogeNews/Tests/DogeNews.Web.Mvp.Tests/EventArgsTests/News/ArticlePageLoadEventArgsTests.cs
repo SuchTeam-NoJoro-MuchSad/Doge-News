@@ -4,7 +4,7 @@ using DogeNews.Web.Mvp.News.Article.EventArguments;
 
 using NUnit.Framework;
 
-namespace DogeNews.Web.Mvp.Tests.EventArgsTests
+namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
 {
     [TestFixture]
     public class ArticlePageLoadEventArgsTests

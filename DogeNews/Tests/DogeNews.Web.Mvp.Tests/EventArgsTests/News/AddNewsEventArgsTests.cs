@@ -3,7 +3,7 @@
 using DogeNews.Web.Mvp.News.Add.EventArguments;
 using DogeNews.Web.Common.Enums;
 
-namespace DogeNews.Web.Mvp.Tests.EventArgsTests
+namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
 {
     [TestFixture]
     public class AddNewsEventArgsTests
