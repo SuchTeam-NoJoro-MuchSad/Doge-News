@@ -13,7 +13,5 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
         public int PageSize { get; set; }
 
         public IEnumerable<NewsWebModel> CurrentPageNews { get; set; }
-
-        public IDataSource<NewsItem, NewsWebModel> NewsDataSource { get; set; }
     }
 }

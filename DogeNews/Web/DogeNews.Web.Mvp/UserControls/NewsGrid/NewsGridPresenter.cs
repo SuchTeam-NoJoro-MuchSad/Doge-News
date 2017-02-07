@@ -1,4 +1,9 @@
-﻿using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
+﻿using System;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Net;
+using System.Web;
+using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
 using DogeNews.Common.Enums;
 using DogeNews.Data.Models;
 using DogeNews.Web.DataSources.Contracts;
@@ -31,7 +36,7 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
                 e.ViewState["CurrentPage"] = 1;
             }
 
-            this.newsCategory = this.Request.QueryString["name"];
+            this.newsCategory = e.QueryString;
 
             this.View.Model.CurrentPageNews = this.newsDataSource.GetPageItems(1, PageSize, this.newsCategory);
             this.View.Model.NewsCount = this.newsDataSource.Count;
@@ -62,5 +67,7 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
                 PageSize,
                 this.newsCategory);
         }
+
+        
     }
 }

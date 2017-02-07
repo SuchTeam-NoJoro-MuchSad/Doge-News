@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using System.Web.UI.WebControls;
 
 using DogeNews.Web.Mvp.UserControls.NewsGrid;
@@ -42,11 +43,21 @@ namespace DogeNews.Web.UserControls
         {
             if (this.IsPostBack)
             {
-                this.PageLoad(this, new PageLoadEventArgs { IsPostBack = true, ViewState = this.ViewState });
+                this.PageLoad(this, new PageLoadEventArgs
+                {
+                    IsPostBack = true,
+                    ViewState = this.ViewState,
+                    QueryString = HttpUtility.ParseQueryString(this.Page.ClientQueryString)["name"]
+                });
                 return;
             }
 
-            this.PageLoad(this, new PageLoadEventArgs { IsPostBack = false, ViewState = this.ViewState });
+            this.PageLoad(this, new PageLoadEventArgs
+            {
+                IsPostBack = false,
+                ViewState = this.ViewState,
+                QueryString = HttpUtility.ParseQueryString(this.Page.ClientQueryString)["name"]
+            });
         }
     }
 }

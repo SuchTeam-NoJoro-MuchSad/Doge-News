@@ -42,15 +42,5 @@ namespace DogeNews.Web.Mvp.Tests.ModelsTests.UserControls
             model.CurrentPageNews = currentPageNews;
             Assert.AreEqual(currentPageNews, model.CurrentPageNews);
         }
-
-        [Test]
-        public void NewsDataSourceShouldReturnTheSetValue()
-        {
-            var model = new NewsGridViewModel();
-            var newsDataSource = new Mock<IDataSource<NewsItem, NewsWebModel>>();
-
-            model.NewsDataSource = newsDataSource.Object;
-            Assert.AreEqual(newsDataSource.Object, model.NewsDataSource);
-        }
     }
 }

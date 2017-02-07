@@ -6,6 +6,8 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments
     {
         public bool IsPostBack { get; set; }
 
+        public string QueryString { get; set; }
+
         public StateBag ViewState { get; set; }
     }
 }
