@@ -11,7 +11,7 @@ using DogeNews.Web.Mvp.News.Add.EventArguments;
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Models;
 
-namespace DogeNews.Web.Mvp.Tests
+namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 {
     [TestFixture]
     public class AddNewsPresenterTests

@@ -267,6 +267,7 @@
     <Content Include="fonts\From Cartoon Blocks.ttf" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="News\Category.aspx" />
+    <Content Include="Scripts\Default.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
