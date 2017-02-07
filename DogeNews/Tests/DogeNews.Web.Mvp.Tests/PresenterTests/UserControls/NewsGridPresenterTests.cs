@@ -9,6 +9,9 @@ using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
 using DogeNews.Web.Models;
 using DogeNews.Data.Models;
 using DogeNews.Web.DataSources.Contracts;
+using DogeNews.Common.Enums;
+using System.Linq.Expressions;
+using System;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
 {
@@ -123,6 +126,48 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
             presenter.ChangePage(null, eventArgs);
             this.mockedDataSource.Verify(x =>
                 x.GetPageItems(It.Is<int>(a => a == page), It.Is<int>(a => a == pageSizeConstant)),
+                Times.Once);
+        }
+
+        [Test]
+        public void OrderByDate_WhenOrderTypeIsAscendingNewsDataSourceOrderByAscendingShouldBeCalled()
+        {
+            var eventArgs = new OrderByEventArgs { OrderBy = OrderByType.Ascending, ViewState = new StateBag() };
+            eventArgs.ViewState["CurrentPage"] = 5;
+
+            this.mockedView
+                .SetupGet(x => x.Model)
+                .Returns(new NewsGridViewModel { NewsDataSource = this.mockedDataSource.Object });
+
+            var presenter = new NewsGridPresenter(this.mockedView.Object);
+
+            presenter.OrderByDate(null, eventArgs);
+            this.mockedDataSource.Verify(x => 
+                x.OrderByAscending(
+                    It.IsAny<Expression<Func<NewsItem, DateTime?>>>(),
+                    It.IsAny<int>(),
+                    It.IsAny<int>()),
+                Times.Once);
+        }
+
+        [Test]
+        public void OrderByDate_WhenOrderTypeIsDescendingNewsDataSourceOrderByDescendingShouldBeCalled()
+        {
+            var eventArgs = new OrderByEventArgs { OrderBy = OrderByType.Descending, ViewState = new StateBag() };
+            eventArgs.ViewState["CurrentPage"] = 5;
+
+            this.mockedView
+                .SetupGet(x => x.Model)
+                .Returns(new NewsGridViewModel { NewsDataSource = this.mockedDataSource.Object });
+
+            var presenter = new NewsGridPresenter(this.mockedView.Object);
+
+            presenter.OrderByDate(null, eventArgs);
+            this.mockedDataSource.Verify(x =>
+                x.OrderByDescending(
+                    It.IsAny<Expression<Func<NewsItem, DateTime?>>>(),
+                    It.IsAny<int>(),
+                    It.IsAny<int>()),
                 Times.Once);
         }
     }
