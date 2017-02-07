@@ -356,11 +356,11 @@ namespace DogeNews.Data.Tests
             mockContext.Setup(x => x.Comments).Returns(mockSet.Object);
 
             var repository = new Repository<Comment>(mockContext.Object);
-            IList<Comment> reslut = repository.GetAll(x => x.Content == "asd", x => x.Id).ToList();
+            IList<Comment> result = repository.GetAll(x => x.Content == "asd", x => x.Id).ToList();
 
-            Assert.AreEqual(2, reslut.Count());
-            Assert.AreEqual(expctedFirstElementId, reslut[0].Id);
-            Assert.AreEqual(expectedSecondElementId, reslut[1].Id);
+            Assert.AreEqual(2, result.Count());
+            Assert.AreEqual(expctedFirstElementId, result[0].Id);
+            Assert.AreEqual(expectedSecondElementId, result[1].Id);
         }
 
         [Test]
