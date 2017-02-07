@@ -1,8 +1,9 @@
-﻿using NUnit.Framework;
+﻿using System.Web.UI;
+
+using NUnit.Framework;
 
 using DogeNews.Common.Enums;
 using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
-using System.Web.UI;
 
 namespace DogeNews.Web.Mvp.Tests.EventArgsTests.UserControls.NewsGrid
 {
