@@ -1,7 +1,10 @@
-﻿using Ninject.Modules;
+﻿using DogeNews.Data.Models;
+using Ninject.Modules;
 
 using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Web.DataSources;
+using DogeNews.Web.Models;
+using DogeNews.Web.Mvp.UserControls.NewsGrid;
 
 namespace DogeNews.Web.Infrastructure.Bindings.Modules
 {
@@ -9,9 +12,9 @@ namespace DogeNews.Web.Infrastructure.Bindings.Modules
     {
         public override void Load()
         {
-            this.Bind(typeof(IDataSource<,>))
-                .To(typeof(NewsDataSource))
-                .Named("_Default");
+            this.Bind<INewsDataSource<NewsItem, NewsWebModel>>()
+                .To<NewsDataSource>()
+                .WhenInjectedExactlyInto<NewsGridPresenter>();
         }
     }
 }

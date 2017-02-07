@@ -48,7 +48,7 @@ namespace DogeNews.Data.Models
 
         public Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
-            return Task.FromResult(GenerateUserIdentity(manager));
+            return Task.FromResult(this.GenerateUserIdentity(manager));
         }
     }
 }

@@ -127,6 +127,10 @@
       <Project>{c013bb66-e626-4d31-ab5d-922732fedd4d}</Project>
       <Name>DogeNews.Web.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DogeNews.Web.Mvp\DogeNews.Web.Mvp.csproj">
+      <Project>{F96F1B49-6B93-457A-9C23-F1507BAE8A0B}</Project>
+      <Name>DogeNews.Web.Mvp</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DogeNews.Web.Providers\DogeNews.Web.Providers.csproj">
       <Project>{83ecb9b9-ea2a-475b-94fe-8cc6f0a42634}</Project>
       <Name>DogeNews.Web.Providers</Name>

@@ -58,11 +58,11 @@
                     <ul class="right hide-on-med-and-down">
                         <li>
                             <ul>
-                                <li><a href="/News/Breaking.aspx">Breaking</a></li>
-                                <li><a href="/News/Sports.aspx">Sports</a></li>
-                                <li><a href="/News/Weather.aspx">Weather</a></li>
-                                <li><a href="/News/Political.aspx">Political</a></li>
-                                <li><a href="/News/Business.aspx">Business</a></li>
+                                <li><a href="/News/Category.aspx?name=Breaking">Breaking</a></li>
+                                <li><a href="/News/Category.aspx?name=Sports">Sports</a></li>
+                                <li><a href="/News/Category.aspx?name=Weather">Weather</a></li>
+                                <li><a href="/News/Category.aspx?name=Political">Political</a></li>
+                                <li><a href="/News/Category.aspx?name=Business">Business</a></li>
                             </ul>
                         </li>
 

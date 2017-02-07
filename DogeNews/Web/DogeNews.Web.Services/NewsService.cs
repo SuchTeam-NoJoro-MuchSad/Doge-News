@@ -6,6 +6,7 @@ using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Data.Contracts;
+using DogeNews.Web.Common.Enums;
 using DogeNews.Web.Providers.Contracts;
 
 namespace DogeNews.Web.Services
@@ -78,9 +79,22 @@ namespace DogeNews.Web.Services
             var news = this.newsRepository
                 .All
                 .OrderByDescending(x => x.CreatedOn)
-                .Take(SliderNewsCount)
-                .ToList()
-                .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x));
+                .Take(SliderNewsCount).ToList()
+                .
+            Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x));
+   
+
+            return news;
+        }
+
+        public IEnumerable<NewsWebModel> GetNewsItemsByCategory(string category)
+        {
+            var enumeration = (NewsCategoryType)Enum.Parse(typeof(NewsCategoryType), category);
+
+            var news = this.newsRepository
+                .GetAll(x => x.Category == enumeration)
+                .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x))
+                .ToList();
 
             return news;
         }

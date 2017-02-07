@@ -11,5 +11,7 @@ namespace DogeNews.Web.Services.Contracts
         NewsWebModel GetItemByTitle(string title);
 
         IEnumerable<NewsWebModel> GetSliderNews();
+
+        IEnumerable<NewsWebModel> GetNewsItemsByCategory(string category);
     }
 }

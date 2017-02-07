@@ -20,12 +20,6 @@ namespace DogeNews.Web.UserControls
         public event EventHandler<ChangePageEventArgs> ChangePage;
         public event EventHandler<OrderByEventArgs> OrderByDate;
 
-        public IDataSource<NewsItem, NewsWebModel> NewsDataSource
-        {
-            get { return this.Model.NewsDataSource; }
-            set { this.Model.NewsDataSource = value; }
-        }
-
         public void ChangePageClick(object sender, EventArgs e)
         {
             var button = sender as Button;
