@@ -2,10 +2,10 @@
 
 using DogeNews.Web.Mvp.UserControls.ArticleComments;
 using DogeNews.Web.Services.Contracts;
+using DogeNews.Web.Mvp.UserControls.ArticleComments.EventArguments;
 
 using Moq;
 using NUnit.Framework;
-using DogeNews.Web.Mvp.UserControls.ArticleComments.EventArguments;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
 {
