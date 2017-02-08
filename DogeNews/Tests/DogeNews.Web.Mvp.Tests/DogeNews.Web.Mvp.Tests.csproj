@@ -71,6 +71,7 @@
     <Compile Include="EventArgsTests\News\AddNewsEventArgsTests.cs" />
     <Compile Include="EventArgsTests\News\ArticlePageLoadEventArgsTests.cs" />
     <Compile Include="EventArgsTests\UserControls\ArticleComments\AddCommentEventArgumentsTests.cs" />
+    <Compile Include="EventArgsTests\UserControls\ArticleComments\ArticleCommetnsPageLoadEventArgsTests.cs" />
     <Compile Include="EventArgsTests\UserControls\NewsGrid\ChangePageEventArgsTests.cs" />
     <Compile Include="EventArgsTests\UserControls\NewsGrid\OrderByEventArgsTests.cs" />
     <Compile Include="ModelsTests\News\ArticleViewModelTests.cs" />
