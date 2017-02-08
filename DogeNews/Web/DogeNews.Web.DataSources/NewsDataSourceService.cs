@@ -15,21 +15,22 @@ namespace DogeNews.Web.DataSources
     {
         private readonly IRepository<NewsItem> newsItemRepository;
         private readonly IMapperProvider mapperProvider;
+        private int count;
 
         public NewsDataSource(IRepository<NewsItem> newsItemRepository, IMapperProvider mapperProvider)
         {
             this.ValidateConstructorParams(newsItemRepository, mapperProvider);
 
             this.newsItemRepository = newsItemRepository;
+            this.Count = this.newsItemRepository.Count;
+
             this.mapperProvider = mapperProvider;
         }
 
         public int Count
         {
-            get
-            {
-                return this.newsItemRepository.Count;
-            }
+            get { return this.count; }
+            set { this.count = value; }
         }
 
         public IEnumerable<NewsWebModel> GetPageItems(int page, int pageSize)
@@ -49,6 +50,7 @@ namespace DogeNews.Web.DataSources
 
 
             var items = this.OrderByDescending(x => x.CreatedOn, page, pageSize, category);
+            
             return items;
         }
 
@@ -71,13 +73,15 @@ namespace DogeNews.Web.DataSources
                 result = result.Where(x => x.Category == newsCategoryType);
             }
 
+            this.Count = result.Count();
+
             var items = result
                 .OrderBy(orderExpression)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList()
                 .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x));
-
+        
             return items;
         }
 
@@ -100,6 +104,8 @@ namespace DogeNews.Web.DataSources
                 result = result.Where(x => x.Category == newsCategoryType);
             }
 
+            this.Count = result.Count();
+
             var items = result
                .OrderByDescending(orderExpression)
                .Skip((page - 1) * pageSize)
@@ -107,6 +113,7 @@ namespace DogeNews.Web.DataSources
                .ToList()
                .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x));
 
+            
             return items;
         }
 
