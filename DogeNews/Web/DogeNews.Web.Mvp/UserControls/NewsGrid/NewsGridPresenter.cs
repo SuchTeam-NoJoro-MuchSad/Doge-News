@@ -1,42 +1,50 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Net;
-using System.Web;
-using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
+﻿using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
 using DogeNews.Common.Enums;
 using DogeNews.Data.Models;
 using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Web.Models;
+using DogeNews.Web.Services.Contracts.Http;
+
 using WebFormsMvp;
 
 namespace DogeNews.Web.Mvp.UserControls.NewsGrid
 {
     public class NewsGridPresenter : Presenter<INewsGridView>
     {
-        private INewsDataSource<NewsItem, NewsWebModel> newsDataSource;
         private const int PageSize = 6;
+        private const string NewsCategoryQueryStringKey = "name";
+
+        private INewsDataSource<NewsItem, NewsWebModel> newsDataSource;
+        private IHttpUtilityService httpUtilityService;
+        
         private string newsCategory;
 
 
-        public NewsGridPresenter(INewsGridView view, INewsDataSource<NewsItem, NewsWebModel> newsDataSource)
+        public NewsGridPresenter(INewsGridView view, 
+            INewsDataSource<NewsItem, NewsWebModel> newsDataSource,
+            IHttpUtilityService httpUtilityService)
                 : base(view)
         {
             this.newsDataSource = newsDataSource;
+            this.httpUtilityService = httpUtilityService;
 
             this.View.PageLoad += this.PageLoad;
             this.View.ChangePage += this.ChangePage;
             this.View.OrderByDate += this.OrderByDate;
         }
 
-        public void PageLoad(object sender, PageLoadEventArgs e)
+        public void PageLoad(object sender, PageLoadEventArgs eventArgs)
         {
-            if (!e.IsPostBack)
+            if (!eventArgs.IsPostBack)
             {
-                e.ViewState["CurrentPage"] = 1;
+                eventArgs.ViewState["CurrentPage"] = 1;
             }
 
-            this.newsCategory = e.QueryString;
+            if (eventArgs.QueryString != null)
+            {
+                var parsedQueryString = this.httpUtilityService.ParseQueryString(eventArgs.QueryString);
+                this.newsCategory = parsedQueryString[NewsCategoryQueryStringKey];
+            }
 
             this.View.Model.CurrentPageNews = this.newsDataSource.GetPageItems(1, PageSize, this.newsCategory);
             this.View.Model.NewsCount = this.newsDataSource.Count;
@@ -67,7 +75,5 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
                 PageSize,
                 this.newsCategory);
         }
-
-        
     }
 }

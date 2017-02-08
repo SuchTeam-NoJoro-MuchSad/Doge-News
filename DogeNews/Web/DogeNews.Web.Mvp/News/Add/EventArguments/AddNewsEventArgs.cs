@@ -1,6 +1,5 @@
 ﻿using System.Web;
-
-using DogeNews.Web.Common.Enums;
+using DogeNews.Common.Enums;
 
 namespace DogeNews.Web.Mvp.News.Add.EventArguments
 {

@@ -2,13 +2,7 @@
 
 using WebFormsMvp.Web;
 using WebFormsMvp;
-
-using DogeNews.Data.Models;
-using DogeNews.Web.Models;
 using DogeNews.Web.Mvp.Default;
-using DogeNews.Web.DataSources.Contracts;
-
-using Ninject;
 
 namespace DogeNews.Web
 {

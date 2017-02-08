@@ -1,6 +1,5 @@
 ﻿using System;
-
-using DogeNews.Web.Common.Enums;
+using DogeNews.Common.Enums;
 
 namespace DogeNews.Web.Models
 {

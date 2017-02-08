@@ -2,9 +2,8 @@
 
 using DogeNews.Web.Mvp.News.Add;
 using DogeNews.Web.Mvp.News.Add.EventArguments;
-using DogeNews.Web.Common.Enums;
 using DogeNews.Common.Constants;
-
+using DogeNews.Common.Enums;
 using WebFormsMvp;
 using WebFormsMvp.Web;
 

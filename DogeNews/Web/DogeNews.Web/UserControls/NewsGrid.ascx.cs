@@ -47,7 +47,7 @@ namespace DogeNews.Web.UserControls
                 {
                     IsPostBack = true,
                     ViewState = this.ViewState,
-                    QueryString = HttpUtility.ParseQueryString(this.Page.ClientQueryString)["name"]
+                    QueryString = this.Page.ClientQueryString
                 });
                 return;
             }
@@ -56,7 +56,7 @@ namespace DogeNews.Web.UserControls
             {
                 IsPostBack = false,
                 ViewState = this.ViewState,
-                QueryString = HttpUtility.ParseQueryString(this.Page.ClientQueryString)["name"]
+                QueryString = this.Page.ClientQueryString
             });
         }
     }

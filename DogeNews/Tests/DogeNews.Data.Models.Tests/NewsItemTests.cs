@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.Generic;
-
+using DogeNews.Common.Enums;
 using NUnit.Framework;
-using DogeNews.Web.Common.Enums;
 
 namespace DogeNews.Data.Models.Tests
 {

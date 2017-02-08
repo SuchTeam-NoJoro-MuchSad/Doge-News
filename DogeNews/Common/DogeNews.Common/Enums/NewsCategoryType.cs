@@ -1,4 +1,4 @@
-﻿namespace DogeNews.Web.Common.Enums
+﻿namespace DogeNews.Common.Enums
 {
     public enum NewsCategoryType
     {

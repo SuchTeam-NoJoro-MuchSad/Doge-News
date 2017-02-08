@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using DogeNews.Common.Enums;
 using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Data.Contracts;
-using DogeNews.Web.Common.Enums;
 using DogeNews.Web.Providers.Contracts;
 
 namespace DogeNews.Web.Services

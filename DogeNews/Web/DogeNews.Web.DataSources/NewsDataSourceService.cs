@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-
+using DogeNews.Common.Enums;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
-using DogeNews.Web.Common.Enums;
 using DogeNews.Web.Models;
 using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Web.Providers.Contracts;

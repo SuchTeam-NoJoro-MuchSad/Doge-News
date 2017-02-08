@@ -46,7 +46,7 @@ namespace DogeNews.Data.Tests
             mockContext.Verify(x => x.Dispose(), Times.Once);
         }
 
-        [Test]
+        [Test, Ignore("Integration tests are not needed for now.")]
         public void Configuration_SeedShouldNotThrow()
         {
             var config = new Configuration();

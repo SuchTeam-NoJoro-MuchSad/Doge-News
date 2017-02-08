@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq.Expressions;
 using System.Web.UI;
 using System.Reflection;
@@ -13,6 +14,7 @@ using DogeNews.Web.Models;
 using DogeNews.Data.Models;
 using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Common.Enums;
+using DogeNews.Web.Services.Contracts.Http;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
 {
@@ -21,24 +23,26 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
     {
         private Mock<INewsGridView> mockedView;
         private Mock<INewsDataSource<NewsItem, NewsWebModel>> mockedDataSource;
+        private Mock<IHttpUtilityService> mockedHttpUtilitySevice;
 
         [SetUp]
         public void Init()
         {
             this.mockedView = new Mock<INewsGridView>();
 
-            this.mockedDataSource = new Mock<INewsDataSource<NewsItem, NewsWebModel>>();
+            this.mockedHttpUtilitySevice = new Mock<IHttpUtilityService>();
+            this.mockedHttpUtilitySevice.Setup(x => x.ParseQueryString(It.IsAny<string>()))
+                .Returns(new NameValueCollection());
 
+            this.mockedDataSource = new Mock<INewsDataSource<NewsItem, NewsWebModel>>();
             this.mockedDataSource.Setup(x => x.GetPageItems(It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(new List<NewsWebModel>());
             this.mockedDataSource.Setup(x => x.GetPageItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
-
             this.mockedDataSource.Setup(x => x.OrderByDescending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(new List<NewsWebModel>());
             this.mockedDataSource.Setup(x => x.OrderByDescending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
-
             this.mockedDataSource.Setup(x => x.OrderByAscending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(new List<NewsWebModel>());
             this.mockedDataSource.Setup(x => x.OrderByAscending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<string>()))
@@ -53,7 +57,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
             this.mockedView
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
-            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object);
+            var presenter = new NewsGridPresenter(this.mockedView.Object, 
+                this.mockedDataSource.Object, this.mockedHttpUtilitySevice.Object);
 
             presenter.PageLoad(null, eventArgs);
             Assert.AreEqual(1, (int)eventArgs.ViewState["CurrentPage"]);
@@ -67,11 +72,11 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
             this.mockedView
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
-            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object);
+            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object, this.mockedHttpUtilitySevice.Object);
 
             presenter.PageLoad(null, eventArgs);
             this.mockedDataSource.Verify(x =>
-                x.GetPageItems(It.Is<int>(a => a == 1), It.Is<int>(a => a == 6),It.IsAny<string>()),
+                x.GetPageItems(It.Is<int>(a => a == 1), It.Is<int>(a => a == 6), It.IsAny<string>()),
                 Times.Once);
         }
 
@@ -85,7 +90,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
             this.mockedView
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
-            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object);
+            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object, this.mockedHttpUtilitySevice.Object);
 
             presenter.PageLoad(null, eventArgs);
             Assert.AreEqual(count, presenter.View.Model.NewsCount);
@@ -101,7 +106,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
             this.mockedView
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
-            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object);
+            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object, this.mockedHttpUtilitySevice.Object);
             int pageSizeConstant = (int)typeof(NewsGridPresenter)
                 .GetField("PageSize", BindingFlags.NonPublic | BindingFlags.Static)
                 .GetValue(presenter);
@@ -119,7 +124,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
 
-            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object);
+            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object, this.mockedHttpUtilitySevice.Object);
 
             presenter.ChangePage(null, eventArgs);
             Assert.AreEqual(3, (int)eventArgs.ViewState["CurrentPage"]);
@@ -135,7 +140,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
 
-            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object);
+            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object, this.mockedHttpUtilitySevice.Object);
             int pageSizeConstant = (int)typeof(NewsGridPresenter)
                .GetField("PageSize", BindingFlags.NonPublic | BindingFlags.Static)
                .GetValue(presenter);
@@ -156,7 +161,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel());
 
-            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object);
+            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object, this.mockedHttpUtilitySevice.Object);
 
             presenter.OrderByDate(null, eventArgs);
             this.mockedDataSource.Verify(x =>
@@ -178,7 +183,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
 
-            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object);
+            var presenter = new NewsGridPresenter(this.mockedView.Object, this.mockedDataSource.Object, this.mockedHttpUtilitySevice.Object);
 
             presenter.OrderByDate(null, eventArgs);
             this.mockedDataSource.Verify(x =>

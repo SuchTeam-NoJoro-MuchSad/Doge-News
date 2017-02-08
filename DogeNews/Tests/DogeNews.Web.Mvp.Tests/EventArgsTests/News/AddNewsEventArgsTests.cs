@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
+﻿using DogeNews.Common.Enums;
+using NUnit.Framework;
 
 using DogeNews.Web.Mvp.News.Add.EventArguments;
-using DogeNews.Web.Common.Enums;
 
 namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
 {
