@@ -69,6 +69,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -84,6 +85,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="FileServiceTests.cs" />
+    <Compile Include="HttpTests\HttpPostedFileServiceTests.cs" />
+    <Compile Include="HttpTests\HttpResponseServiceTests.cs" />
+    <Compile Include="HttpTests\HttpServerUtilityServiceTests.cs" />
+    <Compile Include="HttpTests\HttpContextServiceTests.cs" />
+    <Compile Include="HttpTests\HttpUtilityServiceTests.cs" />
     <Compile Include="NewsServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
