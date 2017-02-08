@@ -136,6 +136,27 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         }
 
         [Test]
+        public void PageLoad_WhenTheQueryStringIsEmptyTheRequestShouldSend404CodeAndEnd()
+        {
+            string queryString = "";
+            var eventArgs = new ArticlePageLoadEventArgs { QueryString = queryString };
+
+            this.mockedHttpUtilityService
+                .Setup(x => x.ParseQueryString(It.IsAny<string>()))
+                .Returns(new NameValueCollection { });
+            this.mockedNewsService
+                .Setup(x => x.GetItemByTitle(It.IsAny<string>()))
+                .Returns<NewsWebModel>(null);
+
+            var presenter = this.GetPresenter();
+            presenter.PageLoad(null, eventArgs);
+
+            this.mockedHttpResponseService.Verify(x => x.Clear(), Times.Once);
+            this.mockedHttpResponseService.Verify(x => x.SetStatusCode(It.Is<int>(a => a == 404)), Times.Once);
+            this.mockedHttpResponseService.Verify(x => x.End(), Times.Once);
+        }
+
+        [Test]
         public void PageLoad_ViewNewsModelShouldBeSetToTheReturnedModelFromTheNewsService()
         {
             string queryString = "?title=someTitle";
