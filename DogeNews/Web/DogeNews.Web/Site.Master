@@ -107,6 +107,19 @@
 
                     <!-- REGISTER/LOGIN BUTTONS MOBILE -->
                     <ul class="side-nav" id="mobile-demo">
+                        <li><a href="/News/Category.aspx?name=Breaking">Breaking</a></li>
+                        <li><a href="/News/Category.aspx?name=Sports">Sports</a></li>
+                        <li><a href="/News/Category.aspx?name=Weather">Weather</a></li>
+                        <li><a href="/News/Category.aspx?name=Political">Political</a></li>
+                        <li><a href="/News/Category.aspx?name=Business">Business</a></li>
+                        <li>
+                            <div class="divider"></div>
+                        </li>
+                        <!-- ADD NEWS -->
+                        <% if (HttpContext.Current.User.IsInRole(DogeNews.Common.Constants.Roles.Admin))
+                            { %>
+                        <li><a href="/News/Add.aspx">Add News</a></li>
+                        <% } %>
                         <% if (!HttpContext.Current.User.Identity.IsAuthenticated)
                             { %>
                         <li><a href="/Account/Register.aspx">Register</a></li>
