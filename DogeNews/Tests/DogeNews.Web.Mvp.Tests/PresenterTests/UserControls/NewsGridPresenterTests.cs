@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO.Ports;
 using System.Linq.Expressions;
 using System.Web.UI;
 using System.Reflection;
@@ -193,6 +194,32 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
                     It.IsAny<int>(),
                     It.IsAny<string>()),
                 Times.Once);
+        }
+
+        [Test]
+        public void PageLoad_ShouldCallHttpUtilityServiceParseQueryString_WhenEventArgsQueryStringIsNotNull()
+        {
+            var eventArgs = new OrderByEventArgs { OrderBy = OrderByType.Descending, ViewState = new StateBag() };
+            eventArgs.ViewState["CurrentPage"] = 5;
+
+            this.mockedView.SetupGet(x => x.Model).Returns(new NewsGridViewModel { });
+
+            var queryString = "name=Sports";
+
+            var pageLoadEventArgs = new PageLoadEventArgs
+            {
+                QueryString = queryString,
+                IsPostBack = false,
+                ViewState = new StateBag()
+            };
+
+            var presenter = new NewsGridPresenter(this.mockedView.Object, 
+                this.mockedDataSource.Object, 
+                this.mockedHttpUtilitySevice.Object);
+
+            presenter.PageLoad(null, pageLoadEventArgs);
+
+            mockedHttpUtilitySevice.Verify(x=>x.ParseQueryString(queryString),Times.Once);
         }
     }
 }
