@@ -20,8 +20,7 @@ namespace DogeNews.Web.Mvp.Default
 
         public void PageLoad(object sender, EventArgs e)
         {
-            var sliderNews = this.newsService.GetSliderNews();
-            this.View.Model.SliderNews = sliderNews;
+            this.View.Model.SliderNews = this.newsService.GetSliderNews();
         }
     }
 }
