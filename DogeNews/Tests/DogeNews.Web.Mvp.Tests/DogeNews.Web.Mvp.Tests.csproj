@@ -77,6 +77,7 @@
     <Compile Include="ModelsTests\News\ArticleViewModelTests.cs" />
     <Compile Include="ModelsTests\UserControls\ArticleCommentsViewModelTests.cs" />
     <Compile Include="ModelsTests\UserControls\NewsGridViewModelTests.cs" />
+    <Compile Include="PresenterTests\Default\DefaultPresenterTests.cs" />
     <Compile Include="PresenterTests\News\AddNewsPresenterTests.cs" />
     <Compile Include="PresenterTests\News\ArticlePresenterTests.cs" />
     <Compile Include="PresenterTests\UserControls\ArticleCommentsPresenterTests.cs" />
