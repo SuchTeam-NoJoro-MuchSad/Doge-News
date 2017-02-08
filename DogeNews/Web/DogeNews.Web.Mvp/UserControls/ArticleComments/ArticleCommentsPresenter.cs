@@ -12,10 +12,10 @@ namespace DogeNews.Web.Mvp.UserControls.ArticleComments
         private IArticleCommentsService articleCommentsService;
 
         public ArticleCommentsPresenter(IArticleCommentsView view,
-            IArticleCommentsService dataSourceService)
+            IArticleCommentsService articleCommentsService)
             : base(view)
         {
-            this.articleCommentsService = dataSourceService;
+            this.articleCommentsService = articleCommentsService;
             this.View.PageLoad += this.PageLoad;
             this.View.AddComment += this.AddComment;
         }
@@ -31,8 +31,7 @@ namespace DogeNews.Web.Mvp.UserControls.ArticleComments
                 addCommentEventArguments.ArticleTitle,
                 addCommentEventArguments.Content,
                 addCommentEventArguments.Username);
-            this.View.Model.Comments =
-                this.articleCommentsService.GetCommentsForArticleByTitle(addCommentEventArguments.ArticleTitle);
+            this.View.Model.Comments = this.articleCommentsService.GetCommentsForArticleByTitle(addCommentEventArguments.ArticleTitle);
         }
     }
 }
