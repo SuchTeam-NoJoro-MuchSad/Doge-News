@@ -33,33 +33,33 @@ namespace DogeNews.Web.DataSources
             set { this.count = value; }
         }
 
-        public IEnumerable<NewsWebModel> GetPageItems(int page, int pageSize)
+        public IEnumerable<NewsWebModel> GetPageItems(int page, int pageSize, bool isAdminUser)
         {
-            return this.GetPageItems(page, pageSize, null);
+            return this.GetPageItems(page, pageSize, isAdminUser, null);
         }
 
-        public IEnumerable<NewsWebModel> GetPageItems(int page, int pageSize, string category)
+        public IEnumerable<NewsWebModel> GetPageItems(int page, int pageSize, bool isAdminUser, string category)
         {
             this.ValidatePage(page);
             this.ValidatePageSize(pageSize);
 
             if (string.IsNullOrEmpty(category))
             {
-                return this.OrderByDescending(x => x.CreatedOn, page, pageSize);
+                return this.OrderByDescending(x => x.CreatedOn, page, pageSize, isAdminUser);
             }
 
 
-            var items = this.OrderByDescending(x => x.CreatedOn, page, pageSize, category);
-            
+            var items = this.OrderByDescending(x => x.CreatedOn, page, pageSize, isAdminUser, category);
+
             return items;
         }
 
-        public IEnumerable<NewsWebModel> OrderByAscending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize)
+        public IEnumerable<NewsWebModel> OrderByAscending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, bool isAdminUser)
         {
-            return this.OrderByAscending(orderExpression, page, pageSize, null);
+            return this.OrderByAscending(orderExpression, page, pageSize, isAdminUser, null);
         }
 
-        public IEnumerable<NewsWebModel> OrderByAscending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, string category)
+        public IEnumerable<NewsWebModel> OrderByAscending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, bool isAdminUser, string category)
         {
             this.ValidatePage(page);
             this.ValidatePageSize(pageSize);
@@ -71,6 +71,11 @@ namespace DogeNews.Web.DataSources
                 var newsCategoryType = (NewsCategoryType)Enum.Parse(typeof(NewsCategoryType), category);
 
                 result = result.Where(x => x.Category == newsCategoryType);
+            }
+
+            if (!isAdminUser)
+            {
+                result = result.Where(x => x.DeletedOn == null);
             }
 
             this.Count = result.Count();
@@ -81,16 +86,16 @@ namespace DogeNews.Web.DataSources
                 .Take(pageSize)
                 .ToList()
                 .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x));
-        
+
             return items;
         }
 
-        public IEnumerable<NewsWebModel> OrderByDescending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize)
+        public IEnumerable<NewsWebModel> OrderByDescending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, bool isAdminUser)
         {
-            return this.OrderByDescending(orderExpression, page, pageSize, null);
+            return this.OrderByDescending(orderExpression, page, pageSize, isAdminUser, null);
         }
 
-        public IEnumerable<NewsWebModel> OrderByDescending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, string category)
+        public IEnumerable<NewsWebModel> OrderByDescending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, bool isAdminUser, string category)
         {
             this.ValidatePage(page);
             this.ValidatePageSize(pageSize);
@@ -102,6 +107,11 @@ namespace DogeNews.Web.DataSources
                 var newsCategoryType = (NewsCategoryType)Enum.Parse(typeof(NewsCategoryType), category);
 
                 result = result.Where(x => x.Category == newsCategoryType);
+            }
+
+            if (!isAdminUser)
+            {
+                result = result.Where(x => x.DeletedOn == null);
             }
 
             this.Count = result.Count();
@@ -113,7 +123,6 @@ namespace DogeNews.Web.DataSources
                .ToList()
                .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x));
 
-            
             return items;
         }
 

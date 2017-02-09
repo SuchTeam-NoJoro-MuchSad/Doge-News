@@ -19,6 +19,7 @@ namespace DogeNews.Web.Infrastructure.Bindings.Modules
             this.Bind<IHttpServerUtilityService>().To<HttpServerUtilityService>();
             this.Bind<IHttpUtilityService>().To<HttpUtilityService>();
             this.Bind<IHttpResponseService>().To<HttpResponseService>();
+            this.Bind<IArticleManagementService>().To<ArticleManagementService>();
         }
     }
 }

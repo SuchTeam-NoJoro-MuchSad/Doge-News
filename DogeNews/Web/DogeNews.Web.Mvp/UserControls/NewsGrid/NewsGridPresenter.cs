@@ -3,6 +3,7 @@ using DogeNews.Common.Enums;
 using DogeNews.Data.Models;
 using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Web.Models;
+using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Services.Contracts.Http;
 
 using WebFormsMvp;
@@ -16,21 +17,42 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
 
         private INewsDataSource<NewsItem, NewsWebModel> newsDataSource;
         private IHttpUtilityService httpUtilityService;
+        private IArticleManagementService articleManagementService;
         
         private string newsCategory;
 
 
-        public NewsGridPresenter(INewsGridView view, 
+        public NewsGridPresenter(INewsGridView view,
             INewsDataSource<NewsItem, NewsWebModel> newsDataSource,
-            IHttpUtilityService httpUtilityService)
+            IHttpUtilityService httpUtilityService,
+            IArticleManagementService articleManagementService)
                 : base(view)
         {
             this.newsDataSource = newsDataSource;
             this.httpUtilityService = httpUtilityService;
-
+            this.articleManagementService = articleManagementService;
+            
             this.View.PageLoad += this.PageLoad;
             this.View.ChangePage += this.ChangePage;
             this.View.OrderByDate += this.OrderByDate;
+            this.View.ArticleDelete += this.ArticleDelete;
+            this.View.ArticleEdit += this.ArticleEdit;
+            this.View.ArticleRestore += this.ArticleRestore;
+        }
+
+        private void ArticleRestore(object sender, OnArticleRestoreEventArgs e)
+        {
+            this.articleManagementService.Restore(e.NewsItemId);
+        }
+
+        private void ArticleEdit(object sender, OnArticleEditEventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        private void ArticleDelete(object sender, OnArticleDeleteEventArgs e)
+        {
+            this.articleManagementService.Delete(e.NewsItemId);
         }
 
         public void PageLoad(object sender, PageLoadEventArgs eventArgs)
@@ -46,7 +68,7 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
                 this.newsCategory = parsedQueryString[NewsCategoryQueryStringKey];
             }
 
-            this.View.Model.CurrentPageNews = this.newsDataSource.GetPageItems(1, PageSize, this.newsCategory);
+            this.View.Model.CurrentPageNews = this.newsDataSource.GetPageItems(1, PageSize, eventArgs.IsAdminUser, this.newsCategory);
             this.View.Model.NewsCount = this.newsDataSource.Count;
             this.View.Model.PageSize = PageSize;
         }
@@ -54,7 +76,7 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
         public void ChangePage(object sender, ChangePageEventArgs e)
         {
             e.ViewState["CurrentPage"] = e.Page;
-            this.View.Model.CurrentPageNews = this.newsDataSource.GetPageItems(e.Page, PageSize, this.newsCategory);
+            this.View.Model.CurrentPageNews = this.newsDataSource.GetPageItems(e.Page, PageSize, e.IsAdminUser, this.newsCategory);
         }
 
         public void OrderByDate(object sender, OrderByEventArgs e)
@@ -65,6 +87,7 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
                     x => x.CreatedOn,
                     (int)e.ViewState["CurrentPage"],
                     PageSize,
+                    e.IsAdminUser,
                     this.newsCategory);
                 return;
             }
@@ -73,6 +96,7 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
                 x => x.CreatedOn,
                 (int)e.ViewState["CurrentPage"],
                 PageSize,
+                e.IsAdminUser,
                 this.newsCategory);
         }
     }

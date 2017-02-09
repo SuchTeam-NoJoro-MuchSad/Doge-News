@@ -98,7 +98,7 @@
                                         runat="server"
                                         LogoutText="Logout"
                                         LogoutPageUrl="~/"
-                                        OnLoggingOut="Logout" />
+                                        OnLoggingOut="Logout"  />
                                 </li>
                                 <%} %>
                             </ul>

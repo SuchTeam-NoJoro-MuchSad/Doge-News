@@ -1,9 +1,8 @@
-﻿<%@ Page MasterPageFile="~/Site.Master" ValidateRequest="false" Language="C#" AutoEventWireup="true" CodeBehind="Add.aspx.cs" Inherits="DogeNews.Web.News.Add" %>
-
+﻿<%@ Page MasterPageFile="~/Site.Master" ValidateRequest="false" Language="C#" AutoEventWireup="true" CodeBehind="Edit.aspx.cs" Inherits="DogeNews.Web.News.Edit" %>
 <%@ Register TagPrefix="uc" Src="~/UserControls/TinyMceEditor.ascx" TagName="TinyMceEditor" %>
 
-<asp:Content runat="server" ContentPlaceHolderID="MainContent">
-    <link rel="stylesheet" type="text/css" href="../Content/News/add.css" />
+<asp:content runat="server" contentplaceholderid="MainContent">
+        <link rel="stylesheet" type="text/css" href="../Content/News/add.css" />
 
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
@@ -14,7 +13,7 @@
                     </asp:Label>
                     
                     <div id="add-news-container">
-                        <h1 id="add-news-heading">Add Article</h1>
+                        <h1 id="add-news-heading">Edit Article</h1>
                         
                         <!-- TITLE -->
                         <asp:RequiredFieldValidator
@@ -100,4 +99,4 @@
     </asp:UpdatePanel>
 
     <script src="../Scripts/News/add.js"></script>
-</asp:Content>
+</asp:content>

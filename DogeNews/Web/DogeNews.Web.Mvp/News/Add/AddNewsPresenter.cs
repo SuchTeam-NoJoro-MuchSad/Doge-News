@@ -13,7 +13,7 @@ namespace DogeNews.Web.Mvp.News.Add
     public class AddNewsPresenter : Presenter<IAddNewsView>
     {
         private readonly IFileService fileService;
-        private readonly INewsService newsService;
+        private readonly IArticleManagementService articleManagementService;
         private readonly IHttpContextService httpContextService;
         private readonly IHttpPostedFileService httpPostedFileService;
         private readonly IHttpServerUtilityService httpServerService;
@@ -21,16 +21,16 @@ namespace DogeNews.Web.Mvp.News.Add
         public AddNewsPresenter(
             IAddNewsView view,
             IFileService fileService,
-            INewsService newsService,
+            IArticleManagementService articleManagementService,
             IHttpContextService httpContextService,
             IHttpPostedFileService httpPostedFileService,
             IHttpServerUtilityService httpServerService)
                 : base(view)
         {
-            this.ValidateConstructorParams(fileService, newsService, httpContextService, httpPostedFileService, httpServerService);
+            this.ValidateConstructorParams(fileService, articleManagementService, httpContextService, httpPostedFileService, httpServerService);
 
             this.fileService = fileService;
-            this.newsService = newsService;
+            this.articleManagementService = articleManagementService;
             this.httpContextService = httpContextService;
             this.httpPostedFileService = httpPostedFileService;
             this.httpServerService = httpServerService;
@@ -64,12 +64,12 @@ namespace DogeNews.Web.Mvp.News.Add
             
             this.fileService.CreateFile(userFolderPath, fileName);
             this.httpPostedFileService.SaveAs(e.Image, fullImageName);
-            this.newsService.Add(username, newsItem);
+            this.articleManagementService.Add(username, newsItem);
         }
 
         private void ValidateConstructorParams(
             IFileService fileService,
-            INewsService newsService,
+            IArticleManagementService articleManagementService,
             IHttpContextService httpContextService,
             IHttpPostedFileService httpPostedFileService,
             IHttpServerUtilityService httpServerService)
@@ -79,7 +79,7 @@ namespace DogeNews.Web.Mvp.News.Add
                 throw new ArgumentNullException("fileService");
             }
 
-            if (newsService == null)
+            if (articleManagementService == null)
             {
                 throw new ArgumentNullException("newsService");
             }

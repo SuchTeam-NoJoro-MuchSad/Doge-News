@@ -20,12 +20,21 @@ namespace DogeNews.Web.UserControls
         public event EventHandler<PageLoadEventArgs> PageLoad;
         public event EventHandler<ChangePageEventArgs> ChangePage;
         public event EventHandler<OrderByEventArgs> OrderByDate;
+        public event EventHandler<OnArticleDeleteEventArgs> ArticleDelete;
+        public event EventHandler<OnArticleEditEventArgs> ArticleEdit;
+        public event EventHandler<OnArticleRestoreEventArgs> ArticleRestore;
+
 
         public void ChangePageClick(object sender, EventArgs e)
         {
             var button = sender as Button;
             int page = int.Parse(button.Text);
-            var eventArgs = new ChangePageEventArgs { Page = page, ViewState = this.ViewState };
+            var eventArgs = new ChangePageEventArgs
+            {
+                Page = page,
+                ViewState = this.ViewState,
+                IsAdminUser = Context.User.IsInRole(Common.Constants.Roles.Admin)
+            };
 
             this.ChangePage(this, eventArgs);
         }
@@ -34,7 +43,12 @@ namespace DogeNews.Web.UserControls
         {
             var button = sender as Button;
             var orderBy = (OrderByType)Enum.Parse(typeof(OrderByType), button.CommandArgument);
-            var eventArgs = new OrderByEventArgs { OrderBy = orderBy, ViewState = this.ViewState };
+            var eventArgs = new OrderByEventArgs
+            {
+                OrderBy = orderBy,
+                ViewState = this.ViewState,
+                IsAdminUser = Context.User.IsInRole(Common.Constants.Roles.Admin)
+            };
 
             this.OrderByDate(this, eventArgs);
         }
@@ -46,6 +60,7 @@ namespace DogeNews.Web.UserControls
                 this.PageLoad(this, new PageLoadEventArgs
                 {
                     IsPostBack = true,
+                    IsAdminUser = Context.User.IsInRole(Common.Constants.Roles.Admin),
                     ViewState = this.ViewState,
                     QueryString = this.Page.ClientQueryString
                 });
@@ -55,9 +70,45 @@ namespace DogeNews.Web.UserControls
             this.PageLoad(this, new PageLoadEventArgs
             {
                 IsPostBack = false,
+                IsAdminUser = Context.User.IsInRole(Common.Constants.Roles.Admin),
                 ViewState = this.ViewState,
                 QueryString = this.Page.ClientQueryString
             });
+        }
+
+        protected void ArticleDeleteButtonClick(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            var newsItemId = button.CommandArgument;
+
+            var eventArgs = new OnArticleDeleteEventArgs
+            {
+                NewsItemId = newsItemId
+            };
+
+            this.ArticleDelete(this, eventArgs);
+        }
+
+        protected void ArticleEditButtonClick(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            var newsItemId = button.CommandArgument;
+
+            var eventArgs = new OnArticleEditEventArgs();
+            this.ArticleEdit(this, eventArgs);
+        }
+
+        protected void ArticleRestoreButtonClick(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            var newsItemId = button.CommandArgument;
+
+            var eventArgs = new OnArticleRestoreEventArgs
+            {
+                NewsItemId = newsItemId
+            };
+
+            this.ArticleRestore(this, eventArgs);
         }
     }
 }

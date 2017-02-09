@@ -81,7 +81,7 @@ namespace DogeNews.Web.DataSources.Tests
         public void OrderByDateDescending_ShouldThrowArgumentOutOfRangeExceptionWhenPageIsLessThanOrEqualToZero(int page)
         {
             var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.OrderByDescending(x => x.CreatedOn, page, 20));
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.OrderByDescending(x => x.CreatedOn, page, 20, false));
 
             Assert.AreEqual("page", exception.ParamName);
         }
@@ -91,7 +91,7 @@ namespace DogeNews.Web.DataSources.Tests
         public void OrderByDateDescending_ShouldThrowArgumentOutOfRangeExceptionWhenPageSizeIsLessThanOrEqualToZero(int pageSize)
         {
             var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.OrderByDescending(x => x.CreatedOn, 20, pageSize));
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.OrderByDescending(x => x.CreatedOn, 20, pageSize, false));
 
             Assert.AreEqual("pageSize", exception.ParamName);
         }
@@ -112,7 +112,7 @@ namespace DogeNews.Web.DataSources.Tests
                 .Take(6)
                 .Select(x => new NewsWebModel { CreatedOn = x.CreatedOn })
                 .ToList();
-            var actual = service.OrderByDescending(x => x.CreatedOn, 1, 6);
+            var actual = service.OrderByDescending(x => x.CreatedOn, 1, 6, false);
 
             CollectionAssert.AreEqual(expected, actual, new CreatedOnComparer());
         }
@@ -122,7 +122,7 @@ namespace DogeNews.Web.DataSources.Tests
         public void OrderByDateAscending_ShouldThrowArgumentOutOfRangeExceptionWhenPageIsLessThanOrEqualToZero(int page)
         {
             var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.OrderByAscending(x => x.CreatedOn, page, 20));
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.OrderByAscending(x => x.CreatedOn, page, 20, false));
 
             Assert.AreEqual("page", exception.ParamName);
         }
@@ -132,7 +132,7 @@ namespace DogeNews.Web.DataSources.Tests
         public void OrderByDateAscending_ShouldThrowArgumentOutOfRangeExceptionWhenPageSizeIsLessThanOrEqualToZero(int pageSize)
         {
             var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.OrderByAscending(x => x.CreatedOn, 20, pageSize));
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.OrderByAscending(x => x.CreatedOn, 20, pageSize, false));
 
             Assert.AreEqual("pageSize", exception.ParamName);
         }
@@ -153,7 +153,7 @@ namespace DogeNews.Web.DataSources.Tests
                 .Take(6)
                 .Select(x => new NewsWebModel { CreatedOn = x.CreatedOn })
                 .ToList();
-            var actual = service.OrderByAscending(x => x.CreatedOn, 1, 6);
+            var actual = service.OrderByAscending(x => x.CreatedOn, 1, 6, false);
 
             CollectionAssert.AreEqual(expected, actual, new CreatedOnComparer());
         }
@@ -163,7 +163,7 @@ namespace DogeNews.Web.DataSources.Tests
         public void GetPageItems_ShouldThrowArgumentOutOfRangeExceptionWhenPageIsLessThanOrEqualToZero(int page)
         {
             var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.GetPageItems(page, 20));
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.GetPageItems(page, 20, false));
 
             Assert.AreEqual("page", exception.ParamName);
         }
@@ -173,7 +173,7 @@ namespace DogeNews.Web.DataSources.Tests
         public void GetPageItems_ShouldThrowArgumentOutOfRangeExceptionWhenPageSizeIsLessThanOrEqualToZero(int pageSize)
         {
             var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.GetPageItems(20, pageSize));
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.GetPageItems(20, pageSize, false));
 
             Assert.AreEqual("pageSize", exception.ParamName);
         }
@@ -194,7 +194,7 @@ namespace DogeNews.Web.DataSources.Tests
                 .Take(6)
                 .Select(x => new NewsWebModel { CreatedOn = x.CreatedOn })
                 .ToList();
-            var actual = service.GetPageItems(1, 6);
+            var actual = service.GetPageItems(1, 6, false);
 
             CollectionAssert.AreEqual(expected, actual, new CreatedOnComparer());
         }

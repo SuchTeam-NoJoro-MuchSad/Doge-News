@@ -125,6 +125,9 @@
     <Compile Include="UserControls\ArticleComments\EventArguments\ArticleCommetnsPageLoadEventArgs.cs" />
     <Compile Include="UserControls\ArticleComments\IArticleCommentsView.cs" />
     <Compile Include="UserControls\NewsGrid\EventArguments\ChangePageEventArgs.cs" />
+    <Compile Include="UserControls\NewsGrid\EventArguments\OnArticleDeleteEventArgs.cs" />
+    <Compile Include="UserControls\NewsGrid\EventArguments\OnArticleEditEventArgs.cs" />
+    <Compile Include="UserControls\NewsGrid\EventArguments\OnArticleRestoreEventArgs.cs" />
     <Compile Include="UserControls\NewsGrid\EventArguments\OrderByEventArgs.cs" />
     <Compile Include="UserControls\NewsGrid\EventArguments\PageLoadEventArgs.cs" />
     <Compile Include="UserControls\NewsGrid\INewsGridView.cs" />

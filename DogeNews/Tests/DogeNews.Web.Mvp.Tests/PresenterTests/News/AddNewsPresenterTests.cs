@@ -17,7 +17,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
     public class AddNewsPresenterTests
     {
         private Mock<IFileService> mockedFileService;
-        private Mock<INewsService> mockedNewsService;
+        private Mock<IArticleManagementService> mockedArticleManagementService;
         private Mock<IHttpContextService> mockedHttpContextService;
         private Mock<IHttpPostedFileService> mockedHttpPostedFileService;
         private Mock<IAddNewsView> mockedView;
@@ -27,7 +27,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void Init()
         {
             this.mockedFileService = new Mock<IFileService>();
-            this.mockedNewsService = new Mock<INewsService>();
+            this.mockedArticleManagementService = new Mock<IArticleManagementService>();
             this.mockedHttpContextService = new Mock<IHttpContextService>();
             this.mockedHttpPostedFileService = new Mock<IHttpPostedFileService>();
             this.mockedHttpServerService = new Mock<IHttpServerUtilityService>();
@@ -46,14 +46,14 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         }
 
         [Test]
-        public void Constructor_ShouldSetNewsServiceField()
+        public void Constructor_ShouldSetArticleManagementServiceField()
         {
             var presenter = this.GetNewsPresenter();
-            var newsServiceField = (INewsService)typeof(AddNewsPresenter)
-                .GetField("newsService", BindingFlags.Instance | BindingFlags.NonPublic)
+            var newsServiceField = (IArticleManagementService)typeof(AddNewsPresenter)
+                .GetField("articleManagementService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
-            Assert.AreEqual(this.mockedNewsService.Object, newsServiceField);
+            Assert.AreEqual(this.mockedArticleManagementService.Object, newsServiceField);
         }
 
         [Test]
@@ -96,7 +96,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 new AddNewsPresenter(
                     this.mockedView.Object,
                     null,
-                    this.mockedNewsService.Object,
+                    this.mockedArticleManagementService.Object,
                     this.mockedHttpContextService.Object,
                     this.mockedHttpPostedFileService.Object,
                     this.mockedHttpServerService.Object));
@@ -126,7 +126,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 new AddNewsPresenter(
                     this.mockedView.Object,
                     this.mockedFileService.Object,
-                    this.mockedNewsService.Object,
+                    this.mockedArticleManagementService.Object,
                     null,
                     this.mockedHttpPostedFileService.Object,
                     this.mockedHttpServerService.Object));
@@ -141,7 +141,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 new AddNewsPresenter(
                     this.mockedView.Object,
                     this.mockedFileService.Object,
-                    this.mockedNewsService.Object,
+                    this.mockedArticleManagementService.Object,
                     this.mockedHttpContextService.Object,
                     null,
                     this.mockedHttpServerService.Object));
@@ -156,7 +156,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 new AddNewsPresenter(
                     this.mockedView.Object,
                     this.mockedFileService.Object,
-                    this.mockedNewsService.Object,
+                    this.mockedArticleManagementService.Object,
                     this.mockedHttpContextService.Object,
                     this.mockedHttpPostedFileService.Object,
                     null));
@@ -225,7 +225,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             var presenter = this.GetNewsPresenter();
             presenter.AddNews(null, new AddNewsEventArgs());
 
-            this.mockedNewsService.Verify(x => x.Add(It.IsAny<string>(), It.IsAny<NewsWebModel>()), Times.Once);
+            this.mockedArticleManagementService.Verify(x => x.Add(It.IsAny<string>(), It.IsAny<NewsWebModel>()), Times.Once);
         }
 
         public AddNewsPresenter GetNewsPresenter()
@@ -233,7 +233,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             var presenter = new AddNewsPresenter(
                 this.mockedView.Object,
                 this.mockedFileService.Object,
-                this.mockedNewsService.Object,
+                this.mockedArticleManagementService.Object,
                 this.mockedHttpContextService.Object,
                 this.mockedHttpPostedFileService.Object,
                 this.mockedHttpServerService.Object);

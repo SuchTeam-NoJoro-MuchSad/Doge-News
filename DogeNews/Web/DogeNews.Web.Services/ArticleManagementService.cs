@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DogeNews.Common.Enums;
-using DogeNews.Web.Models;
-using DogeNews.Web.Services.Contracts;
-using DogeNews.Data.Models;
 using DogeNews.Data.Contracts;
+using DogeNews.Data.Models;
+using DogeNews.Web.Models;
 using DogeNews.Web.Providers.Contracts;
+using DogeNews.Web.Services.Contracts;
 
 namespace DogeNews.Web.Services
 {
-    public class NewsService : INewsService
+    public class ArticleManagementService : IArticleManagementService
     {
-        private const int SliderNewsCount = 3;
-
         private readonly IRepository<User> userRepository;
         private readonly IRepository<NewsItem> newsRepository;
         private readonly IRepository<Image> imageRepository;
@@ -21,8 +16,7 @@ namespace DogeNews.Web.Services
         private readonly IMapperProvider mapperProvider;
         private readonly IDateTimeProvider dateTimeProvider;
 
-        public NewsService(
-            IRepository<User> userRepository,
+        public ArticleManagementService(IRepository<User> userRepository,
             IRepository<NewsItem> newsRepository,
             INewsData newsData,
             IMapperProvider mapperProvider,
@@ -39,35 +33,59 @@ namespace DogeNews.Web.Services
             this.dateTimeProvider = dateTimeProvider;
         }
 
-        public NewsWebModel GetItemByTitle(string title)
+        public void Add(string username, NewsWebModel newsItem)
         {
-            var foundNewsItem = this.newsRepository.GetFirst(x => x.Title == title);
-            return this.mapperProvider.Instance.Map<NewsWebModel>(foundNewsItem);
+            if (string.IsNullOrEmpty(username))
+            {
+                throw new ArgumentNullException("username");
+            }
+
+            if (newsItem == null)
+            {
+                throw new ArgumentNullException("newsItem");
+            }
+
+            var author = this.userRepository.GetFirst(x => x.UserName == username);
+            var image = this.mapperProvider.Instance.Map<Image>(newsItem.Image);
+            var news = this.mapperProvider.Instance.Map<NewsItem>(newsItem);
+
+            news.Author = author;
+            news.AuthorId = author.Id;
+            news.Image = image;
+            news.ImageId = image.Id;
+            news.CreatedOn = this.dateTimeProvider.Now;
+
+            this.imageRepository.Add(image);
+            this.newsRepository.Add(news);
+            this.newsData.Commit();
         }
 
-        public IEnumerable<NewsWebModel> GetSliderNews()
+        public void Restore(string newsItemId)
         {
-            var news = this.newsRepository
-                .All
-                .OrderByDescending(x => x.CreatedOn)
-                .Take(SliderNewsCount).ToList()
-                .
-            Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x));
+            if (string.IsNullOrEmpty(newsItemId))
+            {
+                throw new ArgumentNullException(nameof(newsItemId));
+            }
 
-
-            return news;
+            var id = int.Parse(newsItemId);
+            var foundItem = this.newsRepository.GetById(id);
+            foundItem.DeletedOn = null;
+            this.newsRepository.Update(foundItem);
+            this.newsData.Commit();
         }
 
-        public IEnumerable<NewsWebModel> GetNewsItemsByCategory(string category)
+        public void Delete(string newsItemId)
         {
-            var enumeration = (NewsCategoryType)Enum.Parse(typeof(NewsCategoryType), category);
+            if (string.IsNullOrEmpty(newsItemId))
+            {
+                throw new ArgumentNullException(nameof(newsItemId));
+            }
 
-            var news = this.newsRepository
-                .GetAll(x => x.Category == enumeration)
-                .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x))
-                .ToList();
-
-            return news;
+            var id = int.Parse(newsItemId);
+            var foundItem = this.newsRepository.GetById(id);
+            foundItem.DeletedOn = this.dateTimeProvider.Now;
+            this.newsRepository.Update(foundItem);
+            this.newsData.Commit();
         }
 
         private void ValidateConstructorParams(

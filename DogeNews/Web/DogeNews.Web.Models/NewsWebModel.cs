@@ -20,5 +20,7 @@ namespace DogeNews.Web.Models
         public ImageWebModel Image { get; set; }    
 
         public DateTime? CreatedOn { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }

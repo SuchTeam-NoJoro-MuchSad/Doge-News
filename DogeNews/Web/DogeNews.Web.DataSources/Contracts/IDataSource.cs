@@ -8,10 +8,10 @@ namespace DogeNews.Web.DataSources.Contracts
     {
         int Count { get; }
 
-        IEnumerable<TargetMapType> GetPageItems(int page, int pageSize);
+        IEnumerable<TargetMapType> GetPageItems(int page, int pageSize, bool isAdminUser);
 
-        IEnumerable<TargetMapType> OrderByAscending<TKey>(Expression<Func<DbModelType, TKey>> orderExpression, int page, int pageSize);
+        IEnumerable<TargetMapType> OrderByAscending<TKey>(Expression<Func<DbModelType, TKey>> orderExpression, int page, int pageSize, bool isAdminUser);
 
-        IEnumerable<TargetMapType> OrderByDescending<TKey>(Expression<Func<DbModelType, TKey>> orderExpression, int page, int pageSize);
+        IEnumerable<TargetMapType> OrderByDescending<TKey>(Expression<Func<DbModelType, TKey>> orderExpression, int page, int pageSize, bool isAdminUser);
     }
 }

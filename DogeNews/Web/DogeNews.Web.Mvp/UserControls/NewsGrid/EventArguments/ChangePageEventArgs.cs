@@ -7,6 +7,8 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments
     {
         public int Page { get; set; }
 
+        public bool IsAdminUser { get; set; }
+
         public StateBag ViewState { get; set; }
     }
 }
