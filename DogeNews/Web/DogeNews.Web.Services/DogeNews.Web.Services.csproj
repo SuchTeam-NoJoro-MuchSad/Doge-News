@@ -88,6 +88,7 @@
     <Compile Include="Contracts\Http\IHttpPostedFileService.cs" />
     <Compile Include="Contracts\Http\IHttpServerUtilityService.cs" />
     <Compile Include="Contracts\INewsService.cs" />
+    <Compile Include="Contracts\INotificationsService.cs" />
     <Compile Include="FileService.cs" />
     <Compile Include="Http\HttpContextService.cs" />
     <Compile Include="Http\HttpPostedFileService.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Http\HttpUtilityService.cs" />
     <Compile Include="Contracts\IArticleManagementService.cs" />
     <Compile Include="NewsService.cs" />
+    <Compile Include="NotificationsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

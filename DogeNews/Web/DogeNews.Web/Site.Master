@@ -24,8 +24,9 @@
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see http://go.microsoft.com/fwlink/?LinkID=301884 --%>
                 <%--Framework Scripts--%>
+                <asp:ScriptReference Name="signalR" />
+
                 <asp:ScriptReference Name="MsAjaxBundle" />
-                <asp:ScriptReference Name="jquery" />
                 <asp:ScriptReference Name="respond" />
                 <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
                 <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
@@ -41,6 +42,7 @@
 
                 <%--Site Scripts--%>
                 <asp:ScriptReference Path="~/Scripts/site.js" />
+                <asp:ScriptReference Path="Scripts/Common/notificator.js" />
             </Scripts>
         </asp:ScriptManager>
 
@@ -98,7 +100,7 @@
                                         runat="server"
                                         LogoutText="Logout"
                                         LogoutPageUrl="~/"
-                                        OnLoggingOut="Logout"  />
+                                        OnLoggingOut="Logout" />
                                 </li>
                                 <%} %>
                             </ul>

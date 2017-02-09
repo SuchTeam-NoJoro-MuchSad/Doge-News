@@ -30,3 +30,15 @@
 .slider {
     margin-bottom: 20px;
 }
+
+.toast-success {
+    background-color: #76ff03;
+}
+
+.toast-info {
+    background-color: #18ffff;
+}
+
+.toast-error {
+    background-color: #ff3d00;
+}

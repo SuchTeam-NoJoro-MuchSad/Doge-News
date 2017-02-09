@@ -1,4 +1,5 @@
 ﻿using Microsoft.Owin;
+
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(DogeNews.Web.Startup))]
@@ -9,6 +10,7 @@ namespace DogeNews.Web
     {
         public void Configuration(IAppBuilder app)
         {
+            app.MapSignalR();
             this.ConfigureAuth(app);
         }
     }

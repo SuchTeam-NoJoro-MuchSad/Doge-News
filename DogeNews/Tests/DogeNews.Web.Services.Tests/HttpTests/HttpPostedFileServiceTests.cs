@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using System.Web;
+
 using DogeNews.Web.Services.Http;
+
 using Moq;
 using NUnit.Framework;
 

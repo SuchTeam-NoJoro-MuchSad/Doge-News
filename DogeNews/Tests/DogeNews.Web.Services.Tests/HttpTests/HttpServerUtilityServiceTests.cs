@@ -1,5 +1,7 @@
 ﻿using System.Web;
+
 using DogeNews.Web.Services.Http;
+
 using NUnit.Framework;
 
 namespace DogeNews.Web.Services.Tests.HttpTests

@@ -164,7 +164,7 @@ namespace DogeNews.Web.Services.Tests
             this.mockUserRepo.Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>())).Returns(testUser);
             this.mockMapperProvider.Setup(x => x.Instance.Map<Image>(It.IsAny<NewsWebModel>())).Returns(new Image());
             this.mockMapperProvider.Setup(x => x.Instance.Map<NewsItem>(It.IsAny<NewsWebModel>())).Returns(new NewsItem());
-            
+
             var articleManagementService = this.GetArticleManagementService();
 
             articleManagementService.Add(testUsername, testWebNewsModel);

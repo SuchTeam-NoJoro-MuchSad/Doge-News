@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web;
+
 using DogeNews.Web.Services.Http;
+
 using Moq;
 using NUnit.Framework;
 

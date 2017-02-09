@@ -3,6 +3,8 @@
 using DogeNews.Web.Identity.Managers;
 using DogeNews.Web.Identity.Helpers;
 using DogeNews.Web.Mvp.Account.Login.EventArguments;
+using DogeNews.Web.Services.Contracts;
+using DogeNews.Common.Enums;
 
 using WebFormsMvp;
 using Microsoft.AspNet.Identity.Owin;
@@ -11,9 +13,13 @@ namespace DogeNews.Web.Mvp.Account.Login
 {
     public class LoginPresenter : Presenter<ILoginView>
     {
-        public LoginPresenter(ILoginView view)
+        private readonly INotificationsService notificationsService;
+
+        public LoginPresenter(ILoginView view, INotificationsService notificationsService)
             : base(view)
         {
+            this.notificationsService = notificationsService;
+
             this.View.LoginUser += this.Login;
         }
 
@@ -31,13 +37,20 @@ namespace DogeNews.Web.Mvp.Account.Login
             switch (result)
             {
                 case SignInStatus.Success:
+                    int delay = 1000;
+
+                    this.notificationsService
+                        .Toast("Login successful.", delay, NotificationType.Success)
+                        .Sleep(delay);
                     IdentityHelper.RedirectToReturnUrl(
                         this.Request.QueryString["ReturnUrl"],
                         this.HttpContext.Response);
                     break;
+
                 case SignInStatus.LockedOut:
                     this.Response.Redirect("/Account/Lockout");
                     break;
+
                 case SignInStatus.RequiresVerification:
                     this.Response.Redirect(
                         string.Format(
@@ -46,6 +59,7 @@ namespace DogeNews.Web.Mvp.Account.Login
                             e.RememberMe),
                             true);
                     break;
+
                 case SignInStatus.Failure:
                 default:
                     this.View.Model.FailureText = "Invalid login attempt";
