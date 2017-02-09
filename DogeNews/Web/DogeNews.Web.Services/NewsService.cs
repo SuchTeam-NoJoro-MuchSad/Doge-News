@@ -45,6 +45,13 @@ namespace DogeNews.Web.Services
             return this.mapperProvider.Instance.Map<NewsWebModel>(foundNewsItem);
         }
 
+        public NewsWebModel GetItemById(string id)
+        {
+            int parsedId = int.Parse(id);
+            var foundNewsItem = this.newsRepository.GetFirst(x => x.Id == parsedId);
+            return this.mapperProvider.Instance.Map<NewsWebModel>(foundNewsItem);
+        }
+
         public IEnumerable<NewsWebModel> GetSliderNews()
         {
             var news = this.newsRepository

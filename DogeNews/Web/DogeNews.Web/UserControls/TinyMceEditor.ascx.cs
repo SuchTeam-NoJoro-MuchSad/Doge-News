@@ -7,6 +7,7 @@ namespace DogeNews.Web.UserControls
         public string Content
         {
             get { return this.TinymceTextarea.InnerText; }
+            set { this.TinymceTextarea.InnerText = value; }
         }
     }
 }

@@ -61,6 +61,25 @@ namespace DogeNews.Web.Services
             this.newsData.Commit();
         }
 
+        public void Update(NewsWebModel model)
+        {
+            var entryToUpdate = this.newsRepository.GetById(model.Id);
+            entryToUpdate.Title = model.Title;
+            entryToUpdate.Category = model.Category;
+            entryToUpdate.Content = model.Content;
+
+            if (model.Image != null)
+            {
+                var image = this.mapperProvider.Instance.Map<Image>(model.Image);
+                this.imageRepository.Add(image);
+                entryToUpdate.Image = image;
+                entryToUpdate.ImageId = image.Id;
+            }
+
+            newsRepository.Update(entryToUpdate);
+            newsData.Commit();
+        }
+
         public void Restore(string newsItemId)
         {
             if (string.IsNullOrEmpty(newsItemId))

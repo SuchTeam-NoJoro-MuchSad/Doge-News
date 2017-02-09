@@ -6,6 +6,8 @@ namespace DogeNews.Web.Services.Contracts
     {
         void Add(string username, NewsWebModel newsItem);
 
+        void Update(NewsWebModel model);
+
         void Delete(string newsItemId);
 
         void Restore(string newsItemId);

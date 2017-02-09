@@ -11,5 +11,32 @@ namespace DogeNews.Web.News {
     
     
     public partial class Article {
+        
+        /// <summary>
+        /// ArticleEditButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ArticleEditButton;
+        
+        /// <summary>
+        /// ArticleDeleteButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ArticleDeleteButton;
+        
+        /// <summary>
+        /// ArticleRestoreButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ArticleRestoreButton;
     }
 }
