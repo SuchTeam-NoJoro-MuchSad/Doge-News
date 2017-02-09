@@ -1,4 +1,5 @@
 ﻿using System;
+
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Models;
@@ -69,6 +70,7 @@ namespace DogeNews.Web.Services
 
             var id = int.Parse(newsItemId);
             var foundItem = this.newsRepository.GetById(id);
+
             foundItem.DeletedOn = null;
             this.newsRepository.Update(foundItem);
             this.newsData.Commit();
