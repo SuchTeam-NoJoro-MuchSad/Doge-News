@@ -94,7 +94,12 @@ namespace DogeNews.Web.UserControls
             var button = sender as Button;
             var newsItemId = button.CommandArgument;
 
-            var eventArgs = new OnArticleEditEventArgs();
+            var eventArgs = new OnArticleEditEventArgs
+            {
+                IsAdminUser = this.Context.User.IsInRole(Common.Constants.Roles.Admin),
+                NewsItemId = newsItemId
+            };
+
             this.ArticleEdit(this, eventArgs);
         }
 

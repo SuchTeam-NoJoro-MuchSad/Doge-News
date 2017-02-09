@@ -47,7 +47,10 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
 
         private void ArticleEdit(object sender, OnArticleEditEventArgs e)
         {
-            throw new System.NotImplementedException();
+            if (e.IsAdminUser)
+            {
+                this.HttpContext.Response.Redirect($"~/News/Edit?id={e.NewsItemId}");
+            }
         }
 
         private void ArticleDelete(object sender, OnArticleDeleteEventArgs e)

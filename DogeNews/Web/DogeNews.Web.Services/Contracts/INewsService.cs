@@ -8,6 +8,8 @@ namespace DogeNews.Web.Services.Contracts
     {
         NewsWebModel GetItemByTitle(string title);
 
+        NewsWebModel GetItemById(string id);
+
         IEnumerable<NewsWebModel> GetSliderNews();
 
         IEnumerable<NewsWebModel> GetNewsItemsByCategory(string category);

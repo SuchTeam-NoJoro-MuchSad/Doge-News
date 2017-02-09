@@ -58,12 +58,12 @@ namespace DogeNews.Web.News {
         protected global::System.Web.UI.HtmlControls.HtmlSelect CategorySelect;
         
         /// <summary>
-        /// add_news_submit_btn control.
+        /// edit_news_submit_btn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor add_news_submit_btn;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor edit_news_submit_btn;
     }
 }

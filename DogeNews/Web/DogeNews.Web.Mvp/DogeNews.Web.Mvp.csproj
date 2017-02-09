@@ -119,6 +119,11 @@
     <Compile Include="News\Category\CategoryViewModel.cs" />
     <Compile Include="News\Category\EventArguments\CategoryPageLoadEventArgs.cs" />
     <Compile Include="News\Category\ICategoryView.cs" />
+    <Compile Include="News\Edit\EditArticlePresenter.cs" />
+    <Compile Include="News\Edit\EditArticleViewModel.cs" />
+    <Compile Include="News\Edit\EventArguments\EditArticleEventArgs.cs" />
+    <Compile Include="News\Edit\EventArguments\PreInitPageEventArgs.cs" />
+    <Compile Include="News\Edit\IEditArticleView.cs" />
     <Compile Include="UserControls\ArticleComments\ArticleCommentsPresenter.cs" />
     <Compile Include="UserControls\ArticleComments\ArticleCommentsViewModel.cs" />
     <Compile Include="UserControls\ArticleComments\EventArguments\AddCommentEventArguments.cs" />
