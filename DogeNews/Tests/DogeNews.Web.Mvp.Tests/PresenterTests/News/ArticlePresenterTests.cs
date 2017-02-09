@@ -19,6 +19,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         private Mock<INewsService> mockedNewsService;
         private Mock<IHttpUtilityService> mockedHttpUtilityService;
         private Mock<IHttpResponseService> mockedHttpResponseService;
+        private Mock<IArticleManagementService> mockedArticleManagementService;
 
         [SetUp]
         public void Init()
@@ -27,6 +28,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             this.mockedNewsService = new Mock<INewsService>();
             this.mockedHttpUtilityService = new Mock<IHttpUtilityService>();
             this.mockedHttpResponseService = new Mock<IHttpResponseService>();
+            this.mockedArticleManagementService = new Mock<IArticleManagementService>();
         }
 
         [Test]
@@ -183,7 +185,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 this.mockedView.Object,
                 this.mockedNewsService.Object,
                 this.mockedHttpUtilityService.Object,
-                this.mockedHttpResponseService.Object);
+                this.mockedHttpResponseService.Object,
+                this.mockedArticleManagementService.Object);
         }
     }
 }
