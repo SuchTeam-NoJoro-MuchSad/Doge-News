@@ -1,8 +1,9 @@
 ﻿<%@ Page MasterPageFile="~/Site.Master" ValidateRequest="false" Language="C#" AutoEventWireup="true" CodeBehind="Edit.aspx.cs" Inherits="DogeNews.Web.News.Edit" %>
+
 <%@ Register TagPrefix="uc" Src="~/UserControls/TinyMceEditor.ascx" TagName="TinyMceEditor" %>
 
-<asp:content runat="server" contentplaceholderid="MainContent">
-        <link rel="stylesheet" type="text/css" href="../Content/News/add.css" />
+<asp:Content runat="server" ContentPlaceHolderID="MainContent">
+    <link rel="stylesheet" type="text/css" href="../Content/News/add.css" />
 
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
@@ -11,10 +12,10 @@
                     <asp:Label runat="server" ID="MessageContainer">
 
                     </asp:Label>
-                    
+
                     <div id="add-news-container">
                         <h1 id="add-news-heading">Edit Article</h1>
-                        
+
                         <!-- TITLE -->
                         <asp:RequiredFieldValidator
                             ErrorMessage="Title is required."
@@ -99,4 +100,4 @@
     </asp:UpdatePanel>
 
     <script src="../Scripts/News/add.js"></script>
-</asp:content>
+</asp:Content>
