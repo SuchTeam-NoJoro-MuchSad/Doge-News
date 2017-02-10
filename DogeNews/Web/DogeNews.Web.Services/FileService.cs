@@ -17,6 +17,12 @@ namespace DogeNews.Web.Services
             File.Create($"{folderName}\\{fileName}").Dispose();
         }
 
+        public string GetFileExtension(string path)
+        {
+            var fileExtension = Path.GetExtension(path);
+            return fileExtension;
+        }
+
         public string GetUniqueFileName(string username)
         {
             if (string.IsNullOrEmpty(username))

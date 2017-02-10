@@ -5,5 +5,7 @@
         string GetUniqueFileName(string username);
 
         void CreateFile(string folderName, string fileName);
+
+        string GetFileExtension(string path);
     }
 }

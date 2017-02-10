@@ -13,6 +13,7 @@ namespace DogeNews.Web.Mvp.News.Edit
     public class EditArticlePresenter : Presenter<IEditArticleView>
     {
         private const string ArticleEditQueryParamId = "id";
+        private const string BaseImagesPath = "~\\Resources\\Images";
 
         private IArticleManagementService articleManagementService;
         private INewsService newsService;
@@ -53,17 +54,20 @@ namespace DogeNews.Web.Mvp.News.Edit
             this.View.EditArticleButtonClick += EditArticle;
         }
 
-        private void PagePreInt(object sender, PreInitPageEventArgs e)
+        public void PagePreInt(object sender, PreInitPageEventArgs e)
         {
+            Validator.ValidateThatObjectIsNotNull(e, "preInitPageEventArgs");
+
             var parsedQueryString = this.httpUtilityService.ParseQueryString(e.QueryString);
             var id = parsedQueryString[ArticleEditQueryParamId];
             this.View.Model.NewsItem = this.newsService.GetItemById(id);
         }
 
-        private void EditArticle(object sender, EditArticleEventArgs e)
+        public void EditArticle(object sender, EditArticleEventArgs e)
         {
-            string username = this.httpContextService.GetUsername(this.HttpContext);
+            Validator.ValidateThatObjectIsNotNull(e, "editArticleEventArgs");
 
+            string username = this.httpContextService.GetUsername(this.HttpContext);
             var model = new NewsWebModel
             {
                 Id = e.Id,
@@ -72,11 +76,11 @@ namespace DogeNews.Web.Mvp.News.Edit
                 Title = e.Title
             };
 
-            if (e.Image.ContentLength != 0)
+            if (e.Image != null)
             {
-                string fileExtension = Path.GetExtension(e.FileName);
+                string fileExtension = this.fileService.GetFileExtension(e.FileName);
                 string fileName = this.fileService.GetUniqueFileName(username) + fileExtension;
-                string baseImagesPath = "~\\Resources\\Images";
+                string baseImagesPath = BaseImagesPath;
                 string basePath = this.httpServerService.MapPath(baseImagesPath);
                 string userFolderPath = $"{basePath}\\{username}";
                 string fullImageName = $"{basePath}\\{username}\\{fileName}";
