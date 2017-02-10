@@ -70,12 +70,14 @@
   <ItemGroup>
     <Compile Include="EventArgsTests\News\AddNewsEventArgsTests.cs" />
     <Compile Include="EventArgsTests\News\ArticlePageLoadEventArgsTests.cs" />
+    <Compile Include="EventArgsTests\News\EditArticleEventArgsTests.cs" />
     <Compile Include="EventArgsTests\UserControls\ArticleComments\AddCommentEventArgumentsTests.cs" />
     <Compile Include="EventArgsTests\UserControls\ArticleComments\ArticleCommetnsPageLoadEventArgsTests.cs" />
     <Compile Include="EventArgsTests\UserControls\NewsGrid\ChangePageEventArgsTests.cs" />
     <Compile Include="EventArgsTests\UserControls\NewsGrid\OrderByEventArgsTests.cs" />
     <Compile Include="ModelsTests\Default\DefaultViewModelTests.cs" />
     <Compile Include="ModelsTests\News\ArticleViewModelTests.cs" />
+    <Compile Include="ModelsTests\News\EditArticleViewModelTests.cs" />
     <Compile Include="ModelsTests\UserControls\ArticleCommentsViewModelTests.cs" />
     <Compile Include="ModelsTests\UserControls\NewsGridViewModelTests.cs" />
     <Compile Include="PresenterTests\Default\DefaultPresenterTests.cs" />
