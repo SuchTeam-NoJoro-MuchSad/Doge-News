@@ -71,6 +71,7 @@
     <Compile Include="EventArgsTests\News\AddNewsEventArgsTests.cs" />
     <Compile Include="EventArgsTests\News\ArticlePageLoadEventArgsTests.cs" />
     <Compile Include="EventArgsTests\News\EditArticleEventArgsTests.cs" />
+    <Compile Include="EventArgsTests\News\PreInitPageEventArgsTests.cs" />
     <Compile Include="EventArgsTests\UserControls\ArticleComments\AddCommentEventArgumentsTests.cs" />
     <Compile Include="EventArgsTests\UserControls\ArticleComments\ArticleCommetnsPageLoadEventArgsTests.cs" />
     <Compile Include="EventArgsTests\UserControls\NewsGrid\ChangePageEventArgsTests.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="PresenterTests\Default\DefaultPresenterTests.cs" />
     <Compile Include="PresenterTests\News\AddNewsPresenterTests.cs" />
     <Compile Include="PresenterTests\News\ArticlePresenterTests.cs" />
+    <Compile Include="PresenterTests\News\CategoryPresenterTests.cs" />
     <Compile Include="PresenterTests\News\EditArticlePresenterTests.cs" />
     <Compile Include="PresenterTests\UserControls\ArticleCommentsPresenterTests.cs" />
     <Compile Include="PresenterTests\UserControls\NewsGridPresenterTests.cs" />
