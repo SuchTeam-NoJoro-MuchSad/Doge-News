@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using DogeNews.Data.Contracts;
@@ -7,12 +6,13 @@ using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.Providers.Contracts;
 using DogeNews.Web.Services.Contracts;
+using DogeNews.Common.Validators;
 
 namespace DogeNews.Web.Services
 {
     public class ArticleCommentsService : IArticleCommentsService
     {
-        private readonly IRepository<Comment> commentItemRepository;
+        private readonly IRepository<Comment> commentsRepository;
         private readonly IRepository<NewsItem> newsItemRepository;
         private readonly IMapperProvider mapperProvider;
         private readonly IRepository<User> userRepository;
@@ -20,15 +20,20 @@ namespace DogeNews.Web.Services
 
         private int count;
         
-        public ArticleCommentsService(IRepository<Comment> commentsRepository,
+        public ArticleCommentsService(
+            IRepository<Comment> commentsRepository,
             IRepository<NewsItem> newsItemRepository,
             IRepository<User> userRepository,
             IMapperProvider mapperProvider,
             INewsData newsData)
         {
-            this.ValidateConstructorParams(commentsRepository, mapperProvider);
+            Validator.ValidateThatObjectIsNotNull(commentsRepository, nameof(commentsRepository));
+            Validator.ValidateThatObjectIsNotNull(newsItemRepository, nameof(newsItemRepository));
+            Validator.ValidateThatObjectIsNotNull(userRepository, nameof(userRepository));
+            Validator.ValidateThatObjectIsNotNull(mapperProvider, nameof(mapperProvider));
+            Validator.ValidateThatObjectIsNotNull(newsData, nameof(newsData));
 
-            this.commentItemRepository = commentsRepository;
+            this.commentsRepository = commentsRepository;
             this.newsItemRepository = newsItemRepository;
             this.userRepository = userRepository;
             this.newsData = newsData;
@@ -63,19 +68,6 @@ namespace DogeNews.Web.Services
 
             newsItem.Comments.Add(commentToAdd);
             this.newsData.Commit();
-        }
-
-        private void ValidateConstructorParams(IRepository<Comment> commentsRepository, IMapperProvider mapperProvider)
-        {
-            if (commentsRepository == null)
-            {
-                throw new ArgumentNullException("commentsRepository");
-            }
-
-            if (mapperProvider == null)
-            {
-                throw new ArgumentNullException("mapperProvider");
-            }
         }
     }
 }

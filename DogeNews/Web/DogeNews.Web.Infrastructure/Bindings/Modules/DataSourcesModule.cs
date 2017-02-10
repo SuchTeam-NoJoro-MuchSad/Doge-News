@@ -1,10 +1,11 @@
-﻿using DogeNews.Data.Models;
-using Ninject.Modules;
+﻿using Ninject.Modules;
+using Ninject.Web.Common;
 
 using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Web.DataSources;
 using DogeNews.Web.Models;
 using DogeNews.Web.Mvp.UserControls.NewsGrid;
+using DogeNews.Data.Models;
 
 namespace DogeNews.Web.Infrastructure.Bindings.Modules
 {
@@ -14,7 +15,8 @@ namespace DogeNews.Web.Infrastructure.Bindings.Modules
         {
             this.Bind<INewsDataSource<NewsItem, NewsWebModel>>()
                 .To<NewsDataSource>()
-                .WhenInjectedExactlyInto<NewsGridPresenter>();
+                .WhenInjectedExactlyInto<NewsGridPresenter>()
+                .InRequestScope();
         }
     }
 }

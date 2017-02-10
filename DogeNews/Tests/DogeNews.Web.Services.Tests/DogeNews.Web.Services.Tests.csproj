@@ -84,6 +84,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ArticleCommentsServiceTests.cs" />
     <Compile Include="ArticleManagementServiceTests.cs" />
     <Compile Include="FileServiceTests.cs" />
     <Compile Include="HttpTests\HttpPostedFileServiceTests.cs" />

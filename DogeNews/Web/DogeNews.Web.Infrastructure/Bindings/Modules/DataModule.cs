@@ -11,9 +11,9 @@ namespace DogeNews.Web.Infrastructure.Bindings.Modules
     {
         public override void Load()
         {
-            this.Bind(typeof(IRepository<>)).To(typeof(Repository<>));
+            this.Bind(typeof(IRepository<>)).To(typeof(Repository<>)).InRequestScope();
             this.Bind<INewsDbContext>().To<NewsDbContext>().InRequestScope();
-            this.Bind<INewsData>().To<NewsData>();
+            this.Bind<INewsData>().To<NewsData>().InRequestScope();
         }
     }
 }

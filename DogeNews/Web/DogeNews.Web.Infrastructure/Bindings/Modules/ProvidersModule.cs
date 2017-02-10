@@ -2,6 +2,7 @@
 using DogeNews.Web.Providers.Contracts;
 
 using Ninject.Modules;
+using Ninject.Web.Common;
 
 namespace DogeNews.Web.Infrastructure.Bindings.Modules
 {
@@ -9,8 +10,8 @@ namespace DogeNews.Web.Infrastructure.Bindings.Modules
     {
         public override void Load()
         {
-            this.Bind<IMapperProvider>().To<MapperProvider>().InSingletonScope();
-            this.Bind<IDateTimeProvider>().To<DateTimeProvider>();
+            this.Bind<IMapperProvider>().To<MapperProvider>().InRequestScope();
+            this.Bind<IDateTimeProvider>().To<DateTimeProvider>().InRequestScope();
         }
     }
 }

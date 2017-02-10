@@ -1,4 +1,5 @@
 ﻿using Ninject.Modules;
+using Ninject.Web.Common;
 
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Services;
@@ -11,16 +12,16 @@ namespace DogeNews.Web.Infrastructure.Bindings.Modules
     {
         public override void Load()
         {
-            this.Bind<INewsService>().To<NewsService>();
-            this.Bind<IFileService>().To<FileService>();
-            this.Bind<IArticleCommentsService>().To<ArticleCommentsService>();
-            this.Bind<IHttpContextService>().To<HttpContextService>();
-            this.Bind<IHttpPostedFileService>().To<HttpPostedFileService>();
-            this.Bind<IHttpServerUtilityService>().To<HttpServerUtilityService>();
-            this.Bind<IHttpUtilityService>().To<HttpUtilityService>();
-            this.Bind<IHttpResponseService>().To<HttpResponseService>();
-            this.Bind<IArticleManagementService>().To<ArticleManagementService>();
-            this.Bind<INotificationsService>().To<NotificationsService>().InSingletonScope();
+            this.Bind<INewsService>().To<NewsService>().InRequestScope();
+            this.Bind<IFileService>().To<FileService>().InRequestScope();
+            this.Bind<IArticleCommentsService>().To<ArticleCommentsService>().InRequestScope();
+            this.Bind<IHttpContextService>().To<HttpContextService>().InRequestScope();
+            this.Bind<IHttpPostedFileService>().To<HttpPostedFileService>().InRequestScope();
+            this.Bind<IHttpServerUtilityService>().To<HttpServerUtilityService>().InRequestScope();
+            this.Bind<IHttpUtilityService>().To<HttpUtilityService>().InRequestScope();
+            this.Bind<IHttpResponseService>().To<HttpResponseService>().InRequestScope();
+            this.Bind<IArticleManagementService>().To<ArticleManagementService>().InRequestScope();
+            this.Bind<INotificationsService>().To<NotificationsService>().InRequestScope();
         }
     }
 }
