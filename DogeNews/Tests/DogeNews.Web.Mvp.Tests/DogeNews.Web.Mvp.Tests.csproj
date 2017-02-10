@@ -81,6 +81,7 @@
     <Compile Include="PresenterTests\Default\DefaultPresenterTests.cs" />
     <Compile Include="PresenterTests\News\AddNewsPresenterTests.cs" />
     <Compile Include="PresenterTests\News\ArticlePresenterTests.cs" />
+    <Compile Include="PresenterTests\News\EditArticlePresenterTests.cs" />
     <Compile Include="PresenterTests\UserControls\ArticleCommentsPresenterTests.cs" />
     <Compile Include="PresenterTests\UserControls\NewsGridPresenterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

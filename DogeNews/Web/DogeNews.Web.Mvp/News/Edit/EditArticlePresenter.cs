@@ -1,9 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
+
 using DogeNews.Web.Models;
 using DogeNews.Web.Mvp.News.Edit.EventArguments;
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Services.Contracts.Http;
+using DogeNews.Common.Validators;
+
 using WebFormsMvp;
 
 namespace DogeNews.Web.Mvp.News.Edit
@@ -31,6 +33,14 @@ namespace DogeNews.Web.Mvp.News.Edit
             IHttpPostedFileService httpPostedFileService)
             : base(view)
         {
+            Validator.ValidateThatObjectIsNotNull(articleManagementService, nameof(articleManagementService));
+            Validator.ValidateThatObjectIsNotNull(newsService, nameof(newsService));
+            Validator.ValidateThatObjectIsNotNull(httpUtilityService, nameof(httpUtilityService));
+            Validator.ValidateThatObjectIsNotNull(httpContextService, nameof(httpContextService));
+            Validator.ValidateThatObjectIsNotNull(fileService, nameof(fileService));
+            Validator.ValidateThatObjectIsNotNull(httpServerService, nameof(httpServerService));
+            Validator.ValidateThatObjectIsNotNull(httpPostedFileService, nameof(httpPostedFileService));
+
             this.articleManagementService = articleManagementService;
             this.newsService = newsService;
             this.httpUtilityService = httpUtilityService;
@@ -54,7 +64,7 @@ namespace DogeNews.Web.Mvp.News.Edit
         {
             string username = this.httpContextService.GetUsername(this.HttpContext);
 
-            NewsWebModel model = new NewsWebModel
+            var model = new NewsWebModel
             {
                 Id = e.Id,
                 Category = e.Category,
@@ -85,39 +95,6 @@ namespace DogeNews.Web.Mvp.News.Edit
             }
 
             this.articleManagementService.Update(model);
-        }
-
-        private void ValidateConstructorParams(
-            IFileService fileService,
-            IArticleManagementService articleManagementService,
-            IHttpContextService httpContextService,
-            IHttpPostedFileService httpPostedFileService,
-            IHttpServerUtilityService httpServerService)
-        {
-            if (fileService == null)
-            {
-                throw new ArgumentNullException("fileService");
-            }
-
-            if (articleManagementService == null)
-            {
-                throw new ArgumentNullException("newsService");
-            }
-
-            if (httpContextService == null)
-            {
-                throw new ArgumentNullException("httpContextService");
-            }
-
-            if (httpPostedFileService == null)
-            {
-                throw new ArgumentNullException("httpPostedFileService");
-            }
-
-            if (httpServerService == null)
-            {
-                throw new ArgumentNullException("httpServerService");
-            }
         }
     }
 }

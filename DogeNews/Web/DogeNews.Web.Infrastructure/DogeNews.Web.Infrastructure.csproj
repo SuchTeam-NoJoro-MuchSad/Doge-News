@@ -111,6 +111,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\DogeNews.Common\DogeNews.Common.csproj">
+      <Project>{5FD6DC3F-321D-456A-9DC4-0010EBEBB22B}</Project>
+      <Name>DogeNews.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\DogeNews.Data.Models\DogeNews.Data.Models.csproj">
       <Project>{6bfa72f8-752d-4e6a-b936-6100028fe2dd}</Project>
       <Name>DogeNews.Data.Models</Name>
