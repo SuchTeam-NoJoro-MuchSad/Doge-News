@@ -21,7 +21,7 @@ namespace DogeNews.Web.Infrastructure.Bindings.Modules
             this.Bind<IHttpUtilityService>().To<HttpUtilityService>().InRequestScope();
             this.Bind<IHttpResponseService>().To<HttpResponseService>().InRequestScope();
             this.Bind<IArticleManagementService>().To<ArticleManagementService>().InRequestScope();
-            this.Bind<INotificationsService>().To<NotificationsService>().InRequestScope();
+            this.Bind<INotificationsService>().To<NotificationsService>().InSingletonScope();
         }
     }
 }

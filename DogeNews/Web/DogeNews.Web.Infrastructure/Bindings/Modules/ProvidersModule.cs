@@ -10,7 +10,7 @@ namespace DogeNews.Web.Infrastructure.Bindings.Modules
     {
         public override void Load()
         {
-            this.Bind<IMapperProvider>().To<MapperProvider>().InRequestScope();
+            this.Bind<IMapperProvider>().To<MapperProvider>().InSingletonScope();
             this.Bind<IDateTimeProvider>().To<DateTimeProvider>().InRequestScope();
         }
     }
