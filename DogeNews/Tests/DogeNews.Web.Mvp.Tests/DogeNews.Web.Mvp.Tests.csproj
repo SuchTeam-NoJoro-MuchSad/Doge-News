@@ -76,6 +76,7 @@
     <Compile Include="EventArgsTests\UserControls\ArticleComments\ArticleCommetnsPageLoadEventArgsTests.cs" />
     <Compile Include="EventArgsTests\UserControls\NewsGrid\ChangePageEventArgsTests.cs" />
     <Compile Include="EventArgsTests\UserControls\NewsGrid\OrderByEventArgsTests.cs" />
+    <Compile Include="HttpPostedFileCreator.cs" />
     <Compile Include="ModelsTests\Default\DefaultViewModelTests.cs" />
     <Compile Include="ModelsTests\News\ArticleViewModelTests.cs" />
     <Compile Include="ModelsTests\News\EditArticleViewModelTests.cs" />

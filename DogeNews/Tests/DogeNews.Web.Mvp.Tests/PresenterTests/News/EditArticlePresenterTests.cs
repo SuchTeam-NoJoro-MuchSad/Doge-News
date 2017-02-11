@@ -276,7 +276,9 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void EditArticle_HttpContextServiceGetUsernameShouldBeCalled()
         {
             var presenter = this.GetPresenter();
-            var eventArgs = new EditArticleEventArgs { };
+            string fileName = "FileName.png";
+            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
+            var eventArgs = new EditArticleEventArgs { Image = image };
 
             presenter.EditArticle(null, eventArgs);
             this.mockHttpContextService.Verify(x => x.GetUsername(It.IsAny<HttpContextBase>()), Times.Once);
@@ -286,11 +288,14 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void EditArticle_ArticleManagementServiceUpdateShouldBeCalledWhenImageIsNullAndEverythingIsOk()
         {
             var presenter = this.GetPresenter();
+            string fileName = "FileName.png";
+            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
             var eventArgs = new EditArticleEventArgs
             {
                 Title = "Title",
                 Category = NewsCategoryType.Breaking,
-                Content = "Content"
+                Content = "Content",
+                Image = image
             };
 
             presenter.EditArticle(null, eventArgs);
@@ -303,11 +308,11 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         }
 
         [Test]
-        public void EditArticle_WhenImageIsNotNullFileServiceGetFileExtensionShouldBeCalled()
+        public void EditArticle_WhenImageIsChangedFileServiceGetFileExtensionShouldBeCalled()
         {
             string fileName = "FileName.png";
             var presenter = this.GetPresenter();
-            var image = this.ConstructHttpPostedFile(new byte[10], fileName, "png");
+            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
             var eventArgs = new EditArticleEventArgs
             {
                 Title = "Title",
@@ -322,7 +327,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         }
 
         [Test]
-        public void EditArticle_WhenImageIsNotNullFileServiceGetUniqueFileNameShouldBeCalled()
+        public void EditArticle_WhenImageIsChangedFileServiceGetUniqueFileNameShouldBeCalled()
         {
             string username = "username";
             this.mockHttpContextService
@@ -331,7 +336,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 
             string fileName = "FileName.png";
             var presenter = this.GetPresenter();
-            var image = this.ConstructHttpPostedFile(new byte[10], fileName, "png");
+            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
             var eventArgs = new EditArticleEventArgs
             {
                 Title = "Title",
@@ -346,7 +351,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         }
 
         [Test]
-        public void EditArticle_WhenImageIsNotNullHttpServerServiceMapFileShouldBeCalled()
+        public void EditArticle_WhenImageIsChangedHttpServerServiceMapFileShouldBeCalled()
         {
             string username = "username";
             this.mockHttpContextService
@@ -356,7 +361,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             string fileName = "FileName.png";
             var presenter = this.GetPresenter();
             string basePath = "~\\Resources\\Images";
-            var image = this.ConstructHttpPostedFile(new byte[10], fileName, "png");
+            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
             var eventArgs = new EditArticleEventArgs
             {
                 Title = "Title",
@@ -371,7 +376,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         }
 
         [Test]
-        public void EditArticle_WhenImageIsNotNullFileServiceCreateFileShouldBeCalled()
+        public void EditArticle_WhenImageIsChangedFileServiceCreateFileShouldBeCalled()
         {
             string username = "username";
             this.mockHttpContextService
@@ -380,7 +385,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 
             string fileName = "FileName.png";
             var presenter = this.GetPresenter();
-            var image = this.ConstructHttpPostedFile(new byte[10], fileName, "png");
+            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
             var eventArgs = new EditArticleEventArgs
             {
                 Title = "Title",
@@ -395,7 +400,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         }
 
         [Test]
-        public void EditArticle_WhenImageIsNotNullHttpPostedFileServiceSaveShouldBeCalled()
+        public void EditArticle_WhenImageIsChangedHttpPostedFileServiceSaveShouldBeCalled()
         {
             string username = "username";
             this.mockHttpContextService
@@ -404,7 +409,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 
             string fileName = "FileName.png";
             var presenter = this.GetPresenter();
-            var image = this.ConstructHttpPostedFile(new byte[10], fileName, "png");
+            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
             var eventArgs = new EditArticleEventArgs
             {
                 Title = "Title",
@@ -438,48 +443,6 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 this.mockFileService.Object,
                 this.mockServerUtilService.Object,
                 this.mockHttpPostedFileService.Object);
-        }
-
-        // Credits to "paracycle" from: http://stackoverflow.com/questions/5514715/how-to-instantiate-a-httppostedfile
-        private HttpPostedFile ConstructHttpPostedFile(byte[] data, string filename, string contentType)
-        {
-            // Get the System.Web assembly reference
-            Assembly systemWebAssembly = typeof(HttpPostedFileBase).Assembly;
-            // Get the types of the two internal types we need
-            Type typeHttpRawUploadedContent = systemWebAssembly.GetType("System.Web.HttpRawUploadedContent");
-            Type typeHttpInputStream = systemWebAssembly.GetType("System.Web.HttpInputStream");
-
-            // Prepare the signatures of the constructors we want.
-            Type[] uploadedParams = { typeof(int), typeof(int) };
-            Type[] streamParams = { typeHttpRawUploadedContent, typeof(int), typeof(int) };
-            Type[] parameters = { typeof(string), typeof(string), typeHttpInputStream };
-
-            // Create an HttpRawUploadedContent instance
-            object uploadedContent = typeHttpRawUploadedContent
-              .GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, uploadedParams, null)
-              .Invoke(new object[] { data.Length, data.Length });
-
-            // Call the AddBytes method
-            typeHttpRawUploadedContent
-              .GetMethod("AddBytes", BindingFlags.NonPublic | BindingFlags.Instance)
-              .Invoke(uploadedContent, new object[] { data, 0, data.Length });
-
-            // This is necessary if you will be using the returned content (ie to Save)
-            typeHttpRawUploadedContent
-              .GetMethod("DoneAddingBytes", BindingFlags.NonPublic | BindingFlags.Instance)
-              .Invoke(uploadedContent, null);
-
-            // Create an HttpInputStream instance
-            object stream = (Stream)typeHttpInputStream
-              .GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, streamParams, null)
-              .Invoke(new object[] { uploadedContent, 0, data.Length });
-
-            // Create an HttpPostedFile instance
-            HttpPostedFile postedFile = (HttpPostedFile)typeof(HttpPostedFile)
-              .GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, parameters, null)
-              .Invoke(new object[] { filename, contentType, stream });
-
-            return postedFile;
         }
     }
 }
