@@ -76,7 +76,7 @@ namespace DogeNews.Web.Mvp.News.Edit
                 Title = e.Title
             };
 
-            if (e.Image != null)
+            if (e.Image.ContentLength > 0)
             {
                 string fileExtension = this.fileService.GetFileExtension(e.FileName);
                 string fileName = this.fileService.GetUniqueFileName(username) + fileExtension;

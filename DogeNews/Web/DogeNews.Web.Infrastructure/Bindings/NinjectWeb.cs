@@ -1,10 +1,10 @@
+using DogeNews.Web.Infrastructure.Bindings;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
 using Ninject.Web;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DogeNews.Web.Infrastructure.Binding.NinjectWeb), "Start")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWeb), "Start")]
 
-namespace DogeNews.Web.Infrastructure.Binding
+namespace DogeNews.Web.Infrastructure.Bindings
 {
     public static class NinjectWeb 
     {
