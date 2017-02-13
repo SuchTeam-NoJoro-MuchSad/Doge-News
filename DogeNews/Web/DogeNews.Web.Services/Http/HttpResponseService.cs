@@ -6,6 +6,11 @@ namespace DogeNews.Web.Services.Http
 {
     public class HttpResponseService : IHttpResponseService
     {
+        public void Redirect(string url)
+        {
+            HttpContext.Current.Response.Redirect(url);
+        }
+
         public void Clear()
         {
             HttpContext.Current.Response.Clear();
