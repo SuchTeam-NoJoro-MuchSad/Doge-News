@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using System.Collections.Specialized;
-
+using System.Web.UI.WebControls;
 using Moq;
 using NUnit.Framework;
 
@@ -9,6 +9,7 @@ using DogeNews.Web.Services.Contracts.Http;
 using DogeNews.Web.Mvp.News.Article;
 using DogeNews.Web.Mvp.News.Article.EventArguments;
 using DogeNews.Web.Models;
+using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 {
@@ -25,6 +26,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void Init()
         {
             this.mockedView = new Mock<IArticleView>();
+            this.mockedView.Setup(x => x.Model).Returns(new ArticleViewModel());
+
             this.mockedNewsService = new Mock<INewsService>();
             this.mockedHttpUtilityService = new Mock<IHttpUtilityService>();
             this.mockedHttpResponseService = new Mock<IHttpResponseService>();
@@ -178,6 +181,138 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 
             Assert.AreEqual(model, presenter.View.Model.NewsModel);
         }
+
+        [Test]
+        public void ArticleRestore_ShouldCallArticleManagementServiceRestoreOnceWithCorrectParameters()
+        {
+            //Arange
+            var presenter = this.GetPresenter();
+
+            var newsItemId = "1111";
+
+            var eventArgs = new OnArticleRestoreEventArgs
+            {
+                NewsItemId = newsItemId
+            };
+
+            this.mockedNewsService.Setup(x => x.GetItemById(It.IsAny<string>())).Returns(new NewsWebModel());
+
+            //Act
+            presenter.ArticleRestore(null, eventArgs);
+
+            //Assert
+            mockedArticleManagementService.Verify(x => x.Restore(newsItemId), Times.Once);
+        }
+
+        [Test]
+        public void ArticleRestore_ShouldCallNewsServiceGetItemByIdOnceWithCorrectParameters()
+        {
+            //Arange
+            var presenter = this.GetPresenter();
+
+            var newsItemId = "1111";
+
+            var eventArgs = new OnArticleRestoreEventArgs
+            {
+                NewsItemId = newsItemId
+            };
+
+            this.mockedNewsService.Setup(x => x.GetItemById(It.IsAny<string>())).Returns(new NewsWebModel());
+
+            //Act
+            presenter.ArticleRestore(null, eventArgs);
+
+            //Assert
+            this.mockedNewsService.Verify(x => x.GetItemById(newsItemId), Times.Once);
+        }
+
+
+        [Test]
+        public void ArticleEdit_ShouldCallHttpResponseRedirectServiceOnceWithCorrectParametersAndWhenAdminIsLoggedIn()
+        {
+            //Arange
+            var presenter = this.GetPresenter();
+
+            var newsItemId = "1111";
+
+            var eventArgs = new OnArticleEditEventArgs
+            {
+                NewsItemId = newsItemId,
+                IsAdminUser = true
+            };
+            
+            //Act
+            presenter.ArticleEdit(null, eventArgs);
+
+            //Assert
+            mockedHttpResponseService.Verify(x => x.Redirect($"~/News/Edit?id={eventArgs.NewsItemId}"), Times.Once);
+        }
+
+        [Test]
+        public void ArticleEdit_ShouldNotCallHttpResponseRedirectServiceWithCorrectParametersAndWhenAdminIsNotLoggedIn()
+        {
+            //Arange
+            var presenter = this.GetPresenter();
+
+            var newsItemId = "1111";
+
+            var eventArgs = new OnArticleEditEventArgs
+            {
+                NewsItemId = newsItemId,
+                IsAdminUser = false
+            };
+
+            //Act
+            presenter.ArticleEdit(null, eventArgs);
+
+            //Assert
+            mockedHttpResponseService.Verify(x => x.Redirect($"~/News/Edit?id={eventArgs.NewsItemId}"), Times.Never);
+        }
+
+        [Test]
+        public void ArticleDelete_ShouldCallArticleManagementServiceDeleteOnceWithCorrectParameters()
+        {
+            //Arange
+            var presenter = this.GetPresenter();
+
+            var newsItemId = "1111";
+
+            var eventArgs = new OnArticleDeleteEventArgs
+            {
+                NewsItemId = newsItemId
+            };
+
+            this.mockedNewsService.Setup(x => x.GetItemById(It.IsAny<string>())).Returns(new NewsWebModel());
+
+            //Act
+            presenter.ArticleDelete(null, eventArgs);
+
+            //Assert
+            mockedArticleManagementService.Verify(x => x.Delete(newsItemId), Times.Once);
+        }
+
+        [Test]
+        public void ArticleDelete_ShouldCallNewsServiceGetItemByIdOnceWithCorrectParameters()
+        {
+            //Arange
+            var presenter = this.GetPresenter();
+
+            var newsItemId = "1111";
+
+            var eventArgs = new OnArticleDeleteEventArgs
+            {
+                NewsItemId = newsItemId
+            };
+
+            this.mockedNewsService.Setup(x => x.GetItemById(It.IsAny<string>())).Returns(new NewsWebModel());
+
+            //Act
+            presenter.ArticleDelete(null, eventArgs);
+
+            //Assert
+            this.mockedNewsService.Verify(x => x.GetItemById(newsItemId), Times.Once);
+        }
+
 
         private ArticlePresenter GetPresenter()
         {
