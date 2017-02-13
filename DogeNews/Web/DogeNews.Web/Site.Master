@@ -78,6 +78,7 @@
                                 <% if (HttpContext.Current.User.IsInRole(DogeNews.Common.Constants.Roles.Admin))
                                     { %>
                                 <li><a href="/News/Add.aspx">Add News</a></li>
+                                <li><a href="/Admin/Pannel.aspx">Admin Pannel</a></li>
                                 <% } %>
 
                                 <!-- LOGIN/ REGISTER -->
@@ -121,6 +122,7 @@
                         <% if (HttpContext.Current.User.IsInRole(DogeNews.Common.Constants.Roles.Admin))
                             { %>
                         <li><a href="/News/Add.aspx">Add News</a></li>
+                        <li><a href="/Admin/Pannel.aspx">Admin Pannel</a></li>
                         <% } %>
                         <% if (!HttpContext.Current.User.Identity.IsAuthenticated)
                             { %>

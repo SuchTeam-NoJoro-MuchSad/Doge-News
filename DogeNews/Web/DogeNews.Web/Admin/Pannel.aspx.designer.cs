@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DogeNews.Web.News {
+namespace DogeNews.Web.Admin {
     
     
-    public partial class Add {
+    public partial class Pannel {
         
         /// <summary>
         /// AddNewsArticleControl control.

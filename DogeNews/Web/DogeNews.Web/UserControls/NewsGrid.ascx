@@ -1,7 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NewsGrid.ascx.cs" Inherits="DogeNews.Web.UserControls.NewsGrid" %>
-<%@ Import Namespace="System.Activities.Statements" %>
-<%@ Import Namespace="System.ComponentModel" %>
-<%@ Import Namespace="DogeNews.Web.Models" %>
 
 <asp:UpdatePanel runat="server">
     <ContentTemplate>
