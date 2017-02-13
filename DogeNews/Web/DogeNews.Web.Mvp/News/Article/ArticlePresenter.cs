@@ -32,21 +32,21 @@ namespace DogeNews.Web.Mvp.News.Article
             this.View.ArticleRestore += this.ArticleRestore;
         }
 
-        private void ArticleRestore(object sender, OnArticleRestoreEventArgs e)
+        public void ArticleRestore(object sender, OnArticleRestoreEventArgs e)
         {
             this.articleManagementService.Restore(e.NewsItemId);
             this.View.Model.NewsModel = this.newsService.GetItemById(e.NewsItemId);
         }
 
-        private void ArticleEdit(object sender, OnArticleEditEventArgs e)
+        public void ArticleEdit(object sender, OnArticleEditEventArgs e)
         {
             if (e.IsAdminUser)
             {
-                this.HttpContext.Response.Redirect($"~/News/Edit?id={e.NewsItemId}");
+                this.httpResponseService.Redirect($"~/News/Edit?id={e.NewsItemId}");
             }
         }
 
-        private void ArticleDelete(object sender, OnArticleDeleteEventArgs e)
+        public void ArticleDelete(object sender, OnArticleDeleteEventArgs e)
         {
             this.articleManagementService.Delete(e.NewsItemId);
             this.View.Model.NewsModel = this.newsService.GetItemById(e.NewsItemId);
