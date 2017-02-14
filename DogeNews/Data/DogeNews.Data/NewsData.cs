@@ -1,9 +1,11 @@
 ﻿using System;
 
 using DogeNews.Data.Contracts;
+using DogeNews.Common.Attributes;
 
 namespace DogeNews.Data
 {
+    [InRequestScope]
     public class NewsData : INewsData, IDisposable
     {
         private  INewsDbContext context;

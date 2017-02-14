@@ -17,6 +17,7 @@ using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.DataSources;
+using DogeNews.Common.Attributes;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DogeNews.Web.Infrastructure.Bindings.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DogeNews.Web.Infrastructure.Bindings.NinjectWebCommon), "Stop")]
@@ -81,37 +82,32 @@ namespace DogeNews.Web.Infrastructure.Bindings
 
             foreach (var assembly in assemblies)
             {
-                var types = assembly.GetTypes().Where(t => t.IsClass);
+                var types = assembly.GetTypes().Where(t => t.IsClass && !t.IsGenericType);
 
                 foreach (var type in types)
                 {
                     var defaultInterface = type
                         .GetInterfaces()
                         .FirstOrDefault(i => i.Name == $"I{type.Name}");
+                    var isInSingletonScope = Attribute
+                        .GetCustomAttribute(type, typeof(InSingletonScopeAttribute)) != null;
+                    var isInrequestScope = Attribute
+                        .GetCustomAttribute(type, typeof(InRequestScopeAttribute)) != null;
 
                     if (defaultInterface == null)
                     {
                         continue;
                     }
 
-                    if (assembly.FullName.Contains(ServerConstants.DataAssembly))
-                    {
-                        if (type.Name.Contains("Repository"))
-                        {
-                            kernel.Bind(typeof(IRepository<>)).To(typeof(Repository<>)).InRequestScope();
-                        }
-                        else
-                        {
-                            kernel.Bind(defaultInterface).To(type).InRequestScope();
-                        }
-
-                        continue;
-
-                    }
-
-                    if (type.Name == "MapperProvider" || type.Name == "NotificationsService")
+                    if (isInSingletonScope)
                     {
                         kernel.Bind(defaultInterface).To(type).InSingletonScope();
+                        continue;
+                    }
+
+                    if (isInrequestScope)
+                    {
+                        kernel.Bind(defaultInterface).To(type).InRequestScope();
                         continue;
                     }
 
@@ -119,6 +115,7 @@ namespace DogeNews.Web.Infrastructure.Bindings
                 }
             }
 
+            kernel.Bind(typeof(IRepository<>)).To(typeof(Repository<>)).InRequestScope();
             kernel.Bind<INewsDataSource<NewsItem, NewsWebModel>>()
                 .To<NewsDataSource>()
                 .InRequestScope();

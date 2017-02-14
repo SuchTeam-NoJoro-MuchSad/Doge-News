@@ -3,11 +3,13 @@
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Migrations;
 using DogeNews.Data.Models;
+using DogeNews.Common.Attributes;
 
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DogeNews.Data
 {
+    [InRequestScope]
     public class NewsDbContext : IdentityDbContext, INewsDbContext
     {
         public NewsDbContext()
