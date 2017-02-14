@@ -2,9 +2,11 @@
 
 using DogeNews.Common.Enums;
 using DogeNews.Web.Services.Contracts;
+using DogeNews.Common.Attributes;
 
 namespace DogeNews.Web.Services
 {
+    [InSingletonScope]
     public class NotificationsService : INotificationsService
     {
         public dynamic Clients { get; set; }

@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\InRequestScopeAttribute.cs" />
+    <Compile Include="Attributes\InSingletonScopeAttribute.cs" />
     <Compile Include="Constants\ServerConstants.cs" />
     <Compile Include="Enums\NewsCategoryType.cs" />
     <Compile Include="Enums\NotificationType.cs" />
