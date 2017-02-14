@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\ServerConstants.cs" />
     <Compile Include="Enums\NewsCategoryType.cs" />
     <Compile Include="Enums\NotificationType.cs" />
     <Compile Include="Enums\OrderByType.cs" />

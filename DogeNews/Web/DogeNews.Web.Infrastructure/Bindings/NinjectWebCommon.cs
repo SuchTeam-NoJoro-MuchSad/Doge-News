@@ -2,34 +2,43 @@ using System;
 using System.Web;
 using System.Reflection;
 using System.Linq;
+using System.Collections.Generic;
 
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
 using Ninject;
 using Ninject.Web.Common;
-using Ninject.Modules;
+
+using DogeNews.Common.Constants;
+using DogeNews.Web.Infrastructure.Bindings.Modules;
+using DogeNews.Data.Contracts;
+using DogeNews.Data.Repositories;
+using DogeNews.Web.DataSources.Contracts;
+using DogeNews.Data.Models;
+using DogeNews.Web.Models;
+using DogeNews.Web.DataSources;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DogeNews.Web.Infrastructure.Bindings.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DogeNews.Web.Infrastructure.Bindings.NinjectWebCommon), "Stop")]
 
 namespace DogeNews.Web.Infrastructure.Bindings
 {
-    public static class NinjectWebCommon 
+    public static class NinjectWebCommon
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         public static IKernel Kernel { get; private set; }
-        
+
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -37,7 +46,7 @@ namespace DogeNews.Web.Infrastructure.Bindings
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -68,13 +77,65 @@ namespace DogeNews.Web.Infrastructure.Bindings
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            var currentAssembly = Assembly.GetAssembly(typeof(NinjectWebCommon));
-            var modules = currentAssembly
-                .GetTypes()
-                .Where(x => x.GetInterfaces().Any(i => i.Name == typeof(INinjectModule).Name))
-                .Select(x => Activator.CreateInstance(x) as INinjectModule);
+            var assemblies = GetAssemblies();
 
-            kernel.Load(modules);
-        }        
+            foreach (var assembly in assemblies)
+            {
+                var types = assembly.GetTypes().Where(t => t.IsClass);
+
+                foreach (var type in types)
+                {
+                    var defaultInterface = type
+                        .GetInterfaces()
+                        .FirstOrDefault(i => i.Name == $"I{type.Name}");
+
+                    if (defaultInterface == null)
+                    {
+                        continue;
+                    }
+
+                    if (assembly.FullName.Contains(ServerConstants.DataAssembly))
+                    {
+                        if (type.Name.Contains("Repository"))
+                        {
+                            kernel.Bind(typeof(IRepository<>)).To(typeof(Repository<>)).InRequestScope();
+                        }
+                        else
+                        {
+                            kernel.Bind(defaultInterface).To(type).InRequestScope();
+                        }
+
+                        continue;
+
+                    }
+
+                    if (type.Name == "MapperProvider" || type.Name == "NotificationsService")
+                    {
+                        kernel.Bind(defaultInterface).To(type).InSingletonScope();
+                        continue;
+                    }
+
+                    kernel.Bind(defaultInterface).To(type);
+                }
+            }
+
+            kernel.Bind<INewsDataSource<NewsItem, NewsWebModel>>()
+                .To<NewsDataSource>()
+                .InRequestScope();
+
+            kernel.Load(new MvpModule());
+        }
+
+        private static IEnumerable<Assembly> GetAssemblies()
+        {
+            var assemblies = new List<Assembly>
+            {
+                Assembly.Load(ServerConstants.DataAssembly),
+                Assembly.Load(ServerConstants.ServicesAssembly),
+                Assembly.Load(ServerConstants.ProvidersAssembly)
+            };
+
+            return assemblies;
+        }
     }
 }

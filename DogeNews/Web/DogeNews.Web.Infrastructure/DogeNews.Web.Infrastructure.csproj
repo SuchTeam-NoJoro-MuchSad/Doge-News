@@ -96,11 +96,7 @@
   <ItemGroup>
     <Compile Include="Bindings\Factories\Contracts\IPresenterProvider.cs" />
     <Compile Include="Bindings\Factories\WebFormsPresenterFactory.cs" />
-    <Compile Include="Bindings\Modules\DataModule.cs" />
-    <Compile Include="Bindings\Modules\DataSourcesModule.cs" />
     <Compile Include="Bindings\Modules\MvpModule.cs" />
-    <Compile Include="Bindings\Modules\ProvidersModule.cs" />
-    <Compile Include="Bindings\Modules\ServicesModule.cs" />
     <Compile Include="Bindings\NinjectWeb.cs" />
     <Compile Include="Bindings\NinjectWebCommon.cs" />
     <Compile Include="Mappings\Profiles\DataMappingsProfile.cs" />
