@@ -21,7 +21,6 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
         
         private string newsCategory;
 
-
         public NewsGridPresenter(INewsGridView view,
             INewsDataSource<NewsItem, NewsWebModel> newsDataSource,
             IHttpUtilityService httpUtilityService,

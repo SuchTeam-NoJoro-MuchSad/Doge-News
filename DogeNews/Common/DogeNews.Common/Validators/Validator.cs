@@ -19,5 +19,13 @@ namespace DogeNews.Common.Validators
                 throw new ArgumentNullException(objectName);
             }
         }
+
+        public static void ValidateThatNumberIsNotPositive(double number, string valueName)
+        {
+            if (number <= 0)
+            {
+                throw new ArgumentOutOfRangeException(valueName);
+            }
+        }
     }
 }

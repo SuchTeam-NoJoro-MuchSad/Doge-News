@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Web;
 using System.Web.UI.WebControls;
 
 using DogeNews.Web.Mvp.UserControls.NewsGrid;
 using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
 using DogeNews.Common.Enums;
-using DogeNews.Web.Models;
-using DogeNews.Data.Models;
-using DogeNews.Web.DataSources.Contracts;
 
 using WebFormsMvp.Web;
 using WebFormsMvp;
@@ -23,7 +19,6 @@ namespace DogeNews.Web.UserControls
         public event EventHandler<OnArticleDeleteEventArgs> ArticleDelete;
         public event EventHandler<OnArticleEditEventArgs> ArticleEdit;
         public event EventHandler<OnArticleRestoreEventArgs> ArticleRestore;
-
 
         public void ChangePageClick(object sender, EventArgs e)
         {
@@ -64,16 +59,17 @@ namespace DogeNews.Web.UserControls
                     ViewState = this.ViewState,
                     QueryString = this.Page.ClientQueryString
                 });
-                return;
             }
-
-            this.PageLoad(this, new PageLoadEventArgs
+            else
             {
-                IsPostBack = false,
-                IsAdminUser = Context.User.IsInRole(Common.Constants.Roles.Admin),
-                ViewState = this.ViewState,
-                QueryString = this.Page.ClientQueryString
-            });
+                this.PageLoad(this, new PageLoadEventArgs
+                {
+                    IsPostBack = false,
+                    IsAdminUser = Context.User.IsInRole(Common.Constants.Roles.Admin),
+                    ViewState = this.ViewState,
+                    QueryString = this.Page.ClientQueryString
+                });
+            }
         }
 
         protected void ArticleDeleteButtonClick(object sender, EventArgs e)

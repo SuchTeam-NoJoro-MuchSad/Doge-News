@@ -1,5 +1,4 @@
 ﻿using DogeNews.Common.Validators;
-using DogeNews.Web.Mvp.News.Category.EventArguments;
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Services.Contracts.Http;
 
@@ -20,17 +19,6 @@ namespace DogeNews.Web.Mvp.News.Category
 
             this.newsService = newsService;
             this.httpContextService = httpContextService;
-
-            this.View.PageLoad += this.PageLoad;
-        }
-
-        public void PageLoad(object sender, CategoryPageLoadEventArgs e)
-        {
-            Validator.ValidateThatObjectIsNotNull(e, "categoryPageLoadEventArgs");
-
-            string category = this.httpContextService.GetQueryStringPairValue("name");
-            
-            this.View.Model.News = this.newsService.GetNewsItemsByCategory(category);
         }
     }
 }

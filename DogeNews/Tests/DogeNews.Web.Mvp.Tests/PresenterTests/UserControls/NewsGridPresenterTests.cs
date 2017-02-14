@@ -40,17 +40,23 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
             this.mockArticleManagementService = new Mock<IArticleManagementService>();
 
             this.mockedDataSource = new Mock<INewsDataSource<NewsItem, NewsWebModel>>();
-            this.mockedDataSource.Setup(x => x.GetPageItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>()))
+            this.mockedDataSource
+                .Setup(x => x.GetPageItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
-            this.mockedDataSource.Setup(x => x.GetPageItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
+            this.mockedDataSource
+                .Setup(x => x.GetPageItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
-            this.mockedDataSource.Setup(x => x.OrderByDescending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>()))
+            this.mockedDataSource
+                .Setup(x => x.OrderByDescending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
-            this.mockedDataSource.Setup(x => x.OrderByDescending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
+            this.mockedDataSource
+                .Setup(x => x.OrderByDescending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
-            this.mockedDataSource.Setup(x => x.OrderByAscending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>()))
+            this.mockedDataSource
+                .Setup(x => x.OrderByAscending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
-            this.mockedDataSource.Setup(x => x.OrderByAscending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
+            this.mockedDataSource
+                .Setup(x => x.OrderByAscending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
         }
 

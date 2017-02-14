@@ -44,6 +44,7 @@
                             </div>
                             <% if (this.Context.User.IsInRole(DogeNews.Common.Constants.Roles.Admin))
                                 { %>
+
                             <%-- Conformation Modals --%>
                             <div>
                                 <div id="<%#Item.Id %>-edit" class="modal">

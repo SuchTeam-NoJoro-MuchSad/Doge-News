@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+
 using DogeNews.Common.Enums;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Web.Providers.Contracts;
+using DogeNews.Common.Validators;
 
 namespace DogeNews.Web.DataSources
 {
@@ -15,11 +17,13 @@ namespace DogeNews.Web.DataSources
     {
         private readonly IRepository<NewsItem> newsItemRepository;
         private readonly IMapperProvider mapperProvider;
+
         private int count;
 
         public NewsDataSource(IRepository<NewsItem> newsItemRepository, IMapperProvider mapperProvider)
         {
-            this.ValidateConstructorParams(newsItemRepository, mapperProvider);
+            Validator.ValidateThatObjectIsNotNull(newsItemRepository, nameof(newsItemRepository));
+            Validator.ValidateThatObjectIsNotNull(mapperProvider, nameof(mapperProvider));
 
             this.newsItemRepository = newsItemRepository;
             this.Count = this.newsItemRepository.Count;
@@ -30,93 +34,42 @@ namespace DogeNews.Web.DataSources
         public int Count
         {
             get { return this.count; }
+
             set { this.count = value; }
         }
 
-        public IEnumerable<NewsWebModel> GetPageItems(int page, int pageSize, bool isAdminUser)
+        public IEnumerable<NewsWebModel> GetPageItems(int page, int pageSize, bool isAdminUser, string category = null)
         {
-            return this.GetPageItems(page, pageSize, isAdminUser, null);
-        }
-
-        public IEnumerable<NewsWebModel> GetPageItems(int page, int pageSize, bool isAdminUser, string category)
-        {
-            this.ValidatePage(page);
-            this.ValidatePageSize(pageSize);
-
-            if (string.IsNullOrEmpty(category))
-            {
-                return this.OrderByDescending(x => x.CreatedOn, page, pageSize, isAdminUser);
-            }
-
+            Validator.ValidateThatNumberIsNotPositive(page, nameof(page));
+            Validator.ValidateThatNumberIsNotPositive(pageSize, nameof(pageSize));
 
             var items = this.OrderByDescending(x => x.CreatedOn, page, pageSize, isAdminUser, category);
-
             return items;
         }
 
-        public IEnumerable<NewsWebModel> OrderByAscending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, bool isAdminUser)
+        public IEnumerable<NewsWebModel> OrderByAscending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, bool isAdminUser, string category = null)
         {
-            return this.OrderByAscending(orderExpression, page, pageSize, isAdminUser, null);
-        }
+            Validator.ValidateThatNumberIsNotPositive(page, nameof(page));
+            Validator.ValidateThatNumberIsNotPositive(pageSize, nameof(pageSize));
 
-        public IEnumerable<NewsWebModel> OrderByAscending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, bool isAdminUser, string category)
-        {
-            this.ValidatePage(page);
-            this.ValidatePageSize(pageSize);
-
-            var result = this.newsItemRepository.All;
-
-            if (!string.IsNullOrEmpty(category))
-            {
-                var newsCategoryType = (NewsCategoryType)Enum.Parse(typeof(NewsCategoryType), category);
-
-                result = result.Where(x => x.Category == newsCategoryType);
-            }
-
-            if (!isAdminUser)
-            {
-                result = result.Where(x => x.DeletedOn == null);
-            }
-
-            this.Count = result.Count();
-
+            var result = this.GetNews(category, isAdminUser);
             var items = result
                 .OrderBy(orderExpression)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToList()
                 .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x));
-
+            
             return items;
         }
 
-        public IEnumerable<NewsWebModel> OrderByDescending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, bool isAdminUser)
+        public IEnumerable<NewsWebModel> OrderByDescending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, bool isAdminUser, string category = null)
         {
-            return this.OrderByDescending(orderExpression, page, pageSize, isAdminUser, null);
-        }
+            Validator.ValidateThatNumberIsNotPositive(page, nameof(page));
+            Validator.ValidateThatNumberIsNotPositive(pageSize, nameof(pageSize));
 
-        public IEnumerable<NewsWebModel> OrderByDescending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, bool isAdminUser, string category)
-        {
-            this.ValidatePage(page);
-            this.ValidatePageSize(pageSize);
-
-            var result = this.newsItemRepository.All;
-
-            if (!string.IsNullOrEmpty(category))
-            {
-                var newsCategoryType = (NewsCategoryType)Enum.Parse(typeof(NewsCategoryType), category);
-
-                result = result.Where(x => x.Category == newsCategoryType);
-            }
-
-            if (!isAdminUser)
-            {
-                result = result.Where(x => x.DeletedOn == null);
-            }
-
-            this.Count = result.Count();
-
-            var items = result
+            var news = this.GetNews(category, isAdminUser);
+            var items = news
                .OrderByDescending(orderExpression)
                .Skip((page - 1) * pageSize)
                .Take(pageSize)
@@ -126,33 +79,23 @@ namespace DogeNews.Web.DataSources
             return items;
         }
 
-        private void ValidateConstructorParams(IRepository<NewsItem> newsItemRepository, IMapperProvider mapperProvider)
+        private IQueryable<NewsItem> GetNews(string category, bool isAdminUser)
         {
-            if (newsItemRepository == null)
+            var news = this.newsItemRepository.All;
+
+            if (!string.IsNullOrEmpty(category))
             {
-                throw new ArgumentNullException("newsItemRepository");
+                var newsCategoryType = (NewsCategoryType)Enum.Parse(typeof(NewsCategoryType), category);
+                news = news.Where(x => x.Category == newsCategoryType);
             }
 
-            if (mapperProvider == null)
+            if (!isAdminUser)
             {
-                throw new ArgumentNullException("mapperProvider");
+                news = news.Where(x => x.DeletedOn == null);
             }
-        }
 
-        private void ValidatePage(int page)
-        {
-            if (page <= 0)
-            {
-                throw new ArgumentOutOfRangeException("page");
-            }
-        }
-
-        private void ValidatePageSize(int pageSize)
-        {
-            if (pageSize <= 0)
-            {
-                throw new ArgumentOutOfRangeException("pageSize");
-            }
+            this.Count = news.Count();
+            return news;
         }
     }
 }
