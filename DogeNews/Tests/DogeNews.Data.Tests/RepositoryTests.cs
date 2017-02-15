@@ -10,7 +10,7 @@ using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Data.Repositories;
 using DogeNews.Web.Infrastructure.Mappings.Profiles;
-using DogeNews.Web.Providers.Contracts;
+using DogeNews.Services.Common.Contracts;
 
 using Moq;
 using NUnit.Framework;

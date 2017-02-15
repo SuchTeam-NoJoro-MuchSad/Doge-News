@@ -3,8 +3,8 @@
 using DogeNews.Web.Identity.Managers;
 using DogeNews.Web.Identity.Helpers;
 using DogeNews.Web.Mvp.Account.Login.EventArguments;
-using DogeNews.Web.Services.Contracts;
 using DogeNews.Common.Enums;
+using DogeNews.Services.Common.Contracts;
 
 using WebFormsMvp;
 using Microsoft.AspNet.Identity.Owin;

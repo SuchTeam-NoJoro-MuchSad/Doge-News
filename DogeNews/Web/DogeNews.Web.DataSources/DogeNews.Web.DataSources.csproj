@@ -61,13 +61,13 @@
       <Project>{d764f077-94e9-4c97-86a1-c523472c6ac8}</Project>
       <Name>DogeNews.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Services\DogeNews.Services.Common\DogeNews.Services.Common.csproj">
+      <Project>{1B5F4317-E184-4680-9080-2CABA9854C66}</Project>
+      <Name>DogeNews.Services.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DogeNews.Web.Models\DogeNews.Web.Models.csproj">
       <Project>{c013bb66-e626-4d31-ab5d-922732fedd4d}</Project>
       <Name>DogeNews.Web.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DogeNews.Web.Providers\DogeNews.Web.Providers.csproj">
-      <Project>{83ecb9b9-ea2a-475b-94fe-8cc6f0a42634}</Project>
-      <Name>DogeNews.Web.Providers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

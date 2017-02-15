@@ -116,6 +116,10 @@ namespace DogeNews.Web.Infrastructure.Bindings
             }
 
             kernel.Bind(typeof(IRepository<>)).To(typeof(Repository<>)).InRequestScope();
+            kernel
+                .Bind(typeof(IProjectableRepository<>))
+                .To(typeof(ProjectableRepository<>))
+                .InRequestScope();
             kernel.Bind<INewsDataSource<NewsItem, NewsWebModel>>()
                 .To<NewsDataSource>()
                 .InRequestScope();
@@ -128,8 +132,9 @@ namespace DogeNews.Web.Infrastructure.Bindings
             var assemblies = new List<Assembly>
             {
                 Assembly.Load(ServerConstants.DataAssembly),
-                Assembly.Load(ServerConstants.ServicesAssembly),
-                Assembly.Load(ServerConstants.ProvidersAssembly)
+                Assembly.Load(ServerConstants.ServicesCommonAssembly),
+                Assembly.Load(ServerConstants.ServicesDataAssembly),
+                Assembly.Load(ServerConstants.ServicesHttpAssembly),
             };
 
             return assemblies;

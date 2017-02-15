@@ -1,10 +1,11 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 using DogeNews.Web.Models;
 using DogeNews.Web.Mvp.News.Add.EventArguments;
 using DogeNews.Web.Services.Contracts;
-using DogeNews.Web.Services.Contracts.Http;
+using DogeNews.Services.Common.Contracts;
+using DogeNews.Services.Http.Contracts;
+using DogeNews.Common.Validators;
 
 using WebFormsMvp;
 
@@ -27,7 +28,11 @@ namespace DogeNews.Web.Mvp.News.Add
             IHttpServerUtilityService httpServerService)
                 : base(view)
         {
-            this.ValidateConstructorParams(fileService, articleManagementService, httpContextService, httpPostedFileService, httpServerService);
+            Validator.ValidateThatObjectIsNotNull(fileService, nameof(fileService));
+            Validator.ValidateThatObjectIsNotNull(articleManagementService, nameof(articleManagementService));
+            Validator.ValidateThatObjectIsNotNull(httpContextService, nameof(httpContextService));
+            Validator.ValidateThatObjectIsNotNull(httpPostedFileService, nameof(httpPostedFileService));
+            Validator.ValidateThatObjectIsNotNull(httpServerService, nameof(httpServerService));
 
             this.fileService = fileService;
             this.articleManagementService = articleManagementService;
@@ -65,39 +70,6 @@ namespace DogeNews.Web.Mvp.News.Add
             this.fileService.CreateFile(userFolderPath, fileName);
             this.httpPostedFileService.SaveAs(e.Image, fullImageName);
             this.articleManagementService.Add(username, newsItem);
-        }
-
-        private void ValidateConstructorParams(
-            IFileService fileService,
-            IArticleManagementService articleManagementService,
-            IHttpContextService httpContextService,
-            IHttpPostedFileService httpPostedFileService,
-            IHttpServerUtilityService httpServerService)
-        {
-            if (fileService == null)
-            {
-                throw new ArgumentNullException("fileService");
-            }
-
-            if (articleManagementService == null)
-            {
-                throw new ArgumentNullException("newsService");
-            }
-
-            if (httpContextService == null)
-            {
-                throw new ArgumentNullException("httpContextService");
-            }
-
-            if (httpPostedFileService == null)
-            {
-                throw new ArgumentNullException("httpPostedFileService");
-            }
-
-            if (httpServerService == null)
-            {
-                throw new ArgumentNullException("httpServerService");
-            }
         }
     }
 }

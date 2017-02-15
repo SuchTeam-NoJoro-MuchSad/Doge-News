@@ -6,7 +6,6 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DogeNews.Data.Contracts;
-using DogeNews.Web.Providers.Contracts;
 
 using AutoMapper;
 
@@ -15,13 +14,11 @@ namespace DogeNews.Data.Repositories
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly INewsDbContext context;
-        private readonly IMapperProvider mapperProvider;
         private readonly IDbSet<T> dbSet;
 
-        public Repository(INewsDbContext context, IMapperProvider mapperProvider)
+        public Repository(INewsDbContext context)
         {
             this.context = context;
-            this.mapperProvider = mapperProvider;
 
             this.dbSet = this.context.Set<T>();
         }
@@ -63,42 +60,17 @@ namespace DogeNews.Data.Repositories
             var foundEntity = this.DbSet.FirstOrDefault(filterExpression);
             return foundEntity;
         }
-
-        public TDestitanion GetFirstMapped<TDestitanion>(Expression<Func<T, bool>> filterExpression)
-        {
-            var foundEntity = this.All
-                .Where(filterExpression)
-                .ProjectToFirstOrDefault<TDestitanion>(this.mapperProvider.Configuration);
-
-            return foundEntity;
-        }
-        
+                
         public IEnumerable<T> GetAll()
         {
             return this.GetAll(null);
         }
-
-        public IEnumerable<TDestination> GetAllMapped<TDestination>()
-        {
-            var mappedEntities = this.All.ProjectToList<TDestination>();
-
-            return mappedEntities;
-        }
-
+        
         public IEnumerable<T> GetAll(Expression<Func<T, bool>> filterExpression)
         {
             return this.context.Set<T>().ToList();
         }
-
-        public IEnumerable<TDestination> GetAllMapped<TDestination>(Expression<Func<T, bool>> filterExpression)
-        {
-            var mappedEntities = this.All
-                .Where(filterExpression)
-                .ProjectToList<TDestination>();
-
-            return mappedEntities;
-        }
-
+        
         public T GetById(object id)
         {
             return this.DbSet.Find(id);

@@ -195,7 +195,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 NewsItemId = newsItemId
             };
 
-            this.mockedNewsService.Setup(x => x.GetItemById(It.IsAny<string>())).Returns(new NewsWebModel());
+            this.mockedNewsService.Setup(x => x.GetItemById(It.IsAny<int>())).Returns(new NewsWebModel());
 
             //Act
             presenter.ArticleRestore(null, eventArgs);
@@ -217,13 +217,13 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 NewsItemId = newsItemId
             };
 
-            this.mockedNewsService.Setup(x => x.GetItemById(It.IsAny<string>())).Returns(new NewsWebModel());
+            this.mockedNewsService.Setup(x => x.GetItemById(It.IsAny<int>())).Returns(new NewsWebModel());
 
             //Act
             presenter.ArticleRestore(null, eventArgs);
 
             //Assert
-            this.mockedNewsService.Verify(x => x.GetItemById(newsItemId), Times.Once);
+            this.mockedNewsService.Verify(x => x.GetItemById(1111), Times.Once);
         }
 
 
@@ -282,7 +282,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 NewsItemId = newsItemId
             };
 
-            this.mockedNewsService.Setup(x => x.GetItemById(It.IsAny<string>())).Returns(new NewsWebModel());
+            this.mockedNewsService.Setup(x => x.GetItemById(It.IsAny<int>())).Returns(new NewsWebModel());
 
             //Act
             presenter.ArticleDelete(null, eventArgs);
@@ -304,13 +304,13 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 NewsItemId = newsItemId
             };
 
-            this.mockedNewsService.Setup(x => x.GetItemById(It.IsAny<string>())).Returns(new NewsWebModel());
+            this.mockedNewsService.Setup(x => x.GetItemById(It.IsAny<int>())).Returns(new NewsWebModel());
 
             //Act
             presenter.ArticleDelete(null, eventArgs);
 
             //Assert
-            this.mockedNewsService.Verify(x => x.GetItemById(newsItemId), Times.Once);
+            this.mockedNewsService.Verify(x => x.GetItemById(1111), Times.Once);
         }
 
 

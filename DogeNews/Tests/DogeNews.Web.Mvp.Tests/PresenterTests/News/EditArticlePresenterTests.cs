@@ -260,7 +260,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             var presenter = this.GetPresenter();
             presenter.PagePreInt(null, eventArgs);
 
-            this.mockNewsService.Verify(x => x.GetItemById(It.Is<string>(a => a == id)), Times.Once);
+            this.mockNewsService.Verify(x => x.GetItemById(3), Times.Once);
         }
 
         [Test]

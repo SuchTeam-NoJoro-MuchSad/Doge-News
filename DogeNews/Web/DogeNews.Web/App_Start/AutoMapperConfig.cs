@@ -1,6 +1,6 @@
-﻿using DogeNews.Web.Infrastructure.Bindings;
+﻿using DogeNews.Services.Common.Contracts;
+using DogeNews.Web.Infrastructure.Bindings;
 using DogeNews.Web.Infrastructure.Mappings;
-using DogeNews.Web.Providers.Contracts;
 
 using Ninject;
 

@@ -4,7 +4,7 @@ using DogeNews.Data.Models;
 using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
-using DogeNews.Web.Services.Contracts.Http;
+using DogeNews.Services.Http.Contracts;
 
 using WebFormsMvp;
 
@@ -91,15 +91,16 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
                     PageSize,
                     e.IsAdminUser,
                     this.newsCategory);
-                return;
             }
-
-            this.View.Model.CurrentPageNews = this.newsDataSource.OrderByDescending(
+            else
+            {
+                this.View.Model.CurrentPageNews = this.newsDataSource.OrderByDescending(
                 x => x.CreatedOn,
                 (int)e.ViewState["CurrentPage"],
                 PageSize,
                 e.IsAdminUser,
                 this.newsCategory);
+            }
         }
     }
 }

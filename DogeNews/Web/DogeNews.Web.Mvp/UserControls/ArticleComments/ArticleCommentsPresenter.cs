@@ -11,7 +11,8 @@ namespace DogeNews.Web.Mvp.UserControls.ArticleComments
 
         private IArticleCommentsService articleCommentsService;
 
-        public ArticleCommentsPresenter(IArticleCommentsView view,
+        public ArticleCommentsPresenter(
+            IArticleCommentsView view,
             IArticleCommentsService articleCommentsService)
             : base(view)
         {

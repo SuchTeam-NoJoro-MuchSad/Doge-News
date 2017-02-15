@@ -112,13 +112,13 @@
       <Project>{d764f077-94e9-4c97-86a1-c523472c6ac8}</Project>
       <Name>DogeNews.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Services\DogeNews.Services.Common\DogeNews.Services.Common.csproj">
+      <Project>{1B5F4317-E184-4680-9080-2CABA9854C66}</Project>
+      <Name>DogeNews.Services.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Web\DogeNews.Web.Infrastructure\DogeNews.Web.Infrastructure.csproj">
       <Project>{40862603-390D-4DD3-B892-B69021DE3A18}</Project>
       <Name>DogeNews.Web.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Web\DogeNews.Web.Providers\DogeNews.Web.Providers.csproj">
-      <Project>{83ECB9B9-EA2A-475B-94FE-8CC6F0A42634}</Project>
-      <Name>DogeNews.Web.Providers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

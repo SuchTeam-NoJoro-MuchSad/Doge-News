@@ -14,16 +14,10 @@ namespace DogeNews.Data.Contracts
         T GetById(object id);
 
         T GetFirst(Expression<Func<T, bool>> filterExpression);
-
-        TDestitanion GetFirstMapped<TDestitanion>(Expression<Func<T, bool>> filterExpression);
-
+        
         IEnumerable<T> GetAll();
 
-        IEnumerable<TDestination> GetAllMapped<TDestination>();
-
         IEnumerable<T> GetAll(Expression<Func<T, bool>> filterExpression);
-
-        IEnumerable<TDestination> GetAllMapped<TDestination>(Expression<Func<T, bool>> filterExpression);
         
         void Add(T entity);
 

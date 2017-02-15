@@ -8,8 +8,8 @@ using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.DataSources.Contracts;
-using DogeNews.Web.Providers.Contracts;
 using DogeNews.Common.Validators;
+using DogeNews.Services.Common.Contracts;
 
 namespace DogeNews.Web.DataSources
 {
@@ -40,8 +40,8 @@ namespace DogeNews.Web.DataSources
 
         public IEnumerable<NewsWebModel> GetPageItems(int page, int pageSize, bool isAdminUser, string category = null)
         {
-            Validator.ValidateThatNumberIsNotPositive(page, nameof(page));
-            Validator.ValidateThatNumberIsNotPositive(pageSize, nameof(pageSize));
+            Validator.ValidateThatNumberIsNotNegative(page, nameof(page));
+            Validator.ValidateThatNumberIsNotNegative(pageSize, nameof(pageSize));
 
             var items = this.OrderByDescending(x => x.CreatedOn, page, pageSize, isAdminUser, category);
             return items;
@@ -49,8 +49,8 @@ namespace DogeNews.Web.DataSources
 
         public IEnumerable<NewsWebModel> OrderByAscending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, bool isAdminUser, string category = null)
         {
-            Validator.ValidateThatNumberIsNotPositive(page, nameof(page));
-            Validator.ValidateThatNumberIsNotPositive(pageSize, nameof(pageSize));
+            Validator.ValidateThatNumberIsNotNegative(page, nameof(page));
+            Validator.ValidateThatNumberIsNotNegative(pageSize, nameof(pageSize));
 
             var result = this.GetNews(category, isAdminUser);
             var items = result
@@ -65,8 +65,8 @@ namespace DogeNews.Web.DataSources
 
         public IEnumerable<NewsWebModel> OrderByDescending<TKey>(Expression<Func<NewsItem, TKey>> orderExpression, int page, int pageSize, bool isAdminUser, string category = null)
         {
-            Validator.ValidateThatNumberIsNotPositive(page, nameof(page));
-            Validator.ValidateThatNumberIsNotPositive(pageSize, nameof(pageSize));
+            Validator.ValidateThatNumberIsNotNegative(page, nameof(page));
+            Validator.ValidateThatNumberIsNotNegative(pageSize, nameof(pageSize));
 
             var news = this.GetNews(category, isAdminUser);
             var items = news

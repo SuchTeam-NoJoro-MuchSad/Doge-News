@@ -117,10 +117,6 @@
       <Project>{F96F1B49-6B93-457A-9C23-F1507BAE8A0B}</Project>
       <Name>DogeNews.Web.Mvp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Web\DogeNews.Web.Services\DogeNews.Web.Services.csproj">
-      <Project>{9AB6148E-CBB0-4F6D-99D6-5E86592E53E0}</Project>
-      <Name>DogeNews.Web.Services</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

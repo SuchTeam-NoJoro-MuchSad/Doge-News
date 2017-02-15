@@ -73,12 +73,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Web\DogeNews.Web.Providers\DogeNews.Web.Providers.csproj">
-      <Project>{83ecb9b9-ea2a-475b-94fe-8cc6f0a42634}</Project>
-      <Name>DogeNews.Web.Providers</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

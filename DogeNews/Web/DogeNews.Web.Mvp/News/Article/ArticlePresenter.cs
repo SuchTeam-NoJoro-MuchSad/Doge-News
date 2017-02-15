@@ -1,7 +1,7 @@
-﻿using DogeNews.Web.Mvp.News.Article.EventArguments;
+﻿using DogeNews.Services.Http.Contracts;
+using DogeNews.Web.Mvp.News.Article.EventArguments;
 using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
 using DogeNews.Web.Services.Contracts;
-using DogeNews.Web.Services.Contracts.Http;
 
 using WebFormsMvp;
 
@@ -12,7 +12,7 @@ namespace DogeNews.Web.Mvp.News.Article
         private readonly INewsService newsService;
         private readonly IHttpUtilityService httpUtilityService;
         private readonly IHttpResponseService httpResponseService;
-        private IArticleManagementService articleManagementService;
+        private readonly IArticleManagementService articleManagementService;
 
         public ArticlePresenter(
             IArticleView view,
@@ -34,8 +34,10 @@ namespace DogeNews.Web.Mvp.News.Article
 
         public void ArticleRestore(object sender, OnArticleRestoreEventArgs e)
         {
+            int id = int.Parse(e.NewsItemId);
+
             this.articleManagementService.Restore(e.NewsItemId);
-            this.View.Model.NewsModel = this.newsService.GetItemById(e.NewsItemId);
+            this.View.Model.NewsModel = this.newsService.GetItemById(id);
         }
 
         public void ArticleEdit(object sender, OnArticleEditEventArgs e)
@@ -48,8 +50,10 @@ namespace DogeNews.Web.Mvp.News.Article
 
         public void ArticleDelete(object sender, OnArticleDeleteEventArgs e)
         {
+            int id = int.Parse(e.NewsItemId);
+
             this.articleManagementService.Delete(e.NewsItemId);
-            this.View.Model.NewsModel = this.newsService.GetItemById(e.NewsItemId);
+            this.View.Model.NewsModel = this.newsService.GetItemById(id);
         }
 
         public void PageLoad(object sender, ArticlePageLoadEventArgs eventArgs)

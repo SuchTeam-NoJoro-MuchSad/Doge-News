@@ -1,6 +1,6 @@
 ﻿using DogeNews.Common.Validators;
+using DogeNews.Services.Http.Contracts;
 using DogeNews.Web.Services.Contracts;
-using DogeNews.Web.Services.Contracts.Http;
 
 using WebFormsMvp;
 

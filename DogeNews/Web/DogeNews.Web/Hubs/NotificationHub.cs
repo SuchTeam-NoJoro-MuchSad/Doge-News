@@ -1,5 +1,5 @@
-﻿using DogeNews.Web.Infrastructure.Bindings;
-using DogeNews.Web.Services.Contracts;
+﻿using DogeNews.Services.Common.Contracts;
+using DogeNews.Web.Infrastructure.Bindings;
 
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;

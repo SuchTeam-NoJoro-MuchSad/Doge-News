@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 
+using DogeNews.Services.Common.Contracts;
 using DogeNews.Web.Infrastructure.Mappings.Profiles;
-using DogeNews.Web.Providers.Contracts;
 
 namespace DogeNews.Web.Infrastructure.Mappings
 {

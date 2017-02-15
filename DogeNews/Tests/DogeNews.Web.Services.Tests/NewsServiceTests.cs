@@ -10,6 +10,9 @@ using Moq;
 using NUnit.Framework;
 
 using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper.Configuration;
 
 namespace DogeNews.Web.Services.Tests
 {
@@ -107,27 +110,19 @@ namespace DogeNews.Web.Services.Tests
             Assert.AreEqual("imageRepository", exception.ParamName);
         }
 
-        [Test]
-        public void GetItemByTitle_ShouldCallNewsRepositoryGetFirst()
+        [TestCase("")]
+        [TestCase(null)]
+        public void GetItemByTitle_ShouldThrowArgumentNullExceptionWhenTitleIsNullOrEmpty(string title)
         {
-            var newsWebModel = new NewsWebModel();
-            string title = "title";
-            var newsItem = new NewsItem { Title = title };
-
-            this.mockMapper.Setup(x => x.Map<NewsWebModel>(It.IsAny<NewsItem>())).Returns(newsWebModel);
-            this.mockMapperProvider.SetupGet(x => x.Instance).Returns(this.mockMapper.Object);
-            this.mockNewsItemsRepo
-                .Setup(x => x.GetFirst(It.IsAny<Expression<Func<NewsItem, bool>>>()))
-                .Returns(newsItem);
-
             var service = this.GetNewsService();
+            var exception = Assert.Throws<ArgumentNullException>(() => service.GetItemByTitle(title));
+            string expectedParamName = "title";
 
-            service.GetItemByTitle(title);
-            this.mockNewsItemsRepo.Verify(x => x.GetFirst(It.IsAny<Expression<Func<NewsItem, bool>>>()), Times.Once);
+            Assert.AreEqual(expectedParamName, exception.ParamName);
         }
 
         [Test]
-        public void GetItemByTitle_MapperMapShouldBeCalled()
+        public void GetItemByTitle_ShouldCallGetFirstMappedNewsRepositoryGetFirst()
         {
             var newsWebModel = new NewsWebModel();
             string title = "title";
@@ -142,7 +137,7 @@ namespace DogeNews.Web.Services.Tests
             var service = this.GetNewsService();
 
             service.GetItemByTitle(title);
-            this.mockMapper.Verify(x => x.Map<NewsWebModel>(It.Is<NewsItem>(a => a == newsItem)), Times.Once);
+            this.mockNewsItemsRepo.Verify(x => x.GetFirstMapped<NewsWebModel>(It.IsAny<Expression<Func<NewsItem, bool>>>()), Times.Once);
         }
 
         [Test]
@@ -152,78 +147,64 @@ namespace DogeNews.Web.Services.Tests
             var newsWebModel = new NewsWebModel { Title = title };
             var newsItem = new NewsItem { Title = title };
 
-            this.mockMapper.Setup(x => x.Map<NewsWebModel>(It.IsAny<NewsItem>())).Returns(newsWebModel);
-            this.mockMapperProvider.SetupGet(x => x.Instance).Returns(this.mockMapper.Object);
             this.mockNewsItemsRepo
-                .Setup(x => x.GetFirst(It.IsAny<Expression<Func<NewsItem, bool>>>()))
-                .Returns(newsItem);
+                .Setup(x => x.GetFirstMapped<NewsWebModel>(It.IsAny<Expression<Func<NewsItem, bool>>>()))
+                .Returns(newsWebModel);
 
             var service = this.GetNewsService();
             var foundItem = service.GetItemByTitle(title);
 
-            Assert.AreEqual(title, foundItem.Title);
+            Assert.AreEqual(newsWebModel, foundItem);
+        }
+
+        [TestCase(0)]
+        [TestCase(-1)]
+        public void GetItemById_ShouldThrowArgumentOutOfRangeExceptionWhenIdIsNotGreaterThanZero(int id)
+        {
+            var service = this.GetNewsService();
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.GetItemById(id));
+            string expectedParamName = "id";
+
+            Assert.AreEqual(expectedParamName, exception.ParamName);
         }
 
         [Test]
-        public void GetItemById_NewsRepositoryGetFirstShouldBeCalled()
+        public void GetItemById_ShouldCallNewsRepositoryGetFirstMapped()
         {
-            int id = 123;
-            var newsWebModel = new NewsWebModel { Id = id };
-            var newsItem = new NewsItem { Id = id };
-
-            this.mockMapper.Setup(x => x.Map<NewsWebModel>(It.IsAny<NewsItem>())).Returns(newsWebModel);
-            this.mockMapperProvider.SetupGet(x => x.Instance).Returns(this.mockMapper.Object);
-            this.mockNewsItemsRepo
-                .Setup(x => x.GetFirst(It.IsAny<Expression<Func<NewsItem, bool>>>()))
-                .Returns(newsItem);
-
             var service = this.GetNewsService();
+            int id = 1;
 
-            service.GetItemById(id.ToString());
-            this.mockNewsItemsRepo.Verify(x => x.GetFirst(It.IsAny<Expression<Func<NewsItem, bool>>>()), Times.Once);
+            service.GetItemById(id);
+            this.mockNewsItemsRepo.Verify(x => x.GetFirstMapped<NewsWebModel>(It.IsAny<Expression<Func<NewsItem, bool>>>()), Times.Once);
         }
 
         [Test]
-        public void GetItemById_MapperMapShouldBeCalled()
+        public void GetItemById_ShouldReturnTheCorrectNewsItem()
         {
-            int id = 123;
-            var newsWebModel = new NewsWebModel { Id = id };
-            var newsItem = new NewsItem { Id = id };
+            var newsItem = new NewsWebModel();
 
-            this.mockMapper.Setup(x => x.Map<NewsWebModel>(It.IsAny<NewsItem>())).Returns(newsWebModel);
-            this.mockMapperProvider.SetupGet(x => x.Instance).Returns(this.mockMapper.Object);
             this.mockNewsItemsRepo
-                .Setup(x => x.GetFirst(It.IsAny<Expression<Func<NewsItem, bool>>>()))
+                .Setup(x => x.GetFirstMapped<NewsWebModel>(It.IsAny<Expression<Func<NewsItem, bool>>>()))
                 .Returns(newsItem);
 
             var service = this.GetNewsService();
+            int id = 1;
 
-            service.GetItemById(id.ToString());
-            this.mockMapper.Verify(x => x.Map<NewsWebModel>(It.Is<NewsItem>(a => a == newsItem)), Times.Once);
+            var foundItem = service.GetItemById(id);
+            Assert.AreEqual(newsItem, foundItem);
         }
-
-        [Test]
-        public void GetItemById_ShouldReturnCorrectObject()
-        {
-            int id = 123;
-            var newsWebModel = new NewsWebModel { Id = id };
-            var newsItem = new NewsItem { Id = id };
-
-            this.mockMapper.Setup(x => x.Map<NewsWebModel>(It.IsAny<NewsItem>())).Returns(newsWebModel);
-            this.mockMapperProvider.SetupGet(x => x.Instance).Returns(this.mockMapper.Object);
-            this.mockNewsItemsRepo
-                .Setup(x => x.GetFirst(It.IsAny<Expression<Func<NewsItem, bool>>>()))
-                .Returns(newsItem);
-
-            var service = this.GetNewsService();
-
-            var foundItem = service.GetItemById(id.ToString());
-            Assert.AreEqual(id, foundItem.Id);
-        }
-
+        
         [Test]
         public void GetSliderNews_NewsRepositoryAllShouldBeCalled()
         {
+            var newsItems = new List<NewsItem>().AsQueryable();
+            var configProvider = new Mock<IConfigurationProvider>();
+            
+            this.mockNewsItemsRepo.SetupGet(x => x.All).Returns(newsItems);
+            this.mockMapperProvider
+                .SetupGet(x => x.Configuration)
+                .Returns(configProvider.Object);
+
             var service = this.GetNewsService();
 
             service.GetSliderNews();

@@ -120,6 +120,18 @@
       <Project>{d764f077-94e9-4c97-86a1-c523472c6ac8}</Project>
       <Name>DogeNews.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Services\DogeNews.Services.Common\DogeNews.Services.Common.csproj">
+      <Project>{1b5f4317-e184-4680-9080-2caba9854c66}</Project>
+      <Name>DogeNews.Services.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\DogeNews.Services.Data\DogeNews.Services.Data.csproj">
+      <Project>{b7e1a355-4f75-45a3-8039-f68029b3538d}</Project>
+      <Name>DogeNews.Services.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\DogeNews.Services.Http\DogeNews.Services.Http.csproj">
+      <Project>{53ae22ce-9d7e-4ee9-a8b0-9103e3476829}</Project>
+      <Name>DogeNews.Services.Http</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DogeNews.Web.DataSources\DogeNews.Web.DataSources.csproj">
       <Project>{50C68F0E-347B-4E17-AD6C-4D034702333C}</Project>
       <Name>DogeNews.Web.DataSources</Name>
@@ -131,14 +143,6 @@
     <ProjectReference Include="..\DogeNews.Web.Mvp\DogeNews.Web.Mvp.csproj">
       <Project>{F96F1B49-6B93-457A-9C23-F1507BAE8A0B}</Project>
       <Name>DogeNews.Web.Mvp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DogeNews.Web.Providers\DogeNews.Web.Providers.csproj">
-      <Project>{83ecb9b9-ea2a-475b-94fe-8cc6f0a42634}</Project>
-      <Name>DogeNews.Web.Providers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DogeNews.Web.Services\DogeNews.Web.Services.csproj">
-      <Project>{9ab6148e-cbb0-4f6d-99d6-5e86592e53e0}</Project>
-      <Name>DogeNews.Web.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

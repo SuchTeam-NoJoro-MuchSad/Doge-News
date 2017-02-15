@@ -117,14 +117,6 @@
       <Project>{C013BB66-E626-4D31-AB5D-922732FEDD4D}</Project>
       <Name>DogeNews.Web.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Web\DogeNews.Web.Providers\DogeNews.Web.Providers.csproj">
-      <Project>{83ecb9b9-ea2a-475b-94fe-8cc6f0a42634}</Project>
-      <Name>DogeNews.Web.Providers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Web\DogeNews.Web.Services\DogeNews.Web.Services.csproj">
-      <Project>{9ab6148e-cbb0-4f6d-99d6-5e86592e53e0}</Project>
-      <Name>DogeNews.Web.Services</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

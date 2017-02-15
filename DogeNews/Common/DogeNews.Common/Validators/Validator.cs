@@ -20,7 +20,7 @@ namespace DogeNews.Common.Validators
             }
         }
 
-        public static void ValidateThatNumberIsNotPositive(double number, string valueName)
+        public static void ValidateThatNumberIsNotNegative(double number, string valueName)
         {
             if (number <= 0)
             {
