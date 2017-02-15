@@ -15,14 +15,16 @@ namespace DogeNews.Data.Contracts
 
         T GetFirst(Expression<Func<T, bool>> filterExpression);
 
+        TDestitanion GetFirstMapped<TDestitanion>(Expression<Func<T, bool>> filterExpression);
+
         IEnumerable<T> GetAll();
+
+        IEnumerable<TDestination> GetAllMapped<TDestination>();
 
         IEnumerable<T> GetAll(Expression<Func<T, bool>> filterExpression);
 
-        IEnumerable<T> GetAll<T1>(Expression<Func<T, bool>> filterExpression, Expression<Func<T, T1>> sortExpression);
-
-        IEnumerable<T2> GetAll<T1, T2>(Expression<Func<T, bool>> filterExpression, Expression<Func<T, T1>> sortExpression, Expression<Func<T, T2>> selectExpression);
-
+        IEnumerable<TDestination> GetAllMapped<TDestination>(Expression<Func<T, bool>> filterExpression);
+        
         void Add(T entity);
 
         void Update(T entity);

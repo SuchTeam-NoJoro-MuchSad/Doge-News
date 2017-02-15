@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 using DogeNews.Common.Enums;
 
 namespace DogeNews.Web.Models
@@ -22,5 +24,7 @@ namespace DogeNews.Web.Models
         public DateTime? CreatedOn { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        public IEnumerable<CommentWebModel> Comments { get; set; }
     }
 }

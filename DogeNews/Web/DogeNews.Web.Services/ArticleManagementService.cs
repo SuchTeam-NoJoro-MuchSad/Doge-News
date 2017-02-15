@@ -5,6 +5,7 @@ using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.Providers.Contracts;
 using DogeNews.Web.Services.Contracts;
+using DogeNews.Common.Validators;
 
 namespace DogeNews.Web.Services
 {
@@ -24,7 +25,11 @@ namespace DogeNews.Web.Services
             IRepository<Image> imageRepository,
             IDateTimeProvider dateTimeProvider)
         {
-            this.ValidateConstructorParams(userRepository, newsRepository, newsData, mapperProvider, imageRepository);
+            Validator.ValidateThatObjectIsNotNull(newsRepository, nameof(newsRepository));
+            Validator.ValidateThatObjectIsNotNull(newsData, nameof(newsData));
+            Validator.ValidateThatObjectIsNotNull(mapperProvider, nameof(mapperProvider));
+            Validator.ValidateThatObjectIsNotNull(imageRepository, nameof(imageRepository));
+            Validator.ValidateThatObjectIsNotNull(dateTimeProvider, nameof(dateTimeProvider));
 
             this.userRepository = userRepository;
             this.newsRepository = newsRepository;
@@ -64,6 +69,7 @@ namespace DogeNews.Web.Services
         public void Update(NewsWebModel model)
         {
             var entityToUpdate = this.newsRepository.GetById(model.Id);
+
             entityToUpdate.Title = model.Title;
             entityToUpdate.Category = model.Category;
             entityToUpdate.Content = model.Content;
@@ -104,42 +110,10 @@ namespace DogeNews.Web.Services
 
             var id = int.Parse(newsItemId);
             var foundItem = this.newsRepository.GetById(id);
+
             foundItem.DeletedOn = this.dateTimeProvider.Now;
             this.newsRepository.Update(foundItem);
             this.newsData.Commit();
-        }
-
-        private void ValidateConstructorParams(
-            IRepository<User> userRepository,
-            IRepository<NewsItem> newsRepository,
-            INewsData newsData,
-            IMapperProvider mapperProvider,
-            IRepository<Image> imageRepository)
-        {
-            if (userRepository == null)
-            {
-                throw new ArgumentNullException("userRepository");
-            }
-
-            if (newsRepository == null)
-            {
-                throw new ArgumentNullException("newsRepository");
-            }
-
-            if (newsData == null)
-            {
-                throw new ArgumentNullException("newsData");
-            }
-
-            if (mapperProvider == null)
-            {
-                throw new ArgumentNullException("mapperProvider");
-            }
-
-            if (imageRepository == null)
-            {
-                throw new ArgumentNullException("imageRepository");
-            }
         }
     }
 }

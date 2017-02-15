@@ -349,9 +349,9 @@
     <Compile Include="Admin\Pannel.aspx.designer.cs">
       <DependentUpon>Pannel.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BindingsConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\MappingsConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Default.aspx.cs">

@@ -99,6 +99,7 @@
     <Compile Include="Bindings\Modules\MvpModule.cs" />
     <Compile Include="Bindings\NinjectWeb.cs" />
     <Compile Include="Bindings\NinjectWebCommon.cs" />
+    <Compile Include="Mappings\MappingsConfig.cs" />
     <Compile Include="Mappings\Profiles\DataMappingsProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

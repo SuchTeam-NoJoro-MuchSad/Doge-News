@@ -10,6 +10,8 @@ using DogeNews.Data.Contracts;
 using DogeNews.Web.Providers.Contracts;
 using DogeNews.Common.Validators;
 
+using AutoMapper;
+
 namespace DogeNews.Web.Services
 {
     public class NewsService : INewsService
@@ -48,8 +50,7 @@ namespace DogeNews.Web.Services
 
         public NewsWebModel GetItemByTitle(string title)
         {
-            var foundNewsItem = this.newsRepository.GetFirst(x => x.Title == title);
-            var newsWebModel = this.mapperProvider.Instance.Map<NewsWebModel>(foundNewsItem);
+            var newsWebModel = this.newsRepository.GetFirstMapped<NewsWebModel>(x => x.Title == title);
 
             return newsWebModel;
         }
@@ -57,8 +58,7 @@ namespace DogeNews.Web.Services
         public NewsWebModel GetItemById(string id)
         {
             int parsedId = int.Parse(id);
-            var foundNewsItem = this.newsRepository.GetFirst(x => x.Id == parsedId);
-            var newsWebModel = this.mapperProvider.Instance.Map<NewsWebModel>(foundNewsItem);
+            var newsWebModel = this.newsRepository.GetFirstMapped<NewsWebModel>(x => x.Id == parsedId);
 
             return newsWebModel;
         }
@@ -69,8 +69,7 @@ namespace DogeNews.Web.Services
                 .All
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(SliderNewsCount)
-                .ToList()
-                .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x));
+                .ProjectToList<NewsWebModel>(this.mapperProvider.Configuration);
 
             return news;
         }
@@ -78,10 +77,7 @@ namespace DogeNews.Web.Services
         public IEnumerable<NewsWebModel> GetNewsItemsByCategory(string category)
         {
             var enumeration = (NewsCategoryType)Enum.Parse(typeof(NewsCategoryType), category);
-            var news = this.newsRepository
-                .GetAll(x => x.Category == enumeration)
-                .Select(x => this.mapperProvider.Instance.Map<NewsWebModel>(x))
-                .ToList();
+            var news = this.newsRepository.GetAllMapped<NewsWebModel>(x => x.Category == enumeration);
 
             return news;
         }

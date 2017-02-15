@@ -4,10 +4,6 @@ using System.Web.Optimization;
 using System.Web.Routing;
 
 using DogeNews.Web.App_Start;
-using DogeNews.Web.Providers.Contracts;
-using DogeNews.Web.Infrastructure.Bindings;
-
-using Ninject;
 
 namespace DogeNews.Web
 {
@@ -18,9 +14,7 @@ namespace DogeNews.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             BindingsConfig.BindPresenterFactory();
-
-            var mapperProvider = NinjectWebCommon.Kernel.Get<IMapperProvider>();
-            (new MappingsConfig(mapperProvider)).Map();
+            AutoMapperConfig.RegisterMappings();
         }
 
         public void Application_Error(object sender, EventArgs e)

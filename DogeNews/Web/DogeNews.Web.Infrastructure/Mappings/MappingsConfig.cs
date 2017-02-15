@@ -3,7 +3,7 @@
 using DogeNews.Web.Infrastructure.Mappings.Profiles;
 using DogeNews.Web.Providers.Contracts;
 
-namespace DogeNews.Web.App_Start
+namespace DogeNews.Web.Infrastructure.Mappings
 {
     public class MappingsConfig
     {
@@ -14,7 +14,9 @@ namespace DogeNews.Web.App_Start
             this.mapperProvider = mapperProvider;
         }
 
-        public void Map()
+        public static MapperConfiguration Configuration { get; private set; }
+
+        public static IMapper Map()
         {
             var config = new MapperConfiguration(cfg =>
             {
@@ -22,7 +24,9 @@ namespace DogeNews.Web.App_Start
             });
 
             var mapper = config.CreateMapper();
-            this.mapperProvider.Instance = mapper;
+            
+            Configuration = config;
+            return mapper;
         }
     }
 }

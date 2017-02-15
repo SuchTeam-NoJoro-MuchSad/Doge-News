@@ -47,13 +47,11 @@ namespace DogeNews.Web.Services
         
         public IEnumerable<CommentWebModel> GetCommentsForArticleByTitle(string title)
         {
-            var newsItem = newsItemRepository.GetFirst(x => x.Title == title);
-            var comments = newsItem.Comments;
-            IEnumerable<CommentWebModel> mappedModels = this.mapperProvider.Instance.Map<IEnumerable<CommentWebModel>>(comments);
+            var newsItem = newsItemRepository.GetFirstMapped<NewsWebModel>(x => x.Title == title);
 
-            this.count = mappedModels.Count();
+            this.count = newsItem.Comments.Count();
 
-            return mappedModels;
+            return newsItem.Comments;
         }
 
         public void AddComment(string newsItemTitle, string commentContent, string userName)

@@ -342,7 +342,8 @@ namespace DogeNews.Data.Tests
                 new Comment { Content = "asaasd as das dd", Id = 3, User = null},
                 new Comment { Content = "asd", Id = expectedSecondElementId, User = null },
                 new Comment { Content = "asd", Id = expctedFirstElementId, User = null}
-            }.AsQueryable();
+            }
+            .AsQueryable();
 
             var mockContext = new Mock<INewsDbContext>();
             var mockSet = new Mock<IDbSet<Comment>>();

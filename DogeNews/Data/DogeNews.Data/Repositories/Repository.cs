@@ -6,17 +6,23 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DogeNews.Data.Contracts;
+using DogeNews.Web.Providers.Contracts;
+
+using AutoMapper;
 
 namespace DogeNews.Data.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly INewsDbContext context;
+        private readonly IMapperProvider mapperProvider;
         private readonly IDbSet<T> dbSet;
 
-        public Repository(INewsDbContext context)
+        public Repository(INewsDbContext context, IMapperProvider mapperProvider)
         {
             this.context = context;
+            this.mapperProvider = mapperProvider;
+
             this.dbSet = this.context.Set<T>();
         }
 
@@ -58,6 +64,46 @@ namespace DogeNews.Data.Repositories
             return foundEntity;
         }
 
+        public TDestitanion GetFirstMapped<TDestitanion>(Expression<Func<T, bool>> filterExpression)
+        {
+            var foundEntity = this.All
+                .Where(filterExpression)
+                .ProjectToFirstOrDefault<TDestitanion>(this.mapperProvider.Configuration);
+
+            return foundEntity;
+        }
+        
+        public IEnumerable<T> GetAll()
+        {
+            return this.GetAll(null);
+        }
+
+        public IEnumerable<TDestination> GetAllMapped<TDestination>()
+        {
+            var mappedEntities = this.All.ProjectToList<TDestination>();
+
+            return mappedEntities;
+        }
+
+        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filterExpression)
+        {
+            return this.context.Set<T>().ToList();
+        }
+
+        public IEnumerable<TDestination> GetAllMapped<TDestination>(Expression<Func<T, bool>> filterExpression)
+        {
+            var mappedEntities = this.All
+                .Where(filterExpression)
+                .ProjectToList<TDestination>();
+
+            return mappedEntities;
+        }
+
+        public T GetById(object id)
+        {
+            return this.DbSet.Find(id);
+        }
+
         public void Add(T entity)
         {
             if (entity == null)
@@ -91,54 +137,10 @@ namespace DogeNews.Data.Repositories
             entry.State = EntityState.Modified;
         }
 
-        public IEnumerable<T> GetAll()
-        {
-            return this.GetAll(null);
-        }
-
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>> filterExpression)
-        {
-            return this.GetAll<object>(filterExpression, null);
-        }
-
-        public IEnumerable<T> GetAll<T1>(Expression<Func<T, bool>> filterExpression, Expression<Func<T, T1>> sortExpression)
-        {
-            return this.GetAll<T1, T>(filterExpression, sortExpression, null);
-        }
-
-        public IEnumerable<T2> GetAll<T1, T2>(Expression<Func<T, bool>> filterExpression, Expression<Func<T, T1>> sortExpression, Expression<Func<T, T2>> selectExpression)
-        {
-            IQueryable<T> result = this.DbSet;
-
-            if (filterExpression != null)
-            {
-                result = result.Where(filterExpression);
-            }
-
-            if (sortExpression != null)
-            {
-                result = result.OrderBy(sortExpression);
-            }
-
-            if (selectExpression != null)
-            {
-                return result.Select(selectExpression).ToList();
-            }
-            else
-            {
-                return result.OfType<T2>().ToList();
-            }
-        }
-
-        public T GetById(object id)
-        {
-            return this.DbSet.Find(id);
-        }
-
-
         private DbEntityEntry AttachIfDetached(T entity)
         {
             var entry = this.Context.Entry(entity);
+
             if (entry.State == EntityState.Detached)
             {
                 this.DbSet.Attach(entity);
