@@ -103,24 +103,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Data\DogeNews.Data.Models\DogeNews.Data.Models.csproj">
-      <Project>{6bfa72f8-752d-4e6a-b936-6100028fe2dd}</Project>
-      <Name>DogeNews.Data.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\DogeNews.Data\DogeNews.Data.csproj">
-      <Project>{d764f077-94e9-4c97-86a1-c523472c6ac8}</Project>
-      <Name>DogeNews.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Services\DogeNews.Services.Common\DogeNews.Services.Common.csproj">
-      <Project>{1B5F4317-E184-4680-9080-2CABA9854C66}</Project>
-      <Name>DogeNews.Services.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Web\DogeNews.Web.Infrastructure\DogeNews.Web.Infrastructure.csproj">
-      <Project>{40862603-390D-4DD3-B892-B69021DE3A18}</Project>
-      <Name>DogeNews.Web.Infrastructure</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

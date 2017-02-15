@@ -81,16 +81,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Common\DogeNews.Common\DogeNews.Common.csproj">
-      <Project>{5fd6dc3f-321d-456a-9dc4-0010ebebb22b}</Project>
-      <Name>DogeNews.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\DogeNews.Data.Models\DogeNews.Data.Models.csproj">
-      <Project>{6bfa72f8-752d-4e6a-b936-6100028fe2dd}</Project>
-      <Name>DogeNews.Data.Models</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

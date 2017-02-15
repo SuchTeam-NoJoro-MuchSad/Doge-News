@@ -101,24 +101,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\DogeNews.Common\DogeNews.Common.csproj">
-      <Project>{5FD6DC3F-321D-456A-9DC4-0010EBEBB22B}</Project>
-      <Name>DogeNews.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\DogeNews.Data.Models\DogeNews.Data.Models.csproj">
-      <Project>{6BFA72F8-752D-4E6A-B936-6100028FE2DD}</Project>
-      <Name>DogeNews.Data.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Data\DogeNews.Data\DogeNews.Data.csproj">
-      <Project>{D764F077-94E9-4C97-86A1-C523472C6AC8}</Project>
-      <Name>DogeNews.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Web\DogeNews.Web.Models\DogeNews.Web.Models.csproj">
-      <Project>{C013BB66-E626-4D31-AB5D-922732FEDD4D}</Project>
-      <Name>DogeNews.Web.Models</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>

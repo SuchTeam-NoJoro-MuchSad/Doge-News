@@ -1,0 +1,572 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\..\..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\..\..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{35715B91-19FA-4AA1-B9A9-01C82C1FF592}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DogeNews.Web</RootNamespace>
+    <AssemblyName>DogeNews.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.bootstrap">
+      <HintPath>..\..\..\packages\AspNet.ScriptManager.bootstrap.3.0.0\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.jQuery">
+      <HintPath>..\..\..\packages\AspNet.ScriptManager.jQuery.1.10.2\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.MSAjax">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.ScriptManager.MSAjax.5.0.0\lib\net45\Microsoft.ScriptManager.MSAjax.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.WebForms">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.ScriptManager.WebForms.5.0.0\lib\net45\Microsoft.ScriptManager.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebFormsMvp">
+      <HintPath>..\..\..\Tests\DogeNews.Web.Mvp.Tests\bin\Debug\WebFormsMvp.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Web.Optimization.WebForms">
+      <Private>True</Private>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Web.Optimization.WebForms.1.1.3\lib\net45\Microsoft.AspNet.Web.Optimization.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Providers.Core.2.0.0\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\..\..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\..\..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\..\..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\..\..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\..\..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\..\..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\..\..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Account\Login.aspx" />
+    <Content Include="Account\OpenAuthProviders.ascx" />
+    <Content Include="Account\Register.aspx" />
+    <Content Include="Admin\Pannel.aspx" />
+    <Content Include="Content\Account\login.css" />
+    <Content Include="Content\Account\register.css" />
+    <Content Include="Content\Errors\error-page.css" />
+    <Content Include="Content\materialize\css\materialize.css" />
+    <Content Include="Content\materialize\css\materialize.min.css" />
+    <Content Include="Content\News\add.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\UserControls\news-grid.css" />
+    <Content Include="Errors\404Page.aspx" />
+    <Content Include="Errors\DefaultErrorPage.aspx" />
+    <Content Include="Account\Web.config" />
+    <Content Include="News\Add.aspx" />
+    <Content Include="News\Article.aspx" />
+    <Content Include="News\Category.aspx" />
+    <Content Include="News\Edit.aspx" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com97559e69-bfdf-4b56-8385-98074f6364e5" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-coma0d3627d-d78a-4d18-ad39-421915f27896" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-comfb7eab47-8bed-4b24-9f2c-b77eb58c4492" />
+    <Content Include="Resources\Images\admin\admin3d54f83b-8b00-4c96-a4ba-9615c07c993b" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.woff2" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.woff2" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.woff2" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.woff2" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.woff2" />
+    <Content Include="fonts\From Cartoon Blocks.ttf" />
+    <Content Include="fonts\THE CURIOUS INCIDENT.ttf" />
+    <Content Include="Images\404-monster.png" />
+    <Content Include="Images\logo-img.png" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com08ccd014-3408-4493-8aee-325dd239c8ac.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com0b1110a8-b4f5-4056-9fdd-cd87354fff8f.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com0c18257f-deda-40e9-b5f5-496264b9371d.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com229151d4-6771-4951-a20b-78298c5e07d3.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com3143b80e-d84d-45b0-905c-a0ca41cc4f07.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com4758d9cd-04d8-4422-a925-0810983a5add.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com514f9abb-b05a-498c-89cd-9310e347c157.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com5372ee93-c10b-44d7-92ce-f9e3e97fbb9a.jpeg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com5acf5d7e-c44c-4381-9e4c-4602cc38c9cc.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com6bb65696-f4e5-4475-8134-1294138f1e64.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com6c2c918b-f120-43fa-879c-9227d72a4479.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com71796332-20fb-46eb-b6fb-72ccb5863e7a.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com73e547a3-b1ec-483f-a08a-7c5b2d12c326.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com78b80069-68e6-4252-a34b-eafc8497e459.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-com7ed01a2b-dccb-4966-a586-014997e384cb.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-comaa1e3994-aea0-4d2f-ac6b-3ed8295ff56f.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-comb1a6625c-2c17-4804-abfe-f3735cc40627.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-combd43cdb5-2a06-4b2a-89be-59995353def3.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-comc810e824-ea68-4749-ba91-41aead775309.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-comd4417578-7e46-4ac2-ad60-b5419cd07e03.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-comd8cc7173-1719-4b01-bb65-8a113691189d.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-comddecd551-988b-4fb1-b0af-025efe4533f1.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-come112d65e-eb7b-42ed-8c3e-ba4c8faa0ff7.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-come50febb1-c62d-4b92-96db-ac74a9a2c055.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-come9f51fee-efd1-4ec9-8e7c-4a614a81be46.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-comf5473996-6946-4780-a547-80c023d3b363.jpg" />
+    <Content Include="Resources\Images\admin%40admin.com\admin-admin-comfa9d81b7-13e9-4bcd-9b49-834b2e29a0f4.jpg" />
+    <Content Include="Resources\Images\admin\admin067c885f-3f11-41d3-9b9a-a034b6f7f6cc.jpg" />
+    <Content Include="Resources\Images\admin\admin0fa44a79-6189-4c1a-b077-9b35de3f8745.jpg" />
+    <Content Include="Resources\Images\admin\admin10c2462b-bec1-47ca-8e16-2e1a0170f273.jpg" />
+    <Content Include="Resources\Images\admin\admin1aa7077a-0a58-4503-a4e3-cca091c9f2d8.jpg" />
+    <Content Include="Resources\Images\admin\admin2807e4bc-8230-46e1-b69b-b56f9ec3591c.jpg" />
+    <Content Include="Resources\Images\admin\admin2c10207d-bd6d-406e-b361-cfa709beeb8d.jpg" />
+    <Content Include="Resources\Images\admin\admin367120d8-d74e-415f-b99d-cce6eaf082af.png" />
+    <Content Include="Resources\Images\admin\admin3aea6a27-df18-4f9a-a3d7-4d6c5a9d32e1.jpg" />
+    <Content Include="Resources\Images\admin\admin4d33877b-2767-4a02-b799-1fc6b8c9df72.jpg" />
+    <Content Include="Resources\Images\admin\admin54f67333-2f4e-4dc0-81b5-d7e8dc729ef7.jpg" />
+    <Content Include="Resources\Images\admin\admin5d88b0a5-f152-44fa-8b5d-047982beaaa5.jpg" />
+    <Content Include="Resources\Images\admin\admin7091afa3-db39-4fb1-9a97-8949820b935b.jpg" />
+    <Content Include="Resources\Images\admin\admin7931746f-76ab-491a-9217-7d9a62a13d4c.jpg" />
+    <Content Include="Resources\Images\admin\admin7ab53a5e-b76d-40d8-b036-8d62f7507a8b.jpg" />
+    <Content Include="Resources\Images\admin\admin7dc647a6-6eac-4dd1-be71-4fca41d58f61.jpg" />
+    <Content Include="Resources\Images\admin\admin7e4fa72c-a3cf-4a51-a864-79b8790fc982.jpg" />
+    <Content Include="Resources\Images\admin\admin7f9bf033-0323-4ca7-8d0b-02f0700c3d22.jpg" />
+    <Content Include="Resources\Images\admin\admin8b0cc54c-8ec8-4db7-bc35-57a7837e94ba.jpg" />
+    <Content Include="Resources\Images\admin\admin8f7c827f-2a65-46a5-862c-457dcf94ad6f.jpg" />
+    <Content Include="Resources\Images\admin\admina2a07072-d21a-41a5-a7fc-ca60e1d15317.jpg" />
+    <Content Include="Resources\Images\admin\admina3c10b45-2805-4a5c-9f3f-bd996dfcb60f.jpg" />
+    <Content Include="Resources\Images\admin\admina6a51266-9a8e-4f5e-bd56-a13e7455d767.jpg" />
+    <Content Include="Resources\Images\admin\adminac859848-b25f-4f18-a480-b2f767cbe7e8.jpg" />
+    <Content Include="Resources\Images\admin\adminacdb72ca-953e-4bfd-990f-5de216110d81.jpg" />
+    <Content Include="Resources\Images\admin\adminaef0d8f5-ab14-4807-be7a-38ece07b0559.jpg" />
+    <Content Include="Resources\Images\admin\adminb897896c-845b-4fca-a17c-ecbfdb302e7b.jpg" />
+    <Content Include="Resources\Images\admin\adminc03d8c7e-8618-4ad6-90fc-ffdc8b56c7f0.jpg" />
+    <Content Include="Resources\Images\admin\adminc613ff8f-8be9-40ca-a347-1da806590bf1.jpg" />
+    <Content Include="Resources\Images\admin\adminccaa957d-dadc-4189-acb9-0eb621ddef53.jpg" />
+    <Content Include="Resources\Images\admin\admind41f8a6c-cce1-4f10-af0b-784651d9ba11.jpg" />
+    <Content Include="Resources\Images\admin\admindb5b21f8-217f-4113-bb33-fd4d8f6e865a.jpg" />
+    <Content Include="Resources\Images\admin\admineeab9931-22bd-4ec2-a283-f8bdd24ccbf4.jpg" />
+    <Content Include="Resources\Images\admin\adminefaf2320-c2b1-4ede-b657-1b4de3fee054.jpg" />
+    <Content Include="Resources\Images\admin\adminf0eefce0-a0df-439d-9a70-e29e40c858ec.jpg" />
+    <Content Include="Scripts\Common\hubs.js" />
+    <Content Include="Scripts\Common\notificator.js" />
+    <Content Include="Scripts\custom.js" />
+    <Content Include="Scripts\Default.js" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
+    <Content Include="Scripts\materialize\materialize.js" />
+    <Content Include="Scripts\materialize\materialize.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\News\add.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\UserControls\tiny-mce-editor.js" />
+    <Content Include="Scripts\WebForms\DetailsView.js" />
+    <Content Include="Scripts\WebForms\Focus.js" />
+    <Content Include="Scripts\WebForms\GridView.js" />
+    <Content Include="Scripts\WebForms\Menu.js" />
+    <Content Include="Scripts\WebForms\MenuStandards.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjax.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxApplicationServices.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxComponentModel.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxCore.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxGlobalization.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxHistory.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxNetwork.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxSerialization.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxTimer.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebForms.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebServices.js" />
+    <Content Include="Scripts\WebForms\SmartNav.js" />
+    <Content Include="Scripts\WebForms\TreeView.js" />
+    <Content Include="Scripts\WebForms\WebForms.js" />
+    <Content Include="Scripts\WebForms\WebParts.js" />
+    <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Default.aspx" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Site.Master" />
+    <Content Include="UserControls\AddNewsArticle.ascx" />
+    <Content Include="UserControls\ArticleComments.ascx" />
+    <Content Include="UserControls\NewsGrid.ascx" />
+    <Content Include="UserControls\NewsSlider.ascx" />
+    <Content Include="UserControls\TinyMceEditor.ascx" />
+    <Content Include="ViewSwitcher.ascx" />
+    <Content Include="Web.config" />
+    <Content Include="Bundle.config" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Site.Mobile.Master" />
+    <Content Include="Settings.StyleCop" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.designer.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Pannel.aspx.cs">
+      <DependentUpon>Pannel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Pannel.aspx.designer.cs">
+      <DependentUpon>Pannel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\AutoMapperConfig.cs" />
+    <Compile Include="App_Start\BindingsConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Errors\404Page.aspx.cs">
+      <DependentUpon>404Page.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Errors\404Page.aspx.designer.cs">
+      <DependentUpon>404Page.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Errors\DefaultErrorPage.aspx.cs">
+      <DependentUpon>DefaultErrorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Errors\DefaultErrorPage.aspx.designer.cs">
+      <DependentUpon>DefaultErrorPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Hubs\NotificationHub.cs" />
+    <Compile Include="News\Add.aspx.cs">
+      <DependentUpon>Add.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News\Add.aspx.designer.cs">
+      <DependentUpon>Add.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="News\Article.aspx.cs">
+      <DependentUpon>Article.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News\Article.aspx.designer.cs">
+      <DependentUpon>Article.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="News\Category.aspx.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News\Category.aspx.designer.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="News\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.designer.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="UserControls\AddNewsArticle.ascx.cs">
+      <DependentUpon>AddNewsArticle.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\AddNewsArticle.ascx.designer.cs">
+      <DependentUpon>AddNewsArticle.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ArticleComments.ascx.cs">
+      <DependentUpon>ArticleComments.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\ArticleComments.ascx.designer.cs">
+      <DependentUpon>ArticleComments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\NewsGrid.ascx.cs">
+      <DependentUpon>NewsGrid.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\NewsGrid.ascx.designer.cs">
+      <DependentUpon>NewsGrid.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\NewsSlider.ascx.cs">
+      <DependentUpon>NewsSlider.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\NewsSlider.ascx.designer.cs">
+      <DependentUpon>NewsSlider.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TinyMceEditor.ascx.cs">
+      <DependentUpon>TinyMceEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\TinyMceEditor.ascx.designer.cs">
+      <DependentUpon>TinyMceEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.designer.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\DogeNews.Common\DogeNews.Common.csproj">
+      <Project>{5FD6DC3F-321D-456A-9DC4-0010EBEBB22B}</Project>
+      <Name>DogeNews.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\DogeNews.Data.Models\DogeNews.Data.Models.csproj">
+      <Project>{6BFA72F8-752D-4E6A-B936-6100028FE2DD}</Project>
+      <Name>DogeNews.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\DogeNews.Data\DogeNews.Data.csproj">
+      <Project>{D764F077-94E9-4C97-86A1-C523472C6AC8}</Project>
+      <Name>DogeNews.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\DogeNews.Services.Common\DogeNews.Services.Common.csproj">
+      <Project>{1B5F4317-E184-4680-9080-2CABA9854C66}</Project>
+      <Name>DogeNews.Services.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DogeNews.Web.Identity\DogeNews.Web.Identity.csproj">
+      <Project>{AB6FDA54-6EAF-4605-8AEB-2A40FF697C33}</Project>
+      <Name>DogeNews.Web.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DogeNews.Web.Infrastructure\DogeNews.Web.Infrastructure.csproj">
+      <Project>{40862603-390D-4DD3-B892-B69021DE3A18}</Project>
+      <Name>DogeNews.Web.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DogeNews.Web.Models\DogeNews.Web.Models.csproj">
+      <Project>{c013bb66-e626-4d31-ab5d-922732fedd4d}</Project>
+      <Name>DogeNews.Web.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DogeNews.Web.Mvp\DogeNews.Web.Mvp.csproj">
+      <Project>{F96F1B49-6B93-457A-9C23-F1507BAE8A0B}</Project>
+      <Name>DogeNews.Web.Mvp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>3395</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:33044/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
