@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
 
-using DogeNews.Data.Models;
-using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Web.Models;
 using DogeNews.Web.Mvp.UserControls.NewsGrid;
 
-using Moq;
 using NUnit.Framework;
 
 namespace DogeNews.Web.Mvp.Tests.ModelsTests.UserControls

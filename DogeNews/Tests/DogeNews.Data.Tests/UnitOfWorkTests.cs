@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Reflection;
+
 using DogeNews.Data.Contracts;
+using DogeNews.Data.Migrations;
 
 using Moq;
 using NUnit.Framework;
-using DogeNews.Data.Migrations;
-using System.Reflection;
 
 namespace DogeNews.Data.Tests
 {

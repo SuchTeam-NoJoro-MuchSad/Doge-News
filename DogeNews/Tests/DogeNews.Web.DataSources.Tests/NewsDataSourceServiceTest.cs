@@ -5,11 +5,12 @@ using System.Collections;
 
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
-using DogeNews.Web.Providers.Contracts;
 using DogeNews.Web.Models;
+using DogeNews.Services.Common.Contracts;
 
 using NUnit.Framework;
 using Moq;
+
 using AutoMapper;
 
 namespace DogeNews.Web.DataSources.Tests

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Collections.Generic;
 
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace DogeNews.Data.Models.Tests
 {

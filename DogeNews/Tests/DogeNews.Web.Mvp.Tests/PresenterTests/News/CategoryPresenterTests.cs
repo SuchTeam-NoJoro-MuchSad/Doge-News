@@ -6,7 +6,7 @@ using Moq;
 
 using DogeNews.Web.Mvp.News.Category;
 using DogeNews.Web.Services.Contracts;
-using DogeNews.Web.Services.Contracts.Http;
+using DogeNews.Services.Http.Contracts;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 {

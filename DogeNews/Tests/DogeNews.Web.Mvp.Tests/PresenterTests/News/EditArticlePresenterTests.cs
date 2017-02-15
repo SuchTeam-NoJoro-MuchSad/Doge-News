@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using System.Collections.Specialized;
-using System.IO;
 using System.Web;
 
 using Moq;
@@ -9,10 +8,11 @@ using NUnit.Framework;
 
 using DogeNews.Web.Mvp.News.Edit;
 using DogeNews.Web.Services.Contracts;
-using DogeNews.Web.Services.Contracts.Http;
 using DogeNews.Web.Mvp.News.Edit.EventArguments;
 using DogeNews.Common.Enums;
 using DogeNews.Web.Models;
+using DogeNews.Services.Http.Contracts;
+using DogeNews.Services.Common.Contracts;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 {
@@ -233,11 +233,11 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void PagePreInit_HttpUtilityServiceParseQueryShouldBeCalled()
         {
-            var eventArgs = new PreInitPageEventArgs { QueryString = "?name=name" };
+            var eventArgs = new PreInitPageEventArgs { QueryString = "?id=3" };
 
             this.mockHttpUtilService
                 .Setup(x => x.ParseQueryString(It.IsAny<string>()))
-                .Returns(new NameValueCollection());
+                .Returns(new NameValueCollection { { "id", "3" } });
             this.mockView.SetupGet(x => x.Model).Returns(new EditArticleViewModel());
 
             var presenter = this.GetPresenter();

@@ -95,7 +95,40 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Src\Common\DogeNews.Common\DogeNews.Common.csproj">
+      <Project>{5FD6DC3F-321D-456A-9DC4-0010EBEBB22B}</Project>
+      <Name>DogeNews.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Src\Data\DogeNews.Data.Models\DogeNews.Data.Models.csproj">
+      <Project>{6BFA72F8-752D-4E6A-B936-6100028FE2DD}</Project>
+      <Name>DogeNews.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Src\Services\DogeNews.Services.Common\DogeNews.Services.Common.csproj">
+      <Project>{1B5F4317-E184-4680-9080-2CABA9854C66}</Project>
+      <Name>DogeNews.Services.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Src\Services\DogeNews.Services.Data\DogeNews.Services.Data.csproj">
+      <Project>{B7E1A355-4F75-45A3-8039-F68029B3538D}</Project>
+      <Name>DogeNews.Services.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Src\Services\DogeNews.Services.Http\DogeNews.Services.Http.csproj">
+      <Project>{53AE22CE-9D7E-4EE9-A8B0-9103E3476829}</Project>
+      <Name>DogeNews.Services.Http</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Src\Web\DogeNews.Web.DataSources\DogeNews.Web.DataSources.csproj">
+      <Project>{50C68F0E-347B-4E17-AD6C-4D034702333C}</Project>
+      <Name>DogeNews.Web.DataSources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Src\Web\DogeNews.Web.Models\DogeNews.Web.Models.csproj">
+      <Project>{c013bb66-e626-4d31-ab5d-922732fedd4d}</Project>
+      <Name>DogeNews.Web.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Src\Web\DogeNews.Web.Mvp\DogeNews.Web.Mvp.csproj">
+      <Project>{f96f1b49-6b93-457a-9c23-f1507bae8a0b}</Project>
+      <Name>DogeNews.Web.Mvp</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

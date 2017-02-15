@@ -1,4 +1,5 @@
 ﻿using DogeNews.Common.Enums;
+
 using NUnit.Framework;
 
 namespace DogeNews.Web.Models.Tests

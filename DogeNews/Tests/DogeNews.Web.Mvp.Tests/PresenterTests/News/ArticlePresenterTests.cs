@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
 using System.Collections.Specialized;
 using System.Web.UI.WebControls;
+
 using Moq;
 using NUnit.Framework;
 
 using DogeNews.Web.Services.Contracts;
-using DogeNews.Web.Services.Contracts.Http;
 using DogeNews.Web.Mvp.News.Article;
 using DogeNews.Web.Mvp.News.Article.EventArguments;
 using DogeNews.Web.Models;
 using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
+using DogeNews.Services.Http.Contracts;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 {

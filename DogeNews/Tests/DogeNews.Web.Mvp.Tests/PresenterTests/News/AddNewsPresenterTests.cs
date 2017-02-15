@@ -5,11 +5,12 @@ using System.Reflection;
 using Moq;
 using NUnit.Framework;
 
-using DogeNews.Web.Services.Contracts.Http;
 using DogeNews.Web.Mvp.News.Add;
 using DogeNews.Web.Mvp.News.Add.EventArguments;
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Models;
+using DogeNews.Services.Common.Contracts;
+using DogeNews.Services.Http.Contracts;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 {
@@ -116,7 +117,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                     this.mockedHttpPostedFileService.Object,
                     this.mockedHttpServerService.Object));
 
-            Assert.AreEqual("newsService", exception.ParamName);
+            Assert.AreEqual("articleManagementService", exception.ParamName);
         }
 
         [Test]

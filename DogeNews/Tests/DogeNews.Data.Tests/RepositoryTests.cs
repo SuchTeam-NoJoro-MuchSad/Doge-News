@@ -333,7 +333,7 @@ namespace DogeNews.Data.Tests
 
         private Repository<Comment> GetRepository()
         {
-            return new Repository<Comment>(this.context.Object, this.mapperProvider.Object);
+            return new Repository<Comment>(this.context.Object);
         }
     }
 }

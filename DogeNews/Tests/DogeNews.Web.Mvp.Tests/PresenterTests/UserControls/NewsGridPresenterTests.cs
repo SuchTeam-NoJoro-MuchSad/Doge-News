@@ -15,7 +15,7 @@ using DogeNews.Data.Models;
 using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Common.Enums;
 using DogeNews.Web.Services.Contracts;
-using DogeNews.Web.Services.Contracts.Http;
+using DogeNews.Services.Http.Contracts;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
 {
