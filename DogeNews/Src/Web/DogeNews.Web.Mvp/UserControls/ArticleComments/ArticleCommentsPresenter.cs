@@ -1,4 +1,5 @@
-﻿using DogeNews.Web.Mvp.UserControls.ArticleComments.EventArguments;
+﻿using DogeNews.Common.Validators;
+using DogeNews.Web.Mvp.UserControls.ArticleComments.EventArguments;
 using DogeNews.Web.Services.Contracts;
 
 using WebFormsMvp;
@@ -16,23 +17,29 @@ namespace DogeNews.Web.Mvp.UserControls.ArticleComments
             IArticleCommentsService articleCommentsService)
             : base(view)
         {
+            Validator.ValidateThatObjectIsNotNull(articleCommentsService, nameof(articleCommentsService));
+
             this.articleCommentsService = articleCommentsService;
             this.View.PageLoad += this.PageLoad;
             this.View.AddComment += this.AddComment;
         }
 
-        public void PageLoad(object sender, ArticleCommetnsPageLoadEventArgs eventArgs)
+        public void PageLoad(object sender, ArticleCommetnsPageLoadEventArgs e)
         {
-            this.View.Model.Comments = this.articleCommentsService.GetCommentsForArticleByTitle(eventArgs.Title);
+            Validator.ValidateThatObjectIsNotNull(e, nameof(e));
+
+            this.View.Model.Comments = this.articleCommentsService.GetCommentsForArticleByTitle(e.Title);
         }
 
-        public void AddComment(object sender, AddCommentEventArguments addCommentEventArguments)
+        public void AddComment(object sender, AddCommentEventArguments e)
         {
+            Validator.ValidateThatObjectIsNotNull(e, nameof(e));
+
             this.articleCommentsService.AddComment(
-                addCommentEventArguments.ArticleTitle,
-                addCommentEventArguments.Content,
-                addCommentEventArguments.Username);
-            this.View.Model.Comments = this.articleCommentsService.GetCommentsForArticleByTitle(addCommentEventArguments.ArticleTitle);
+                e.ArticleTitle,
+                e.Content,
+                e.Username);
+            this.View.Model.Comments = this.articleCommentsService.GetCommentsForArticleByTitle(e.ArticleTitle);
         }
     }
 }

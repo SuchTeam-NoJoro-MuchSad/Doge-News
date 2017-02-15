@@ -76,6 +76,15 @@ namespace DogeNews.Data.Tests
         }
 
         [Test]
+        public void GetFirst_ShouldThrowArgumentNullExceptionWhenFilterExpressionIsNull()
+        {
+            var repository = this.GetRepository();
+            var exception = Assert.Throws<ArgumentNullException>(() => repository.GetFirst(null));
+
+            Assert.AreEqual("filterExpression", exception.ParamName);
+        }
+
+        [Test]
         public void GetFirst_ShouldReturnCorrectObjectIfObjectIsFound()
         {
             var expected = new Comment { Content = "asd", Id = 4, User = null };
@@ -273,7 +282,7 @@ namespace DogeNews.Data.Tests
 
             this.context.Verify(x => x.Entry(mockComment.Object), Times.AtLeastOnce);
         }
-
+        
         [Test]
         public void GetAll_WithNoParametersShouldReturnTheWholeCollection()
         {
@@ -331,6 +340,15 @@ namespace DogeNews.Data.Tests
             Assert.AreEqual(5, reslut.Count());
         }
 
+        [Test]
+        public void GetById_ShouldThrowArgumentNullExceptionWhenIDIsNull()
+        {
+            var repository = this.GetRepository();
+            var exception = Assert.Throws<ArgumentNullException>(() => repository.GetById(null));
+
+            Assert.AreEqual("id", exception.ParamName);
+        }
+        
         private Repository<Comment> GetRepository()
         {
             return new Repository<Comment>(this.context.Object);

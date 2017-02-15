@@ -13,16 +13,16 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
     [TestFixture]
     public class CategoryPresenterTests
     {
-        private Mock<ICategoryView> mockView;
-        private Mock<INewsService> mockNewsService;
-        private Mock<IHttpContextService> mockHttpContextService;
+        private Mock<ICategoryView> view;
+        private Mock<INewsService> newsService;
+        private Mock<IHttpContextService> httpContextService;
 
         [SetUp]
         public void Init()
         {
-            this.mockView = new Mock<ICategoryView>();
-            this.mockNewsService = new Mock<INewsService>();
-            this.mockHttpContextService = new Mock<IHttpContextService>();
+            this.view = new Mock<ICategoryView>();
+            this.newsService = new Mock<INewsService>();
+            this.httpContextService = new Mock<IHttpContextService>();
         }
 
         [Test]
@@ -33,7 +33,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .GetField("newsService", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(presenter);
 
-            Assert.AreEqual(this.mockNewsService.Object, serviceField);
+            Assert.AreEqual(this.newsService.Object, serviceField);
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .GetField("httpContextService", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(presenter);
 
-            Assert.AreEqual(this.mockHttpContextService.Object, servichttpContextServiceField);
+            Assert.AreEqual(this.httpContextService.Object, servichttpContextServiceField);
         }
 
         [Test]
@@ -52,9 +52,9 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         {
             var exception = Assert.Throws<ArgumentNullException>(() => 
                 new CategoryPresenter(
-                    this.mockView.Object, 
+                    this.view.Object, 
                     null, 
-                    this.mockHttpContextService.Object));
+                    this.httpContextService.Object));
 
             Assert.AreEqual("newsService", exception.ParamName);
         }
@@ -64,8 +64,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         {
             var exception = Assert.Throws<ArgumentNullException>(() =>
                 new CategoryPresenter(
-                    this.mockView.Object,
-                    this.mockNewsService.Object,
+                    this.view.Object,
+                    this.newsService.Object,
                     null));
 
             Assert.AreEqual("httpContextService", exception.ParamName);
@@ -74,9 +74,9 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         private CategoryPresenter GetPresenter()
         {
             var presenter = new CategoryPresenter(
-                this.mockView.Object,
-                this.mockNewsService.Object,
-                this.mockHttpContextService.Object);
+                this.view.Object,
+                this.newsService.Object,
+                this.httpContextService.Object);
 
             return presenter;
         }

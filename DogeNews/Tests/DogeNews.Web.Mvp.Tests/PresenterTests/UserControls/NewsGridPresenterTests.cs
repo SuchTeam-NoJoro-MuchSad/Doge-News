@@ -22,41 +22,93 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
     [TestFixture]
     public class NewsGridPresenterTests
     {
-        private Mock<INewsGridView> mockedView;
-        private Mock<INewsDataSource<NewsItem, NewsWebModel>> mockedDataSource;
-        private Mock<IHttpUtilityService> mockedHttpUtilitySevice;
-        private Mock<IArticleManagementService> mockArticleManagementService;
+        private Mock<INewsGridView> view;
+        private Mock<INewsDataSource<NewsItem, NewsWebModel>> datSource;
+        private Mock<IHttpUtilityService> httpUtilService;
+        private Mock<IArticleManagementService> articleManagementService;
 
         [SetUp]
         public void Init()
         {
-            this.mockedView = new Mock<INewsGridView>();
+            this.view = new Mock<INewsGridView>();
 
-            this.mockedHttpUtilitySevice = new Mock<IHttpUtilityService>();
-            this.mockedHttpUtilitySevice.Setup(x => x.ParseQueryString(It.IsAny<string>()))
+            this.httpUtilService = new Mock<IHttpUtilityService>();
+            this.httpUtilService.Setup(x => x.ParseQueryString(It.IsAny<string>()))
                 .Returns(new NameValueCollection());
 
-            this.mockArticleManagementService = new Mock<IArticleManagementService>();
+            this.articleManagementService = new Mock<IArticleManagementService>();
 
-            this.mockedDataSource = new Mock<INewsDataSource<NewsItem, NewsWebModel>>();
-            this.mockedDataSource
+            this.datSource = new Mock<INewsDataSource<NewsItem, NewsWebModel>>();
+            this.datSource
                 .Setup(x => x.GetPageItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
-            this.mockedDataSource
+            this.datSource
                 .Setup(x => x.GetPageItems(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
-            this.mockedDataSource
+            this.datSource
                 .Setup(x => x.OrderByDescending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
-            this.mockedDataSource
+            this.datSource
                 .Setup(x => x.OrderByDescending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
-            this.mockedDataSource
+            this.datSource
                 .Setup(x => x.OrderByAscending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
-            this.mockedDataSource
+            this.datSource
                 .Setup(x => x.OrderByAscending(It.IsAny<Expression<Func<NewsItem, NewsWebModel>>>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<bool>(), It.IsAny<string>()))
                 .Returns(new List<NewsWebModel>());
+        }
+
+        [Test]
+        public void Constructor_ShouldThrowArgumentNullExceptionWhenNewsDataSourceIsNUll()
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() =>
+                new NewsGridPresenter(
+                    this.view.Object,
+                    null,
+                    this.httpUtilService.Object,
+                    this.articleManagementService.Object));
+
+            Assert.AreEqual("newsDataSource", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ShouldThrowArgumentNullExceptionWhenHttpUtilityIsNUll()
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() =>
+                new NewsGridPresenter(
+                    this.view.Object,
+                    this.datSource.Object,
+                    null,
+                    this.articleManagementService.Object));
+
+            Assert.AreEqual("httpUtilityService", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ShouldThrowArgumentNullExceptionWhenArticleManagementServiceIsNUll()
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() =>
+                new NewsGridPresenter(
+                    this.view.Object,
+                    this.datSource.Object,
+                    this.httpUtilService.Object,
+                    null));
+
+            Assert.AreEqual("articleManagementService", exception.ParamName);
+        }
+
+        [Test]
+        public void PageLoad_ShouldThrowArgumentNullExceptionWhenEventArgsIsNull()
+        {
+            var presenter = new NewsGridPresenter(
+                this.view.Object,
+                this.datSource.Object, 
+                this.httpUtilService.Object, 
+                this.articleManagementService.Object);
+            var exception = Assert.Throws<ArgumentNullException>(() => presenter.PageLoad(null, null));
+
+            Assert.AreEqual("e", exception.ParamName);
         }
 
         [Test]
@@ -64,11 +116,11 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         {
             var eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
 
-            this.mockedView
+            this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
-            var presenter = new NewsGridPresenter(this.mockedView.Object,
-                this.mockedDataSource.Object, this.mockedHttpUtilitySevice.Object, this.mockArticleManagementService.Object);
+            var presenter = new NewsGridPresenter(this.view.Object,
+                this.datSource.Object, this.httpUtilService.Object, this.articleManagementService.Object);
 
             presenter.PageLoad(null, eventArgs);
             Assert.AreEqual(1, (int)eventArgs.ViewState["CurrentPage"]);
@@ -79,16 +131,16 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         {
             var eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
 
-            this.mockedView
+            this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
-            var presenter = new NewsGridPresenter(this.mockedView.Object,
-                this.mockedDataSource.Object,
-                this.mockedHttpUtilitySevice.Object,
-                this.mockArticleManagementService.Object);
+            var presenter = new NewsGridPresenter(this.view.Object,
+                this.datSource.Object,
+                this.httpUtilService.Object,
+                this.articleManagementService.Object);
 
             presenter.PageLoad(null, eventArgs);
-            this.mockedDataSource.Verify(x =>
+            this.datSource.Verify(x =>
                 x.GetPageItems(It.Is<int>(a => a == 1), It.Is<int>(a => a == 6), It.IsAny<bool>(), It.IsAny<string>()),
                 Times.Once);
         }
@@ -99,16 +151,16 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
             var eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
             int count = 6;
 
-            this.mockedDataSource.SetupGet(x => x.Count).Returns(count);
-            this.mockedView
+            this.datSource.SetupGet(x => x.Count).Returns(count);
+            this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
 
             var presenter = new NewsGridPresenter(
-                this.mockedView.Object,
-                this.mockedDataSource.Object,
-                this.mockedHttpUtilitySevice.Object,
-                this.mockArticleManagementService.Object);
+                this.view.Object,
+                this.datSource.Object,
+                this.httpUtilService.Object,
+                this.articleManagementService.Object);
 
             presenter.PageLoad(null, eventArgs);
             Assert.AreEqual(count, presenter.View.Model.NewsCount);
@@ -120,16 +172,16 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
             var eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
             int count = 6;
 
-            this.mockedDataSource.SetupGet(x => x.Count).Returns(count);
-            this.mockedView
+            this.datSource.SetupGet(x => x.Count).Returns(count);
+            this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
 
             var presenter = new NewsGridPresenter(
-                this.mockedView.Object,
-                this.mockedDataSource.Object,
-                this.mockedHttpUtilitySevice.Object,
-                this.mockArticleManagementService.Object);
+                this.view.Object,
+                this.datSource.Object,
+                this.httpUtilService.Object,
+                this.articleManagementService.Object);
 
 
             int pageSizeConstant = (int)typeof(NewsGridPresenter)
@@ -141,19 +193,60 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         }
 
         [Test]
+        public void PageLoad_ShouldCallHttpUtilityServiceParseQueryString_WhenEventArgsQueryStringIsNotNull()
+        {
+            var eventArgs = new OrderByEventArgs { OrderBy = OrderByType.Descending, ViewState = new StateBag() };
+            eventArgs.ViewState["CurrentPage"] = 5;
+
+            this.view.SetupGet(x => x.Model).Returns(new NewsGridViewModel { });
+
+            var queryString = "name=Sports";
+
+            var pageLoadEventArgs = new PageLoadEventArgs
+            {
+                QueryString = queryString,
+                IsPostBack = false,
+                ViewState = new StateBag()
+            };
+
+            var presenter = new NewsGridPresenter(
+                this.view.Object,
+                this.datSource.Object,
+                this.httpUtilService.Object,
+                this.articleManagementService.Object);
+
+            presenter.PageLoad(null, pageLoadEventArgs);
+
+            httpUtilService.Verify(x => x.ParseQueryString(queryString), Times.Once);
+        }
+
+        [Test]
+        public void ChangePage_ShouldThrowArgumentNullExceptionWhenEventArgsIsNull()
+        {
+            var presenter = new NewsGridPresenter(
+                this.view.Object,
+                this.datSource.Object,
+                this.httpUtilService.Object,
+                this.articleManagementService.Object);
+            var exception = Assert.Throws<ArgumentNullException>(() => presenter.ChangePage(null, null));
+
+            Assert.AreEqual("e", exception.ParamName);
+        }
+
+        [Test]
         public void ChangePage_ShouldSetViewStateCurrentPageToThePassedPageFromTheEventArgs()
         {
             var eventArgs = new ChangePageEventArgs { Page = 3, ViewState = new StateBag() };
 
-            this.mockedView
+            this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
 
             var presenter = new NewsGridPresenter(
-                this.mockedView.Object,
-                this.mockedDataSource.Object,
-                this.mockedHttpUtilitySevice.Object,
-                this.mockArticleManagementService.Object);
+                this.view.Object,
+                this.datSource.Object,
+                this.httpUtilService.Object,
+                this.articleManagementService.Object);
 
             presenter.ChangePage(null, eventArgs);
             Assert.AreEqual(3, (int)eventArgs.ViewState["CurrentPage"]);
@@ -165,24 +258,37 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
             int page = 3;
             var eventArgs = new ChangePageEventArgs { Page = page, ViewState = new StateBag() };
 
-            this.mockedView
+            this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
 
             var presenter = new NewsGridPresenter(
-                this.mockedView.Object,
-                this.mockedDataSource.Object,
-                this.mockedHttpUtilitySevice.Object,
-                this.mockArticleManagementService.Object);
+                this.view.Object,
+                this.datSource.Object,
+                this.httpUtilService.Object,
+                this.articleManagementService.Object);
 
             int pageSizeConstant = (int)typeof(NewsGridPresenter)
                .GetField("PageSize", BindingFlags.NonPublic | BindingFlags.Static)
                .GetValue(presenter);
 
             presenter.ChangePage(null, eventArgs);
-            this.mockedDataSource.Verify(x =>
-                x.GetPageItems(It.Is<int>(a => a == page), It.Is<int>(a => a == pageSizeConstant),It.IsAny<bool>(), null),
+            this.datSource.Verify(x =>
+                x.GetPageItems(It.Is<int>(a => a == page), It.Is<int>(a => a == pageSizeConstant), It.IsAny<bool>(), null),
                 Times.Once);
+        }
+
+        [Test]
+        public void OrderByDate_ShouldThrowArgumentNullExceptionWhenEventArgsIsNull()
+        {
+            var presenter = new NewsGridPresenter(
+                this.view.Object,
+                this.datSource.Object,
+                this.httpUtilService.Object,
+                this.articleManagementService.Object);
+            var exception = Assert.Throws<ArgumentNullException>(() => presenter.OrderByDate(null, null));
+
+            Assert.AreEqual("e", exception.ParamName);
         }
 
         [Test]
@@ -191,18 +297,18 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
             var eventArgs = new OrderByEventArgs { OrderBy = OrderByType.Ascending, ViewState = new StateBag() };
             eventArgs.ViewState["CurrentPage"] = 5;
 
-            this.mockedView
+            this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel());
 
             var presenter = new NewsGridPresenter(
-                this.mockedView.Object,
-                this.mockedDataSource.Object,
-                this.mockedHttpUtilitySevice.Object,
-                this.mockArticleManagementService.Object);
+                this.view.Object,
+                this.datSource.Object,
+                this.httpUtilService.Object,
+                this.articleManagementService.Object);
 
             presenter.OrderByDate(null, eventArgs);
-            this.mockedDataSource.Verify(x =>
+            this.datSource.Verify(x =>
                 x.OrderByAscending(
                         It.IsAny<Expression<Func<NewsItem, DateTime?>>>(),
                         It.IsAny<int>(),
@@ -218,18 +324,18 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
             var eventArgs = new OrderByEventArgs { OrderBy = OrderByType.Descending, ViewState = new StateBag() };
             eventArgs.ViewState["CurrentPage"] = 5;
 
-            this.mockedView
+            this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
 
             var presenter = new NewsGridPresenter(
-                this.mockedView.Object,
-                this.mockedDataSource.Object,
-                this.mockedHttpUtilitySevice.Object,
-                this.mockArticleManagementService.Object);
+                this.view.Object,
+                this.datSource.Object,
+                this.httpUtilService.Object,
+                this.articleManagementService.Object);
 
             presenter.OrderByDate(null, eventArgs);
-            this.mockedDataSource.Verify(x =>
+            this.datSource.Verify(x =>
                 x.OrderByDescending(
                     It.IsAny<Expression<Func<NewsItem, DateTime?>>>(),
                     It.IsAny<int>(),
@@ -237,34 +343,6 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
                     It.IsAny<bool>(),
                     It.IsAny<string>()),
                 Times.Once);
-        }
-
-        [Test]
-        public void PageLoad_ShouldCallHttpUtilityServiceParseQueryString_WhenEventArgsQueryStringIsNotNull()
-        {
-            var eventArgs = new OrderByEventArgs { OrderBy = OrderByType.Descending, ViewState = new StateBag() };
-            eventArgs.ViewState["CurrentPage"] = 5;
-
-            this.mockedView.SetupGet(x => x.Model).Returns(new NewsGridViewModel { });
-
-            var queryString = "name=Sports";
-
-            var pageLoadEventArgs = new PageLoadEventArgs
-            {
-                QueryString = queryString,
-                IsPostBack = false,
-                ViewState = new StateBag()
-            };
-
-            var presenter = new NewsGridPresenter(
-                this.mockedView.Object,
-                this.mockedDataSource.Object,
-                this.mockedHttpUtilitySevice.Object,
-                this.mockArticleManagementService.Object);
-
-            presenter.PageLoad(null, pageLoadEventArgs);
-
-            mockedHttpUtilitySevice.Verify(x => x.ParseQueryString(queryString), Times.Once);
         }
     }
 }

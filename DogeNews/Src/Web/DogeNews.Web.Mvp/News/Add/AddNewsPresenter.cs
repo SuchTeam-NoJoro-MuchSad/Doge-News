@@ -45,6 +45,8 @@ namespace DogeNews.Web.Mvp.News.Add
 
         public void AddNews(object sender, AddNewsEventArgs e)
         {
+            Validator.ValidateThatObjectIsNotNull(e, nameof(e));
+
             string fileExtension = Path.GetExtension(e.FileName);
             string username = this.httpContextService.GetUsername(this.HttpContext);
             string fileName = this.fileService.GetUniqueFileName(username) + fileExtension;

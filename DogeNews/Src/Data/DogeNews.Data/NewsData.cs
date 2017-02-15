@@ -2,6 +2,7 @@
 
 using DogeNews.Data.Contracts;
 using DogeNews.Common.Attributes;
+using DogeNews.Common.Validators;
 
 namespace DogeNews.Data
 {
@@ -19,10 +20,7 @@ namespace DogeNews.Data
         {
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException();
-                }
+                Validator.ValidateThatObjectIsNotNull(value, nameof(value));
 
                 this.context = value;
             }

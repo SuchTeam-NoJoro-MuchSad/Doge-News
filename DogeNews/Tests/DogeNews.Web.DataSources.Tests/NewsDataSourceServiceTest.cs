@@ -38,9 +38,10 @@ namespace DogeNews.Web.DataSources.Tests
             }
         }
 
-        private Mock<IRepository<NewsItem>> mockedNewsRepo;
-        private Mock<IMapperProvider> mockedMapperProvider;
-        private Mock<IMapper> mockedMapper;
+        private Mock<IRepository<NewsItem>> newsRepo;
+        private Mock<IMapperProvider> mapperProvider;
+        private Mock<IMapper> mapper;
+
         private IEnumerable<NewsItem> newsItems = new List<NewsItem>
         {
             new NewsItem { CreatedOn = DateTime.Now },
@@ -55,17 +56,17 @@ namespace DogeNews.Web.DataSources.Tests
         [SetUp]
         public void Init()
         {
-            this.mockedNewsRepo = new Mock<IRepository<NewsItem>>();
-            this.mockedMapperProvider = new Mock<IMapperProvider>();
-            this.mockedMapper = new Mock<IMapper>();
-            mockedNewsRepo.SetupGet(x => x.All).Returns(this.newsItems.AsQueryable());
+            this.newsRepo = new Mock<IRepository<NewsItem>>();
+            this.mapperProvider = new Mock<IMapperProvider>();
+            this.mapper = new Mock<IMapper>();
+            newsRepo.SetupGet(x => x.All).Returns(this.newsItems.AsQueryable());
         }
 
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionWhenNewsItemRepoIsNull()
         {
             var exception = Assert.Throws<ArgumentNullException>(() =>
-                new NewsDataSource(null, mockedMapperProvider.Object));
+                new NewsDataSource(null, mapperProvider.Object));
             Assert.AreEqual("newsItemRepository", exception.ParamName);
         }
 
@@ -73,7 +74,7 @@ namespace DogeNews.Web.DataSources.Tests
         public void Constructor_ShouldThrowArgumentNullExceptionWhenMapperProviderIsNull()
         {
             var exception = Assert.Throws<ArgumentNullException>(() =>
-                new NewsDataSource(mockedNewsRepo.Object, null));
+                new NewsDataSource(newsRepo.Object, null));
             Assert.AreEqual("mapperProvider", exception.ParamName);
         }
 
@@ -81,7 +82,7 @@ namespace DogeNews.Web.DataSources.Tests
         [TestCase(-10)]
         public void OrderByDateDescending_ShouldThrowArgumentOutOfRangeExceptionWhenPageIsLessThanOrEqualToZero(int page)
         {
-            var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
+            var service = new NewsDataSource(this.newsRepo.Object, this.mapperProvider.Object);
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.OrderByDescending(x => x.CreatedOn, page, 20, false));
 
             Assert.AreEqual("page", exception.ParamName);
@@ -91,7 +92,7 @@ namespace DogeNews.Web.DataSources.Tests
         [TestCase(-10)]
         public void OrderByDateDescending_ShouldThrowArgumentOutOfRangeExceptionWhenPageSizeIsLessThanOrEqualToZero(int pageSize)
         {
-            var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
+            var service = new NewsDataSource(this.newsRepo.Object, this.mapperProvider.Object);
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.OrderByDescending(x => x.CreatedOn, 20, pageSize, false));
 
             Assert.AreEqual("pageSize", exception.ParamName);
@@ -100,14 +101,14 @@ namespace DogeNews.Web.DataSources.Tests
         [Test]
         public void OrderByDateDescending_ShouldReturnCorrectElements()
         {
-            this.mockedMapper
+            this.mapper
                 .Setup(x => x.Map<NewsWebModel>(It.IsAny<NewsItem>()))
                 .Returns<NewsItem>(x => new NewsWebModel { CreatedOn = x.CreatedOn });
-            this.mockedMapperProvider
+            this.mapperProvider
                 .SetupGet(x => x.Instance)
-                .Returns(mockedMapper.Object);
+                .Returns(mapper.Object);
 
-            var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
+            var service = new NewsDataSource(this.newsRepo.Object, this.mapperProvider.Object);
             var expected = this.newsItems
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(6)
@@ -122,7 +123,7 @@ namespace DogeNews.Web.DataSources.Tests
         [TestCase(-10)]
         public void OrderByDateAscending_ShouldThrowArgumentOutOfRangeExceptionWhenPageIsLessThanOrEqualToZero(int page)
         {
-            var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
+            var service = new NewsDataSource(this.newsRepo.Object, this.mapperProvider.Object);
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.OrderByAscending(x => x.CreatedOn, page, 20, false));
 
             Assert.AreEqual("page", exception.ParamName);
@@ -132,7 +133,7 @@ namespace DogeNews.Web.DataSources.Tests
         [TestCase(-10)]
         public void OrderByDateAscending_ShouldThrowArgumentOutOfRangeExceptionWhenPageSizeIsLessThanOrEqualToZero(int pageSize)
         {
-            var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
+            var service = new NewsDataSource(this.newsRepo.Object, this.mapperProvider.Object);
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.OrderByAscending(x => x.CreatedOn, 20, pageSize, false));
 
             Assert.AreEqual("pageSize", exception.ParamName);
@@ -141,14 +142,14 @@ namespace DogeNews.Web.DataSources.Tests
         [Test]
         public void OrderByDateAscending_ShouldReturnCorrectElements()
         {
-            this.mockedMapper
+            this.mapper
                 .Setup(x => x.Map<NewsWebModel>(It.IsAny<NewsItem>()))
                 .Returns<NewsItem>(x => new NewsWebModel { CreatedOn = x.CreatedOn });
-            this.mockedMapperProvider
+            this.mapperProvider
                 .SetupGet(x => x.Instance)
-                .Returns(mockedMapper.Object);
+                .Returns(mapper.Object);
 
-            var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
+            var service = new NewsDataSource(this.newsRepo.Object, this.mapperProvider.Object);
             var expected = this.newsItems
                 .OrderBy(x => x.CreatedOn)
                 .Take(6)
@@ -163,7 +164,7 @@ namespace DogeNews.Web.DataSources.Tests
         [TestCase(-10)]
         public void GetPageItems_ShouldThrowArgumentOutOfRangeExceptionWhenPageIsLessThanOrEqualToZero(int page)
         {
-            var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
+            var service = new NewsDataSource(this.newsRepo.Object, this.mapperProvider.Object);
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.GetPageItems(page, 20, false));
 
             Assert.AreEqual("page", exception.ParamName);
@@ -173,7 +174,7 @@ namespace DogeNews.Web.DataSources.Tests
         [TestCase(-10)]
         public void GetPageItems_ShouldThrowArgumentOutOfRangeExceptionWhenPageSizeIsLessThanOrEqualToZero(int pageSize)
         {
-            var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
+            var service = new NewsDataSource(this.newsRepo.Object, this.mapperProvider.Object);
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.GetPageItems(20, pageSize, false));
 
             Assert.AreEqual("pageSize", exception.ParamName);
@@ -182,14 +183,14 @@ namespace DogeNews.Web.DataSources.Tests
         [Test]
         public void GetPageItems_ShouldReturnsItemsSortedByDateDescending()
         {
-            this.mockedMapper
+            this.mapper
                 .Setup(x => x.Map<NewsWebModel>(It.IsAny<NewsItem>()))
                 .Returns<NewsItem>(x => new NewsWebModel { CreatedOn = x.CreatedOn });
-            this.mockedMapperProvider
+            this.mapperProvider
                 .SetupGet(x => x.Instance)
-                .Returns(mockedMapper.Object);
-
-            var service = new NewsDataSource(this.mockedNewsRepo.Object, this.mockedMapperProvider.Object);
+                .Returns(mapper.Object);
+            
+            var service = new NewsDataSource(this.newsRepo.Object, this.mapperProvider.Object);
             var expected = this.newsItems
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(6)

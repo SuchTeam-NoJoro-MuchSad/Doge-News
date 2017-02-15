@@ -6,6 +6,7 @@ using System.Linq;
 using System.Linq.Expressions;
 
 using DogeNews.Data.Contracts;
+using DogeNews.Common.Validators;
 
 namespace DogeNews.Data.Repositories
 {
@@ -55,6 +56,8 @@ namespace DogeNews.Data.Repositories
 
         public T GetFirst(Expression<Func<T, bool>> filterExpression)
         {
+            Validator.ValidateThatObjectIsNotNull(filterExpression, nameof(filterExpression));
+
             var foundEntity = this.DbSet.FirstOrDefault(filterExpression);
             return foundEntity;
         }
@@ -71,6 +74,8 @@ namespace DogeNews.Data.Repositories
         
         public T GetById(object id)
         {
+            Validator.ValidateThatObjectIsNotNull(id, nameof(id));
+            
             return this.DbSet.Find(id);
         }
 

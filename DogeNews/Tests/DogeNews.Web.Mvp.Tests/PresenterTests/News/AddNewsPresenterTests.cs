@@ -17,22 +17,22 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
     [TestFixture]
     public class AddNewsPresenterTests
     {
-        private Mock<IFileService> mockedFileService;
-        private Mock<IArticleManagementService> mockedArticleManagementService;
-        private Mock<IHttpContextService> mockedHttpContextService;
-        private Mock<IHttpPostedFileService> mockedHttpPostedFileService;
-        private Mock<IAddNewsView> mockedView;
-        private Mock<IHttpServerUtilityService> mockedHttpServerService;
+        private Mock<IFileService> fileService;
+        private Mock<IArticleManagementService> articleManagementService;
+        private Mock<IHttpContextService> httpContextService;
+        private Mock<IHttpPostedFileService> httpPostedFileService;
+        private Mock<IAddNewsView> view;
+        private Mock<IHttpServerUtilityService> httpServerService;
 
         [SetUp]
         public void Init()
         {
-            this.mockedFileService = new Mock<IFileService>();
-            this.mockedArticleManagementService = new Mock<IArticleManagementService>();
-            this.mockedHttpContextService = new Mock<IHttpContextService>();
-            this.mockedHttpPostedFileService = new Mock<IHttpPostedFileService>();
-            this.mockedHttpServerService = new Mock<IHttpServerUtilityService>();
-            this.mockedView = new Mock<IAddNewsView>();
+            this.fileService = new Mock<IFileService>();
+            this.articleManagementService = new Mock<IArticleManagementService>();
+            this.httpContextService = new Mock<IHttpContextService>();
+            this.httpPostedFileService = new Mock<IHttpPostedFileService>();
+            this.httpServerService = new Mock<IHttpServerUtilityService>();
+            this.view = new Mock<IAddNewsView>();
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .GetField("httpContextService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
-            Assert.AreEqual(this.mockedHttpContextService.Object, httpContextServiceField);
+            Assert.AreEqual(this.httpContextService.Object, httpContextServiceField);
         }
 
         [Test]
@@ -54,7 +54,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .GetField("articleManagementService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
-            Assert.AreEqual(this.mockedArticleManagementService.Object, newsServiceField);
+            Assert.AreEqual(this.articleManagementService.Object, newsServiceField);
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .GetField("httpContextService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
-            Assert.AreEqual(this.mockedHttpContextService.Object, httpContextServiceField);
+            Assert.AreEqual(this.httpContextService.Object, httpContextServiceField);
         }
 
         [Test]
@@ -76,7 +76,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .GetField("httpPostedFileService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
-            Assert.AreEqual(this.mockedHttpPostedFileService.Object, httpPostedFileServiceField);
+            Assert.AreEqual(this.httpPostedFileService.Object, httpPostedFileServiceField);
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .GetField("httpServerService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
-            Assert.AreEqual(this.mockedHttpServerService.Object, httpServerServiceField);
+            Assert.AreEqual(this.httpServerService.Object, httpServerServiceField);
         }
 
         [Test]
@@ -95,12 +95,12 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         {
             var exception = Assert.Throws<ArgumentNullException>(() =>
                 new AddNewsPresenter(
-                    this.mockedView.Object,
+                    this.view.Object,
                     null,
-                    this.mockedArticleManagementService.Object,
-                    this.mockedHttpContextService.Object,
-                    this.mockedHttpPostedFileService.Object,
-                    this.mockedHttpServerService.Object));
+                    this.articleManagementService.Object,
+                    this.httpContextService.Object,
+                    this.httpPostedFileService.Object,
+                    this.httpServerService.Object));
 
             Assert.AreEqual("fileService", exception.ParamName);
         }
@@ -110,12 +110,12 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         {
             var exception = Assert.Throws<ArgumentNullException>(() =>
                 new AddNewsPresenter(
-                    this.mockedView.Object,
-                    this.mockedFileService.Object,
+                    this.view.Object,
+                    this.fileService.Object,
                     null,
-                    this.mockedHttpContextService.Object,
-                    this.mockedHttpPostedFileService.Object,
-                    this.mockedHttpServerService.Object));
+                    this.httpContextService.Object,
+                    this.httpPostedFileService.Object,
+                    this.httpServerService.Object));
 
             Assert.AreEqual("articleManagementService", exception.ParamName);
         }
@@ -125,12 +125,12 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         {
             var exception = Assert.Throws<ArgumentNullException>(() =>
                 new AddNewsPresenter(
-                    this.mockedView.Object,
-                    this.mockedFileService.Object,
-                    this.mockedArticleManagementService.Object,
+                    this.view.Object,
+                    this.fileService.Object,
+                    this.articleManagementService.Object,
                     null,
-                    this.mockedHttpPostedFileService.Object,
-                    this.mockedHttpServerService.Object));
+                    this.httpPostedFileService.Object,
+                    this.httpServerService.Object));
 
             Assert.AreEqual("httpContextService", exception.ParamName);
         }
@@ -140,12 +140,12 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         {
             var exception = Assert.Throws<ArgumentNullException>(() =>
                 new AddNewsPresenter(
-                    this.mockedView.Object,
-                    this.mockedFileService.Object,
-                    this.mockedArticleManagementService.Object,
-                    this.mockedHttpContextService.Object,
+                    this.view.Object,
+                    this.fileService.Object,
+                    this.articleManagementService.Object,
+                    this.httpContextService.Object,
                     null,
-                    this.mockedHttpServerService.Object));
+                    this.httpServerService.Object));
 
             Assert.AreEqual("httpPostedFileService", exception.ParamName);
         }
@@ -155,14 +155,23 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         {
             var exception = Assert.Throws<ArgumentNullException>(() =>
                 new AddNewsPresenter(
-                    this.mockedView.Object,
-                    this.mockedFileService.Object,
-                    this.mockedArticleManagementService.Object,
-                    this.mockedHttpContextService.Object,
-                    this.mockedHttpPostedFileService.Object,
+                    this.view.Object,
+                    this.fileService.Object,
+                    this.articleManagementService.Object,
+                    this.httpContextService.Object,
+                    this.httpPostedFileService.Object,
                     null));
 
             Assert.AreEqual("httpServerService", exception.ParamName);
+        }
+
+        [Test]
+        public void AddNews_ShouldThrowArgumentNullExceptionWhenEventArgsIsNull()
+        {
+            var presenter = this.GetNewsPresenter();
+            var exception = Assert.Throws<ArgumentNullException>(() => presenter.AddNews(null, null));
+
+            Assert.AreEqual("e", exception.ParamName);
         }
 
         [Test]
@@ -171,7 +180,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             var presenter = this.GetNewsPresenter();
 
             presenter.AddNews(null, new AddNewsEventArgs());
-            this.mockedHttpContextService
+            this.httpContextService
                 .Verify(x => x.GetUsername(It.IsAny<HttpContextBase>()), Times.Once);
         }
 
@@ -180,14 +189,14 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         {
             string username = "username";
 
-            this.mockedHttpContextService
+            this.httpContextService
                 .Setup(x => x.GetUsername(It.IsAny<HttpContextBase>()))
                 .Returns(username);
 
             var presenter = this.GetNewsPresenter();
 
             presenter.AddNews(null, new AddNewsEventArgs());
-            this.mockedFileService
+            this.fileService
                 .Verify(x => x.GetUniqueFileName(It.Is<string>(a => a == username)), Times.Once);
         }
 
@@ -197,7 +206,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             var presenter = this.GetNewsPresenter();
             presenter.AddNews(null, new AddNewsEventArgs());
 
-            this.mockedHttpServerService.Verify(x => x.MapPath(It.IsAny<string>()), Times.Once);
+            this.httpServerService.Verify(x => x.MapPath(It.IsAny<string>()), Times.Once);
         }
 
         [Test]
@@ -206,7 +215,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             var presenter = this.GetNewsPresenter();
             presenter.AddNews(null, new AddNewsEventArgs());
 
-            this.mockedFileService
+            this.fileService
                 .Verify(x => x.CreateFile(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
 
@@ -216,7 +225,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             var presenter = this.GetNewsPresenter();
             presenter.AddNews(null, new AddNewsEventArgs());
 
-            this.mockedHttpPostedFileService
+            this.httpPostedFileService
                 .Verify(x => x.SaveAs(It.IsAny<HttpPostedFile>(), It.IsAny<string>()), Times.Once);
         }
 
@@ -226,18 +235,18 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             var presenter = this.GetNewsPresenter();
             presenter.AddNews(null, new AddNewsEventArgs());
 
-            this.mockedArticleManagementService.Verify(x => x.Add(It.IsAny<string>(), It.IsAny<NewsWebModel>()), Times.Once);
+            this.articleManagementService.Verify(x => x.Add(It.IsAny<string>(), It.IsAny<NewsWebModel>()), Times.Once);
         }
 
         public AddNewsPresenter GetNewsPresenter()
         {
             var presenter = new AddNewsPresenter(
-                this.mockedView.Object,
-                this.mockedFileService.Object,
-                this.mockedArticleManagementService.Object,
-                this.mockedHttpContextService.Object,
-                this.mockedHttpPostedFileService.Object,
-                this.mockedHttpServerService.Object);
+                this.view.Object,
+                this.fileService.Object,
+                this.articleManagementService.Object,
+                this.httpContextService.Object,
+                this.httpPostedFileService.Object,
+                this.httpServerService.Object);
 
             return presenter;
         }

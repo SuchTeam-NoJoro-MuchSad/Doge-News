@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\INewsDataSource.cs" />
-    <Compile Include="NewsDataSourceService.cs" />
+    <Compile Include="NewsDataSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

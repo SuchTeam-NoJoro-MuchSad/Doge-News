@@ -7,6 +7,7 @@ using DogeNews.Web.Services.Contracts;
 using DogeNews.Services.Http.Contracts;
 
 using WebFormsMvp;
+using DogeNews.Common.Validators;
 
 namespace DogeNews.Web.Mvp.UserControls.NewsGrid
 {
@@ -27,6 +28,10 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
             IArticleManagementService articleManagementService)
                 : base(view)
         {
+            Validator.ValidateThatObjectIsNotNull(newsDataSource, nameof(newsDataSource));
+            Validator.ValidateThatObjectIsNotNull(httpUtilityService, nameof(httpUtilityService));
+            Validator.ValidateThatObjectIsNotNull(articleManagementService, nameof(articleManagementService));
+
             this.newsDataSource = newsDataSource;
             this.httpUtilityService = httpUtilityService;
             this.articleManagementService = articleManagementService;
@@ -41,11 +46,15 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
 
         private void ArticleRestore(object sender, OnArticleRestoreEventArgs e)
         {
+            Validator.ValidateThatObjectIsNotNull(e, nameof(e));
+
             this.articleManagementService.Restore(e.NewsItemId);
         }
 
         private void ArticleEdit(object sender, OnArticleEditEventArgs e)
         {
+            Validator.ValidateThatObjectIsNotNull(e, nameof(e));
+
             if (e.IsAdminUser)
             {
                 this.HttpContext.Response.Redirect($"~/News/Edit?id={e.NewsItemId}");
@@ -54,35 +63,43 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
 
         private void ArticleDelete(object sender, OnArticleDeleteEventArgs e)
         {
+            Validator.ValidateThatObjectIsNotNull(e, nameof(e));
+
             this.articleManagementService.Delete(e.NewsItemId);
         }
 
-        public void PageLoad(object sender, PageLoadEventArgs eventArgs)
+        public void PageLoad(object sender, PageLoadEventArgs e)
         {
-            if (!eventArgs.IsPostBack)
+            Validator.ValidateThatObjectIsNotNull(e, nameof(e));
+
+            if (!e.IsPostBack)
             {
-                eventArgs.ViewState["CurrentPage"] = 1;
+                e.ViewState["CurrentPage"] = 1;
             }
 
-            if (eventArgs.QueryString != null)
+            if (e.QueryString != null)
             {
-                var parsedQueryString = this.httpUtilityService.ParseQueryString(eventArgs.QueryString);
+                var parsedQueryString = this.httpUtilityService.ParseQueryString(e.QueryString);
                 this.newsCategory = parsedQueryString[NewsCategoryQueryStringKey];
             }
 
-            this.View.Model.CurrentPageNews = this.newsDataSource.GetPageItems(1, PageSize, eventArgs.IsAdminUser, this.newsCategory);
+            this.View.Model.CurrentPageNews = this.newsDataSource.GetPageItems(1, PageSize, e.IsAdminUser, this.newsCategory);
             this.View.Model.NewsCount = this.newsDataSource.Count;
             this.View.Model.PageSize = PageSize;
         }
 
         public void ChangePage(object sender, ChangePageEventArgs e)
         {
+            Validator.ValidateThatObjectIsNotNull(e, nameof(e));
+
             e.ViewState["CurrentPage"] = e.Page;
             this.View.Model.CurrentPageNews = this.newsDataSource.GetPageItems(e.Page, PageSize, e.IsAdminUser, this.newsCategory);
         }
 
         public void OrderByDate(object sender, OrderByEventArgs e)
         {
+            Validator.ValidateThatObjectIsNotNull(e, nameof(e));
+
             if (e.OrderBy == OrderByType.Ascending)
             {
                 this.View.Model.CurrentPageNews = this.newsDataSource.OrderByAscending(

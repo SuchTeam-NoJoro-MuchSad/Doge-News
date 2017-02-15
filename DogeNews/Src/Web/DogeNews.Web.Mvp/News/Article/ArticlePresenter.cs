@@ -1,4 +1,5 @@
-﻿using DogeNews.Services.Http.Contracts;
+﻿using DogeNews.Common.Validators;
+using DogeNews.Services.Http.Contracts;
 using DogeNews.Web.Mvp.News.Article.EventArguments;
 using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
 using DogeNews.Web.Services.Contracts;
@@ -21,6 +22,11 @@ namespace DogeNews.Web.Mvp.News.Article
             IHttpResponseService httpResponseService,
             IArticleManagementService articleManagementService) : base(view)
         {
+            Validator.ValidateThatObjectIsNotNull(newsService, nameof(newsService));
+            Validator.ValidateThatObjectIsNotNull(httpUtilityService, nameof(httpUtilityService));
+            Validator.ValidateThatObjectIsNotNull(httpResponseService, nameof(httpResponseService));
+            Validator.ValidateThatObjectIsNotNull(articleManagementService, nameof(articleManagementService));
+
             this.newsService = newsService;
             this.httpUtilityService = httpUtilityService;
             this.httpResponseService = httpResponseService;
@@ -34,6 +40,8 @@ namespace DogeNews.Web.Mvp.News.Article
 
         public void ArticleRestore(object sender, OnArticleRestoreEventArgs e)
         {
+            Validator.ValidateThatObjectIsNotNull(e, nameof(e));
+
             int id = int.Parse(e.NewsItemId);
 
             this.articleManagementService.Restore(e.NewsItemId);
@@ -42,6 +50,8 @@ namespace DogeNews.Web.Mvp.News.Article
 
         public void ArticleEdit(object sender, OnArticleEditEventArgs e)
         {
+            Validator.ValidateThatObjectIsNotNull(e, nameof(e));
+
             if (e.IsAdminUser)
             {
                 this.httpResponseService.Redirect($"~/News/Edit?id={e.NewsItemId}");
@@ -50,15 +60,19 @@ namespace DogeNews.Web.Mvp.News.Article
 
         public void ArticleDelete(object sender, OnArticleDeleteEventArgs e)
         {
+            Validator.ValidateThatObjectIsNotNull(e, nameof(e));
+
             int id = int.Parse(e.NewsItemId);
 
             this.articleManagementService.Delete(e.NewsItemId);
             this.View.Model.NewsModel = this.newsService.GetItemById(id);
         }
 
-        public void PageLoad(object sender, ArticlePageLoadEventArgs eventArgs)
+        public void PageLoad(object sender, ArticlePageLoadEventArgs e)
         {
-            var parsedQueryString = this.httpUtilityService.ParseQueryString(eventArgs.QueryString);
+            Validator.ValidateThatObjectIsNotNull(e, nameof(e));
+            
+            var parsedQueryString = this.httpUtilityService.ParseQueryString(e.QueryString);
 
             if (parsedQueryString.Count <= 0)
             {
