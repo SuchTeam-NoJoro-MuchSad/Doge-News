@@ -19,7 +19,7 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
         private INewsDataSource<NewsItem, NewsWebModel> newsDataSource;
         private IHttpUtilityService httpUtilityService;
         private IArticleManagementService articleManagementService;
-        
+
         private string newsCategory;
 
         public NewsGridPresenter(INewsGridView view,
@@ -35,7 +35,7 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
             this.newsDataSource = newsDataSource;
             this.httpUtilityService = httpUtilityService;
             this.articleManagementService = articleManagementService;
-            
+
             this.View.PageLoad += this.PageLoad;
             this.View.ChangePage += this.ChangePage;
             this.View.OrderByDate += this.OrderByDate;
@@ -48,7 +48,8 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
         {
             Validator.ValidateThatObjectIsNotNull(e, nameof(e));
 
-            this.articleManagementService.Restore(e.NewsItemId);
+            int id = int.Parse(e.NewsItemId);
+            this.articleManagementService.Restore(id);
         }
 
         private void ArticleEdit(object sender, OnArticleEditEventArgs e)
@@ -65,7 +66,8 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
         {
             Validator.ValidateThatObjectIsNotNull(e, nameof(e));
 
-            this.articleManagementService.Delete(e.NewsItemId);
+            int id = int.Parse(e.NewsItemId);
+            this.articleManagementService.Delete(id);
         }
 
         public void PageLoad(object sender, PageLoadEventArgs e)

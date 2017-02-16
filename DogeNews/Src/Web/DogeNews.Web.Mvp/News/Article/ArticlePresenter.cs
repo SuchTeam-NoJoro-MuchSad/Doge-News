@@ -44,7 +44,7 @@ namespace DogeNews.Web.Mvp.News.Article
 
             int id = int.Parse(e.NewsItemId);
 
-            this.articleManagementService.Restore(e.NewsItemId);
+            this.articleManagementService.Restore(id);
             this.View.Model.NewsModel = this.newsService.GetItemById(id);
         }
 
@@ -64,7 +64,7 @@ namespace DogeNews.Web.Mvp.News.Article
 
             int id = int.Parse(e.NewsItemId);
 
-            this.articleManagementService.Delete(e.NewsItemId);
+            this.articleManagementService.Delete(id);
             this.View.Model.NewsModel = this.newsService.GetItemById(id);
         }
 

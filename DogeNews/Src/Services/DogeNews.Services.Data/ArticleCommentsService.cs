@@ -47,6 +47,8 @@ namespace DogeNews.Web.Services
 
         public IEnumerable<CommentWebModel> GetCommentsForArticleByTitle(string title)
         {
+            Validator.ValidateThatStringIsNotNullOrEmpty(title, nameof(title));
+
             var newsItem = newsItemRepository.GetFirstMapped<NewsWebModel>(x => x.Title == title);
 
             this.count = newsItem.Comments.Count();
@@ -56,6 +58,10 @@ namespace DogeNews.Web.Services
 
         public void AddComment(string newsItemTitle, string commentContent, string userName)
         {
+            Validator.ValidateThatStringIsNotNullOrEmpty(newsItemTitle, nameof(newsItemTitle));
+            Validator.ValidateThatStringIsNotNullOrEmpty(commentContent, nameof(commentContent));
+            Validator.ValidateThatStringIsNotNullOrEmpty(userName, nameof(userName));
+
             var foundUser = this.userRepository.GetFirst(x => x.UserName == userName);
             var newsItem = newsItemRepository.GetFirst(x => x.Title == newsItemTitle);
             var commentToAdd = new Comment

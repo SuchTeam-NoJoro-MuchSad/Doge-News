@@ -8,7 +8,6 @@ using DogeNews.Web.Services.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Data.Contracts;
 using DogeNews.Common.Validators;
-
 using DogeNews.Services.Common.Contracts;
 using DogeNews.Services.Common;
 
@@ -81,6 +80,8 @@ namespace DogeNews.Web.Services
 
         public IEnumerable<NewsWebModel> GetNewsItemsByCategory(string category)
         {
+            Validator.ValidateThatStringIsNotNullOrEmpty(category, nameof(category));
+
             var enumeration = (NewsCategoryType)Enum.Parse(typeof(NewsCategoryType), category);
             var news = this.newsRepository.GetAllMapped<NewsWebModel>(x => x.Category == enumeration);
 

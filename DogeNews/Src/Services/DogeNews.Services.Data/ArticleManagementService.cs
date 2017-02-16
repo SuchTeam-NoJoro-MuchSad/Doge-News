@@ -1,6 +1,4 @@
-﻿using System;
-
-using DogeNews.Data.Contracts;
+﻿using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
@@ -18,13 +16,15 @@ namespace DogeNews.Web.Services
         private readonly IMapperProvider mapperProvider;
         private readonly IDateTimeProvider dateTimeProvider;
 
-        public ArticleManagementService(IRepository<User> userRepository,
+        public ArticleManagementService(
+            IRepository<User> userRepository,
             IRepository<NewsItem> newsRepository,
             INewsData newsData,
             IMapperProvider mapperProvider,
             IRepository<Image> imageRepository,
             IDateTimeProvider dateTimeProvider)
         {
+            Validator.ValidateThatObjectIsNotNull(userRepository, nameof(userRepository));
             Validator.ValidateThatObjectIsNotNull(newsRepository, nameof(newsRepository));
             Validator.ValidateThatObjectIsNotNull(newsData, nameof(newsData));
             Validator.ValidateThatObjectIsNotNull(mapperProvider, nameof(mapperProvider));
@@ -41,9 +41,9 @@ namespace DogeNews.Web.Services
 
         public void Add(string username, NewsWebModel newsItem)
         {
-            Validator.ValidateThatStringIsNotNullOrEmpty(username, nameof(User));
+            Validator.ValidateThatStringIsNotNullOrEmpty(username, nameof(username));
             Validator.ValidateThatObjectIsNotNull(newsItem, nameof(newsItem));
-            
+
             var author = this.userRepository.GetFirst(x => x.UserName == username);
             var image = this.mapperProvider.Instance.Map<Image>(newsItem.Image);
             var news = this.mapperProvider.Instance.Map<NewsItem>(newsItem);
@@ -81,11 +81,10 @@ namespace DogeNews.Web.Services
             newsData.Commit();
         }
 
-        public void Restore(string newsItemId)
+        public void Restore(int id)
         {
-            Validator.ValidateThatStringIsNotNullOrEmpty(newsItemId, nameof(newsItemId));
-
-            var id = int.Parse(newsItemId);
+            Validator.ValidateThatNumberIsNotNegative(id, nameof(id));
+            
             var foundItem = this.newsRepository.GetById(id);
 
             foundItem.DeletedOn = null;
@@ -93,14 +92,10 @@ namespace DogeNews.Web.Services
             this.newsData.Commit();
         }
 
-        public void Delete(string newsItemId)
+        public void Delete(int id)
         {
-            if (string.IsNullOrEmpty(newsItemId))
-            {
-                throw new ArgumentNullException(nameof(newsItemId));
-            }
-
-            var id = int.Parse(newsItemId);
+            Validator.ValidateThatNumberIsNotNegative(id, nameof(id));
+            
             var foundItem = this.newsRepository.GetById(id);
 
             foundItem.DeletedOn = this.dateTimeProvider.Now;

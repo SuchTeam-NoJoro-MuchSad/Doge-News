@@ -263,11 +263,11 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             //Arange
             var presenter = this.GetPresenter();
 
-            var newsItemId = "1111";
+            var newsItemId = 1111;
 
             var eventArgs = new OnArticleRestoreEventArgs
             {
-                NewsItemId = newsItemId
+                NewsItemId = newsItemId.ToString()
             };
 
             this.newService.Setup(x => x.GetItemById(It.IsAny<int>())).Returns(new NewsWebModel());
@@ -367,11 +367,11 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             //Arange
             var presenter = this.GetPresenter();
 
-            var newsItemId = "1111";
+            var newsItemId = 1111;
 
             var eventArgs = new OnArticleDeleteEventArgs
             {
-                NewsItemId = newsItemId
+                NewsItemId = newsItemId.ToString()
             };
 
             this.newService.Setup(x => x.GetItemById(It.IsAny<int>())).Returns(new NewsWebModel());

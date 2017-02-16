@@ -8,8 +8,8 @@ namespace DogeNews.Web.Services.Contracts
 
         void Update(NewsWebModel model);
 
-        void Delete(string newsItemId);
+        void Delete(int id);
 
-        void Restore(string newsItemId);
+        void Restore(int id);
     }
 }
