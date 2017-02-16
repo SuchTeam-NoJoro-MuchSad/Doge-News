@@ -13,8 +13,8 @@ namespace DogeNews.Web.Mvp.Tests.ModelsTests.UserControls
         [Test]
         public void CommentsShouldReturnSetValue()
         {
-            var model = new ArticleCommentsViewModel();
-            var comments = new List<CommentWebModel>();
+            ArticleCommentsViewModel model = new ArticleCommentsViewModel();
+            List<CommentWebModel> comments = new List<CommentWebModel>();
 
             model.Comments = comments;
             Assert.AreEqual(comments, model.Comments);

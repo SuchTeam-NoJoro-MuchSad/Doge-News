@@ -1,9 +1,10 @@
-﻿using DogeNews.Common.Validators;
+﻿using System.Collections.Specialized;
+using DogeNews.Common.Validators;
+using DogeNews.Services.Data.Contracts;
 using DogeNews.Services.Http.Contracts;
+using DogeNews.Web.Models;
 using DogeNews.Web.Mvp.News.Article.EventArguments;
 using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
-using DogeNews.Web.Services.Contracts;
-
 using WebFormsMvp;
 
 namespace DogeNews.Web.Mvp.News.Article
@@ -72,7 +73,7 @@ namespace DogeNews.Web.Mvp.News.Article
         {
             Validator.ValidateThatObjectIsNotNull(e, nameof(e));
             
-            var parsedQueryString = this.httpUtilityService.ParseQueryString(e.QueryString);
+            NameValueCollection parsedQueryString = this.httpUtilityService.ParseQueryString(e.QueryString);
 
             if (parsedQueryString.Count <= 0)
             {
@@ -80,8 +81,8 @@ namespace DogeNews.Web.Mvp.News.Article
                 return;
             }
 
-            var title = parsedQueryString["title"];
-            var model = this.newsService.GetItemByTitle(title);
+            string title = parsedQueryString["title"];
+            NewsWebModel model = this.newsService.GetItemByTitle(title);
 
             if (model == null)
             {

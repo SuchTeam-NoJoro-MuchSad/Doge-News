@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 
 using DogeNews.Data.Contracts;
 using DogeNews.Services.Common;
+using DogeNews.Services.Common.Contracts;
 
 namespace DogeNews.Data.Repositories
 {
@@ -20,23 +21,23 @@ namespace DogeNews.Data.Repositories
 
         public TDestitanion GetFirstMapped<TDestitanion>(Expression<Func<T, bool>> filterExpression)
         {
-            var query = this.All.Where(filterExpression);
-            var foundEntity = this.projectionService.ProjectToFirstOrDefault<T, TDestitanion>(query);
+            IQueryable<T> query = this.All.Where(filterExpression);
+            TDestitanion foundEntity = this.projectionService.ProjectToFirstOrDefault<T, TDestitanion>(query);
 
             return foundEntity;
         }
 
         public IEnumerable<TDestination> GetAllMapped<TDestination>()
         {
-            var mappedEntities = this.projectionService.ProjectToList<T, TDestination>(this.All);
+            List<TDestination> mappedEntities = this.projectionService.ProjectToList<T, TDestination>(this.All);
 
             return mappedEntities;
         }
 
         public IEnumerable<TDestination> GetAllMapped<TDestination>(Expression<Func<T, bool>> filterExpression)
         {
-            var query = this.All.Where(filterExpression);
-            var mappedEntities = this.projectionService.ProjectToList<T, TDestination>(query);
+            IQueryable<T> query = this.All.Where(filterExpression);
+            List<TDestination> mappedEntities = this.projectionService.ProjectToList<T, TDestination>(query);
 
             return mappedEntities;
         }

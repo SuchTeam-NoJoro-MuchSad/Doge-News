@@ -1,10 +1,7 @@
 ﻿using System.Web;
-
-using DogeNews.Services.Http;
-
 using NUnit.Framework;
 
-namespace DogeNews.Web.Services.Tests.HttpTests
+namespace DogeNews.Services.Http.Tests
 {
     [TestFixture]
     public class HttpServerUtilityServiceTests
@@ -12,7 +9,7 @@ namespace DogeNews.Web.Services.Tests.HttpTests
         [Test,Ignore("HttpContext is not instanced by the test (only by ASP), and this test will aways throw NullArgumentException")]
         public void HttpUtilityService_ShouldThrowHttpException_WhenInputArgumentIsNull()
         {
-            var service = new HttpServerUtilityService();
+            HttpServerUtilityService service = new HttpServerUtilityService();
             Assert.Throws<HttpException>(() => service.MapPath(null));
         }
     }

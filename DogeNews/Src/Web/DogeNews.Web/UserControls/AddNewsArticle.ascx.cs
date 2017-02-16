@@ -17,7 +17,7 @@ namespace DogeNews.Web.UserControls
         {
             if (this.Page.IsValid)
             {
-                var eventData = new AddNewsEventArgs
+                AddNewsEventArgs eventData = new AddNewsEventArgs
                 {
                     Title = this.Server.HtmlEncode(this.TitleInput.Value),
                     Image = this.ImageFileUpload.PostedFile,

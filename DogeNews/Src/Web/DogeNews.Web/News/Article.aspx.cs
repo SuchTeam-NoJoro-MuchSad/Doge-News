@@ -31,10 +31,10 @@ namespace DogeNews.Web.News
 
         protected void ArticleDeleteButtonClick(object sender, EventArgs e)
         {
-            var button = sender as Button;
-            var newsItemId = button.CommandArgument;
+            Button button = sender as Button;
+            string newsItemId = button.CommandArgument;
 
-            var eventArgs = new OnArticleDeleteEventArgs
+            OnArticleDeleteEventArgs eventArgs = new OnArticleDeleteEventArgs
             {
                 NewsItemId = newsItemId
             };
@@ -44,10 +44,10 @@ namespace DogeNews.Web.News
 
         protected void ArticleEditButtonClick(object sender, EventArgs e)
         {
-            var button = sender as Button;
-            var newsItemId = button.CommandArgument;
+            Button button = sender as Button;
+            string newsItemId = button.CommandArgument;
 
-            var eventArgs = new OnArticleEditEventArgs
+            OnArticleEditEventArgs eventArgs = new OnArticleEditEventArgs
             {
                 IsAdminUser = this.Context.User.IsInRole(Common.Constants.Roles.Admin),
                 NewsItemId = newsItemId
@@ -58,10 +58,10 @@ namespace DogeNews.Web.News
 
         protected void ArticleRestoreButtonClick(object sender, EventArgs e)
         {
-            var button = sender as Button;
-            var newsItemId = button.CommandArgument;
+            Button button = sender as Button;
+            string newsItemId = button.CommandArgument;
 
-            var eventArgs = new OnArticleRestoreEventArgs
+            OnArticleRestoreEventArgs eventArgs = new OnArticleRestoreEventArgs
             {
                 NewsItemId = newsItemId
             };

@@ -22,7 +22,7 @@ namespace DogeNews.Data.Tests
         [Test]
         public void Images_GetShouldReturnSetValue()
         {
-            var set = (IDbSet<Image>)typeof(DbSet<Image>)
+            IDbSet<Image> set = (IDbSet<Image>)typeof(DbSet<Image>)
                 .GetConstructor(
                     BindingFlags.NonPublic | BindingFlags.CreateInstance | BindingFlags.Instance,
                     null,
@@ -37,7 +37,7 @@ namespace DogeNews.Data.Tests
         [Test]
         public void NewsItems_GetShouldReturnSetValue()
         {
-            var set = (IDbSet<NewsItem>)typeof(DbSet<NewsItem>)
+            IDbSet<NewsItem> set = (IDbSet<NewsItem>)typeof(DbSet<NewsItem>)
                 .GetConstructor(
                     BindingFlags.NonPublic | BindingFlags.CreateInstance | BindingFlags.Instance,
                     null,
@@ -52,7 +52,7 @@ namespace DogeNews.Data.Tests
         [Test]
         public void Comments_GetShouldReturnSetValue()
         {
-            var set = (IDbSet<Comment>)typeof(DbSet<Comment>)
+            IDbSet<Comment> set = (IDbSet<Comment>)typeof(DbSet<Comment>)
                 .GetConstructor(
                     BindingFlags.NonPublic | BindingFlags.CreateInstance | BindingFlags.Instance,
                     null,
@@ -67,8 +67,8 @@ namespace DogeNews.Data.Tests
         [Test]
         public void Set_ShouldReturnIDbSetInstanceOfTheRequiredType()
         {
-            var expected = typeof(DbSet<User>).Name;
-            var actual = this.context.Set<User>().GetType().Name;
+            string expected = typeof(DbSet<User>).Name;
+            string actual = this.context.Set<User>().GetType().Name;
 
             Assert.AreEqual(expected, actual);
         }

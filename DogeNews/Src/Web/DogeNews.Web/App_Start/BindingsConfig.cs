@@ -1,16 +1,14 @@
-﻿using Ninject;
-
+﻿using DogeNews.Web.Infrastructure.Bindings;
+using Ninject;
 using WebFormsMvp.Binder;
 
-using DogeNews.Web.Infrastructure.Bindings;
-
-namespace DogeNews.Web.App_Start
+namespace DogeNews.Web
 {
     public class BindingsConfig
     {
         public static void BindPresenterFactory()
         {
-            var presenterFactory = NinjectWebCommon.Kernel.Get<IPresenterFactory>();
+            IPresenterFactory presenterFactory = NinjectWebCommon.Kernel.Get<IPresenterFactory>();
             PresenterBinder.Factory = presenterFactory;
         }
     }

@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Linq.Expressions;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Linq.Expressions;
+using AutoMapper;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
-using DogeNews.Web.Models;
 using DogeNews.Services.Common.Contracts;
-using DogeNews.Services.Common;
-
+using DogeNews.Web.Models;
 using Moq;
 using NUnit.Framework;
 
-using AutoMapper;
-
-namespace DogeNews.Web.Services.Tests
+namespace DogeNews.Services.Data.Tests
 {
     [TestFixture]
     public class NewsServiceTests
@@ -44,7 +40,7 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Constructor_IfUserRepositoryIsNullArgumentNullExceptionShouldBeThrown()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new NewsService(
                     null,
                     this.newsItemRepo.Object,
@@ -61,7 +57,7 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Constructor_IfNewsItemRepositoryIsNullArgumentNullExceptionShouldBeThrown()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                  new NewsService(
                     this.userRepo.Object,
                     null,
@@ -76,7 +72,7 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Constructor_IfImageRepoIsNullArgumentNullExceptionShouldBeThrown()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                  new NewsService(
                     this.userRepo.Object,
                     this.newsItemRepo.Object,
@@ -91,7 +87,7 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Constructor_IfNewsDataIsNullArgumentNullExceptionShouldBeThrown()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                  new NewsService(
                     this.userRepo.Object,
                     this.newsItemRepo.Object,
@@ -106,7 +102,7 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Constructor_IfMapperProviderIsNullArgumentNullExceptionShouldBeThrown()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                  new NewsService(
                     this.userRepo.Object,
                     this.newsItemRepo.Object,
@@ -121,7 +117,7 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Constructor_IfDateTimeProviderIsNullArgumentNullExceptionShouldBeThrown()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                  new NewsService(
                     this.userRepo.Object,
                     this.newsItemRepo.Object,
@@ -136,7 +132,7 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Constructor_IfProjectionServiceIsNullArgumentNullExceptionShouldBeThrown()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                  new NewsService(
                     this.userRepo.Object,
                     this.newsItemRepo.Object,
@@ -152,8 +148,8 @@ namespace DogeNews.Web.Services.Tests
         [TestCase(null)]
         public void GetItemByTitle_ShouldThrowArgumentNullExceptionWhenTitleIsNullOrEmpty(string title)
         {
-            var service = this.GetNewsService();
-            var exception = Assert.Throws<ArgumentNullException>(() => service.GetItemByTitle(title));
+            NewsService service = this.GetNewsService();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => service.GetItemByTitle(title));
             string expectedParamName = "title";
 
             Assert.AreEqual(expectedParamName, exception.ParamName);
@@ -162,9 +158,9 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void GetItemByTitle_ShouldCallGetFirstMappedNewsRepositoryGetFirst()
         {
-            var newsWebModel = new NewsWebModel();
+            NewsWebModel newsWebModel = new NewsWebModel();
             string title = "title";
-            var newsItem = new NewsItem { Title = title };
+            NewsItem newsItem = new NewsItem { Title = title };
 
             this.mapper.Setup(x => x.Map<NewsWebModel>(It.IsAny<NewsItem>())).Returns(newsWebModel);
             this.mapperProvider.SetupGet(x => x.Instance).Returns(this.mapper.Object);
@@ -172,7 +168,7 @@ namespace DogeNews.Web.Services.Tests
                 .Setup(x => x.GetFirst(It.IsAny<Expression<Func<NewsItem, bool>>>()))
                 .Returns(newsItem);
 
-            var service = this.GetNewsService();
+            NewsService service = this.GetNewsService();
 
             service.GetItemByTitle(title);
             this.newsItemRepo.Verify(x => x.GetFirstMapped<NewsWebModel>(It.IsAny<Expression<Func<NewsItem, bool>>>()), Times.Once);
@@ -182,15 +178,15 @@ namespace DogeNews.Web.Services.Tests
         public void GetItemByTitle_ShouldReturnCorrectObject()
         {
             string title = "title";
-            var newsWebModel = new NewsWebModel { Title = title };
-            var newsItem = new NewsItem { Title = title };
+            NewsWebModel newsWebModel = new NewsWebModel { Title = title };
+            NewsItem newsItem = new NewsItem { Title = title };
 
             this.newsItemRepo
                 .Setup(x => x.GetFirstMapped<NewsWebModel>(It.IsAny<Expression<Func<NewsItem, bool>>>()))
                 .Returns(newsWebModel);
 
-            var service = this.GetNewsService();
-            var foundItem = service.GetItemByTitle(title);
+            NewsService service = this.GetNewsService();
+            NewsWebModel foundItem = service.GetItemByTitle(title);
 
             Assert.AreEqual(newsWebModel, foundItem);
         }
@@ -199,8 +195,8 @@ namespace DogeNews.Web.Services.Tests
         [TestCase(-1)]
         public void GetItemById_ShouldThrowArgumentOutOfRangeExceptionWhenIdIsNotGreaterThanZero(int id)
         {
-            var service = this.GetNewsService();
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.GetItemById(id));
+            NewsService service = this.GetNewsService();
+            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.GetItemById(id));
             string expectedParamName = "id";
 
             Assert.AreEqual(expectedParamName, exception.ParamName);
@@ -209,7 +205,7 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void GetItemById_ShouldCallNewsRepositoryGetFirstMapped()
         {
-            var service = this.GetNewsService();
+            NewsService service = this.GetNewsService();
             int id = 1;
 
             service.GetItemById(id);
@@ -219,31 +215,31 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void GetItemById_ShouldReturnTheCorrectNewsItem()
         {
-            var newsItem = new NewsWebModel();
+            NewsWebModel newsItem = new NewsWebModel();
 
             this.newsItemRepo
                 .Setup(x => x.GetFirstMapped<NewsWebModel>(It.IsAny<Expression<Func<NewsItem, bool>>>()))
                 .Returns(newsItem);
 
-            var service = this.GetNewsService();
+            NewsService service = this.GetNewsService();
             int id = 1;
 
-            var foundItem = service.GetItemById(id);
+            NewsWebModel foundItem = service.GetItemById(id);
             Assert.AreEqual(newsItem, foundItem);
         }
 
         [Test]
         public void GetSliderNews_NewsRepositoryAllShouldBeCalled()
         {
-            var newsItems = new List<NewsItem>().AsQueryable();
-            var configProvider = new Mock<IConfigurationProvider>();
+            IQueryable<NewsItem> newsItems = new List<NewsItem>().AsQueryable();
+            Mock<IConfigurationProvider> configProvider = new Mock<IConfigurationProvider>();
 
             this.newsItemRepo.SetupGet(x => x.All).Returns(newsItems);
             this.mapperProvider
                 .SetupGet(x => x.Configuration)
                 .Returns(configProvider.Object);
 
-            var service = this.GetNewsService();
+            NewsService service = this.GetNewsService();
 
             service.GetSliderNews();
             this.newsItemRepo.VerifyGet(x => x.All, Times.Once);
@@ -253,8 +249,8 @@ namespace DogeNews.Web.Services.Tests
         [TestCase(null)]
         public void GetNewsItemsByCategory_ShouldThrowArgumentNullExceptionWhenCategoryIsNullOrEmpty(string category)
         {
-            var service = this.GetNewsService();
-            var exception = Assert.Throws<ArgumentNullException>(() => service.GetNewsItemsByCategory(category));
+            NewsService service = this.GetNewsService();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => service.GetNewsItemsByCategory(category));
 
             Assert.AreEqual("category", exception.ParamName);
         }
@@ -262,12 +258,12 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void GetNewsItemsByCategory_NewsRepositoryGetAllMappedShouldBeCalled()
         {
-            var newsWebModel = new NewsWebModel();
+            NewsWebModel newsWebModel = new NewsWebModel();
 
             this.mapper.Setup(x => x.Map<NewsWebModel>(It.IsAny<NewsItem>())).Returns(newsWebModel);
             this.mapperProvider.SetupGet(x => x.Instance).Returns(this.mapper.Object);
 
-            var service = this.GetNewsService();
+            NewsService service = this.GetNewsService();
 
             service.GetNewsItemsByCategory("Breaking");
             this.newsItemRepo.Verify(x => x.GetAllMapped<NewsWebModel>(It.IsAny<Expression<Func<NewsItem, bool>>>()), Times.Once);

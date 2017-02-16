@@ -11,8 +11,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
         [Test]
         public void TitleShouldReturnTheSetValue()
         {
-            var eventArgs = new AddNewsEventArgs();
-            var title = "title";
+            AddNewsEventArgs eventArgs = new AddNewsEventArgs();
+            string title = "title";
 
             eventArgs.Title = title;
             Assert.AreEqual(title, eventArgs.Title);
@@ -21,8 +21,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
         [Test]
         public void FileNameShouldReturnTheSetValue()
         {
-            var eventArgs = new AddNewsEventArgs();
-            var fileName = "fileName";
+            AddNewsEventArgs eventArgs = new AddNewsEventArgs();
+            string fileName = "fileName";
 
             eventArgs.FileName = fileName;
             Assert.AreEqual(fileName, eventArgs.FileName);
@@ -31,8 +31,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
         [Test]
         public void ContentShouldReturnTheSetValue()
         {
-            var eventArgs = new AddNewsEventArgs();
-            var content = "content";
+            AddNewsEventArgs eventArgs = new AddNewsEventArgs();
+            string content = "content";
 
             eventArgs.Content = content;
             Assert.AreEqual(content, eventArgs.Content);
@@ -41,8 +41,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
         [Test]
         public void NewscategoryShouldReturnTheSetValue()
         {
-            var eventArgs = new AddNewsEventArgs();
-            var category = NewsCategoryType.Breaking;
+            AddNewsEventArgs eventArgs = new AddNewsEventArgs();
+            NewsCategoryType category = NewsCategoryType.Breaking;
 
             eventArgs.Category = category;
             Assert.AreEqual(category, eventArgs.Category);

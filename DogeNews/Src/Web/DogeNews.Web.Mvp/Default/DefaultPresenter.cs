@@ -1,8 +1,6 @@
 ﻿using System;
-
-using DogeNews.Web.Services.Contracts;
 using DogeNews.Common.Validators;
-
+using DogeNews.Services.Data.Contracts;
 using WebFormsMvp;
 
 namespace DogeNews.Web.Mvp.Default

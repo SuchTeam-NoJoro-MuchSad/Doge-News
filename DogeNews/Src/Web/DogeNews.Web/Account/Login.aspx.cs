@@ -19,7 +19,7 @@ namespace DogeNews.Web.Account
             this.RegisterHyperLink.NavigateUrl = "Register";
             this.OpenAuthLogin.ReturnUrl = Request.QueryString["ReturnUrl"];
 
-            var returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
+            string returnUrl = HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
 
             if (!string.IsNullOrEmpty(returnUrl))
             {
@@ -34,7 +34,7 @@ namespace DogeNews.Web.Account
         {
             if (this.IsValid)
             {
-                var args = new LoginEventArgs
+                LoginEventArgs args = new LoginEventArgs
                 {
                     UserName = this.Server.HtmlEncode(this.UserName.Text),
                     Password = this.Server.HtmlEncode(this.Password.Text),

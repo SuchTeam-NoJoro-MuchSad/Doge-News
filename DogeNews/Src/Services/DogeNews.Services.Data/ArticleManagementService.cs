@@ -3,9 +3,9 @@ using DogeNews.Common.Validators;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Services.Common.Contracts;
+using DogeNews.Services.Data.Contracts;
 using DogeNews.Web.Interception;
 using DogeNews.Web.Models;
-using DogeNews.Web.Services.Contracts;
 
 namespace DogeNews.Services.Data
 {
@@ -47,9 +47,9 @@ namespace DogeNews.Services.Data
             Validator.ValidateThatStringIsNotNullOrEmpty(username, nameof(username));
             Validator.ValidateThatObjectIsNotNull(newsItem, nameof(newsItem));
 
-            var author = this.userRepository.GetFirst(x => x.UserName == username);
-            var image = this.mapperProvider.Instance.Map<Image>(newsItem.Image);
-            var news = this.mapperProvider.Instance.Map<NewsItem>(newsItem);
+            User author = this.userRepository.GetFirst(x => x.UserName == username);
+            Image image = this.mapperProvider.Instance.Map<Image>(newsItem.Image);
+            NewsItem news = this.mapperProvider.Instance.Map<NewsItem>(newsItem);
 
             news.Author = author;
             news.AuthorId = author.Id;
@@ -66,7 +66,7 @@ namespace DogeNews.Services.Data
         {
             Validator.ValidateThatObjectIsNotNull(model, nameof(model));
 
-            var entityToUpdate = this.newsRepository.GetById(model.Id);
+            NewsItem entityToUpdate = this.newsRepository.GetById(model.Id);
 
             entityToUpdate.Title = model.Title;
             entityToUpdate.Category = model.Category;
@@ -74,7 +74,7 @@ namespace DogeNews.Services.Data
 
             if (model.Image != null)
             {
-                var image = this.mapperProvider.Instance.Map<Image>(model.Image);
+                Image image = this.mapperProvider.Instance.Map<Image>(model.Image);
                 this.imageRepository.Add(image);
                 entityToUpdate.Image = image;
                 entityToUpdate.ImageId = image.Id;
@@ -88,7 +88,7 @@ namespace DogeNews.Services.Data
         {
             Validator.ValidateThatNumberIsNotNegative(id, nameof(id));
 
-            var foundItem = this.newsRepository.GetById(id);
+            NewsItem foundItem = this.newsRepository.GetById(id);
 
             foundItem.DeletedOn = null;
             this.newsRepository.Update(foundItem);
@@ -99,7 +99,7 @@ namespace DogeNews.Services.Data
         {
             Validator.ValidateThatNumberIsNotNegative(id, nameof(id));
 
-            var foundItem = this.newsRepository.GetById(id);
+            NewsItem foundItem = this.newsRepository.GetById(id);
 
             foundItem.DeletedOn = this.dateTimeProvider.Now;
             this.newsRepository.Update(foundItem);

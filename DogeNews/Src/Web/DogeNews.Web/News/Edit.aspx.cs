@@ -18,7 +18,7 @@ namespace DogeNews.Web.News
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            var isAdminUser = this.Context.User.IsInRole(Common.Constants.Roles.Admin);
+            bool isAdminUser = this.Context.User.IsInRole(Common.Constants.Roles.Admin);
 
             if (!isAdminUser)
             {
@@ -32,7 +32,7 @@ namespace DogeNews.Web.News
                 this.Response.Redirect("/");
             }
 
-            var eventArgs = new PreInitPageEventArgs
+            PreInitPageEventArgs eventArgs = new PreInitPageEventArgs
             {
                 IsAdminUser = isAdminUser,
                 QueryString = this.ClientQueryString
@@ -50,7 +50,7 @@ namespace DogeNews.Web.News
 
         protected void EditNewsClick(object sender, EventArgs e)
         {
-            var eventArgs = new EditArticleEventArgs
+            EditArticleEventArgs eventArgs = new EditArticleEventArgs
             {
                 Id = this.Model.NewsItem.Id,
                 Title = this.Server.HtmlEncode(this.TitleInput.Value),

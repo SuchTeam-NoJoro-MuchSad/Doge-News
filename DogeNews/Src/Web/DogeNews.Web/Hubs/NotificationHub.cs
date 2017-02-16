@@ -13,7 +13,7 @@ namespace DogeNews.Web.Hubs
     {
         public void Init()
         {
-            var notificationsService = NinjectWebCommon.Kernel.Get<INotificationsService>();
+            INotificationsService notificationsService = NinjectWebCommon.Kernel.Get<INotificationsService>();
             notificationsService.Clients = this.Clients.All;
         }
     }

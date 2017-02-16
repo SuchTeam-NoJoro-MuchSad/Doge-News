@@ -20,6 +20,7 @@ using DogeNews.Web.Models;
 using DogeNews.Web.DataSources;
 using DogeNews.Common.Attributes;
 using DogeNews.Common.Extension;
+using Ninject.Syntax;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DogeNews.Web.Infrastructure.Bindings.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DogeNews.Web.Infrastructure.Bindings.NinjectWebCommon), "Stop")]
@@ -56,7 +57,7 @@ namespace DogeNews.Web.Infrastructure.Bindings
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            StandardKernel kernel = new StandardKernel();
             Kernel = kernel;
 
             try
@@ -80,22 +81,22 @@ namespace DogeNews.Web.Infrastructure.Bindings
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            var assemblies = GetAssemblies();
+            IEnumerable<Assembly> assemblies = GetAssemblies();
 
-            foreach (var assembly in assemblies)
+            foreach (Assembly assembly in assemblies)
             {
                 IEnumerable<Type> types = assembly.GetTypes().Where(t => t.IsClass && !t.IsGenericType);
 
-                foreach (var type in types)
+                foreach (Type type in types)
                 {
-                    var defaultInterface = type
+                    Type defaultInterface = type
                         .GetInterfaces()
                         .FirstOrDefault(i => i.Name == $"I{type.Name}");
-                    var isInSingletonScope = Attribute
+                    bool isInSingletonScope = Attribute
                         .GetCustomAttribute(type, typeof(InSingletonScopeAttribute)) != null;
-                    var isInrequestScope = Attribute
+                    bool isInrequestScope = Attribute
                         .GetCustomAttribute(type, typeof(InRequestScopeAttribute)) != null;
-                    var isInterceptable = Attribute
+                    bool isInterceptable = Attribute
                         .GetCustomAttribute(type, typeof(InterceptableAttribute)) != null;
 
                     if (defaultInterface == null)
@@ -120,7 +121,7 @@ namespace DogeNews.Web.Infrastructure.Bindings
                         IList<Type> interceptors = type
                             .GetAttributeValues((InterceptableAttribute atr) => atr.TypeOfInterceptors);
 
-                        var binding = kernel
+                        IBindingWhenInNamedWithOrOnSyntax<object> binding = kernel
                             .Bind(defaultInterface)
                             .To(type);
 
@@ -152,7 +153,7 @@ namespace DogeNews.Web.Infrastructure.Bindings
 
         private static IEnumerable<Assembly> GetAssemblies()
         {
-            var assemblies = new List<Assembly>
+            List<Assembly> assemblies = new List<Assembly>
             {
                 Assembly.Load(ServerConstants.DataAssembly),
                 Assembly.Load(ServerConstants.ServicesCommonAssembly),

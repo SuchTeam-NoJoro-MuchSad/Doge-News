@@ -11,7 +11,7 @@ namespace DogeNews.Common.Extension
             Func<TAttribute, TValue> valueSelector)
             where TAttribute : Attribute
         {
-            var att = type.GetCustomAttributes(typeof(TAttribute), true).FirstOrDefault() as TAttribute;
+            TAttribute att = type.GetCustomAttributes(typeof(TAttribute), true).FirstOrDefault() as TAttribute;
             
             return (IList<Type>)valueSelector(att);
         }

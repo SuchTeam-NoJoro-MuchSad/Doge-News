@@ -43,7 +43,7 @@ namespace DogeNews.Web.DataSources
             Validator.ValidateThatNumberIsNotNegative(page, nameof(page));
             Validator.ValidateThatNumberIsNotNegative(pageSize, nameof(pageSize));
 
-            var items = this.OrderByDescending(x => x.CreatedOn, page, pageSize, isAdminUser, category);
+            IEnumerable<NewsWebModel> items = this.OrderByDescending(x => x.CreatedOn, page, pageSize, isAdminUser, category);
             return items;
         }
 
@@ -52,8 +52,8 @@ namespace DogeNews.Web.DataSources
             Validator.ValidateThatNumberIsNotNegative(page, nameof(page));
             Validator.ValidateThatNumberIsNotNegative(pageSize, nameof(pageSize));
 
-            var result = this.GetNews(category, isAdminUser);
-            var items = result
+            IQueryable<NewsItem> result = this.GetNews(category, isAdminUser);
+            IEnumerable<NewsWebModel> items = result
                 .OrderBy(orderExpression)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -68,8 +68,8 @@ namespace DogeNews.Web.DataSources
             Validator.ValidateThatNumberIsNotNegative(page, nameof(page));
             Validator.ValidateThatNumberIsNotNegative(pageSize, nameof(pageSize));
 
-            var news = this.GetNews(category, isAdminUser);
-            var items = news
+            IQueryable<NewsItem> news = this.GetNews(category, isAdminUser);
+            IEnumerable<NewsWebModel> items = news
                .OrderByDescending(orderExpression)
                .Skip((page - 1) * pageSize)
                .Take(pageSize)
@@ -81,11 +81,11 @@ namespace DogeNews.Web.DataSources
 
         private IQueryable<NewsItem> GetNews(string category, bool isAdminUser)
         {
-            var news = this.newsItemRepository.All;
+            IQueryable<NewsItem> news = this.newsItemRepository.All;
 
             if (!string.IsNullOrEmpty(category))
             {
-                var newsCategoryType = (NewsCategoryType)Enum.Parse(typeof(NewsCategoryType), category);
+                NewsCategoryType newsCategoryType = (NewsCategoryType)Enum.Parse(typeof(NewsCategoryType), category);
                 news = news.Where(x => x.Category == newsCategoryType);
             }
 

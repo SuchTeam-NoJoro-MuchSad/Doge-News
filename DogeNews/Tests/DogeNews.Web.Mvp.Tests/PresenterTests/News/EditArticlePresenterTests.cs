@@ -7,12 +7,12 @@ using Moq;
 using NUnit.Framework;
 
 using DogeNews.Web.Mvp.News.Edit;
-using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Mvp.News.Edit.EventArguments;
 using DogeNews.Common.Enums;
 using DogeNews.Web.Models;
 using DogeNews.Services.Http.Contracts;
 using DogeNews.Services.Common.Contracts;
+using DogeNews.Services.Data.Contracts;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 {
@@ -44,8 +44,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetArticleManagementService()
         {
-            var presenter = this.GetPresenter();
-            var articleManagementServiceField = (IArticleManagementService)typeof(EditArticlePresenter)
+            EditArticlePresenter presenter = this.GetPresenter();
+            IArticleManagementService articleManagementServiceField = (IArticleManagementService)typeof(EditArticlePresenter)
                 .GetField("articleManagementService", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(presenter);
 
@@ -55,8 +55,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetNewsService()
         {
-            var presenter = this.GetPresenter();
-            var newsServiceField = (INewsService)typeof(EditArticlePresenter)
+            EditArticlePresenter presenter = this.GetPresenter();
+            INewsService newsServiceField = (INewsService)typeof(EditArticlePresenter)
                 .GetField("newsService", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(presenter);
 
@@ -66,8 +66,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetHttpUtilityService()
         {
-            var presenter = this.GetPresenter();
-            var httpUtilServiceField = (IHttpUtilityService)typeof(EditArticlePresenter)
+            EditArticlePresenter presenter = this.GetPresenter();
+            IHttpUtilityService httpUtilServiceField = (IHttpUtilityService)typeof(EditArticlePresenter)
                 .GetField("httpUtilityService", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(presenter);
 
@@ -77,8 +77,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetHttpContextService()
         {
-            var presenter = this.GetPresenter();
-            var httpContextServiceField = (IHttpContextService)typeof(EditArticlePresenter)
+            EditArticlePresenter presenter = this.GetPresenter();
+            IHttpContextService httpContextServiceField = (IHttpContextService)typeof(EditArticlePresenter)
                 .GetField("httpContextService", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(presenter);
 
@@ -88,8 +88,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetFileService()
         {
-            var presenter = this.GetPresenter();
-            var fileServiceField = (IFileService)typeof(EditArticlePresenter)
+            EditArticlePresenter presenter = this.GetPresenter();
+            IFileService fileServiceField = (IFileService)typeof(EditArticlePresenter)
                 .GetField("fileService", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(presenter);
 
@@ -99,8 +99,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetHttpServerService()
         {
-            var presenter = this.GetPresenter();
-            var serverServiceField = (IHttpServerUtilityService)typeof(EditArticlePresenter)
+            EditArticlePresenter presenter = this.GetPresenter();
+            IHttpServerUtilityService serverServiceField = (IHttpServerUtilityService)typeof(EditArticlePresenter)
                 .GetField("httpServerService", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(presenter);
 
@@ -110,8 +110,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetPostedFileService()
         {
-            var presenter = this.GetPresenter();
-            var postedFileServiceField = (IHttpPostedFileService)typeof(EditArticlePresenter)
+            EditArticlePresenter presenter = this.GetPresenter();
+            IHttpPostedFileService postedFileServiceField = (IHttpPostedFileService)typeof(EditArticlePresenter)
                 .GetField("httpPostedFileService", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(presenter);
 
@@ -121,7 +121,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenArticleManagementServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
                 this.view.Object,
                 null,
                 this.newsService.Object,
@@ -137,7 +137,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenNewsServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
                 this.view.Object,
                 this.articleManagementService.Object,
                 null,
@@ -153,7 +153,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenHttpUtilServiceIsNUll()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
                 this.view.Object,
                 this.articleManagementService.Object,
                 this.newsService.Object,
@@ -169,7 +169,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenHttpContextServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
                 this.view.Object,
                 this.articleManagementService.Object,
                 this.newsService.Object,
@@ -185,7 +185,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenFileServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
                 this.view.Object,
                 this.articleManagementService.Object,
                 this.newsService.Object,
@@ -201,7 +201,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenServerServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
                 this.view.Object,
                 this.articleManagementService.Object,
                 this.newsService.Object,
@@ -217,7 +217,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenHttpPostedFileServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => new EditArticlePresenter(
                 this.view.Object,
                 this.articleManagementService.Object,
                 this.newsService.Object,
@@ -233,14 +233,14 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void PagePreInit_HttpUtilityServiceParseQueryShouldBeCalled()
         {
-            var eventArgs = new PreInitPageEventArgs { QueryString = "?id=3" };
+            PreInitPageEventArgs eventArgs = new PreInitPageEventArgs { QueryString = "?id=3" };
 
             this.httpUtilService
                 .Setup(x => x.ParseQueryString(It.IsAny<string>()))
                 .Returns(new NameValueCollection { { "id", "3" } });
             this.view.SetupGet(x => x.Model).Returns(new EditArticleViewModel());
 
-            var presenter = this.GetPresenter();
+            EditArticlePresenter presenter = this.GetPresenter();
             presenter.PagePreInt(null, eventArgs);
 
             this.httpUtilService.Verify(x => x.ParseQueryString(It.Is<string>(a => a == eventArgs.QueryString)), Times.Once);
@@ -249,7 +249,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void PagePreInit_NewsServiceGetItemByIdShouldBeCalled()
         {
-            var eventArgs = new PreInitPageEventArgs { QueryString = "?name=name" };
+            PreInitPageEventArgs eventArgs = new PreInitPageEventArgs { QueryString = "?name=name" };
             string id = "3";
 
             this.httpUtilService
@@ -257,7 +257,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .Returns(new NameValueCollection { { "id", id } });
             this.view.SetupGet(x => x.Model).Returns(new EditArticleViewModel());
 
-            var presenter = this.GetPresenter();
+            EditArticlePresenter presenter = this.GetPresenter();
             presenter.PagePreInt(null, eventArgs);
 
             this.newsService.Verify(x => x.GetItemById(3), Times.Once);
@@ -266,8 +266,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void PagePreInit_ArgumentNullExceptionShouldBeCalledWhenEventArgsIsNull()
         {
-            var presenter = this.GetPresenter();
-            var exception = Assert.Throws<ArgumentNullException>(() => presenter.PagePreInt(null, null));
+            EditArticlePresenter presenter = this.GetPresenter();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => presenter.PagePreInt(null, null));
 
             Assert.AreEqual("preInitPageEventArgs", exception.ParamName);
         }
@@ -275,10 +275,10 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void EditArticle_HttpContextServiceGetUsernameShouldBeCalled()
         {
-            var presenter = this.GetPresenter();
+            EditArticlePresenter presenter = this.GetPresenter();
             string fileName = "FileName.png";
-            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
-            var eventArgs = new EditArticleEventArgs { Image = image };
+            HttpPostedFile image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
+            EditArticleEventArgs eventArgs = new EditArticleEventArgs { Image = image };
 
             presenter.EditArticle(null, eventArgs);
             this.httpContextService.Verify(x => x.GetUsername(It.IsAny<HttpContextBase>()), Times.Once);
@@ -287,10 +287,10 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void EditArticle_ArticleManagementServiceUpdateShouldBeCalledWhenImageIsNullAndEverythingIsOk()
         {
-            var presenter = this.GetPresenter();
+            EditArticlePresenter presenter = this.GetPresenter();
             string fileName = "FileName.png";
-            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
-            var eventArgs = new EditArticleEventArgs
+            HttpPostedFile image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
+            EditArticleEventArgs eventArgs = new EditArticleEventArgs
             {
                 Title = "Title",
                 Category = NewsCategoryType.Breaking,
@@ -311,9 +311,9 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void EditArticle_WhenImageIsChangedFileServiceGetFileExtensionShouldBeCalled()
         {
             string fileName = "FileName.png";
-            var presenter = this.GetPresenter();
-            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
-            var eventArgs = new EditArticleEventArgs
+            EditArticlePresenter presenter = this.GetPresenter();
+            HttpPostedFile image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
+            EditArticleEventArgs eventArgs = new EditArticleEventArgs
             {
                 Title = "Title",
                 Category = NewsCategoryType.Breaking,
@@ -335,9 +335,9 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .Returns(username);
 
             string fileName = "FileName.png";
-            var presenter = this.GetPresenter();
-            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
-            var eventArgs = new EditArticleEventArgs
+            EditArticlePresenter presenter = this.GetPresenter();
+            HttpPostedFile image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
+            EditArticleEventArgs eventArgs = new EditArticleEventArgs
             {
                 Title = "Title",
                 Category = NewsCategoryType.Breaking,
@@ -359,10 +359,10 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .Returns(username);
 
             string fileName = "FileName.png";
-            var presenter = this.GetPresenter();
+            EditArticlePresenter presenter = this.GetPresenter();
             string basePath = "~\\Resources\\Images";
-            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
-            var eventArgs = new EditArticleEventArgs
+            HttpPostedFile image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
+            EditArticleEventArgs eventArgs = new EditArticleEventArgs
             {
                 Title = "Title",
                 Category = NewsCategoryType.Breaking,
@@ -384,9 +384,9 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .Returns(username);
 
             string fileName = "FileName.png";
-            var presenter = this.GetPresenter();
-            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
-            var eventArgs = new EditArticleEventArgs
+            EditArticlePresenter presenter = this.GetPresenter();
+            HttpPostedFile image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
+            EditArticleEventArgs eventArgs = new EditArticleEventArgs
             {
                 Title = "Title",
                 Category = NewsCategoryType.Breaking,
@@ -408,9 +408,9 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .Returns(username);
 
             string fileName = "FileName.png";
-            var presenter = this.GetPresenter();
-            var image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
-            var eventArgs = new EditArticleEventArgs
+            EditArticlePresenter presenter = this.GetPresenter();
+            HttpPostedFile image = HttpPostedFileCreator.ConstructHttpPostedFile(new byte[10], fileName, "png");
+            EditArticleEventArgs eventArgs = new EditArticleEventArgs
             {
                 Title = "Title",
                 Category = NewsCategoryType.Breaking,
@@ -426,8 +426,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void EditArticle_ArgumentNullExceptionShouldBeThrownWhenEventArgsIsNull()
         {
-            var presenter = this.GetPresenter();
-            var exception = Assert.Throws<ArgumentNullException>(() => presenter.EditArticle(null, null));
+            EditArticlePresenter presenter = this.GetPresenter();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => presenter.EditArticle(null, null));
 
             Assert.AreEqual("editArticleEventArgs", exception.ParamName);
         }

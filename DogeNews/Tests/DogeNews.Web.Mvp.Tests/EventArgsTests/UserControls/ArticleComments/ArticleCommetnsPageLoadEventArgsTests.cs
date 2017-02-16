@@ -12,7 +12,7 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.UserControls.ArticleComments
         [Test]
         public void IsPostBackShouldReturnSetValue()
         {
-            var eventArgs = new ArticleCommetnsPageLoadEventArgs();
+            ArticleCommetnsPageLoadEventArgs eventArgs = new ArticleCommetnsPageLoadEventArgs();
 
             eventArgs.IsPostBack = true;
             Assert.IsTrue(eventArgs.IsPostBack);
@@ -21,8 +21,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.UserControls.ArticleComments
         [Test]
         public void ViewStateShouldReturnSetValue()
         {
-            var eventArgs = new ArticleCommetnsPageLoadEventArgs();
-            var viewState = new StateBag();
+            ArticleCommetnsPageLoadEventArgs eventArgs = new ArticleCommetnsPageLoadEventArgs();
+            StateBag viewState = new StateBag();
 
             eventArgs.ViewState = viewState;
             Assert.AreEqual(viewState, eventArgs.ViewState);
@@ -31,8 +31,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.UserControls.ArticleComments
         [Test]
         public void TitleShouldReturnSetValue()
         {
-            var eventArgs = new ArticleCommetnsPageLoadEventArgs();
-            var title = "title";
+            ArticleCommetnsPageLoadEventArgs eventArgs = new ArticleCommetnsPageLoadEventArgs();
+            string title = "title";
 
             eventArgs.Title = title;
             Assert.AreEqual(title, eventArgs.Title);

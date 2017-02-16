@@ -10,8 +10,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.UserControls.ArticleComments
         [Test]
         public void UsernameShouldReturnSetValue()
         {
-            var eventArgs = new AddCommentEventArguments();
-            var username = "username";
+            AddCommentEventArguments eventArgs = new AddCommentEventArguments();
+            string username = "username";
 
             eventArgs.Username = username;
             Assert.AreEqual(username, eventArgs.Username);
@@ -20,8 +20,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.UserControls.ArticleComments
         [Test]
         public void ContentShouldReturnSetValue()
         {
-            var eventArgs = new AddCommentEventArguments();
-            var content = "content";
+            AddCommentEventArguments eventArgs = new AddCommentEventArguments();
+            string content = "content";
 
             eventArgs.Content = content;
             Assert.AreEqual(content, eventArgs.Content);
@@ -30,8 +30,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.UserControls.ArticleComments
         [Test]
         public void ArticleTitleShouldReturnSetValue()
         {
-            var eventArgs = new AddCommentEventArguments();
-            var title = "title";
+            AddCommentEventArguments eventArgs = new AddCommentEventArguments();
+            string title = "title";
 
             eventArgs.ArticleTitle = title;
             Assert.AreEqual(title, eventArgs.ArticleTitle);

@@ -18,12 +18,12 @@ namespace DogeNews.Web.Infrastructure.Mappings
 
         public static IMapper Map()
         {
-            var config = new MapperConfiguration(cfg =>
+            MapperConfiguration config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<DataMappingsProfile>();
             });
 
-            var mapper = config.CreateMapper();
+            IMapper mapper = config.CreateMapper();
             
             Configuration = config;
             return mapper;

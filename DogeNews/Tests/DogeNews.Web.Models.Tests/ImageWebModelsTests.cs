@@ -9,7 +9,7 @@ namespace DogeNews.Web.Models.Tests
         public void Id_GetShouldReturnSetValue()
         {
             int id = 1;
-            var image = new ImageWebModel();
+            ImageWebModel image = new ImageWebModel();
 
             image.Id = id;
             Assert.AreEqual(id, image.Id);
@@ -18,8 +18,8 @@ namespace DogeNews.Web.Models.Tests
         [Test]
         public void Name_GetShouldReturnSetValue()
         {
-            var name = "name";
-            var image = new ImageWebModel();
+            string name = "name";
+            ImageWebModel image = new ImageWebModel();
 
             image.Name = name;
             Assert.AreEqual(name, image.Name);
@@ -28,8 +28,8 @@ namespace DogeNews.Web.Models.Tests
         [Test]
         public void FullName_GetShouldReturnSetValue()
         {
-            var fullname = "fullname";
-            var image = new ImageWebModel();
+            string fullname = "fullname";
+            ImageWebModel image = new ImageWebModel();
 
             image.FullName = fullname;
             Assert.AreEqual(fullname, image.FullName);
@@ -38,8 +38,8 @@ namespace DogeNews.Web.Models.Tests
         [Test]
         public void FileExtension_GetShouldReturnSetValue()
         {
-            var fileExtension = ".exe";
-            var image = new ImageWebModel();
+            string fileExtension = ".exe";
+            ImageWebModel image = new ImageWebModel();
 
             image.FileExtention = fileExtension;
             Assert.AreEqual(fileExtension, image.FileExtention);

@@ -11,8 +11,8 @@ namespace DogeNews.Web.Mvp.Tests.ModelsTests.News
         [Test]
         public void NewsModelShouldReturnTheSetValue()
         {
-            var articleModel = new ArticleViewModel();
-            var newsModel = new NewsWebModel();
+            ArticleViewModel articleModel = new ArticleViewModel();
+            NewsWebModel newsModel = new NewsWebModel();
 
             articleModel.NewsModel = newsModel;
             Assert.AreEqual(newsModel, articleModel.NewsModel);

@@ -18,7 +18,7 @@ namespace DogeNews.Web
         protected void Page_Init(object sender, EventArgs e)
         {
             // The code below helps to protect against XSRF attacks
-            var requestCookie = this.Request.Cookies[AntiXsrfTokenKey];
+            HttpCookie requestCookie = this.Request.Cookies[AntiXsrfTokenKey];
             Guid requestCookieGuidValue;
 
             if (requestCookie != null && Guid.TryParse(requestCookie.Value, out requestCookieGuidValue))
@@ -33,7 +33,7 @@ namespace DogeNews.Web
                 this.antiXsrfTokenValue = Guid.NewGuid().ToString("N");
                 Page.ViewStateUserKey = this.antiXsrfTokenValue;
 
-                var responseCookie = new HttpCookie(AntiXsrfTokenKey)
+                HttpCookie responseCookie = new HttpCookie(AntiXsrfTokenKey)
                 {
                     HttpOnly = true,
                     Value = this.antiXsrfTokenValue

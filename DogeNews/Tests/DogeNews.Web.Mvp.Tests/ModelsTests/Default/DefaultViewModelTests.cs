@@ -13,8 +13,8 @@ namespace DogeNews.Web.Mvp.Tests.ModelsTests.Default
         [Test]
         public void SliderNewsShouldReturnSetValue()
         {
-            var model = new DefaultViewModel();
-            var sliderNews = new List<NewsWebModel>();
+            DefaultViewModel model = new DefaultViewModel();
+            List<NewsWebModel> sliderNews = new List<NewsWebModel>();
 
             model.SliderNews = sliderNews;
             Assert.AreEqual(sliderNews, model.SliderNews);

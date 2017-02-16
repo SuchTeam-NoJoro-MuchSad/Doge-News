@@ -10,7 +10,6 @@ using Moq;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Services.Common.Contracts;
-using DogeNews.Web.Services;
 using DogeNews.Web.Models;
 
 using AutoMapper;
@@ -41,7 +40,7 @@ namespace DogeNews.Services.Data.Tests
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionIfCommentsRepoIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticleCommentsService(
                     null,
                     this.newsItemRepo.Object,
@@ -55,7 +54,7 @@ namespace DogeNews.Services.Data.Tests
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionIfNewsItemRepoIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticleCommentsService(
                     this.commentsRepo.Object,
                     null,
@@ -69,7 +68,7 @@ namespace DogeNews.Services.Data.Tests
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionIfUserRepoIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticleCommentsService(
                     this.commentsRepo.Object,
                     this.newsItemRepo.Object,
@@ -83,7 +82,7 @@ namespace DogeNews.Services.Data.Tests
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionIfMapperProviderIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticleCommentsService(
                     this.commentsRepo.Object,
                     this.newsItemRepo.Object,
@@ -97,7 +96,7 @@ namespace DogeNews.Services.Data.Tests
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionIfNewsDataIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticleCommentsService(
                     this.commentsRepo.Object,
                     this.newsItemRepo.Object,
@@ -111,8 +110,8 @@ namespace DogeNews.Services.Data.Tests
         [Test]
         public void Constructor_CommentsRepositoryShouldBeSet()
         {
-            var service = this.GetCommentsService();
-            var commentsRepoField = typeof(ArticleCommentsService)
+            ArticleCommentsService service = this.GetCommentsService();
+            object commentsRepoField = typeof(ArticleCommentsService)
                 .GetField("commentsRepository", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(service);
 
@@ -122,8 +121,8 @@ namespace DogeNews.Services.Data.Tests
         [Test]
         public void Constructor_NewsItemRepositoryShouldBeSet()
         {
-            var service = this.GetCommentsService();
-            var newsItemRepoField = typeof(ArticleCommentsService)
+            ArticleCommentsService service = this.GetCommentsService();
+            object newsItemRepoField = typeof(ArticleCommentsService)
                 .GetField("newsItemRepository", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(service);
 
@@ -133,8 +132,8 @@ namespace DogeNews.Services.Data.Tests
         [Test]
         public void Constructor_UserRepositoryShouldBeSet()
         {
-            var service = this.GetCommentsService();
-            var userRepoField = typeof(ArticleCommentsService)
+            ArticleCommentsService service = this.GetCommentsService();
+            object userRepoField = typeof(ArticleCommentsService)
                 .GetField("userRepository", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(service);
 
@@ -144,8 +143,8 @@ namespace DogeNews.Services.Data.Tests
         [Test]
         public void Constructor_MapperProviderShouldBeSet()
         {
-            var service = this.GetCommentsService();
-            var mapperProviderField = typeof(ArticleCommentsService)
+            ArticleCommentsService service = this.GetCommentsService();
+            object mapperProviderField = typeof(ArticleCommentsService)
                 .GetField("mapperProvider", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(service);
 
@@ -155,8 +154,8 @@ namespace DogeNews.Services.Data.Tests
         [Test]
         public void Constructor_NewsDataShouldBeSet()
         {
-            var service = this.GetCommentsService();
-            var newsDataField = typeof(ArticleCommentsService)
+            ArticleCommentsService service = this.GetCommentsService();
+            object newsDataField = typeof(ArticleCommentsService)
                 .GetField("newsData", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(service);
 
@@ -167,8 +166,8 @@ namespace DogeNews.Services.Data.Tests
         [TestCase(null)]
         public void GetCommentsForArticleByTitle_ShouldThrowArgumentNullExceptionWhenTitleIsNullOrEmpty(string title)
         {
-            var service = this.GetCommentsService();
-            var exception = Assert.Throws<ArgumentNullException>(() => service.GetCommentsForArticleByTitle(title));
+            ArticleCommentsService service = this.GetCommentsService();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => service.GetCommentsForArticleByTitle(title));
 
             Assert.AreEqual("title", exception.ParamName);
         }
@@ -176,7 +175,7 @@ namespace DogeNews.Services.Data.Tests
         [Test]
         public void GetCommentsForArticleByTitle_NewsRepoGetFirstMappedShouldBeCalled()
         {
-            var comments = new List<CommentWebModel>();
+            List<CommentWebModel> comments = new List<CommentWebModel>();
 
             this.mapper
                 .Setup(x => x.Map<IEnumerable<CommentWebModel>>(It.IsAny<object>()))
@@ -186,7 +185,7 @@ namespace DogeNews.Services.Data.Tests
                 .Setup(x => x.GetFirstMapped<NewsWebModel>(It.IsAny<Expression<Func<NewsItem, bool>>>()))
                 .Returns(new NewsWebModel { Comments = new List<CommentWebModel>() });
 
-            var service = this.GetCommentsService();
+            ArticleCommentsService service = this.GetCommentsService();
             string title = "title";
 
             service.GetCommentsForArticleByTitle(title);
@@ -196,7 +195,7 @@ namespace DogeNews.Services.Data.Tests
         [Test]
         public void GetCommentsForArticleByTitle_ShouldReturnMappedModels()
         {
-            var comments = new List<CommentWebModel>();
+            List<CommentWebModel> comments = new List<CommentWebModel>();
 
             this.mapper
                 .Setup(x => x.Map<IEnumerable<CommentWebModel>>(It.IsAny<object>()))
@@ -206,10 +205,10 @@ namespace DogeNews.Services.Data.Tests
                 .Setup(x => x.GetFirstMapped<NewsWebModel>(It.IsAny<Expression<Func<NewsItem, bool>>>()))
                 .Returns(new NewsWebModel { Comments = comments });
 
-            var service = this.GetCommentsService();
+            ArticleCommentsService service = this.GetCommentsService();
             string title = "title";
 
-            var models = service.GetCommentsForArticleByTitle(title);
+            IEnumerable<CommentWebModel> models = service.GetCommentsForArticleByTitle(title);
             Assert.AreEqual(comments, models);
         }
 
@@ -217,8 +216,8 @@ namespace DogeNews.Services.Data.Tests
         [TestCase(null)]
         public void AddComemnt_ShouldThrowArgumentNullExceptionWhenNewsItemTitleIsNullOrEmpty(string title)
         {
-            var service = this.GetCommentsService();
-            var exception = Assert.Throws<ArgumentNullException>(() => service.AddComment(title, "content", "username"));
+            ArticleCommentsService service = this.GetCommentsService();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => service.AddComment(title, "content", "username"));
 
             Assert.AreEqual("newsItemTitle", exception.ParamName);
         }
@@ -227,8 +226,8 @@ namespace DogeNews.Services.Data.Tests
         [TestCase(null)]
         public void AddComemnt_ShouldThrowArgumentNullExceptionWhenCommentContentIsNullOrEmpty(string content)
         {
-            var service = this.GetCommentsService();
-            var exception = Assert.Throws<ArgumentNullException>(() => service.AddComment("title", content, "username"));
+            ArticleCommentsService service = this.GetCommentsService();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => service.AddComment("title", content, "username"));
 
             Assert.AreEqual("commentContent", exception.ParamName);
         }
@@ -237,8 +236,8 @@ namespace DogeNews.Services.Data.Tests
         [TestCase(null)]
         public void AddComemnt_ShouldThrowArgumentNullExceptionWhenUsernameIsNullOrEmpty(string username)
         {
-            var service = this.GetCommentsService();
-            var exception = Assert.Throws<ArgumentNullException>(() => service.AddComment("title", "content", username));
+            ArticleCommentsService service = this.GetCommentsService();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => service.AddComment("title", "content", username));
 
             Assert.AreEqual("userName", exception.ParamName);
         }
@@ -253,7 +252,7 @@ namespace DogeNews.Services.Data.Tests
                 .Setup(x => x.GetFirst(It.IsAny<Expression<Func<NewsItem, bool>>>()))
                 .Returns(new NewsItem());
 
-            var service = this.GetCommentsService();
+            ArticleCommentsService service = this.GetCommentsService();
             service.AddComment("title", "content", "username");
 
             this.userRepo.Verify(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>()), Times.Once);
@@ -269,7 +268,7 @@ namespace DogeNews.Services.Data.Tests
                 .Setup(x => x.GetFirst(It.IsAny<Expression<Func<NewsItem, bool>>>()))
                 .Returns(new NewsItem());
 
-            var service = this.GetCommentsService();
+            ArticleCommentsService service = this.GetCommentsService();
             service.AddComment("title", "content", "username");
 
             this.newsItemRepo.Verify(x => x.GetFirst(It.IsAny<Expression<Func<NewsItem, bool>>>()), Times.Once);
@@ -278,8 +277,8 @@ namespace DogeNews.Services.Data.Tests
         [Test]
         public void AddComment_CommentShouldBeAddedToNewsItemComments()
         {
-            var user = new User();
-            var newsItem = new NewsItem();
+            User user = new User();
+            NewsItem newsItem = new NewsItem();
 
             this.userRepo
                 .Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>()))
@@ -288,14 +287,14 @@ namespace DogeNews.Services.Data.Tests
                 .Setup(x => x.GetFirst(It.IsAny<Expression<Func<NewsItem, bool>>>()))
                 .Returns(newsItem);
 
-            var service = this.GetCommentsService();
+            ArticleCommentsService service = this.GetCommentsService();
             string title = "title";
             string content = "content";
             string username = "username";
 
             service.AddComment(title, content, username);
 
-            var addedComment = newsItem.Comments.First();
+            Comment addedComment = newsItem.Comments.First();
 
             Assert.AreEqual(content, addedComment.Content);
             Assert.AreEqual(user, addedComment.User);
@@ -311,7 +310,7 @@ namespace DogeNews.Services.Data.Tests
                 .Setup(x => x.GetFirst(It.IsAny<Expression<Func<NewsItem, bool>>>()))
                 .Returns(new NewsItem());
 
-            var service = this.GetCommentsService();
+            ArticleCommentsService service = this.GetCommentsService();
             service.AddComment("title", "content", "username");
 
             this.newsData.Verify(x => x.Commit(), Times.Once);

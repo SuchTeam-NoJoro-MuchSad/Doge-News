@@ -11,7 +11,7 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
         [Test]
         public void Id_ShouldReturnTheSetValue()
         {
-            var eventArgs = new EditArticleEventArgs();
+            EditArticleEventArgs eventArgs = new EditArticleEventArgs();
             int id = 1;
 
             eventArgs.Id = id;
@@ -21,8 +21,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
         [Test]
         public void Title_ShouldReturnTheSetValue()
         {
-            var eventArgs = new EditArticleEventArgs();
-            var title = "title";
+            EditArticleEventArgs eventArgs = new EditArticleEventArgs();
+            string title = "title";
 
             eventArgs.Title = title;
             Assert.AreEqual(title, eventArgs.Title);
@@ -31,8 +31,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
         [Test]
         public void FileName_ShouldReturnTheSetValue()
         {
-            var eventArgs = new EditArticleEventArgs();
-            var fileName = "fileName";
+            EditArticleEventArgs eventArgs = new EditArticleEventArgs();
+            string fileName = "fileName";
 
             eventArgs.FileName = fileName;
             Assert.AreEqual(fileName, eventArgs.FileName);
@@ -41,8 +41,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
         [Test]
         public void Content_ShouldReturnTheSetValue()
         {
-            var eventArgs = new EditArticleEventArgs();
-            var content = "content";
+            EditArticleEventArgs eventArgs = new EditArticleEventArgs();
+            string content = "content";
 
             eventArgs.Content = content;
             Assert.AreEqual(content, eventArgs.Content);
@@ -51,8 +51,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
         [Test]
         public void Category_ShouldReturnTheSetValue()
         {
-            var eventArgs = new EditArticleEventArgs();
-            var category = NewsCategoryType.Breaking;
+            EditArticleEventArgs eventArgs = new EditArticleEventArgs();
+            NewsCategoryType category = NewsCategoryType.Breaking;
 
             eventArgs.Category = category;
             Assert.AreEqual(category, eventArgs.Category);

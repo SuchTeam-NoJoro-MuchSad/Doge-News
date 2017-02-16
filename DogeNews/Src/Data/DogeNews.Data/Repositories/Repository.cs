@@ -58,7 +58,7 @@ namespace DogeNews.Data.Repositories
         {
             Validator.ValidateThatObjectIsNotNull(filterExpression, nameof(filterExpression));
 
-            var foundEntity = this.DbSet.FirstOrDefault(filterExpression);
+            T foundEntity = this.DbSet.FirstOrDefault(filterExpression);
             return foundEntity;
         }
                 
@@ -86,7 +86,7 @@ namespace DogeNews.Data.Repositories
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            var entry = AttachIfDetached(entity);
+            DbEntityEntry entry = AttachIfDetached(entity);
             entry.State = EntityState.Added;
         }
 
@@ -97,7 +97,7 @@ namespace DogeNews.Data.Repositories
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            var entry = AttachIfDetached(entity);
+            DbEntityEntry entry = AttachIfDetached(entity);
             entry.State = EntityState.Deleted;
         }
 
@@ -108,13 +108,13 @@ namespace DogeNews.Data.Repositories
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            var entry = AttachIfDetached(entity);
+            DbEntityEntry entry = AttachIfDetached(entity);
             entry.State = EntityState.Modified;
         }
 
         private DbEntityEntry AttachIfDetached(T entity)
         {
-            var entry = this.Context.Entry(entity);
+            DbEntityEntry<T> entry = this.Context.Entry(entity);
 
             if (entry.State == EntityState.Detached)
             {

@@ -7,9 +7,9 @@ using NUnit.Framework;
 
 using DogeNews.Web.Mvp.News.Add;
 using DogeNews.Web.Mvp.News.Add.EventArguments;
-using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Models;
 using DogeNews.Services.Common.Contracts;
+using DogeNews.Services.Data.Contracts;
 using DogeNews.Services.Http.Contracts;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
@@ -38,8 +38,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetFileServiceField()
         {
-            var presenter = this.GetNewsPresenter();
-            var httpContextServiceField = (IHttpContextService)typeof(AddNewsPresenter)
+            AddNewsPresenter presenter = this.GetNewsPresenter();
+            IHttpContextService httpContextServiceField = (IHttpContextService)typeof(AddNewsPresenter)
                 .GetField("httpContextService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
@@ -49,8 +49,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetArticleManagementServiceField()
         {
-            var presenter = this.GetNewsPresenter();
-            var newsServiceField = (IArticleManagementService)typeof(AddNewsPresenter)
+            AddNewsPresenter presenter = this.GetNewsPresenter();
+            IArticleManagementService newsServiceField = (IArticleManagementService)typeof(AddNewsPresenter)
                 .GetField("articleManagementService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
@@ -60,8 +60,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetHttpContextServiceField()
         {
-            var presenter = this.GetNewsPresenter();
-            var httpContextServiceField = (IHttpContextService)typeof(AddNewsPresenter)
+            AddNewsPresenter presenter = this.GetNewsPresenter();
+            IHttpContextService httpContextServiceField = (IHttpContextService)typeof(AddNewsPresenter)
                 .GetField("httpContextService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
@@ -71,8 +71,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetHttpPostedFileServiceField()
         {
-            var presenter = this.GetNewsPresenter();
-            var httpPostedFileServiceField = (IHttpPostedFileService)typeof(AddNewsPresenter)
+            AddNewsPresenter presenter = this.GetNewsPresenter();
+            IHttpPostedFileService httpPostedFileServiceField = (IHttpPostedFileService)typeof(AddNewsPresenter)
                 .GetField("httpPostedFileService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
@@ -82,8 +82,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetHttpServerServiceField()
         {
-            var presenter = this.GetNewsPresenter();
-            var httpServerServiceField = (IHttpServerUtilityService)typeof(AddNewsPresenter)
+            AddNewsPresenter presenter = this.GetNewsPresenter();
+            IHttpServerUtilityService httpServerServiceField = (IHttpServerUtilityService)typeof(AddNewsPresenter)
                 .GetField("httpServerService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
@@ -93,7 +93,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenFileServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new AddNewsPresenter(
                     this.view.Object,
                     null,
@@ -108,7 +108,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenNewsServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new AddNewsPresenter(
                     this.view.Object,
                     this.fileService.Object,
@@ -123,7 +123,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenHttpContextServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new AddNewsPresenter(
                     this.view.Object,
                     this.fileService.Object,
@@ -138,7 +138,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenHttpPostedFileServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new AddNewsPresenter(
                     this.view.Object,
                     this.fileService.Object,
@@ -153,7 +153,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenHttpServerServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new AddNewsPresenter(
                     this.view.Object,
                     this.fileService.Object,
@@ -168,8 +168,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void AddNews_ShouldThrowArgumentNullExceptionWhenEventArgsIsNull()
         {
-            var presenter = this.GetNewsPresenter();
-            var exception = Assert.Throws<ArgumentNullException>(() => presenter.AddNews(null, null));
+            AddNewsPresenter presenter = this.GetNewsPresenter();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => presenter.AddNews(null, null));
 
             Assert.AreEqual("e", exception.ParamName);
         }
@@ -177,7 +177,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void AddNews_ShouldCallHttpContextServiceGetUsername()
         {
-            var presenter = this.GetNewsPresenter();
+            AddNewsPresenter presenter = this.GetNewsPresenter();
 
             presenter.AddNews(null, new AddNewsEventArgs());
             this.httpContextService
@@ -193,7 +193,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .Setup(x => x.GetUsername(It.IsAny<HttpContextBase>()))
                 .Returns(username);
 
-            var presenter = this.GetNewsPresenter();
+            AddNewsPresenter presenter = this.GetNewsPresenter();
 
             presenter.AddNews(null, new AddNewsEventArgs());
             this.fileService
@@ -203,7 +203,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void AddNews_HttpServerServiceMapPathShouldBeCalled()
         {
-            var presenter = this.GetNewsPresenter();
+            AddNewsPresenter presenter = this.GetNewsPresenter();
             presenter.AddNews(null, new AddNewsEventArgs());
 
             this.httpServerService.Verify(x => x.MapPath(It.IsAny<string>()), Times.Once);
@@ -212,7 +212,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void AddNews_FileServiceCreateFileShouldBeCalled()
         {
-            var presenter = this.GetNewsPresenter();
+            AddNewsPresenter presenter = this.GetNewsPresenter();
             presenter.AddNews(null, new AddNewsEventArgs());
 
             this.fileService
@@ -222,7 +222,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void AddNews_HttpPostedFileServiceSaveAsShouldBeCalled()
         {
-            var presenter = this.GetNewsPresenter();
+            AddNewsPresenter presenter = this.GetNewsPresenter();
             presenter.AddNews(null, new AddNewsEventArgs());
 
             this.httpPostedFileService
@@ -232,7 +232,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void AddNews_NewsServiceAddShouldBeCalled()
         {
-            var presenter = this.GetNewsPresenter();
+            AddNewsPresenter presenter = this.GetNewsPresenter();
             presenter.AddNews(null, new AddNewsEventArgs());
 
             this.articleManagementService.Verify(x => x.Add(It.IsAny<string>(), It.IsAny<NewsWebModel>()), Times.Once);
@@ -240,7 +240,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 
         public AddNewsPresenter GetNewsPresenter()
         {
-            var presenter = new AddNewsPresenter(
+            AddNewsPresenter presenter = new AddNewsPresenter(
                 this.view.Object,
                 this.fileService.Object,
                 this.articleManagementService.Object,

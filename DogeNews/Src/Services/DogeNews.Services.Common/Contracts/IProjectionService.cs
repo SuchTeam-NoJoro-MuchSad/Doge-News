@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace DogeNews.Services.Common
+namespace DogeNews.Services.Common.Contracts
 {
     public interface IProjectionService
     {

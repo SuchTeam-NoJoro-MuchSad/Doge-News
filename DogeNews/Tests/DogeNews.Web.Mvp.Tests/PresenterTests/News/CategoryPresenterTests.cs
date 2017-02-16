@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Reflection;
-
+using DogeNews.Services.Data.Contracts;
 using NUnit.Framework;
 using Moq;
 
 using DogeNews.Web.Mvp.News.Category;
-using DogeNews.Web.Services.Contracts;
 using DogeNews.Services.Http.Contracts;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
@@ -28,8 +27,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetNewsServiceFiled()
         {
-            var presenter = this.GetPresenter();
-            var serviceField = typeof(CategoryPresenter)
+            CategoryPresenter presenter = this.GetPresenter();
+            object serviceField = typeof(CategoryPresenter)
                 .GetField("newsService", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(presenter);
 
@@ -39,8 +38,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetHttpContextServiceField()
         {
-            var presenter = this.GetPresenter();
-            var servichttpContextServiceField = typeof(CategoryPresenter)
+            CategoryPresenter presenter = this.GetPresenter();
+            object servichttpContextServiceField = typeof(CategoryPresenter)
                 .GetField("httpContextService", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(presenter);
 
@@ -50,7 +49,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenNewsServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() => 
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => 
                 new CategoryPresenter(
                     this.view.Object, 
                     null, 
@@ -62,7 +61,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ArgumentNullExceptionShouldBeThrownWhenHttpContextServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new CategoryPresenter(
                     this.view.Object,
                     this.newsService.Object,
@@ -73,7 +72,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 
         private CategoryPresenter GetPresenter()
         {
-            var presenter = new CategoryPresenter(
+            CategoryPresenter presenter = new CategoryPresenter(
                 this.view.Object,
                 this.newsService.Object,
                 this.httpContextService.Object);

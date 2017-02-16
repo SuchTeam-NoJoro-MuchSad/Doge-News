@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using DogeNews.Common.Attributes;
+using DogeNews.Common.Validators;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
-using DogeNews.Web.Services.Contracts;
 using DogeNews.Services.Common.Contracts;
-using DogeNews.Common.Validators;
+using DogeNews.Services.Data.Contracts;
 using DogeNews.Web.Interception;
 using DogeNews.Web.Models;
 
-namespace DogeNews.Web.Services
+namespace DogeNews.Services.Data
 {
     [Interceptable(typeof(ExceptionInterceptor))]
     public class ArticleCommentsService : IArticleCommentsService
@@ -51,7 +51,7 @@ namespace DogeNews.Web.Services
         {
             Validator.ValidateThatStringIsNotNullOrEmpty(title, nameof(title));
 
-            var newsItem = newsItemRepository.GetFirstMapped<NewsWebModel>(x => x.Title == title);
+            NewsWebModel newsItem = newsItemRepository.GetFirstMapped<NewsWebModel>(x => x.Title == title);
 
             this.count = newsItem.Comments.Count();
 
@@ -64,9 +64,9 @@ namespace DogeNews.Web.Services
             Validator.ValidateThatStringIsNotNullOrEmpty(commentContent, nameof(commentContent));
             Validator.ValidateThatStringIsNotNullOrEmpty(userName, nameof(userName));
 
-            var foundUser = this.userRepository.GetFirst(x => x.UserName == userName);
-            var newsItem = newsItemRepository.GetFirst(x => x.Title == newsItemTitle);
-            var commentToAdd = new Comment
+            User foundUser = this.userRepository.GetFirst(x => x.UserName == userName);
+            NewsItem newsItem = newsItemRepository.GetFirst(x => x.Title == newsItemTitle);
+            Comment commentToAdd = new Comment
             {
                 User = foundUser,
                 Content = commentContent

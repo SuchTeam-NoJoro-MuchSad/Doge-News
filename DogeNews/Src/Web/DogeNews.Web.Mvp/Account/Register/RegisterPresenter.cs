@@ -24,14 +24,14 @@ namespace DogeNews.Web.Mvp.Account.Register
 
         private void CreateUser(object sender, CreateUserEventArgs e)
         {
-            var manager = this.HttpContext
+            ApplicationUserManager manager = this.HttpContext
                 .GetOwinContext()
                 .GetUserManager<ApplicationUserManager>();
-            var signInManager = this.HttpContext
+            ApplicationSignInManager signInManager = this.HttpContext
                 .GetOwinContext()
                 .Get<ApplicationSignInManager>();
-            var user = new User { UserName = e.UserName };
-            var result = manager.Create(user, e.Password);
+            User user = new User { UserName = e.UserName };
+            IdentityResult result = manager.Create(user, e.Password);
 
             if (result.Succeeded)
             {

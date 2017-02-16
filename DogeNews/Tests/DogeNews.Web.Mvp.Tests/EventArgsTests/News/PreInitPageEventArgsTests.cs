@@ -10,8 +10,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
         [Test]
         public void QueryString_ShouldReturnTheSetValue()
         {
-            var eventArgs = new PreInitPageEventArgs();
-            var queryString = "?Name=Name";
+            PreInitPageEventArgs eventArgs = new PreInitPageEventArgs();
+            string queryString = "?Name=Name";
 
             eventArgs.QueryString = queryString;
             Assert.AreEqual(queryString, eventArgs.QueryString);
@@ -20,7 +20,7 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.News
         [Test]
         public void IsAdminUser_ShouldReturnTheSetValue()
         {
-            var eventArgs = new PreInitPageEventArgs();
+            PreInitPageEventArgs eventArgs = new PreInitPageEventArgs();
 
             eventArgs.IsAdminUser = true;
             Assert.IsTrue(eventArgs.IsAdminUser);

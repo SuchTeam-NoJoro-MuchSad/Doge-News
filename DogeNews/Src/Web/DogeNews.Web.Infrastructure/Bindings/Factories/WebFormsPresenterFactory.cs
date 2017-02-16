@@ -18,7 +18,7 @@ namespace DogeNews.Web.Infrastructure.Bindings.Factories
 
         public IPresenter Create(Type presenterType, Type viewType, IView viewInstance)
         {
-            var presenter = this.presenterProvider.GetPresenter(presenterType, viewType, viewInstance);
+            IPresenter presenter = this.presenterProvider.GetPresenter(presenterType, viewType, viewInstance);
             return presenter;
         }
 

@@ -19,7 +19,7 @@ namespace DogeNews.Services.Common
 
         public string GetFileExtension(string path)
         {
-            var fileExtension = Path.GetExtension(path);
+            string fileExtension = Path.GetExtension(path);
             return fileExtension;
         }
 
@@ -30,8 +30,8 @@ namespace DogeNews.Services.Common
                 throw new ArgumentNullException(nameof(username));
             }
 
-            var guid = Guid.NewGuid().ToString();
-            var fileName = $"{username}{guid}"
+            string guid = Guid.NewGuid().ToString();
+            string fileName = $"{username}{guid}"
                 .Replace(' ', '-')
                 .Replace(':', '-')
                 .Replace('.', '-')

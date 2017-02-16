@@ -13,8 +13,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.UserControls.NewsGrid
         [Test]
         public void OrderByShouldReturnTheSetValue()
         {
-            var eventArgs = new OrderByEventArgs();
-            var orderBy = OrderByType.Ascending;
+            OrderByEventArgs eventArgs = new OrderByEventArgs();
+            OrderByType orderBy = OrderByType.Ascending;
 
             eventArgs.OrderBy = orderBy;
             Assert.AreEqual(orderBy, eventArgs.OrderBy);
@@ -23,8 +23,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.UserControls.NewsGrid
         [Test]
         public void ViewStateShouldReturnTheSetValue()
         {
-            var eventArgs = new OrderByEventArgs();
-            var viewState = new StateBag();
+            OrderByEventArgs eventArgs = new OrderByEventArgs();
+            StateBag viewState = new StateBag();
 
             eventArgs.ViewState = viewState;
             Assert.AreEqual(viewState, eventArgs.ViewState);

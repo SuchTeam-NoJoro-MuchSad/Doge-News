@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using Microsoft.Owin.Security.DataProtection;
 
 namespace DogeNews.Web.Identity.Managers
 {
@@ -21,7 +22,7 @@ namespace DogeNews.Web.Identity.Managers
             IdentityFactoryOptions<ApplicationUserManager> options, 
             IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<User>(context.Get<NewsDbContext>()));
+            ApplicationUserManager manager = new ApplicationUserManager(new UserStore<User>(context.Get<NewsDbContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<User>(manager)
             {
@@ -61,7 +62,7 @@ namespace DogeNews.Web.Identity.Managers
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
             manager.MaxFailedAccessAttemptsBeforeLockout = 5;
             
-            var dataProtectionProvider = options.DataProtectionProvider;
+            IDataProtectionProvider dataProtectionProvider = options.DataProtectionProvider;
 
             if (dataProtectionProvider != null)
             {

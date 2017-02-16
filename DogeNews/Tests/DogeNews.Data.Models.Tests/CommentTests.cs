@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-
+using System.Reflection;
 using NUnit.Framework;
 
 namespace DogeNews.Data.Models.Tests
@@ -12,8 +12,8 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void User_ShouldHaveRequiredAttribute()
         {
-            var commentType = typeof(Comment);
-            var propertyInfo = commentType.GetProperty("User");
+            Type commentType = typeof(Comment);
+            PropertyInfo propertyInfo = commentType.GetProperty("User");
             bool doesRequiredExist = Attribute.IsDefined(propertyInfo, typeof(RequiredAttribute));
 
             Assert.IsTrue(doesRequiredExist);
@@ -22,8 +22,8 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void Content_ShouldHaveRequiredAttribute()
         {
-            var commentType = typeof(Comment);
-            var propertyInfo = commentType.GetProperty("Content");
+            Type commentType = typeof(Comment);
+            PropertyInfo propertyInfo = commentType.GetProperty("Content");
             bool doesRequiredExist = Attribute.IsDefined(propertyInfo, typeof(RequiredAttribute));
 
             Assert.IsTrue(doesRequiredExist);
@@ -32,12 +32,12 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void Content_ShouldHaveMinLengthAttributeWithValue2()
         {
-            var commentType = typeof(Comment);
-            var propertyInfo = commentType.GetProperty("Content");
-            var minLengthAttribute = (MinLengthAttribute)propertyInfo
+            Type commentType = typeof(Comment);
+            PropertyInfo propertyInfo = commentType.GetProperty("Content");
+            MinLengthAttribute minLengthAttribute = (MinLengthAttribute)propertyInfo
                 .GetCustomAttributes(false)
                 .FirstOrDefault(x => x as MinLengthAttribute != null);
-            var expectedLength = 2;
+            int expectedLength = 2;
 
             Assert.AreEqual(expectedLength, minLengthAttribute.Length);
         }
@@ -45,12 +45,12 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void Content_ShouldHaveMaxLengthAttributeWithValue250()
         {
-            var commentType = typeof(Comment);
-            var propertyInfo = commentType.GetProperty("Content");
-            var maxLengthAttribute = (MaxLengthAttribute)propertyInfo
+            Type commentType = typeof(Comment);
+            PropertyInfo propertyInfo = commentType.GetProperty("Content");
+            MaxLengthAttribute maxLengthAttribute = (MaxLengthAttribute)propertyInfo
                 .GetCustomAttributes(false)
                 .FirstOrDefault(x => x as MaxLengthAttribute != null);
-            var expectedLength = 250;
+            int expectedLength = 250;
 
             Assert.AreEqual(expectedLength, maxLengthAttribute.Length);
         }
@@ -59,7 +59,7 @@ namespace DogeNews.Data.Models.Tests
         public void Id_GetShouldReturnTheSetValue()
         {
             int id = 1;
-            var comment = new Comment();
+            Comment comment = new Comment();
 
             comment.Id = 1;
             Assert.AreEqual(id, comment.Id);
@@ -68,8 +68,8 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void User_GetShouldReturnTheSetValue()
         {
-            var user = new User();
-            var comment = new Comment();
+            User user = new User();
+            Comment comment = new Comment();
 
             comment.User = user;
             Assert.AreEqual(user, comment.User);
@@ -79,7 +79,7 @@ namespace DogeNews.Data.Models.Tests
         public void Content_GetShouldReturnTheSetValue()
         {
             string content = "Content";
-            var comment = new Comment();
+            Comment comment = new Comment();
 
             comment.Content = content;
             Assert.AreEqual(content, comment.Content);

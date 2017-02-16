@@ -9,7 +9,7 @@ namespace DogeNews.Services.Http
     {
         public NameValueCollection ParseQueryString(string query)
         {
-            var result = HttpUtility.ParseQueryString(query);
+            NameValueCollection result = HttpUtility.ParseQueryString(query);
             return result;
         }
     }

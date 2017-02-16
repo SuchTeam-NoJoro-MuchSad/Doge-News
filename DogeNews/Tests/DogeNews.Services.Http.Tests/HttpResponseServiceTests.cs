@@ -1,8 +1,6 @@
-﻿using DogeNews.Services.Http;
+﻿using NUnit.Framework;
 
-using NUnit.Framework;
-
-namespace DogeNews.Web.Services.Tests.HttpTests
+namespace DogeNews.Services.Http.Tests
 {
     [TestFixture]
     public class HttpResponseServiceTests
@@ -10,7 +8,7 @@ namespace DogeNews.Web.Services.Tests.HttpTests
         [Test, Ignore("HttpContext is not instanced by the test (only by ASP), and this test will aways throw NullArgumentException")]
         public void Clear_ShouldNotThrow()
         {
-            var service = new HttpResponseService();
+            HttpResponseService service = new HttpResponseService();
             Assert.DoesNotThrow(()=> service.Clear());
         }
     }

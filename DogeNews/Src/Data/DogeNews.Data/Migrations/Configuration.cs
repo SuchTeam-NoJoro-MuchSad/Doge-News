@@ -25,32 +25,32 @@ namespace DogeNews.Data.Migrations
 
         private void SeedRoles(NewsDbContext context)
         {
-            var roleStore = new RoleStore<IdentityRole>(context);
-            var roleManager = new RoleManager<IdentityRole>(roleStore);
+            RoleStore<IdentityRole> roleStore = new RoleStore<IdentityRole>(context);
+            RoleManager<IdentityRole> roleManager = new RoleManager<IdentityRole>(roleStore);
 
             if (!context.Roles.Any(r => r.Name == Roles.Admin))
             {
-                var role = new IdentityRole { Name = Roles.Admin };
+                IdentityRole role = new IdentityRole { Name = Roles.Admin };
                 roleManager.Create(role);
             }
 
             if (!context.Roles.Any(r => r.Name == Roles.Normal))
             {
-                var role = new IdentityRole { Name = Roles.Normal };
+                IdentityRole role = new IdentityRole { Name = Roles.Normal };
                 roleManager.Create(role);
             }
         }
 
         private void SeedUsers(NewsDbContext context)
         {
-            var userStore = new UserStore<User>(context);
-            var userManager = new UserManager<User>(userStore);
+            UserStore<User> userStore = new UserStore<User>(context);
+            UserManager<User> userManager = new UserManager<User>(userStore);
 
             if (!context.Users.Any(u => u.UserName == "admin"))
             {
-                var adminUser = new User { UserName = "admin" };
+                User adminUser = new User { UserName = "admin" };
                 
-                var isSuccessful = userManager.Create(adminUser, "admin1");
+                IdentityResult isSuccessful = userManager.Create(adminUser, "admin1");
                 userManager.AddToRole(adminUser.Id, Roles.Admin);
             }
         }

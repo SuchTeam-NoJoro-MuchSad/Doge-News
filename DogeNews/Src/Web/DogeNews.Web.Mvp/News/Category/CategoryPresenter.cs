@@ -1,7 +1,6 @@
 ﻿using DogeNews.Common.Validators;
+using DogeNews.Services.Data.Contracts;
 using DogeNews.Services.Http.Contracts;
-using DogeNews.Web.Services.Contracts;
-
 using WebFormsMvp;
 
 namespace DogeNews.Web.Mvp.News.Category

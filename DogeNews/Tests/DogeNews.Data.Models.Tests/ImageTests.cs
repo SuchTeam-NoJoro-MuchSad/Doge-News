@@ -1,7 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Collections.Generic;
-
+using System.Reflection;
 using NUnit.Framework;
 
 namespace DogeNews.Data.Models.Tests
@@ -12,12 +13,12 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void Name_ShouldMaxLengthAttributeWithValue100()
         {
-            var imageType = typeof(Image);
-            var propertyInfo = imageType.GetProperty("Name");
-            var maxLengthAttribute = (MaxLengthAttribute)propertyInfo
+            Type imageType = typeof(Image);
+            PropertyInfo propertyInfo = imageType.GetProperty("Name");
+            MaxLengthAttribute maxLengthAttribute = (MaxLengthAttribute)propertyInfo
                 .GetCustomAttributes(false)
                 .FirstOrDefault(x => x as MaxLengthAttribute != null);
-            var expectedLength = 100;
+            int expectedLength = 100;
 
             Assert.AreEqual(expectedLength, maxLengthAttribute.Length);
         }
@@ -25,12 +26,12 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void FullName_ShouldMaxLengthAttributeWithValue200()
         {
-            var imageType = typeof(Image);
-            var propertyInfo = imageType.GetProperty("FullName");
-            var maxLengthAttribute = (MaxLengthAttribute)propertyInfo
+            Type imageType = typeof(Image);
+            PropertyInfo propertyInfo = imageType.GetProperty("FullName");
+            MaxLengthAttribute maxLengthAttribute = (MaxLengthAttribute)propertyInfo
                 .GetCustomAttributes(false)
                 .FirstOrDefault(x => x as MaxLengthAttribute != null);
-            var expectedLength = 200;
+            int expectedLength = 200;
 
             Assert.AreEqual(expectedLength, maxLengthAttribute.Length);
         }
@@ -38,12 +39,12 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void FileExtension_ShouldMaxLengthAttributeWithValue10()
         {
-            var imageType = typeof(Image);
-            var propertyInfo = imageType.GetProperty("FileExtention");
-            var maxLengthAttribute = (MaxLengthAttribute)propertyInfo
+            Type imageType = typeof(Image);
+            PropertyInfo propertyInfo = imageType.GetProperty("FileExtention");
+            MaxLengthAttribute maxLengthAttribute = (MaxLengthAttribute)propertyInfo
                 .GetCustomAttributes(false)
                 .FirstOrDefault(x => x as MaxLengthAttribute != null);
-            var expectedLength = 10;
+            int expectedLength = 10;
 
             Assert.AreEqual(expectedLength, maxLengthAttribute.Length);
         }
@@ -52,7 +53,7 @@ namespace DogeNews.Data.Models.Tests
         public void Id_GetShouldReturnTheSetValue()
         {
             int id = 1;
-            var image = new Image();
+            Image image = new Image();
 
             image.Id = 1;
             Assert.AreEqual(id, image.Id);
@@ -62,7 +63,7 @@ namespace DogeNews.Data.Models.Tests
         public void Name_GetShouldReturnTheSetValue()
         {
             string name = "Name";
-            var image = new Image();
+            Image image = new Image();
 
             image.Name = name;
             Assert.AreEqual(name, image.Name);
@@ -72,7 +73,7 @@ namespace DogeNews.Data.Models.Tests
         public void FullName_GetShouldReturnTheSetValue()
         {
             string fullName = "FullName";
-            var image = new Image();
+            Image image = new Image();
 
             image.FullName = fullName;
             Assert.AreEqual(fullName, image.FullName);
@@ -82,7 +83,7 @@ namespace DogeNews.Data.Models.Tests
         public void FileExtension_GetShouldReturnTheSetValue()
         {
             string fileExtension = ".exe";
-            var image = new Image();
+            Image image = new Image();
 
             image.FileExtention = fileExtension;
             Assert.AreEqual(fileExtension, image.FileExtention);
@@ -91,8 +92,8 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void NewsItems_GetShouldReturnTheSetValue()
         {
-            var items = new List<NewsItem>();
-            var image = new Image();
+            List<NewsItem> items = new List<NewsItem>();
+            Image image = new Image();
 
             image.NewsItems = items;
             Assert.AreEqual(items, image.NewsItems);

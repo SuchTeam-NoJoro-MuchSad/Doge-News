@@ -21,13 +21,13 @@ namespace DogeNews.Services.Common
 
         public TDestination ProjectToFirstOrDefault<TSource, TDestination>(IQueryable<TSource> query)
         {
-            var projectedItem = query.ProjectToFirstOrDefault<TDestination>(this.mapperProvider.Configuration);
+            TDestination projectedItem = query.ProjectToFirstOrDefault<TDestination>(this.mapperProvider.Configuration);
             return projectedItem;
         }
 
         public List<TDestination> ProjectToList<TSource, TDestination>(IQueryable<TSource> query)
         {
-            var projectedCollection = query.ProjectToList<TDestination>(this.mapperProvider.Configuration);
+            List<TDestination> projectedCollection = query.ProjectToList<TDestination>(this.mapperProvider.Configuration);
             return projectedCollection;
         }
     }

@@ -3,8 +3,6 @@ using System.Web;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-using DogeNews.Web.App_Start;
-
 namespace DogeNews.Web
 {
     public class Global : HttpApplication
@@ -19,7 +17,7 @@ namespace DogeNews.Web
 
         public void Application_Error(object sender, EventArgs e)
         {
-            var serverError = this.Server.GetLastError() as HttpException;
+            HttpException serverError = this.Server.GetLastError() as HttpException;
 
             if (serverError.ErrorCode == 404)
             {

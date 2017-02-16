@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Linq.Expressions;
-
+using AutoMapper;
+using DogeNews.Common.Enums;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
-using DogeNews.Web.Models;
 using DogeNews.Services.Common.Contracts;
-using DogeNews.Common.Enums;
-
+using DogeNews.Web.Models;
 using Moq;
 using NUnit.Framework;
 
-using AutoMapper;
-using DogeNews.Services.Data;
-
-namespace DogeNews.Web.Services.Tests
+namespace DogeNews.Services.Data.Tests
 {
     [TestFixture]
     public class ArticleManagementServiceTests
@@ -41,7 +37,7 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Constructor_IfUserRepositoryIsNullArgumentNullExceptionShouldBeThrown()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticleManagementService(
                     null,
                     this.newsItemRepo.Object,
@@ -56,7 +52,7 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Constructor_IfNewsItemRepositoryIsNullArgumentNullExceptionShouldBeThrown()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticleManagementService(
                     this.userRepo.Object,
                     null,
@@ -70,7 +66,7 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Constructor_IfNewsDataIsNullArgumentNullExceptionShouldBeThrown()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticleManagementService(
                     this.userRepo.Object,
                     this.newsItemRepo.Object,
@@ -84,7 +80,7 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Constructor_IfMapperProviderIsNullArgumentNullExceptionShouldBeThrown()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticleManagementService(
                     this.userRepo.Object,
                     this.newsItemRepo.Object,
@@ -98,7 +94,7 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Constructor_IfImageRepositoryIsNullArgumentNullExceptionShouldBeThrown()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticleManagementService(
                     this.userRepo.Object,
                     this.newsItemRepo.Object,
@@ -113,31 +109,31 @@ namespace DogeNews.Web.Services.Tests
         [TestCase("")]
         public void Add_IfNullOrEmptyUsernameIsPassedArgumentNullExceptionShouldBeThrown(string username)
         {
-            var articleManagementService = this.GetArticleManagementService();
-            var exception = Assert.Throws<ArgumentNullException>(() => articleManagementService.Add(username, new NewsWebModel()));
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => articleManagementService.Add(username, new NewsWebModel()));
             Assert.AreEqual("username", exception.ParamName);
         }
 
         [Test]
         public void Add_IfNullOrEmptyNewsItemIsPassedArgumentNullExceptionShouldBeThrown()
         {
-            var articleManagementService = this.GetArticleManagementService();
-            var exception = Assert.Throws<ArgumentNullException>(() => articleManagementService.Add("username", null));
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => articleManagementService.Add("username", null));
             Assert.AreEqual("newsItem", exception.ParamName);
         }
 
         [Test]
         public void Add_ShouldCallImageRepositoryAddOnce()
         {
-            var testWebNewsModel = new NewsWebModel();
-            var testUsername = "junka";
-            var testUser = new User { UserName = testUsername, Id = "1" };
+            NewsWebModel testWebNewsModel = new NewsWebModel();
+            string testUsername = "junka";
+            User testUser = new User { UserName = testUsername, Id = "1" };
 
             this.userRepo.Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>())).Returns(testUser);
             this.mapperProvider.Setup(x => x.Instance.Map<Image>(It.IsAny<NewsWebModel>())).Returns(new Image());
             this.mapperProvider.Setup(x => x.Instance.Map<NewsItem>(It.IsAny<NewsWebModel>())).Returns(new NewsItem());
 
-            var articleManagementService = this.GetArticleManagementService();
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
 
             articleManagementService.Add(testUsername, testWebNewsModel);
             this.imageRepo.Verify(x => x.Add(It.IsAny<Image>()), Times.Once);
@@ -146,15 +142,15 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Add_ShouldCallNewsRepositoryAddOnce()
         {
-            var testWebNewsModel = new NewsWebModel();
-            var testUsername = "junka";
-            var testUser = new User { UserName = testUsername, Id = "1" };
+            NewsWebModel testWebNewsModel = new NewsWebModel();
+            string testUsername = "junka";
+            User testUser = new User { UserName = testUsername, Id = "1" };
 
             this.userRepo.Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>())).Returns(testUser);
             this.mapperProvider.Setup(x => x.Instance.Map<Image>(It.IsAny<NewsWebModel>())).Returns(new Image());
             this.mapperProvider.Setup(x => x.Instance.Map<NewsItem>(It.IsAny<NewsWebModel>())).Returns(new NewsItem());
 
-            var articleManagementService = this.GetArticleManagementService();
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
 
             articleManagementService.Add(testUsername, testWebNewsModel);
             this.newsItemRepo.Verify(x => x.Add(It.IsAny<NewsItem>()), Times.Once);
@@ -163,15 +159,15 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Add_ShouldCallUnitOfWorkCommitOnce()
         {
-            var testWebNewsModel = new NewsWebModel();
-            var testUsername = "junka";
-            var testUser = new User { UserName = testUsername, Id = "1" };
+            NewsWebModel testWebNewsModel = new NewsWebModel();
+            string testUsername = "junka";
+            User testUser = new User { UserName = testUsername, Id = "1" };
 
             this.userRepo.Setup(x => x.GetFirst(It.IsAny<Expression<Func<User, bool>>>())).Returns(testUser);
             this.mapperProvider.Setup(x => x.Instance.Map<Image>(It.IsAny<NewsWebModel>())).Returns(new Image());
             this.mapperProvider.Setup(x => x.Instance.Map<NewsItem>(It.IsAny<NewsWebModel>())).Returns(new NewsItem());
 
-            var articleManagementService = this.GetArticleManagementService();
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
 
             articleManagementService.Add(testUsername, testWebNewsModel);
             this.newsData.Verify(x => x.Commit(), Times.Once);
@@ -181,8 +177,8 @@ namespace DogeNews.Web.Services.Tests
         [TestCase(-1)]
         public void Restore_ShouldThrowArgumentOutOfRangeExceptionWhenIdIsNotPositive(int id)
         {
-            var service = this.GetArticleManagementService();
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.Restore(id));
+            ArticleManagementService service = this.GetArticleManagementService();
+            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.Restore(id));
 
             Assert.AreEqual("id", exception.ParamName);
         }
@@ -190,10 +186,10 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Restore_NewsRepositoryGetByIdShouldBeCalledWithParsedNewsItemId()
         {
-            var newsItem = new NewsItem();
+            NewsItem newsItem = new NewsItem();
             this.newsItemRepo.Setup(x => x.GetById(It.IsAny<int>())).Returns(newsItem);
 
-            var articleManagementService = this.GetArticleManagementService();
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
             int newsItemId = 1;
 
             articleManagementService.Restore(newsItemId);
@@ -203,10 +199,10 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Restore_NewsRepositoryUpdateShouldBeCalledWithTheFoundItem()
         {
-            var newsItem = new NewsItem();
+            NewsItem newsItem = new NewsItem();
             this.newsItemRepo.Setup(x => x.GetById(It.IsAny<int>())).Returns(newsItem);
 
-            var articleManagementService = this.GetArticleManagementService();
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
             int newsItemId = 1;
 
             articleManagementService.Restore(newsItemId);
@@ -216,10 +212,10 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Restore_NewsDataCommitShouldBeCalled()
         {
-            var newsItem = new NewsItem();
+            NewsItem newsItem = new NewsItem();
             this.newsItemRepo.Setup(x => x.GetById(It.IsAny<int>())).Returns(newsItem);
 
-            var articleManagementService = this.GetArticleManagementService();
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
             int newsItemId = 1;
 
             articleManagementService.Restore(newsItemId);
@@ -232,8 +228,8 @@ namespace DogeNews.Web.Services.Tests
             this.newsItemRepo.Setup(x => x.GetById(It.IsAny<int>())).Returns(new NewsItem());
 
             int id = 3;
-            var newsItem = new NewsWebModel { Id = id };
-            var articleManagementService = this.GetArticleManagementService();
+            NewsWebModel newsItem = new NewsWebModel { Id = id };
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
 
             articleManagementService.Update(newsItem);
             this.newsItemRepo.Verify(x => x.GetById(It.Is<int>(a => a == id)), Times.Once);
@@ -242,8 +238,8 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Update_TheEntityShouldBeUpdatedWithoutTheImageWhenTheImageIsNull()
         {
-            var entityToUpdate = new NewsItem();
-            var newsItem = new NewsWebModel
+            NewsItem entityToUpdate = new NewsItem();
+            NewsWebModel newsItem = new NewsWebModel
             {
                 Id = 3,
                 Title = "Title",
@@ -253,7 +249,7 @@ namespace DogeNews.Web.Services.Tests
 
             this.newsItemRepo.Setup(x => x.GetById(It.IsAny<int>())).Returns(entityToUpdate);
 
-            var articleManagementService = this.GetArticleManagementService();
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
             articleManagementService.Update(newsItem);
 
             Assert.AreEqual(newsItem.Title, entityToUpdate.Title);
@@ -264,9 +260,9 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Update_WhenTheImageIsNotNullImageRepositoryAddShouldBeCalled()
         {
-            var entityToUpdate = new NewsItem();
-            var image = new Image { FullName = "Full Name", FileExtention = ".png", Name = "Name" };
-            var newsItem = new NewsWebModel
+            NewsItem entityToUpdate = new NewsItem();
+            Image image = new Image { FullName = "Full Name", FileExtention = ".png", Name = "Name" };
+            NewsWebModel newsItem = new NewsWebModel
             {
                 Id = 3,
                 Title = "Title",
@@ -279,7 +275,7 @@ namespace DogeNews.Web.Services.Tests
             this.mockMapper.Setup(x => x.Map<Image>(It.IsAny<ImageWebModel>())).Returns(image);
             this.mapperProvider.SetupGet(x => x.Instance).Returns(this.mockMapper.Object);
 
-            var articleManagementService = this.GetArticleManagementService();
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
             articleManagementService.Update(newsItem);
 
             this.imageRepo.Verify(x => x.Add(It.Is<Image>(a => a == image)), Times.Once);
@@ -288,9 +284,9 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Update_WhenTheImageIsNotNullTheNewsItemImageShouldBeUpdatedToo()
         {
-            var entityToUpdate = new NewsItem();
-            var image = new Image { FullName = "Full Name", FileExtention = ".png", Name = "Name" };
-            var newsItem = new NewsWebModel
+            NewsItem entityToUpdate = new NewsItem();
+            Image image = new Image { FullName = "Full Name", FileExtention = ".png", Name = "Name" };
+            NewsWebModel newsItem = new NewsWebModel
             {
                 Id = 3,
                 Title = "Title",
@@ -303,7 +299,7 @@ namespace DogeNews.Web.Services.Tests
             this.mockMapper.Setup(x => x.Map<Image>(It.IsAny<ImageWebModel>())).Returns(image);
             this.mapperProvider.SetupGet(x => x.Instance).Returns(this.mockMapper.Object);
 
-            var articleManagementService = this.GetArticleManagementService();
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
             articleManagementService.Update(newsItem);
 
             Assert.AreEqual(image.FileExtention, entityToUpdate.Image.FileExtention);
@@ -314,9 +310,9 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Update_NewsRepositoryUpdateShouldBeCalledWhenEverythingIsOk()
         {
-            var entityToUpdate = new NewsItem();
-            var image = new Image { FullName = "Full Name", FileExtention = ".png", Name = "Name" };
-            var newsItem = new NewsWebModel
+            NewsItem entityToUpdate = new NewsItem();
+            Image image = new Image { FullName = "Full Name", FileExtention = ".png", Name = "Name" };
+            NewsWebModel newsItem = new NewsWebModel
             {
                 Id = 3,
                 Title = "Title",
@@ -329,7 +325,7 @@ namespace DogeNews.Web.Services.Tests
             this.mockMapper.Setup(x => x.Map<Image>(It.IsAny<ImageWebModel>())).Returns(image);
             this.mapperProvider.SetupGet(x => x.Instance).Returns(this.mockMapper.Object);
 
-            var articleManagementService = this.GetArticleManagementService();
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
             articleManagementService.Update(newsItem);
 
             this.newsItemRepo.Verify(x => x.Update(It.Is<NewsItem>(a => a == entityToUpdate)), Times.Once);
@@ -338,9 +334,9 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Update_NewsDataCommitShouldBeCalledWhenEverythingIsOk()
         {
-            var entityToUpdate = new NewsItem();
-            var image = new Image { FullName = "Full Name", FileExtention = ".png", Name = "Name" };
-            var newsItem = new NewsWebModel
+            NewsItem entityToUpdate = new NewsItem();
+            Image image = new Image { FullName = "Full Name", FileExtention = ".png", Name = "Name" };
+            NewsWebModel newsItem = new NewsWebModel
             {
                 Id = 3,
                 Title = "Title",
@@ -353,7 +349,7 @@ namespace DogeNews.Web.Services.Tests
             this.mockMapper.Setup(x => x.Map<Image>(It.IsAny<ImageWebModel>())).Returns(image);
             this.mapperProvider.SetupGet(x => x.Instance).Returns(this.mockMapper.Object);
 
-            var articleManagementService = this.GetArticleManagementService();
+            ArticleManagementService articleManagementService = this.GetArticleManagementService();
             articleManagementService.Update(newsItem);
 
             this.newsData.Verify(x => x.Commit(), Times.Once);
@@ -363,8 +359,8 @@ namespace DogeNews.Web.Services.Tests
         [TestCase(-1)]
         public void Delete_ShouldThrowArgumentOutOfRangeExceptionWhenIdIsNotPositive(int id)
         {
-            var service = this.GetArticleManagementService();
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.Delete(id));
+            ArticleManagementService service = this.GetArticleManagementService();
+            ArgumentOutOfRangeException exception = Assert.Throws<ArgumentOutOfRangeException>(() => service.Delete(id));
 
             Assert.AreEqual("id", exception.ParamName);
         }
@@ -374,7 +370,7 @@ namespace DogeNews.Web.Services.Tests
         {
             this.newsItemRepo.Setup(x => x.GetById(It.IsAny<int>())).Returns(new NewsItem());
 
-            var service = this.GetArticleManagementService();
+            ArticleManagementService service = this.GetArticleManagementService();
             int id = 1;
 
             service.Delete(id);
@@ -384,13 +380,13 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Delete_FoundItemDeletedOnShouldBeSetToNow()
         {
-            var now = DateTime.Now;
-            var newsItem = new NewsItem();
+            DateTime now = DateTime.Now;
+            NewsItem newsItem = new NewsItem();
 
             this.newsItemRepo.Setup(x => x.GetById(It.IsAny<int>())).Returns(newsItem);
             this.dateTimeProvider.SetupGet(x => x.Now).Returns(now);
 
-            var service = this.GetArticleManagementService();
+            ArticleManagementService service = this.GetArticleManagementService();
             int id = 1;
 
             service.Delete(id);
@@ -400,13 +396,13 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Delete_NewsRepoUpdateShouldBeCalledWithTheRightNewsItem()
         {
-            var now = DateTime.Now;
-            var newsItem = new NewsItem();
+            DateTime now = DateTime.Now;
+            NewsItem newsItem = new NewsItem();
 
             this.newsItemRepo.Setup(x => x.GetById(It.IsAny<int>())).Returns(newsItem);
             this.dateTimeProvider.SetupGet(x => x.Now).Returns(now);
 
-            var service = this.GetArticleManagementService();
+            ArticleManagementService service = this.GetArticleManagementService();
             int id = 1;
 
             service.Delete(id);
@@ -417,13 +413,13 @@ namespace DogeNews.Web.Services.Tests
         [Test]
         public void Delete_NewsDataCommitShouldBeCalled()
         {
-            var now = DateTime.Now;
-            var newsItem = new NewsItem();
+            DateTime now = DateTime.Now;
+            NewsItem newsItem = new NewsItem();
 
             this.newsItemRepo.Setup(x => x.GetById(It.IsAny<int>())).Returns(newsItem);
             this.dateTimeProvider.SetupGet(x => x.Now).Returns(now);
 
-            var service = this.GetArticleManagementService();
+            ArticleManagementService service = this.GetArticleManagementService();
             int id = 1;
 
             service.Delete(id);

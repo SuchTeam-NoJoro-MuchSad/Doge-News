@@ -1,10 +1,10 @@
-﻿using DogeNews.Web.Models;
+﻿using System.Collections.Specialized;
+using DogeNews.Web.Models;
 using DogeNews.Web.Mvp.News.Edit.EventArguments;
-using DogeNews.Web.Services.Contracts;
 using DogeNews.Common.Validators;
 using DogeNews.Services.Http.Contracts;
 using DogeNews.Services.Common.Contracts;
-
+using DogeNews.Services.Data.Contracts;
 using WebFormsMvp;
 
 namespace DogeNews.Web.Mvp.News.Edit
@@ -57,8 +57,8 @@ namespace DogeNews.Web.Mvp.News.Edit
         {
             Validator.ValidateThatObjectIsNotNull(e, "preInitPageEventArgs");
 
-            var parsedQueryString = this.httpUtilityService.ParseQueryString(e.QueryString);
-            var id = int.Parse(parsedQueryString[ArticleEditQueryParamId]);
+            NameValueCollection parsedQueryString = this.httpUtilityService.ParseQueryString(e.QueryString);
+            int id = int.Parse(parsedQueryString[ArticleEditQueryParamId]);
 
             this.View.Model.NewsItem = this.newsService.GetItemById(id);
         }
@@ -68,7 +68,7 @@ namespace DogeNews.Web.Mvp.News.Edit
             Validator.ValidateThatObjectIsNotNull(e, "editArticleEventArgs");
 
             string username = this.httpContextService.GetUsername(this.HttpContext);
-            var model = new NewsWebModel
+            NewsWebModel model = new NewsWebModel
             {
                 Id = e.Id,
                 Category = e.Category,
@@ -85,7 +85,7 @@ namespace DogeNews.Web.Mvp.News.Edit
                 string userFolderPath = $"{basePath}\\{username}";
                 string fullImageName = $"{basePath}\\{username}\\{fileName}";
 
-                var image = new ImageWebModel
+                ImageWebModel image = new ImageWebModel
                 {
                     Name = fileName,
                     FullName = fullImageName,

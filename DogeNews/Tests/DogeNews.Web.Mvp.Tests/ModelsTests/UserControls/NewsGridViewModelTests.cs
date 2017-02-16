@@ -13,7 +13,7 @@ namespace DogeNews.Web.Mvp.Tests.ModelsTests.UserControls
         [Test]
         public void NewsCountShouldReturnTheSetValue()
         {
-            var model = new NewsGridViewModel();
+            NewsGridViewModel model = new NewsGridViewModel();
             int newsCount = 5;
 
             model.NewsCount = newsCount;
@@ -23,7 +23,7 @@ namespace DogeNews.Web.Mvp.Tests.ModelsTests.UserControls
         [Test]
         public void PageSizeShouldReturnTheSetValue()
         {
-            var model = new NewsGridViewModel();
+            NewsGridViewModel model = new NewsGridViewModel();
             int pageSize = 5;
 
             model.PageSize = pageSize;
@@ -33,7 +33,7 @@ namespace DogeNews.Web.Mvp.Tests.ModelsTests.UserControls
         [Test]
         public void CurrentPageNewsShouldReturnTheSetValue()
         {
-            var model = new NewsGridViewModel();
+            NewsGridViewModel model = new NewsGridViewModel();
             IEnumerable<NewsWebModel> currentPageNews = new List<NewsWebModel>();
 
             model.CurrentPageNews = currentPageNews;

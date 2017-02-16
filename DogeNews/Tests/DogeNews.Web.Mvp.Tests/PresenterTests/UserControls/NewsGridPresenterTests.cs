@@ -14,7 +14,7 @@ using DogeNews.Web.Models;
 using DogeNews.Data.Models;
 using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Common.Enums;
-using DogeNews.Web.Services.Contracts;
+using DogeNews.Services.Data.Contracts;
 using DogeNews.Services.Http.Contracts;
 
 namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
@@ -62,7 +62,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionWhenNewsDataSourceIsNUll()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new NewsGridPresenter(
                     this.view.Object,
                     null,
@@ -75,7 +75,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionWhenHttpUtilityIsNUll()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new NewsGridPresenter(
                     this.view.Object,
                     this.datSource.Object,
@@ -88,7 +88,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionWhenArticleManagementServiceIsNUll()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new NewsGridPresenter(
                     this.view.Object,
                     this.datSource.Object,
@@ -101,12 +101,12 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void PageLoad_ShouldThrowArgumentNullExceptionWhenEventArgsIsNull()
         {
-            var presenter = new NewsGridPresenter(
+            NewsGridPresenter presenter = new NewsGridPresenter(
                 this.view.Object,
                 this.datSource.Object, 
                 this.httpUtilService.Object, 
                 this.articleManagementService.Object);
-            var exception = Assert.Throws<ArgumentNullException>(() => presenter.PageLoad(null, null));
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => presenter.PageLoad(null, null));
 
             Assert.AreEqual("e", exception.ParamName);
         }
@@ -114,12 +114,12 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void PageLoad_WhenItIsNotPostbackViewStateCurrentPageShouldBeSetTo1()
         {
-            var eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
+            PageLoadEventArgs eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
 
             this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
-            var presenter = new NewsGridPresenter(this.view.Object,
+            NewsGridPresenter presenter = new NewsGridPresenter(this.view.Object,
                 this.datSource.Object, this.httpUtilService.Object, this.articleManagementService.Object);
 
             presenter.PageLoad(null, eventArgs);
@@ -129,12 +129,12 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void PageLoad_NewsDataSourceGetPageItemsShouldBeCalledWithOneAndPageSize()
         {
-            var eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
+            PageLoadEventArgs eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
 
             this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
-            var presenter = new NewsGridPresenter(this.view.Object,
+            NewsGridPresenter presenter = new NewsGridPresenter(this.view.Object,
                 this.datSource.Object,
                 this.httpUtilService.Object,
                 this.articleManagementService.Object);
@@ -148,7 +148,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void PageLoad_ViewModelNewsCountShouldBeSetToViewModelNewsDataSourceCount()
         {
-            var eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
+            PageLoadEventArgs eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
             int count = 6;
 
             this.datSource.SetupGet(x => x.Count).Returns(count);
@@ -156,7 +156,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
 
-            var presenter = new NewsGridPresenter(
+            NewsGridPresenter presenter = new NewsGridPresenter(
                 this.view.Object,
                 this.datSource.Object,
                 this.httpUtilService.Object,
@@ -169,7 +169,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void PageLoad_PageSizeShouldBeSetToTheConstantPageSize()
         {
-            var eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
+            PageLoadEventArgs eventArgs = new PageLoadEventArgs { IsPostBack = false, ViewState = new StateBag() };
             int count = 6;
 
             this.datSource.SetupGet(x => x.Count).Returns(count);
@@ -177,7 +177,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
 
-            var presenter = new NewsGridPresenter(
+            NewsGridPresenter presenter = new NewsGridPresenter(
                 this.view.Object,
                 this.datSource.Object,
                 this.httpUtilService.Object,
@@ -195,21 +195,21 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void PageLoad_ShouldCallHttpUtilityServiceParseQueryString_WhenEventArgsQueryStringIsNotNull()
         {
-            var eventArgs = new OrderByEventArgs { OrderBy = OrderByType.Descending, ViewState = new StateBag() };
+            OrderByEventArgs eventArgs = new OrderByEventArgs { OrderBy = OrderByType.Descending, ViewState = new StateBag() };
             eventArgs.ViewState["CurrentPage"] = 5;
 
             this.view.SetupGet(x => x.Model).Returns(new NewsGridViewModel { });
 
-            var queryString = "name=Sports";
+            string queryString = "name=Sports";
 
-            var pageLoadEventArgs = new PageLoadEventArgs
+            PageLoadEventArgs pageLoadEventArgs = new PageLoadEventArgs
             {
                 QueryString = queryString,
                 IsPostBack = false,
                 ViewState = new StateBag()
             };
 
-            var presenter = new NewsGridPresenter(
+            NewsGridPresenter presenter = new NewsGridPresenter(
                 this.view.Object,
                 this.datSource.Object,
                 this.httpUtilService.Object,
@@ -223,12 +223,12 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void ChangePage_ShouldThrowArgumentNullExceptionWhenEventArgsIsNull()
         {
-            var presenter = new NewsGridPresenter(
+            NewsGridPresenter presenter = new NewsGridPresenter(
                 this.view.Object,
                 this.datSource.Object,
                 this.httpUtilService.Object,
                 this.articleManagementService.Object);
-            var exception = Assert.Throws<ArgumentNullException>(() => presenter.ChangePage(null, null));
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => presenter.ChangePage(null, null));
 
             Assert.AreEqual("e", exception.ParamName);
         }
@@ -236,13 +236,13 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void ChangePage_ShouldSetViewStateCurrentPageToThePassedPageFromTheEventArgs()
         {
-            var eventArgs = new ChangePageEventArgs { Page = 3, ViewState = new StateBag() };
+            ChangePageEventArgs eventArgs = new ChangePageEventArgs { Page = 3, ViewState = new StateBag() };
 
             this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
 
-            var presenter = new NewsGridPresenter(
+            NewsGridPresenter presenter = new NewsGridPresenter(
                 this.view.Object,
                 this.datSource.Object,
                 this.httpUtilService.Object,
@@ -256,13 +256,13 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         public void ChangePage_ShouldViewModelNewsDataSourceGetPageItemsWithPageAndPageSize()
         {
             int page = 3;
-            var eventArgs = new ChangePageEventArgs { Page = page, ViewState = new StateBag() };
+            ChangePageEventArgs eventArgs = new ChangePageEventArgs { Page = page, ViewState = new StateBag() };
 
             this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
 
-            var presenter = new NewsGridPresenter(
+            NewsGridPresenter presenter = new NewsGridPresenter(
                 this.view.Object,
                 this.datSource.Object,
                 this.httpUtilService.Object,
@@ -281,12 +281,12 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void OrderByDate_ShouldThrowArgumentNullExceptionWhenEventArgsIsNull()
         {
-            var presenter = new NewsGridPresenter(
+            NewsGridPresenter presenter = new NewsGridPresenter(
                 this.view.Object,
                 this.datSource.Object,
                 this.httpUtilService.Object,
                 this.articleManagementService.Object);
-            var exception = Assert.Throws<ArgumentNullException>(() => presenter.OrderByDate(null, null));
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => presenter.OrderByDate(null, null));
 
             Assert.AreEqual("e", exception.ParamName);
         }
@@ -294,14 +294,14 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void OrderByDate_WhenOrderTypeIsAscendingNewsDataSourceOrderByAscendingShouldBeCalled()
         {
-            var eventArgs = new OrderByEventArgs { OrderBy = OrderByType.Ascending, ViewState = new StateBag() };
+            OrderByEventArgs eventArgs = new OrderByEventArgs { OrderBy = OrderByType.Ascending, ViewState = new StateBag() };
             eventArgs.ViewState["CurrentPage"] = 5;
 
             this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel());
 
-            var presenter = new NewsGridPresenter(
+            NewsGridPresenter presenter = new NewsGridPresenter(
                 this.view.Object,
                 this.datSource.Object,
                 this.httpUtilService.Object,
@@ -321,14 +321,14 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.UserControls
         [Test]
         public void OrderByDate_WhenOrderTypeIsDescendingNewsDataSourceOrderByDescendingShouldBeCalled()
         {
-            var eventArgs = new OrderByEventArgs { OrderBy = OrderByType.Descending, ViewState = new StateBag() };
+            OrderByEventArgs eventArgs = new OrderByEventArgs { OrderBy = OrderByType.Descending, ViewState = new StateBag() };
             eventArgs.ViewState["CurrentPage"] = 5;
 
             this.view
                 .SetupGet(x => x.Model)
                 .Returns(new NewsGridViewModel { });
 
-            var presenter = new NewsGridPresenter(
+            NewsGridPresenter presenter = new NewsGridPresenter(
                 this.view.Object,
                 this.datSource.Object,
                 this.httpUtilService.Object,

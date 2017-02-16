@@ -1,17 +1,17 @@
-﻿using DogeNews.Services.Common.Contracts;
+﻿using AutoMapper;
+using DogeNews.Services.Common.Contracts;
 using DogeNews.Web.Infrastructure.Bindings;
 using DogeNews.Web.Infrastructure.Mappings;
-
 using Ninject;
 
-namespace DogeNews.Web.App_Start
+namespace DogeNews.Web
 {
     public class AutoMapperConfig
     {
         public static void RegisterMappings()
         {
-            var mapperProvider = NinjectWebCommon.Kernel.Get<IMapperProvider>();
-            var mapper = MappingsConfig.Map();
+            IMapperProvider mapperProvider = NinjectWebCommon.Kernel.Get<IMapperProvider>();
+            IMapper mapper = MappingsConfig.Map();
 
             mapperProvider.Instance = mapper;
             mapperProvider.Configuration = MappingsConfig.Configuration;

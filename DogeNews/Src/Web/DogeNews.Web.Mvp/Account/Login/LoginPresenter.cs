@@ -27,12 +27,12 @@ namespace DogeNews.Web.Mvp.Account.Login
         private void Login(object sender, LoginEventArgs e)
         {
             // Validate the user password
-            var manager = this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var signinManager = this.HttpContext.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+            ApplicationUserManager manager = this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ApplicationSignInManager signinManager = this.HttpContext.GetOwinContext().GetUserManager<ApplicationSignInManager>();
             
             // This doen't count login failures towards account lockout
             // To enable password failures to trigger lockout, change to shouldLockout: true
-            var result = signinManager
+            SignInStatus result = signinManager
                 .PasswordSignIn(e.UserName, e.Password, e.RememberMe, shouldLockout: false);
 
             switch (result)

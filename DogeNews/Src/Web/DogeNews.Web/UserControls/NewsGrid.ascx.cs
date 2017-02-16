@@ -22,9 +22,9 @@ namespace DogeNews.Web.UserControls
 
         public void ChangePageClick(object sender, EventArgs e)
         {
-            var button = sender as Button;
+            Button button = sender as Button;
             int page = int.Parse(button.Text);
-            var eventArgs = new ChangePageEventArgs
+            ChangePageEventArgs eventArgs = new ChangePageEventArgs
             {
                 Page = page,
                 ViewState = this.ViewState,
@@ -36,9 +36,9 @@ namespace DogeNews.Web.UserControls
 
         public void OrderByDateClick(object sender, EventArgs e)
         {
-            var button = sender as Button;
-            var orderBy = (OrderByType)Enum.Parse(typeof(OrderByType), button.CommandArgument);
-            var eventArgs = new OrderByEventArgs
+            Button button = sender as Button;
+            OrderByType orderBy = (OrderByType)Enum.Parse(typeof(OrderByType), button.CommandArgument);
+            OrderByEventArgs eventArgs = new OrderByEventArgs
             {
                 OrderBy = orderBy,
                 ViewState = this.ViewState,
@@ -74,10 +74,10 @@ namespace DogeNews.Web.UserControls
 
         protected void ArticleDeleteButtonClick(object sender, EventArgs e)
         {
-            var button = sender as Button;
-            var newsItemId = button.CommandArgument;
+            Button button = sender as Button;
+            string newsItemId = button.CommandArgument;
 
-            var eventArgs = new OnArticleDeleteEventArgs
+            OnArticleDeleteEventArgs eventArgs = new OnArticleDeleteEventArgs
             {
                 NewsItemId = newsItemId
             };
@@ -87,10 +87,10 @@ namespace DogeNews.Web.UserControls
 
         protected void ArticleEditButtonClick(object sender, EventArgs e)
         {
-            var button = sender as Button;
-            var newsItemId = button.CommandArgument;
+            Button button = sender as Button;
+            string newsItemId = button.CommandArgument;
 
-            var eventArgs = new OnArticleEditEventArgs
+            OnArticleEditEventArgs eventArgs = new OnArticleEditEventArgs
             {
                 IsAdminUser = this.Context.User.IsInRole(Common.Constants.Roles.Admin),
                 NewsItemId = newsItemId
@@ -101,10 +101,10 @@ namespace DogeNews.Web.UserControls
 
         protected void ArticleRestoreButtonClick(object sender, EventArgs e)
         {
-            var button = sender as Button;
-            var newsItemId = button.CommandArgument;
+            Button button = sender as Button;
+            string newsItemId = button.CommandArgument;
 
-            var eventArgs = new OnArticleRestoreEventArgs
+            OnArticleRestoreEventArgs eventArgs = new OnArticleRestoreEventArgs
             {
                 NewsItemId = newsItemId
             };

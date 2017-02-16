@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using DogeNews.Common.Attributes;
 using DogeNews.Common.Enums;
-using DogeNews.Web.Models;
-using DogeNews.Web.Services.Contracts;
-using DogeNews.Data.Models;
-using DogeNews.Data.Contracts;
 using DogeNews.Common.Validators;
+using DogeNews.Data.Contracts;
+using DogeNews.Data.Models;
 using DogeNews.Services.Common.Contracts;
-using DogeNews.Services.Common;
+using DogeNews.Services.Data.Contracts;
 using DogeNews.Web.Interception;
+using DogeNews.Web.Models;
 
-namespace DogeNews.Web.Services
+namespace DogeNews.Services.Data
 {
     [Interceptable(typeof(ExceptionInterceptor))]
     public class NewsService : INewsService
@@ -57,7 +56,7 @@ namespace DogeNews.Web.Services
         {
             Validator.ValidateThatStringIsNotNullOrEmpty(title, nameof(title));
 
-            var newsWebModel = this.newsRepository.GetFirstMapped<NewsWebModel>(x => x.Title == title);
+            NewsWebModel newsWebModel = this.newsRepository.GetFirstMapped<NewsWebModel>(x => x.Title == title);
             return newsWebModel;
         }
 
@@ -65,17 +64,17 @@ namespace DogeNews.Web.Services
         {
             Validator.ValidateThatNumberIsNotNegative(id, nameof(id));
 
-            var newsWebModel = this.newsRepository.GetFirstMapped<NewsWebModel>(x => x.Id == id);
+            NewsWebModel newsWebModel = this.newsRepository.GetFirstMapped<NewsWebModel>(x => x.Id == id);
             return newsWebModel;
         }
 
         public IEnumerable<NewsWebModel> GetSliderNews()
         {
-            var query = this.newsRepository
+            IQueryable<NewsItem> query = this.newsRepository
                 .All
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(SliderNewsCount);
-            var news = this.projectionService.ProjectToList<NewsItem, NewsWebModel>(query);
+            List<NewsWebModel> news = this.projectionService.ProjectToList<NewsItem, NewsWebModel>(query);
 
             return news;
         }
@@ -84,8 +83,8 @@ namespace DogeNews.Web.Services
         {
             Validator.ValidateThatStringIsNotNullOrEmpty(category, nameof(category));
 
-            var enumeration = (NewsCategoryType)Enum.Parse(typeof(NewsCategoryType), category);
-            var news = this.newsRepository.GetAllMapped<NewsWebModel>(x => x.Category == enumeration);
+            NewsCategoryType enumeration = (NewsCategoryType)Enum.Parse(typeof(NewsCategoryType), category);
+            IEnumerable<NewsWebModel> news = this.newsRepository.GetAllMapped<NewsWebModel>(x => x.Category == enumeration);
 
             return news;
         }

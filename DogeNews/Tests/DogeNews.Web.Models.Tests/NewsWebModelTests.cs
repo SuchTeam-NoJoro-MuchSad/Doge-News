@@ -11,7 +11,7 @@ namespace DogeNews.Web.Models.Tests
         public void Id_GetShouldReturnSetValue()
         {
             int id = 1;
-            var item = new NewsWebModel();
+            NewsWebModel item = new NewsWebModel();
 
             item.Id = id;
             Assert.AreEqual(id, item.Id);
@@ -21,7 +21,7 @@ namespace DogeNews.Web.Models.Tests
         public void Title_GetShouldReturnSetValue()
         {
             string title = "title";
-            var item = new NewsWebModel();
+            NewsWebModel item = new NewsWebModel();
 
             item.Title = title;
             Assert.AreEqual(title, item.Title);
@@ -30,8 +30,8 @@ namespace DogeNews.Web.Models.Tests
         [Test]
         public void Category_GetShouldReturnSetValue()
         {
-            var category = NewsCategoryType.Breaking;
-            var item = new NewsWebModel();
+            NewsCategoryType category = NewsCategoryType.Breaking;
+            NewsWebModel item = new NewsWebModel();
 
             item.Category = category;
             Assert.AreEqual(category, item.Category);
@@ -41,7 +41,7 @@ namespace DogeNews.Web.Models.Tests
         public void Contetn_GetShouldReturnSetValue()
         {
             string content = "content";
-            var item = new NewsWebModel();
+            NewsWebModel item = new NewsWebModel();
 
             item.Content = content;
             Assert.AreEqual(content, item.Content);
@@ -51,7 +51,7 @@ namespace DogeNews.Web.Models.Tests
         public void IsAddedByAdmin_GetShouldReturnSetValue()
         {
             bool isAddedByAdmin = true;
-            var item = new NewsWebModel();
+            NewsWebModel item = new NewsWebModel();
 
             item.IsAddedByAdmin = isAddedByAdmin;
             Assert.AreEqual(isAddedByAdmin, item.IsAddedByAdmin);
@@ -60,8 +60,8 @@ namespace DogeNews.Web.Models.Tests
         [Test]
         public void Author_GetShouldReturnSetValue()
         {
-            var author = new UserWebModel();
-            var item = new NewsWebModel();
+            UserWebModel author = new UserWebModel();
+            NewsWebModel item = new NewsWebModel();
 
             item.Author = author;
             Assert.AreEqual(author, item.Author);
@@ -70,8 +70,8 @@ namespace DogeNews.Web.Models.Tests
         [Test]
         public void Image_GetShouldReturnSetValue()
         {
-            var image = new ImageWebModel();
-            var item = new NewsWebModel();
+            ImageWebModel image = new ImageWebModel();
+            NewsWebModel item = new NewsWebModel();
 
             item.Image = image;
             Assert.AreEqual(image, item.Image);

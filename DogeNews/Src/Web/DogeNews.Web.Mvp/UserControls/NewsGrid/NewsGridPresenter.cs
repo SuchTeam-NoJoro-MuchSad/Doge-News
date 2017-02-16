@@ -1,13 +1,14 @@
-﻿using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
+﻿using System.Collections.Specialized;
+using DogeNews.Web.Mvp.UserControls.NewsGrid.EventArguments;
 using DogeNews.Common.Enums;
 using DogeNews.Data.Models;
 using DogeNews.Web.DataSources.Contracts;
 using DogeNews.Web.Models;
-using DogeNews.Web.Services.Contracts;
 using DogeNews.Services.Http.Contracts;
 
 using WebFormsMvp;
 using DogeNews.Common.Validators;
+using DogeNews.Services.Data.Contracts;
 
 namespace DogeNews.Web.Mvp.UserControls.NewsGrid
 {
@@ -81,7 +82,7 @@ namespace DogeNews.Web.Mvp.UserControls.NewsGrid
 
             if (e.QueryString != null)
             {
-                var parsedQueryString = this.httpUtilityService.ParseQueryString(e.QueryString);
+                NameValueCollection parsedQueryString = this.httpUtilityService.ParseQueryString(e.QueryString);
                 this.newsCategory = parsedQueryString[NewsCategoryQueryStringKey];
             }
 

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Reflection;
 using System.Collections.Specialized;
-
+using DogeNews.Services.Data.Contracts;
 using Moq;
 using NUnit.Framework;
-
-using DogeNews.Web.Services.Contracts;
 using DogeNews.Web.Mvp.News.Article;
 using DogeNews.Web.Mvp.News.Article.EventArguments;
 using DogeNews.Web.Models;
@@ -38,7 +36,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionWhenNewsServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticlePresenter(
                     this.view.Object,
                     null,
@@ -52,7 +50,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionWhenHttpUtilityServiceIsNUll()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticlePresenter(
                     this.view.Object,
                     this.newService.Object,
@@ -66,7 +64,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionWhenHttpResponseServiceIsNUll()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticlePresenter(
                     this.view.Object,
                     this.newService.Object,
@@ -80,7 +78,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionWhenArticleManagementServiceIsNUll()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() =>
                 new ArticlePresenter(
                     this.view.Object,
                     this.newService.Object,
@@ -94,8 +92,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetProperlyTheDataSourceService()
         {
-            var presenter = this.GetPresenter();
-            var field = (INewsService)typeof(ArticlePresenter)
+            ArticlePresenter presenter = this.GetPresenter();
+            INewsService field = (INewsService)typeof(ArticlePresenter)
                 .GetField("newsService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
@@ -105,8 +103,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetProperlyTheHttpUtilityService()
         {
-            var presenter = this.GetPresenter();
-            var field = (IHttpUtilityService)typeof(ArticlePresenter)
+            ArticlePresenter presenter = this.GetPresenter();
+            IHttpUtilityService field = (IHttpUtilityService)typeof(ArticlePresenter)
                 .GetField("httpUtilityService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
@@ -116,8 +114,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void Constructor_ShouldSetProperlyTheHttpResponseService()
         {
-            var presenter = this.GetPresenter();
-            var field = (IHttpResponseService)typeof(ArticlePresenter)
+            ArticlePresenter presenter = this.GetPresenter();
+            IHttpResponseService field = (IHttpResponseService)typeof(ArticlePresenter)
                 .GetField("httpResponseService", BindingFlags.Instance | BindingFlags.NonPublic)
                 .GetValue(presenter);
 
@@ -127,8 +125,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void PageLoad_ShouldThrowArgumentNullExceptionWhenEventArgsIsNull()
         {
-            var presenter = this.GetPresenter();
-            var exception = Assert.Throws<ArgumentNullException>(() => presenter.PageLoad(null, null));
+            ArticlePresenter presenter = this.GetPresenter();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => presenter.PageLoad(null, null));
 
             Assert.AreEqual("e", exception.ParamName);
         }
@@ -137,13 +135,13 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void PageLoad_HttpUtilityServiceParseQueryStringShouldBeCalledWithTheEventArgsQueryString()
         {
             string queryString = "?title=someTitle";
-            var eventArgs = new ArticlePageLoadEventArgs { QueryString = queryString };
+            ArticlePageLoadEventArgs eventArgs = new ArticlePageLoadEventArgs { QueryString = queryString };
 
             this.httpUtilityService
                 .Setup(x => x.ParseQueryString(It.IsAny<string>()))
                 .Returns(new NameValueCollection { { "title", "someTitle" } });
 
-            var presenter = this.GetPresenter();
+            ArticlePresenter presenter = this.GetPresenter();
             presenter.PageLoad(null, eventArgs);
 
             this.httpUtilityService.Verify(x =>
@@ -155,13 +153,13 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void PageLoad_WhenTheQueryStringDoesNotHaveTitleTheRequestShouldSend404CodeAndEnd()
         {
             string queryString = "?NOT_TITLE=someTitle";
-            var eventArgs = new ArticlePageLoadEventArgs { QueryString = queryString };
+            ArticlePageLoadEventArgs eventArgs = new ArticlePageLoadEventArgs { QueryString = queryString };
 
             this.httpUtilityService
                 .Setup(x => x.ParseQueryString(It.IsAny<string>()))
                 .Returns(new NameValueCollection { { "NOT_TITLE", "someTitle" } });
 
-            var presenter = this.GetPresenter();
+            ArticlePresenter presenter = this.GetPresenter();
             presenter.PageLoad(null, eventArgs);
 
             this.httpResponseService.Verify(x => x.Clear(), Times.Once);
@@ -173,13 +171,13 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void PageLoad_WhenThereIsTitleInTheQueryStringNewsServiceGetItemByTitleShouldBeCalledWithTheTitle()
         {
             string queryString = "?title=someTitle";
-            var eventArgs = new ArticlePageLoadEventArgs { QueryString = queryString };
+            ArticlePageLoadEventArgs eventArgs = new ArticlePageLoadEventArgs { QueryString = queryString };
 
             this.httpUtilityService
                 .Setup(x => x.ParseQueryString(It.IsAny<string>()))
                 .Returns(new NameValueCollection { { "title", "someTitle" } });
 
-            var presenter = this.GetPresenter();
+            ArticlePresenter presenter = this.GetPresenter();
             presenter.PageLoad(null, eventArgs);
 
             this.newService.Verify(x => x.GetItemByTitle(It.Is<string>(a => a == "someTitle")), Times.Once);
@@ -189,7 +187,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void PageLoad_WhenTheModelIsNullTheRequestShouldSend404CodeAndEnd()
         {
             string queryString = "?title=someTitle";
-            var eventArgs = new ArticlePageLoadEventArgs { QueryString = queryString };
+            ArticlePageLoadEventArgs eventArgs = new ArticlePageLoadEventArgs { QueryString = queryString };
 
             this.httpUtilityService
                 .Setup(x => x.ParseQueryString(It.IsAny<string>()))
@@ -198,7 +196,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .Setup(x => x.GetItemByTitle(It.IsAny<string>()))
                 .Returns<NewsWebModel>(null);
 
-            var presenter = this.GetPresenter();
+            ArticlePresenter presenter = this.GetPresenter();
             presenter.PageLoad(null, eventArgs);
 
             this.httpResponseService.Verify(x => x.Clear(), Times.Once);
@@ -210,7 +208,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void PageLoad_WhenTheQueryStringIsEmptyTheRequestShouldSend404CodeAndEnd()
         {
             string queryString = "";
-            var eventArgs = new ArticlePageLoadEventArgs { QueryString = queryString };
+            ArticlePageLoadEventArgs eventArgs = new ArticlePageLoadEventArgs { QueryString = queryString };
 
             this.httpUtilityService
                 .Setup(x => x.ParseQueryString(It.IsAny<string>()))
@@ -219,7 +217,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .Setup(x => x.GetItemByTitle(It.IsAny<string>()))
                 .Returns<NewsWebModel>(null);
 
-            var presenter = this.GetPresenter();
+            ArticlePresenter presenter = this.GetPresenter();
             presenter.PageLoad(null, eventArgs);
 
             this.httpResponseService.Verify(x => x.Clear(), Times.Once);
@@ -231,8 +229,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void PageLoad_ViewNewsModelShouldBeSetToTheReturnedModelFromTheNewsService()
         {
             string queryString = "?title=someTitle";
-            var eventArgs = new ArticlePageLoadEventArgs { QueryString = queryString };
-            var model = new NewsWebModel { Title = "Some Title" };
+            ArticlePageLoadEventArgs eventArgs = new ArticlePageLoadEventArgs { QueryString = queryString };
+            NewsWebModel model = new NewsWebModel { Title = "Some Title" };
 
             this.view.SetupGet(x => x.Model).Returns(new ArticleViewModel());
             this.httpUtilityService
@@ -242,7 +240,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
                 .Setup(x => x.GetItemByTitle(It.IsAny<string>()))
                 .Returns(model);
 
-            var presenter = this.GetPresenter();
+            ArticlePresenter presenter = this.GetPresenter();
             presenter.PageLoad(null, eventArgs);
 
             Assert.AreEqual(model, presenter.View.Model.NewsModel);
@@ -251,8 +249,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void ArticleRestore_ShouldThrowArgumentNullExceptionWhenEventArgsIsNull()
         {
-            var presenter = this.GetPresenter();
-            var exception = Assert.Throws<ArgumentNullException>(() => presenter.ArticleRestore(null, null));
+            ArticlePresenter presenter = this.GetPresenter();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => presenter.ArticleRestore(null, null));
 
             Assert.AreEqual("e", exception.ParamName);
         }
@@ -261,11 +259,11 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void ArticleRestore_ShouldCallArticleManagementServiceRestoreOnceWithCorrectParameters()
         {
             //Arange
-            var presenter = this.GetPresenter();
+            ArticlePresenter presenter = this.GetPresenter();
 
-            var newsItemId = 1111;
+            int newsItemId = 1111;
 
-            var eventArgs = new OnArticleRestoreEventArgs
+            OnArticleRestoreEventArgs eventArgs = new OnArticleRestoreEventArgs
             {
                 NewsItemId = newsItemId.ToString()
             };
@@ -283,11 +281,11 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void ArticleRestore_ShouldCallNewsServiceGetItemByIdOnceWithCorrectParameters()
         {
             //Arange
-            var presenter = this.GetPresenter();
+            ArticlePresenter presenter = this.GetPresenter();
 
-            var newsItemId = "1111";
+            string newsItemId = "1111";
 
-            var eventArgs = new OnArticleRestoreEventArgs
+            OnArticleRestoreEventArgs eventArgs = new OnArticleRestoreEventArgs
             {
                 NewsItemId = newsItemId
             };
@@ -304,8 +302,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void ArticleEdit_ShouldThrowArgumentNullExceptionWhenEventArgsIsNull()
         {
-            var presenter = this.GetPresenter();
-            var exception = Assert.Throws<ArgumentNullException>(() => presenter.ArticleEdit(null, null));
+            ArticlePresenter presenter = this.GetPresenter();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => presenter.ArticleEdit(null, null));
 
             Assert.AreEqual("e", exception.ParamName);
         }
@@ -314,11 +312,11 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void ArticleEdit_ShouldCallHttpResponseRedirectServiceOnceWithCorrectParametersAndWhenAdminIsLoggedIn()
         {
             //Arange
-            var presenter = this.GetPresenter();
+            ArticlePresenter presenter = this.GetPresenter();
 
-            var newsItemId = "1111";
+            string newsItemId = "1111";
 
-            var eventArgs = new OnArticleEditEventArgs
+            OnArticleEditEventArgs eventArgs = new OnArticleEditEventArgs
             {
                 NewsItemId = newsItemId,
                 IsAdminUser = true
@@ -335,11 +333,11 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void ArticleEdit_ShouldNotCallHttpResponseRedirectServiceWithCorrectParametersAndWhenAdminIsNotLoggedIn()
         {
             //Arange
-            var presenter = this.GetPresenter();
+            ArticlePresenter presenter = this.GetPresenter();
 
-            var newsItemId = "1111";
+            string newsItemId = "1111";
 
-            var eventArgs = new OnArticleEditEventArgs
+            OnArticleEditEventArgs eventArgs = new OnArticleEditEventArgs
             {
                 NewsItemId = newsItemId,
                 IsAdminUser = false
@@ -355,8 +353,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         [Test]
         public void ArticleDelete_ShouldThrowArgumentNullExceptionWhenEventArgsIsNull()
         {
-            var presenter = this.GetPresenter();
-            var exception = Assert.Throws<ArgumentNullException>(() => presenter.ArticleDelete(null, null));
+            ArticlePresenter presenter = this.GetPresenter();
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => presenter.ArticleDelete(null, null));
 
             Assert.AreEqual("e", exception.ParamName);
         }
@@ -365,11 +363,11 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void ArticleDelete_ShouldCallArticleManagementServiceDeleteOnceWithCorrectParameters()
         {
             //Arange
-            var presenter = this.GetPresenter();
+            ArticlePresenter presenter = this.GetPresenter();
 
-            var newsItemId = 1111;
+            int newsItemId = 1111;
 
-            var eventArgs = new OnArticleDeleteEventArgs
+            OnArticleDeleteEventArgs eventArgs = new OnArticleDeleteEventArgs
             {
                 NewsItemId = newsItemId.ToString()
             };
@@ -387,11 +385,11 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         public void ArticleDelete_ShouldCallNewsServiceGetItemByIdOnceWithCorrectParameters()
         {
             //Arange
-            var presenter = this.GetPresenter();
+            ArticlePresenter presenter = this.GetPresenter();
 
-            var newsItemId = "1111";
+            string newsItemId = "1111";
 
-            var eventArgs = new OnArticleDeleteEventArgs
+            OnArticleDeleteEventArgs eventArgs = new OnArticleDeleteEventArgs
             {
                 NewsItemId = newsItemId
             };

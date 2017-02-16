@@ -1,10 +1,7 @@
 ﻿using System;
-
 using NUnit.Framework;
 
-using DogeNews.Services.Common;
-
-namespace DogeNews.Web.Providers.Tests
+namespace DogeNews.Services.Common.Tests
 {
     [TestFixture]
     public class DateTimeProviderTests
@@ -12,8 +9,8 @@ namespace DogeNews.Web.Providers.Tests
         [Test]
         public void Now_ShouldReturnDateTimeType()
         {
-            var dateTimeProvider = new DateTimeProvider();
-            var result = dateTimeProvider.Now;
+            DateTimeProvider dateTimeProvider = new DateTimeProvider();
+            DateTime result = dateTimeProvider.Now;
 
             Assert.AreEqual(typeof(DateTime), result.GetType());
         }
@@ -21,8 +18,8 @@ namespace DogeNews.Web.Providers.Tests
         [Test]
         public void Now_ShouldReturnDateTimeUTCNow()
         {
-            var dateTimeProvider = new DateTimeProvider();
-            var result = dateTimeProvider.Now;
+            DateTimeProvider dateTimeProvider = new DateTimeProvider();
+            DateTime result = dateTimeProvider.Now;
 
             Assert.AreEqual(typeof(DateTime), result.GetType());
             Assert.AreEqual(result.Year, DateTime.UtcNow.Year);

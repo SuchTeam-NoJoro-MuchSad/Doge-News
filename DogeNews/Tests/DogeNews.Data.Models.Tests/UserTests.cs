@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
-
+using System.Reflection;
 using NUnit.Framework;
 
 namespace DogeNews.Data.Models.Tests
@@ -13,12 +14,12 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void Firstname_ShouldHaveMinLengthAttributeWithValue3()
         {
-            var userType = typeof(User);
-            var propertyInfo = userType.GetProperty("FirstName");
-            var minLengthAttribute = (MinLengthAttribute)propertyInfo
+            Type userType = typeof(User);
+            PropertyInfo propertyInfo = userType.GetProperty("FirstName");
+            MinLengthAttribute minLengthAttribute = (MinLengthAttribute)propertyInfo
                 .GetCustomAttributes(false)
                 .FirstOrDefault(x => x as MinLengthAttribute != null);
-            var expectedLength = 3;
+            int expectedLength = 3;
 
             Assert.AreEqual(expectedLength, minLengthAttribute.Length);
         }
@@ -26,12 +27,12 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void Firstname_ShouldHaveMaxLengthAttributeWithValue20()
         {
-            var userType = typeof(User);
-            var propertyInfo = userType.GetProperty("FirstName");
-            var maxLengthAttribute = (MaxLengthAttribute)propertyInfo
+            Type userType = typeof(User);
+            PropertyInfo propertyInfo = userType.GetProperty("FirstName");
+            MaxLengthAttribute maxLengthAttribute = (MaxLengthAttribute)propertyInfo
                 .GetCustomAttributes(false)
                 .FirstOrDefault(x => x as MaxLengthAttribute != null);
-            var expectedLength = 20;
+            int expectedLength = 20;
 
             Assert.AreEqual(expectedLength, maxLengthAttribute.Length);
         }
@@ -39,12 +40,12 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void Lastname_ShouldHaveMinLengthAttributeWithValue3()
         {
-            var userType = typeof(User);
-            var propertyInfo = userType.GetProperty("LastName");
-            var minLengthAttribute = (MinLengthAttribute)propertyInfo
+            Type userType = typeof(User);
+            PropertyInfo propertyInfo = userType.GetProperty("LastName");
+            MinLengthAttribute minLengthAttribute = (MinLengthAttribute)propertyInfo
                 .GetCustomAttributes(false)
                 .FirstOrDefault(x => x as MinLengthAttribute != null);
-            var expectedLength = 3;
+            int expectedLength = 3;
 
             Assert.AreEqual(expectedLength, minLengthAttribute.Length);
         }
@@ -52,12 +53,12 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void Lastname_ShouldHaveMaxLengthAttributeWithValue20()
         {
-            var userType = typeof(User);
-            var propertyInfo = userType.GetProperty("LastName");
-            var maxLengthAttribute = (MaxLengthAttribute)propertyInfo
+            Type userType = typeof(User);
+            PropertyInfo propertyInfo = userType.GetProperty("LastName");
+            MaxLengthAttribute maxLengthAttribute = (MaxLengthAttribute)propertyInfo
                 .GetCustomAttributes(false)
                 .FirstOrDefault(x => x as MaxLengthAttribute != null);
-            var expectedLength = 20;
+            int expectedLength = 20;
 
             Assert.AreEqual(expectedLength, maxLengthAttribute.Length);
         }
@@ -66,7 +67,7 @@ namespace DogeNews.Data.Models.Tests
         public void Id_GetShouldReturnSetValue()
         {
             string id = "1";
-            var user = new User();
+            User user = new User();
 
             user.Id = id;
             Assert.AreEqual(id, user.Id);
@@ -76,7 +77,7 @@ namespace DogeNews.Data.Models.Tests
         public void Firstname_GetShouldReturnSetValue()
         {
             string firstname = "firstname";
-            var user = new User();
+            User user = new User();
 
             user.FirstName = firstname;
             Assert.AreEqual(firstname, user.FirstName);
@@ -86,7 +87,7 @@ namespace DogeNews.Data.Models.Tests
         public void Lastname_GetShouldReturnSetValue()
         {
             string lastname = "lastname";
-            var user = new User();
+            User user = new User();
 
             user.LastName = lastname;
             Assert.AreEqual(lastname, user.LastName);
@@ -96,7 +97,7 @@ namespace DogeNews.Data.Models.Tests
         public void Email_GetShouldReturnSetValue()
         {
             string email = "email";
-            var user = new User();
+            User user = new User();
 
             user.Email = email;
             Assert.AreEqual(email, user.Email);
@@ -105,8 +106,8 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void NewsItems_GetShouldReturnSetValue()
         {
-            var items = new List<NewsItem>();
-            var user = new User();
+            List<NewsItem> items = new List<NewsItem>();
+            User user = new User();
 
             user.NewsItems = items;
             Assert.AreEqual(items, user.NewsItems);
@@ -115,8 +116,8 @@ namespace DogeNews.Data.Models.Tests
         [Test]
         public void Comments_GetShouldReturnSetValue()
         {
-            var comemnts = new List<Comment>();
-            var user = new User();
+            List<Comment> comemnts = new List<Comment>();
+            User user = new User();
 
             user.Comments = comemnts;
             Assert.AreEqual(comemnts, user.Comments);

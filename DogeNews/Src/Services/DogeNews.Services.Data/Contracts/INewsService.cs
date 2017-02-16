@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-
 using DogeNews.Web.Models;
 
-namespace DogeNews.Web.Services.Contracts
+namespace DogeNews.Services.Data.Contracts
 {
     public interface INewsService
     {

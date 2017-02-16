@@ -16,7 +16,7 @@ namespace DogeNews.Web.UserControls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            var eventArgs = new ArticleCommetnsPageLoadEventArgs
+            ArticleCommetnsPageLoadEventArgs eventArgs = new ArticleCommetnsPageLoadEventArgs
             {
                 ViewState = this.ViewState,
                 IsPostBack = false,
@@ -33,7 +33,7 @@ namespace DogeNews.Web.UserControls
 
         protected void ButtonSubmitComment(object sender, EventArgs e)
         {
-            var eventArguments = new AddCommentEventArguments
+            AddCommentEventArguments eventArguments = new AddCommentEventArguments
             {
                 Username = this.Context.User.Identity.Name,
                 Content = this.AddCommentTextBox.Text,

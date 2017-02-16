@@ -2,11 +2,10 @@
 
 using DogeNews.Web.Models;
 using DogeNews.Web.Mvp.News.Add.EventArguments;
-using DogeNews.Web.Services.Contracts;
 using DogeNews.Services.Common.Contracts;
 using DogeNews.Services.Http.Contracts;
 using DogeNews.Common.Validators;
-
+using DogeNews.Services.Data.Contracts;
 using WebFormsMvp;
 
 namespace DogeNews.Web.Mvp.News.Add
@@ -54,13 +53,13 @@ namespace DogeNews.Web.Mvp.News.Add
             string basePath = this.httpServerService.MapPath(baseImagesPath);
             string userFolderPath = $"{basePath}\\{username}";
             string fullImageName = $"{basePath}\\{username}\\{fileName}";
-            var image = new ImageWebModel
+            ImageWebModel image = new ImageWebModel
             {
                 Name = fileName,
                 FullName = fullImageName,
                 FileExtention = fileExtension
             };
-            var newsItem = new NewsWebModel
+            NewsWebModel newsItem = new NewsWebModel
             {
                 Title = e.Title,
                 Category = e.Category,

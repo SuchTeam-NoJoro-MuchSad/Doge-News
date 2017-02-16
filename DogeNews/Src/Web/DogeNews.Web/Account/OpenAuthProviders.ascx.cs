@@ -24,7 +24,7 @@ namespace DogeNews.Web.Account
         {
             if (this.IsPostBack)
             {
-                var provider = Request.Form["provider"];
+                string provider = Request.Form["provider"];
                 if (provider == null)
                 {
                     return;
@@ -36,7 +36,7 @@ namespace DogeNews.Web.Account
                     IdentityHelper.ProviderNameKey, 
                     provider, 
                     this.ReturnUrl));
-                var properties = new AuthenticationProperties() { RedirectUri = redirectUrl };
+                AuthenticationProperties properties = new AuthenticationProperties() { RedirectUri = redirectUrl };
                 // Add xsrf verification when linking accounts
                 if (Context.User.Identity.IsAuthenticated)
                 {

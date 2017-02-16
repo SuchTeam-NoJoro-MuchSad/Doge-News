@@ -12,7 +12,7 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.UserControls.NewsGrid
         [Test]
         public void PageShouldReturnTheSetValue()
         {
-            var eventArgs = new ChangePageEventArgs();
+            ChangePageEventArgs eventArgs = new ChangePageEventArgs();
             int page = 3;
 
             eventArgs.Page = page;
@@ -22,8 +22,8 @@ namespace DogeNews.Web.Mvp.Tests.EventArgsTests.UserControls.NewsGrid
         [Test]
         public void ViewStateShouldReturnTheSetValue()
         {
-            var eventArgs = new ChangePageEventArgs();
-            var viewState = new StateBag();
+            ChangePageEventArgs eventArgs = new ChangePageEventArgs();
+            StateBag viewState = new StateBag();
 
             eventArgs.ViewState = viewState;
             Assert.AreEqual(viewState, eventArgs.ViewState);

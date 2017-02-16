@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Reflection;
-
+using DogeNews.Services.Data.Contracts;
 using DogeNews.Web.Mvp.Default;
-using DogeNews.Web.Services.Contracts;
-
 using Moq;
 using NUnit.Framework;
 
@@ -25,7 +23,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.Default
         [Test]
         public void Constructor_ShouldThrowArgumentNullExceptionWhenNewsServiceIsNull()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() => new DefaultPresenter(this.view.Object, null));
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => new DefaultPresenter(this.view.Object, null));
 
             Assert.AreEqual("newsService", exception.ParamName);
         }
@@ -33,8 +31,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.Default
         [Test]
         public void Constructor_ShouldSetNewsServices()
         {
-            var presenter = new DefaultPresenter(this.view.Object, this.newsService.Object);
-            var newsServiceFiled = typeof(DefaultPresenter)
+            DefaultPresenter presenter = new DefaultPresenter(this.view.Object, this.newsService.Object);
+            object newsServiceFiled = typeof(DefaultPresenter)
                 .GetField("newsService", BindingFlags.NonPublic | BindingFlags.Instance)
                 .GetValue(presenter);
 
@@ -46,8 +44,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.Default
         {
             this.view.SetupGet(x => x.Model).Returns(new DefaultViewModel());
 
-            var presenter = new DefaultPresenter(this.view.Object, this.newsService.Object);
-            var eventArgs = new EventArgs();
+            DefaultPresenter presenter = new DefaultPresenter(this.view.Object, this.newsService.Object);
+            EventArgs eventArgs = new EventArgs();
 
             presenter.PageLoad(null, eventArgs);
             this.newsService.Verify(x => x.GetSliderNews(), Times.Once);
@@ -56,8 +54,8 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.Default
         [Test]
         public void PageLoad_ShouldThrowArgumentNullExceptionWhenEventArgsIsNull()
         {
-            var presenter = new DefaultPresenter(this.view.Object, this.newsService.Object);
-            var exception = Assert.Throws<ArgumentNullException>(() => presenter.PageLoad(null, null));
+            DefaultPresenter presenter = new DefaultPresenter(this.view.Object, this.newsService.Object);
+            ArgumentNullException exception = Assert.Throws<ArgumentNullException>(() => presenter.PageLoad(null, null));
 
             Assert.AreEqual("e", exception.ParamName);
         }

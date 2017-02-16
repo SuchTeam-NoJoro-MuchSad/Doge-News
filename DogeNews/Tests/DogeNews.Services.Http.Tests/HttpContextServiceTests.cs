@@ -12,7 +12,7 @@ namespace DogeNews.Services.Http.Tests
         [Test]
         public void GetUsername_ShouldThrowNullReferenceException_WhenHttpContextBaseIsNull()
         {
-            var service = new HttpContextService();
+            HttpContextService service = new HttpContextService();
 
             Assert.Throws<NullReferenceException>(() => service.GetUsername(null));
         }
@@ -20,10 +20,10 @@ namespace DogeNews.Services.Http.Tests
         [Test]
         public void GetUsername_ShouldNotThrow_WhenTheContextIsInCorrectState()
         {
-            var mockContextBase = new Mock<HttpContextBase>();
+            Mock<HttpContextBase> mockContextBase = new Mock<HttpContextBase>();
             mockContextBase.Setup(x => x.User.Identity.Name).Returns("someUserName");
 
-            var service = new HttpContextService();
+            HttpContextService service = new HttpContextService();
             
             Assert.DoesNotThrow(() => service.GetUsername(mockContextBase.Object));
         }
@@ -31,11 +31,11 @@ namespace DogeNews.Services.Http.Tests
         [Test]
         public void GetUsername_ShouldReturnString_WhenTheContextIsInCorrectState()
         {
-            var mockContextBase = new Mock<HttpContextBase>();
+            Mock<HttpContextBase> mockContextBase = new Mock<HttpContextBase>();
             mockContextBase.Setup(x => x.User.Identity.Name).Returns("someUserName");
 
-            var service = new HttpContextService();
-            var result = service.GetUsername(mockContextBase.Object);
+            HttpContextService service = new HttpContextService();
+            string result = service.GetUsername(mockContextBase.Object);
 
             Assert.AreEqual(result.GetType(),typeof(string));
         }
@@ -43,12 +43,12 @@ namespace DogeNews.Services.Http.Tests
         [Test]
         public void GetUsername_ShouldReturnCorrectString_WhenTheContextIsInCorrectState()
         {
-            var expecteUsername = "someUserName";
-            var mockContextBase = new Mock<HttpContextBase>();
+            string expecteUsername = "someUserName";
+            Mock<HttpContextBase> mockContextBase = new Mock<HttpContextBase>();
             mockContextBase.Setup(x => x.User.Identity.Name).Returns(expecteUsername);
 
-            var service = new HttpContextService();
-            var result = service.GetUsername(mockContextBase.Object);
+            HttpContextService service = new HttpContextService();
+            string result = service.GetUsername(mockContextBase.Object);
 
             Assert.AreEqual(result.GetType(), typeof(string));
             Assert.AreEqual(result, expecteUsername);

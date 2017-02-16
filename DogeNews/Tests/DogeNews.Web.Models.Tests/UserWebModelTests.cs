@@ -9,7 +9,7 @@ namespace DogeNews.Web.Models.Tests
         public void Id_ShouldReturnSetValue()
         {
             string id = "1";
-            var user = new UserWebModel();
+            UserWebModel user = new UserWebModel();
 
             user.Id = id;
             Assert.AreEqual(id, user.Id);
@@ -19,7 +19,7 @@ namespace DogeNews.Web.Models.Tests
         public void Username_ShouldReturnSetValue()
         {
             string username = "username";
-            var user = new UserWebModel();
+            UserWebModel user = new UserWebModel();
 
             user.Username = username;
             Assert.AreEqual(username, user.Username);
@@ -29,7 +29,7 @@ namespace DogeNews.Web.Models.Tests
         public void Firstname_ShouldReturnSetValue()
         {
             string firstname = "firstname";
-            var user = new UserWebModel();
+            UserWebModel user = new UserWebModel();
 
             user.FirstName = firstname;
             Assert.AreEqual(firstname, user.FirstName);
@@ -39,7 +39,7 @@ namespace DogeNews.Web.Models.Tests
         public void Lastname_ShouldReturnSetValue()
         {
             string lastname = "lastname";
-            var user = new UserWebModel();
+            UserWebModel user = new UserWebModel();
 
             user.LastName = lastname;
             Assert.AreEqual(lastname, user.LastName);
@@ -49,7 +49,7 @@ namespace DogeNews.Web.Models.Tests
         public void Email_ShouldReturnSetValue()
         {
             string email = "email";
-            var user = new UserWebModel();
+            UserWebModel user = new UserWebModel();
 
             user.Email = email;
             Assert.AreEqual(email, user.Email);

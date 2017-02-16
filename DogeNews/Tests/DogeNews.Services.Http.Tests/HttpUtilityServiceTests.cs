@@ -1,10 +1,8 @@
 ﻿using System;
-
-using DogeNews.Services.Http;
-
+using System.Collections.Specialized;
 using NUnit.Framework;
 
-namespace DogeNews.Web.Services.Tests.HttpTests
+namespace DogeNews.Services.Http.Tests
 {
     [TestFixture]
     public class HttpUtilityServiceTests
@@ -12,10 +10,10 @@ namespace DogeNews.Web.Services.Tests.HttpTests
         [Test]
         public void ParseQueryString_ShouldReturnCorrectHttpValueCollection()
         {
-            var expectedCount = 2;
+            int expectedCount = 2;
 
-            var service = new HttpUtilityService();
-            var result = service.ParseQueryString("name=Sports&page=2");
+            HttpUtilityService service = new HttpUtilityService();
+            NameValueCollection result = service.ParseQueryString("name=Sports&page=2");
 
             Assert.AreEqual(expectedCount, result.Count);
         }
@@ -23,7 +21,7 @@ namespace DogeNews.Web.Services.Tests.HttpTests
         [Test]
         public void ParseQueryString_ShouldThrowArgumentNullException_WhenThePassedParameterIsNull()
         {
-            var service = new HttpUtilityService();
+            HttpUtilityService service = new HttpUtilityService();
 
             Assert.Throws<ArgumentNullException>(() => service.ParseQueryString(null));
         }
