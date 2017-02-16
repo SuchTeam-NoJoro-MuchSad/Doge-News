@@ -8,6 +8,7 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
 using Ninject;
 using Ninject.Web.Common;
+using Ninject.Extensions.Interception.Infrastructure.Language;
 
 using DogeNews.Common.Constants;
 using DogeNews.Web.Infrastructure.Bindings.Modules;
@@ -18,6 +19,7 @@ using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.DataSources;
 using DogeNews.Common.Attributes;
+using DogeNews.Common.Extension;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DogeNews.Web.Infrastructure.Bindings.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DogeNews.Web.Infrastructure.Bindings.NinjectWebCommon), "Stop")]
@@ -82,7 +84,7 @@ namespace DogeNews.Web.Infrastructure.Bindings
 
             foreach (var assembly in assemblies)
             {
-                var types = assembly.GetTypes().Where(t => t.IsClass && !t.IsGenericType);
+                IEnumerable<Type> types = assembly.GetTypes().Where(t => t.IsClass && !t.IsGenericType);
 
                 foreach (var type in types)
                 {
@@ -93,6 +95,8 @@ namespace DogeNews.Web.Infrastructure.Bindings
                         .GetCustomAttribute(type, typeof(InSingletonScopeAttribute)) != null;
                     var isInrequestScope = Attribute
                         .GetCustomAttribute(type, typeof(InRequestScopeAttribute)) != null;
+                    var isInterceptable = Attribute
+                        .GetCustomAttribute(type, typeof(InterceptableAttribute)) != null;
 
                     if (defaultInterface == null)
                     {
@@ -108,6 +112,25 @@ namespace DogeNews.Web.Infrastructure.Bindings
                     if (isInrequestScope)
                     {
                         kernel.Bind(defaultInterface).To(type).InRequestScope();
+                        continue;
+                    }
+
+                    if (isInterceptable)
+                    {
+                        IList<Type> interceptors = type
+                            .GetAttributeValues((InterceptableAttribute atr) => atr.TypeOfInterceptors);
+
+                        var binding = kernel
+                            .Bind(defaultInterface)
+                            .To(type);
+
+                        for (int i = 0; i < interceptors.Count; i++)
+                        {
+                            binding
+                                .Intercept()
+                                .With(interceptors[i]).InOrder(i + 1); // order is 1 based
+                        }
+
                         continue;
                     }
 

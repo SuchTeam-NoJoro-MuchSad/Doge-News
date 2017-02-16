@@ -537,6 +537,10 @@
       <Project>{40862603-390D-4DD3-B892-B69021DE3A18}</Project>
       <Name>DogeNews.Web.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DogeNews.Web.Interception\DogeNews.Web.Interception.csproj">
+      <Project>{625485ab-5a61-4863-82fb-7fad9c34953e}</Project>
+      <Name>DogeNews.Web.Interception</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DogeNews.Web.Models\DogeNews.Web.Models.csproj">
       <Project>{c013bb66-e626-4d31-ab5d-922732fedd4d}</Project>
       <Name>DogeNews.Web.Models</Name>

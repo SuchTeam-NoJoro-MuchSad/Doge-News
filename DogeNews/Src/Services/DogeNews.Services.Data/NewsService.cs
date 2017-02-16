@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using DogeNews.Common.Attributes;
 using DogeNews.Common.Enums;
 using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
@@ -10,9 +10,11 @@ using DogeNews.Data.Contracts;
 using DogeNews.Common.Validators;
 using DogeNews.Services.Common.Contracts;
 using DogeNews.Services.Common;
+using DogeNews.Web.Interception;
 
 namespace DogeNews.Web.Services
 {
+    [Interceptable(typeof(ExceptionInterceptor))]
     public class NewsService : INewsService
     {
         private const int SliderNewsCount = 3;

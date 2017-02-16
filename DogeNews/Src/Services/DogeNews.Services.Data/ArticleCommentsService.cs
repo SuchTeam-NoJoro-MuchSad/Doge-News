@@ -1,15 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
+using DogeNews.Common.Attributes;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Services.Contracts;
 using DogeNews.Services.Common.Contracts;
 using DogeNews.Common.Validators;
+using DogeNews.Web.Interception;
 using DogeNews.Web.Models;
 
 namespace DogeNews.Web.Services
 {
+    [Interceptable(typeof(ExceptionInterceptor))]
     public class ArticleCommentsService : IArticleCommentsService
     {
         private readonly IProjectableRepository<Comment> commentsRepository;

@@ -1,12 +1,15 @@
-﻿using DogeNews.Data.Contracts;
+﻿using DogeNews.Common.Attributes;
+using DogeNews.Common.Validators;
+using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
+using DogeNews.Services.Common.Contracts;
+using DogeNews.Web.Interception;
 using DogeNews.Web.Models;
 using DogeNews.Web.Services.Contracts;
-using DogeNews.Common.Validators;
-using DogeNews.Services.Common.Contracts;
 
-namespace DogeNews.Web.Services
+namespace DogeNews.Services.Data
 {
+    [Interceptable(typeof(ExceptionInterceptor), typeof(AdminActionsInterceptor))]
     public class ArticleManagementService : IArticleManagementService
     {
         private readonly IRepository<User> userRepository;
@@ -84,7 +87,7 @@ namespace DogeNews.Web.Services
         public void Restore(int id)
         {
             Validator.ValidateThatNumberIsNotNegative(id, nameof(id));
-            
+
             var foundItem = this.newsRepository.GetById(id);
 
             foundItem.DeletedOn = null;
@@ -95,7 +98,7 @@ namespace DogeNews.Web.Services
         public void Delete(int id)
         {
             Validator.ValidateThatNumberIsNotNegative(id, nameof(id));
-            
+
             var foundItem = this.newsRepository.GetById(id);
 
             foundItem.DeletedOn = this.dateTimeProvider.Now;

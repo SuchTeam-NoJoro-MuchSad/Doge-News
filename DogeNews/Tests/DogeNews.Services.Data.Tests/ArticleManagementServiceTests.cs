@@ -11,6 +11,7 @@ using Moq;
 using NUnit.Framework;
 
 using AutoMapper;
+using DogeNews.Services.Data;
 
 namespace DogeNews.Web.Services.Tests
 {

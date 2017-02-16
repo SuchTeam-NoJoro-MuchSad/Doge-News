@@ -50,6 +50,14 @@
       <HintPath>..\..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Interception, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Ninject.Extensions.Interception.3.2.0.0\lib\net45-full\Ninject.Extensions.Interception.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -81,6 +89,10 @@
     <ProjectReference Include="..\..\Data\DogeNews.Data\DogeNews.Data.csproj">
       <Project>{D764F077-94E9-4C97-86A1-C523472C6AC8}</Project>
       <Name>DogeNews.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Web\DogeNews.Web.Interception\DogeNews.Web.Interception.csproj">
+      <Project>{625485AB-5A61-4863-82FB-7FAD9C34953E}</Project>
+      <Name>DogeNews.Web.Interception</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Web\DogeNews.Web.Models\DogeNews.Web.Models.csproj">
       <Project>{C013BB66-E626-4D31-AB5D-922732FEDD4D}</Project>
