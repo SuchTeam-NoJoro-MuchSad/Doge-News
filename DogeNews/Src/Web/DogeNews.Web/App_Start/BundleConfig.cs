@@ -24,26 +24,13 @@ namespace DogeNews.Web
                     "~/Scripts/WebForms/MsAjax/MicrosoftAjaxApplicationServices.js",
                     "~/Scripts/WebForms/MsAjax/MicrosoftAjaxTimer.js",
                     "~/Scripts/WebForms/MsAjax/MicrosoftAjaxWebForms.js"));
-
-            // Use the Development version of Modernizr to develop with and learn from. Then, when you’re
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                            "~/Scripts/modernizr-*"));
-
+            
             bundles.Add(new ScriptBundle("~/bundles/SignalR").Include(
                 "~/Scripts/jquery-3.1.1.min.js",
                 "~/Scripts/jquery.signalR-2.2.1.min.js",
                 "~/Scripts/Common/hubs.js",
                 "~/Scripts/Common/notificator.js"));
-
-            ScriptManager.ScriptResourceMapping.AddDefinition(
-                "respond",
-                new ScriptResourceDefinition
-                {
-                    Path = "~/Scripts/respond.min.js",
-                    DebugPath = "~/Scripts/respond.js",
-                });
-
+            
             ScriptManager.ScriptResourceMapping.AddDefinition(
                 "signalR",
                 new ScriptResourceDefinition
