@@ -511,7 +511,9 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\DogeNews.Common\DogeNews.Common.csproj">
       <Project>{5FD6DC3F-321D-456A-9DC4-0010EBEBB22B}</Project>

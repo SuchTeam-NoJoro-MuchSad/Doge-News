@@ -1,0 +1,22 @@
+2017-02-19 16:31:50.6398 ExceptionLoggerService Fatal Exception Message: The operation cannot be completed because the DbContext has been disposed.
+Exception Sourse: EntityFramework
+Exception Stack trace:    at System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   at System.Data.Entity.Internal.Linq.DbQueryProvider.Execute[TResult](Expression expression)
+   at System.Linq.Queryable.FirstOrDefault[TSource](IQueryable`1 source, Expression`1 predicate)
+   at DogeNews.Data.Repositories.Repository`1.GetFirst(Expression`1 filterExpression) in C:\Users\Sparx\Desktop\Doge-News\DogeNews\Src\Data\DogeNews.Data\Repositories\Repository.cs:line 61
+   at DogeNews.Services.Audit.AdminActionAuditService.LogAdminActionToDatabase(IInvocation invocation) in C:\Users\Sparx\Desktop\Doge-News\DogeNews\Src\Services\DogeNews.Services.Audit\AdminActionAuditService.cs:line 39
+   at DogeNews.Web.Interception.AdminActionsInterceptor.Intercept(IInvocation invocation) in C:\Users\Sparx\Desktop\Doge-News\DogeNews\Src\Web\DogeNews.Web.Interception\AdminActionsInterceptor.cs:line 18
+   at Ninject.Extensions.Interception.Invocation.InvocationBase.Proceed()
+   at DogeNews.Web.Interception.ExceptionInterceptor.Intercept(IInvocation invocation) in C:\Users\Sparx\Desktop\Doge-News\DogeNews\Src\Web\DogeNews.Web.Interception\ExceptionInterceptor.cs:line 21
+
+2017-02-19 16:37:58.1000 ExceptionLoggerService Fatal Exception Message: id
+Exception Sourse: DogeNews.Services.Data
+Exception Stack trace:    at DogeNews.Services.Data.ArticleManagementService.Delete(Int32 id) in C:\Users\Sparx\Desktop\Doge-News\DogeNews\Src\Services\DogeNews.Services.Data\ArticleManagementService.cs:line 102
+   at (Object , Object[] )
+   at Ninject.Extensions.Interception.Injection.Dynamic.DynamicMethodInjector.Invoke(Object target, Object[] arguments)
+   at Ninject.Extensions.Interception.Invocation.Invocation.CallTargetMethod()
+   at Ninject.Extensions.Interception.Invocation.InvocationBase.Proceed()
+   at DogeNews.Web.Interception.AdminActionsInterceptor.Intercept(IInvocation invocation) in C:\Users\Sparx\Desktop\Doge-News\DogeNews\Src\Web\DogeNews.Web.Interception\AdminActionsInterceptor.cs:line 19
+   at Ninject.Extensions.Interception.Invocation.InvocationBase.Proceed()
+   at DogeNews.Web.Interception.ExceptionInterceptor.Intercept(IInvocation invocation) in C:\Users\Sparx\Desktop\Doge-News\DogeNews\Src\Web\DogeNews.Web.Interception\ExceptionInterceptor.cs:line 25
+

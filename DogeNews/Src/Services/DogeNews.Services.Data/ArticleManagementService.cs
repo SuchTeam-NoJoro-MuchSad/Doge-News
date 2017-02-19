@@ -1,4 +1,6 @@
-﻿using DogeNews.Common.Attributes;
+﻿using System;
+using System.Threading;
+using DogeNews.Common.Attributes;
 using DogeNews.Common.Validators;
 using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
@@ -96,7 +98,9 @@ namespace DogeNews.Services.Data
         }
 
         public void Delete(int id)
-        {
+        { 
+            throw new AggregateException(nameof(id));
+
             Validator.ValidateThatNumberIsNotNegative(id, nameof(id));
 
             NewsItem foundItem = this.newsRepository.GetById(id);

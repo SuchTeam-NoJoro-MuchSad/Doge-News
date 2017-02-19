@@ -21,6 +21,7 @@ using DogeNews.Web.DataSources;
 using DogeNews.Common.Attributes;
 using DogeNews.Common.Extension;
 using Ninject.Syntax;
+using NLog;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DogeNews.Web.Infrastructure.Bindings.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DogeNews.Web.Infrastructure.Bindings.NinjectWebCommon), "Stop")]
@@ -81,6 +82,9 @@ namespace DogeNews.Web.Infrastructure.Bindings
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<ILogger>().ToMethod(p => LogManager.GetLogger(
+                   p.Request.Target.Member.DeclaringType.Name));
+
             IEnumerable<Assembly> assemblies = GetAssemblies();
 
             foreach (Assembly assembly in assemblies)

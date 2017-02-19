@@ -57,6 +57,10 @@
       <HintPath>..\..\..\packages\Ninject.Extensions.Interception.3.2.0.0\lib\net45-full\Ninject.Extensions.Interception.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\NLog.4.4.3\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -70,9 +74,15 @@
   <ItemGroup>
     <Compile Include="AdminActionAuditService.cs" />
     <Compile Include="Contracts\IAdminActionAuditService.cs" />
+    <Compile Include="ExceptionLoggerService.cs" />
+    <Compile Include="Contracts\IExceptionLoggerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\DogeNews.Common\DogeNews.Common.csproj">
+      <Project>{5FD6DC3F-321D-456A-9DC4-0010EBEBB22B}</Project>
+      <Name>DogeNews.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\DogeNews.Data.Models\DogeNews.Data.Models.csproj">
       <Project>{6BFA72F8-752D-4E6A-B936-6100028FE2DD}</Project>
       <Name>DogeNews.Data.Models</Name>
@@ -88,6 +98,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
