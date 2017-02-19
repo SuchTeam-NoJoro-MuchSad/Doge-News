@@ -73,11 +73,11 @@
                             Display="Dynamic"
                             ControlToValidate="CategorySelect">
                         </asp:RequiredFieldValidator>
-                        <div class="input-field col s12 m6" id="select-container">
+                        <div class="input-field col s12" id="select-container">
                             <div class="select-wrapper icons">
                                 <select class="icons initialized" id="CategorySelect" runat="server">
                                     <option value="" disabled>Category</option>
-                                    <option value="0" data-icon="http://gallery.nickchill.com/img/s/v-3/p1369326252-3.jpg" class="left circle">Breaking</option>
+                                    <option value="0" data-icon="http://gallery.nickchill.com/img/s/v-3/p1369326252-3.jpg" selected="selected" class="left circle">Breaking</option>
                                     <option value="1" data-icon="https://s-media-cache-ak0.pinimg.com/originals/3d/9e/2f/3d9e2fd7da4d52c4983cfb4a4fcb3d17.jpg" class="left circle">Sports</option>
                                     <option value="2" data-icon="https://www.nickrains.com/wp-content/uploads/2014/07/Tasmania_20111210-1041.jpg" class="left circle">Weather</option>
                                     <option value="3" data-icon="http://www.dianamarahenry.com/images/VVAWholdingupgun_001.jpg" class="left circle">Political</option>

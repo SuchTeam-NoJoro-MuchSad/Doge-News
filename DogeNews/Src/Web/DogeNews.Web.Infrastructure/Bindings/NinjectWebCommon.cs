@@ -155,10 +155,11 @@ namespace DogeNews.Web.Infrastructure.Bindings
         {
             List<Assembly> assemblies = new List<Assembly>
             {
+                Assembly.Load(ServerConstants.ServicesAuditAssembly),
                 Assembly.Load(ServerConstants.DataAssembly),
                 Assembly.Load(ServerConstants.ServicesCommonAssembly),
                 Assembly.Load(ServerConstants.ServicesDataAssembly),
-                Assembly.Load(ServerConstants.ServicesHttpAssembly),
+                Assembly.Load(ServerConstants.ServicesHttpAssembly)
             };
 
             return assemblies;

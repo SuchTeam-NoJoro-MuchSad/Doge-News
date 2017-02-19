@@ -281,7 +281,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             EditArticleEventArgs eventArgs = new EditArticleEventArgs { Image = image };
 
             presenter.EditArticle(null, eventArgs);
-            this.httpContextService.Verify(x => x.GetUsername(It.IsAny<HttpContextBase>()), Times.Once);
+            this.httpContextService.Verify(x => x.GetLoggedInUserUsername(), Times.Once);
         }
 
         [Test]
@@ -331,7 +331,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         {
             string username = "username";
             this.httpContextService
-                .Setup(x => x.GetUsername(It.IsAny<HttpContextBase>()))
+                .Setup(x => x.GetLoggedInUserUsername())
                 .Returns(username);
 
             string fileName = "FileName.png";
@@ -355,7 +355,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         {
             string username = "username";
             this.httpContextService
-                .Setup(x => x.GetUsername(It.IsAny<HttpContextBase>()))
+                .Setup(x => x.GetLoggedInUserUsername())
                 .Returns(username);
 
             string fileName = "FileName.png";
@@ -380,7 +380,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         {
             string username = "username";
             this.httpContextService
-                .Setup(x => x.GetUsername(It.IsAny<HttpContextBase>()))
+                .Setup(x => x.GetLoggedInUserUsername())
                 .Returns(username);
 
             string fileName = "FileName.png";
@@ -404,7 +404,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
         {
             string username = "username";
             this.httpContextService
-                .Setup(x => x.GetUsername(It.IsAny<HttpContextBase>()))
+                .Setup(x => x.GetLoggedInUserUsername())
                 .Returns(username);
 
             string fileName = "FileName.png";

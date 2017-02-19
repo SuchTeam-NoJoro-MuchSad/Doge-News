@@ -12,9 +12,9 @@ namespace DogeNews.Services.Http
             return value;
         }
 
-        public string GetUsername(HttpContextBase httpContext)
+        public string GetLoggedInUserUsername()
         {
-            string username = httpContext.User.Identity.Name;
+            string username = HttpContext.Current.User.Identity.Name;
             return username;
         }
     }

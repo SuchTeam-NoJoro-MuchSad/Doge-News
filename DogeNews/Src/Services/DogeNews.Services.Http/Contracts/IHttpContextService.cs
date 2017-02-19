@@ -4,7 +4,7 @@ namespace DogeNews.Services.Http.Contracts
 {
     public interface IHttpContextService
     {
-        string GetUsername(HttpContextBase httpContext);
+        string GetLoggedInUserUsername();
 
         string GetQueryStringPairValue(string key);
     }

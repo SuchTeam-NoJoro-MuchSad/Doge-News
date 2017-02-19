@@ -24,6 +24,8 @@ namespace DogeNews.Data
 
         public IDbSet<Comment> Comments { get; set; }
 
+        public IDbSet<AdminActionLog> AdminActionLogs { get; set; }
+
         public new IDbSet<T> Set<T>() where T : class
         {
             return base.Set<T>();

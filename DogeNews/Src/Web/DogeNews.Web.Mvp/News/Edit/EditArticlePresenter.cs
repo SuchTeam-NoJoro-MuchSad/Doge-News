@@ -67,7 +67,7 @@ namespace DogeNews.Web.Mvp.News.Edit
         {
             Validator.ValidateThatObjectIsNotNull(e, "editArticleEventArgs");
 
-            string username = this.httpContextService.GetUsername(this.HttpContext);
+            string username = this.httpContextService.GetLoggedInUserUsername();
             NewsWebModel model = new NewsWebModel
             {
                 Id = e.Id,

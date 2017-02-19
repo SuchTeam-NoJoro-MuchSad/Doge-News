@@ -47,7 +47,7 @@ namespace DogeNews.Web.Mvp.News.Add
             Validator.ValidateThatObjectIsNotNull(e, nameof(e));
 
             string fileExtension = Path.GetExtension(e.FileName);
-            string username = this.httpContextService.GetUsername(this.HttpContext);
+            string username = this.httpContextService.GetLoggedInUserUsername();
             string fileName = this.fileService.GetUniqueFileName(username) + fileExtension;
             string baseImagesPath = "~\\Resources\\Images";
             string basePath = this.httpServerService.MapPath(baseImagesPath);

@@ -7,5 +7,6 @@
         public const string ServicesCommonAssembly = "DogeNews.Services.Common";
         public const string ServicesDataAssembly = "DogeNews.Services.Data";
         public const string ServicesHttpAssembly = "DogeNews.Services.Http";
+        public const string ServicesAuditAssembly = "DogeNews.Services.Audit";
     }
 }

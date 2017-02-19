@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogeNews.Services.Http.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogeNews.Web.Interception", "Src\Web\DogeNews.Web.Interception\DogeNews.Web.Interception.csproj", "{625485AB-5A61-4863-82FB-7FAD9C34953E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DogeNews.Services.Audit", "Src\Services\DogeNews.Services.Audit\DogeNews.Services.Audit.csproj", "{A0A9D0F3-3703-4F32-B09A-6B3C50957B53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,10 @@ Global
 		{625485AB-5A61-4863-82FB-7FAD9C34953E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{625485AB-5A61-4863-82FB-7FAD9C34953E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{625485AB-5A61-4863-82FB-7FAD9C34953E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0A9D0F3-3703-4F32-B09A-6B3C50957B53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0A9D0F3-3703-4F32-B09A-6B3C50957B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0A9D0F3-3703-4F32-B09A-6B3C50957B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0A9D0F3-3703-4F32-B09A-6B3C50957B53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,5 +183,6 @@ Global
 		{4734C19C-035A-4DD7-9CF2-8B2DE5FE9145} = {04F1D20F-2B33-4348-815C-682C13AC5EFD}
 		{2E82D7FB-F4C3-4EE4-A1D3-ECC0CD4C60B7} = {04F1D20F-2B33-4348-815C-682C13AC5EFD}
 		{625485AB-5A61-4863-82FB-7FAD9C34953E} = {6DCD39E9-3914-44FA-B02A-DC0B00734D67}
+		{A0A9D0F3-3703-4F32-B09A-6B3C50957B53} = {A7BD5C29-EBEB-44BF-A2C5-7948E2BFCE1C}
 	EndGlobalSection
 EndGlobal

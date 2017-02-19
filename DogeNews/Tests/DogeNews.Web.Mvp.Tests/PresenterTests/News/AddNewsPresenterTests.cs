@@ -181,7 +181,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
 
             presenter.AddNews(null, new AddNewsEventArgs());
             this.httpContextService
-                .Verify(x => x.GetUsername(It.IsAny<HttpContextBase>()), Times.Once);
+                .Verify(x => x.GetLoggedInUserUsername(), Times.Once);
         }
 
         [Test]
@@ -190,7 +190,7 @@ namespace DogeNews.Web.Mvp.Tests.PresenterTests.News
             string username = "username";
 
             this.httpContextService
-                .Setup(x => x.GetUsername(It.IsAny<HttpContextBase>()))
+                .Setup(x => x.GetLoggedInUserUsername())
                 .Returns(username);
 
             AddNewsPresenter presenter = this.GetNewsPresenter();
