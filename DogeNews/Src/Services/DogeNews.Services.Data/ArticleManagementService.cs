@@ -98,9 +98,7 @@ namespace DogeNews.Services.Data
         }
 
         public void Delete(int id)
-        { 
-            throw new AggregateException(nameof(id));
-
+        {
             Validator.ValidateThatNumberIsNotNegative(id, nameof(id));
 
             NewsItem foundItem = this.newsRepository.GetById(id);
