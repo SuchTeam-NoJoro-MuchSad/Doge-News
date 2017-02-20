@@ -20,6 +20,9 @@ namespace DogeNews.Web.Infrastructure.Mappings.Profiles
 
             this.CreateMap<Comment, CommentWebModel>();
             this.CreateMap<CommentWebModel, Comment>();
+
+            this.CreateMap<AdminActionLog, AdminActionLogWebModel>();
+            this.CreateMap<AdminActionLogWebModel, AdminActionLog>();
         }
     }
 }

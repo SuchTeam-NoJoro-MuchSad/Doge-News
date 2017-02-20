@@ -7,7 +7,6 @@ using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Services.Audit.Contracts;
 using DogeNews.Services.Http.Contracts;
-
 using Newtonsoft.Json;
 
 using Ninject.Extensions.Interception;
@@ -56,6 +55,11 @@ namespace DogeNews.Services.Audit
 
             this.adminActionLogRepository.Add(log);
             this.newsData.Commit();
+        }
+
+        public IEnumerable<AdminActionLog> GetAllActionLogs()
+        {
+            return this.adminActionLogRepository.GetAll();
         }
 
         private IEnumerable<KeyValuePair<string, object>> MapParameters(object[] arguments, ParameterInfo[] getParameters)

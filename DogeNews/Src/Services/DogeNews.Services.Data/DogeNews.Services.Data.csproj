@@ -69,13 +69,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminActionAuditDataService.cs" />
     <Compile Include="ArticleCommentsService.cs" />
     <Compile Include="ArticleManagementService.cs" />
     <Compile Include="Contracts\IArticleCommentsService.cs" />
     <Compile Include="Contracts\IArticleManagementService.cs" />
     <Compile Include="Contracts\INewsService.cs" />
-    <Compile Include="Contracts\IAdminActionAuditDataService.cs" />
     <Compile Include="NewsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

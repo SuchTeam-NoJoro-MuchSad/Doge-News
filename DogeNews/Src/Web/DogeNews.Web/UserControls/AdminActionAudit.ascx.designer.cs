@@ -7,27 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DogeNews.Web.Admin {
+namespace DogeNews.Web.UserControls {
     
     
-    public partial class Pannel {
+    public partial class AdminActionAudit {
         
         /// <summary>
-        /// AddNewsArticleControl control.
+        /// LogsRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DogeNews.Web.UserControls.AddNewsArticle AddNewsArticleControl;
-        
-        /// <summary>
-        /// AdminActionAuditControl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DogeNews.Web.UserControls.AdminActionAudit AdminActionAuditControl;
+        protected global::System.Web.UI.WebControls.Repeater LogsRepeater;
     }
 }

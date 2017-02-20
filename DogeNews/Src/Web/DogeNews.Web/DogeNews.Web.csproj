@@ -52,8 +52,8 @@
       <HintPath>..\..\..\packages\AspNet.ScriptManager.bootstrap.3.0.0\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AspNet.ScriptManager.jQuery, Version=1.10.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\AspNet.ScriptManager.jQuery.1.10.2\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+    <Reference Include="AspNet.ScriptManager.jQuery, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\AspNet.ScriptManager.jQuery.3.1.1\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
@@ -220,26 +220,6 @@
     <Content Include="Resources\Images\admin%40admin.com\admin-admin-coma0d3627d-d78a-4d18-ad39-421915f27896" />
     <Content Include="Resources\Images\admin%40admin.com\admin-admin-comfb7eab47-8bed-4b24-9f2c-b77eb58c4492" />
     <Content Include="Resources\Images\admin\admin3d54f83b-8b00-4c96-a4ba-9615c07c993b" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.eot" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.ttf" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.woff" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.woff2" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.eot" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.ttf" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.woff" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.woff2" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.eot" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.ttf" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.woff" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.woff2" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.eot" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.ttf" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.woff" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.woff2" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.eot" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.ttf" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.woff" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.woff2" />
     <Content Include="fonts\From Cartoon Blocks.ttf" />
     <Content Include="fonts\THE CURIOUS INCIDENT.ttf" />
     <Content Include="Images\404-monster.png" />
@@ -314,10 +294,31 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.woff2" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.woff2" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.woff2" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.woff2" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.eot" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.ttf" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.woff" />
+    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.woff2" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.1.js" />
     <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
     <Content Include="Scripts\materialize\materialize.min.js" />
@@ -354,6 +355,7 @@
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="UserControls\AddNewsArticle.ascx" />
+    <Content Include="UserControls\AdminActionAudit.ascx" />
     <Content Include="UserControls\ArticleComments.ascx" />
     <Content Include="UserControls\NewsGrid.ascx" />
     <Content Include="UserControls\NewsSlider.ascx" />
@@ -364,7 +366,8 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Settings.StyleCop" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -474,6 +477,13 @@
     </Compile>
     <Compile Include="UserControls\AddNewsArticle.ascx.designer.cs">
       <DependentUpon>AddNewsArticle.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AdminActionAudit.ascx.cs">
+      <DependentUpon>AdminActionAudit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\AdminActionAudit.ascx.designer.cs">
+      <DependentUpon>AdminActionAudit.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ArticleComments.ascx.cs">
       <DependentUpon>ArticleComments.ascx</DependentUpon>

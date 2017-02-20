@@ -41,3 +41,7 @@
 .toast-error {
     background-color: #ff3d00 !important;
 }
+
+#sidenav-overlay {
+    z-index: 0 !important;
+}
