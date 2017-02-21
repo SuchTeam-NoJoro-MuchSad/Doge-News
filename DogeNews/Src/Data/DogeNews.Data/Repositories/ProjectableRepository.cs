@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-
+using DogeNews.Common.Validators;
 using DogeNews.Data.Contracts;
-using DogeNews.Services.Common;
 using DogeNews.Services.Common.Contracts;
 
 namespace DogeNews.Data.Repositories
@@ -16,6 +15,9 @@ namespace DogeNews.Data.Repositories
         public ProjectableRepository(INewsDbContext context, IProjectionService projectionService)
             : base(context)
         {
+            Validator.ValidateThatObjectIsNotNull(context,nameof(context));
+            Validator.ValidateThatObjectIsNotNull(projectionService, nameof(projectionService));
+
             this.projectionService = projectionService;
         }
 

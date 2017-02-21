@@ -17,6 +17,7 @@ namespace DogeNews.Data.Repositories
 
         public Repository(INewsDbContext context)
         {
+            Validator.ValidateThatObjectIsNotNull(context,nameof(context));
             this.context = context;
 
             this.dbSet = this.context.Set<T>();

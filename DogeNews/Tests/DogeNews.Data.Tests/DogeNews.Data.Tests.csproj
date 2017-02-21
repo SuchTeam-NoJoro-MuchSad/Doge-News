@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NewsDbContextTests.cs" />
+    <Compile Include="ProjectableRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryTests.cs" />
     <Compile Include="UnitOfWorkTests.cs" />
@@ -136,6 +137,10 @@
     <ProjectReference Include="..\..\Src\Web\DogeNews.Web.Infrastructure\DogeNews.Web.Infrastructure.csproj">
       <Project>{40862603-390D-4DD3-B892-B69021DE3A18}</Project>
       <Name>DogeNews.Web.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Src\Web\DogeNews.Web.Models\DogeNews.Web.Models.csproj">
+      <Project>{C013BB66-E626-4D31-AB5D-922732FEDD4D}</Project>
+      <Name>DogeNews.Web.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

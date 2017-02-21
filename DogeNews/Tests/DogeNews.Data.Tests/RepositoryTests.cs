@@ -31,6 +31,12 @@ namespace DogeNews.Data.Tests
         }
 
         [Test]
+        public void Constructor_ShouldThrowArgumentNullException_WhenContextIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => new Repository<Comment>(null));
+        }
+
+        [Test]
         public void Constructor_InitializesRepositoryContext()
         {
             Mock<INewsDbContext> mockContext = new Mock<INewsDbContext>();
@@ -125,7 +131,7 @@ namespace DogeNews.Data.Tests
                 new Comment {Content = "a123123sd", Id = 5, User = null}
             }
             .AsQueryable();
-            
+
             Mock<IDbSet<Comment>> mockSet = new Mock<IDbSet<Comment>>();
 
             mockSet.As<IQueryable<Comment>>().Setup(x => x.Provider).Returns(data.Provider);
@@ -282,7 +288,7 @@ namespace DogeNews.Data.Tests
 
             this.context.Verify(x => x.Entry(mockComment.Object), Times.AtLeastOnce);
         }
-        
+
         [Test]
         public void GetAll_WithNoParametersShouldReturnTheWholeCollection()
         {
@@ -348,7 +354,7 @@ namespace DogeNews.Data.Tests
 
             Assert.AreEqual("id", exception.ParamName);
         }
-        
+
         private Repository<Comment> GetRepository()
         {
             return new Repository<Comment>(this.context.Object);

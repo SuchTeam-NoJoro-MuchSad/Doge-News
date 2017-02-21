@@ -1,4 +1,5 @@
-﻿using DogeNews.Data.Contracts;
+﻿using DogeNews.Common.Validators;
+using DogeNews.Data.Contracts;
 using DogeNews.Data.Models;
 using DogeNews.Web.Models;
 using DogeNews.Web.Mvp.UserControls.AdminActionAudit.EventArguments;
@@ -14,6 +15,8 @@ namespace DogeNews.Web.Mvp.UserControls.AdminActionAudit
         public AdminActionAuditPresenter(IAdminActionAuditView view,
             IProjectableRepository<AdminActionLog> logsProjectableRepository) : base(view)
         {
+            Validator.ValidateThatObjectIsNotNull(logsProjectableRepository,nameof(logsProjectableRepository));
+
             this.logsProjectableRepository = logsProjectableRepository;
 
             this.View.PageLoad += LoadLogs;
